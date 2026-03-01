@@ -8,29 +8,13 @@ Aga enne kui puudutad ühtegi juhet või prindid ühtegi detaili — kirjutad sp
 
 See verstapost on koht kus meeskond valib projektiraja ja koostab spetsifikatsiooni mis on piisavalt detailne et teine meeskond saaks süsteemi ainult sinu dokumendi põhjal üles ehitada.
 
-### Vali oma rada
-
-Meeskond valib ühe kolmest projektirajast. Loe kõik kolm hoolikalt läbi enne otsustamist.
-
-| | Rada A: Süstla doseerija | Rada B: Sumorobot | Rada C: MG400 tööpink |
-| :--- | :--- | :--- | :--- |
-| **Staatus** | Vaikimisi rada | Boonusprojekt | Boonusprojekt |
-| **Järjepidevus** | Jätkab otse 1. semestrit | Uus projekt, uus valdkond | Uus projekt, laiendab MG400 ökosüsteemi |
-| **Roboti platvorm** | Dobot MG400 | Android telefon + SMARS-inspireeritud šassii | Dobot MG400 |
-| **Peamised distsipliinid** | Andur, pneumaatika, täppiskontroll | Mobiilne arvutus, mootorijuhtimine, mehhaaniline disain | Modulaarne kinnitamine, mehhaaniline disain, USB integratsioon |
-| **Riistvara alguspunkt** | Suurem osa olemas 1. semestrist | Taaskasutatud telefon, ümbertöödeldud mootorid/akud, 3D-prinditud šassii | Alumiiniumprofiil, 3D-prinditud kinnitused, USB-C seadmed |
-| **Riski tase** | Madal — tuntud probleem, varasem töö olemas | Kõrge — uus territoorium, suve tähtaeg | Keskmine — hästi piiritletud mehhaaniline probleem |
-| **Reaalmaailma motivatsioon** | Kommertsdoseerimistööriistad maksavad 10x rohkem kui robot ise | Narva Kolledži robotiareeni inauguratsiooniüritus sel suvel | Portatiivsed silumistööriistad maksimeerivad õppimisaega igal pool |
-
-*Rada A on turvaline valik — sa tunned probleemi ja sul on töötavad komponendid. Rajad B ja C on boonusprojektid suurema vabaduse ja suurema riskiga. Kui sinu spetsifikatsioon boonusraja jaoks pole piisavalt veenev et sa mõistad probleemi sügavuti ja suudad tulemuse anda, võib juhendaja paluda sul rada A peale vahetada.*
-
 ---
 
-#### Rada A: Süstla doseerija
+#### A: Süstla doseerija
 
 Dobot MG400 külge paigaldatud süstla doseerimissüsteem silikooni kandmiseks. See on jätk kõigele mida ehitasid eelmisel semestril — rõhuandur Andmehõivest, liidestus Nutilahendusest ja mehhaanilised komponendid 3D Printimisest.
 
-**Mida doseerid ja miks:** Solenoidklapil on kaanekork mis istub solenoidikorpuse peal. Selles korgis on kinnitatud kas 4mm toru. Need torud on liimitud omale kohale silikooniga. Ülesanne on täita see väike korgi maht korpuse ja torude vahel silikooniga — täpselt ja korratavalt. Sul on juba olemas solenoid, käsitsi ehitatud versioon koostust ja Fusion 360 mudel detailist. Geomeetria on teada; väljakutse on täitmise automatiseerimine.
+**Mida doseerid ja miks:** Solenoidklapil on kaanekork mis istub solenoidikorpuse peal. Selles korgis on kinnitatud kaks 4 millimeetrist toru. Need torud on liimitud omale kohale silikooniga. Ülesanne on täita see väike maht korgi korpuse ja torude vahel silikooniga — täpselt ja korratavalt. Sul on juba olemas solenoidi kaan, käsitsi ehitatud versioon koostust ja Fusion 360 mudel detailist. Geomeetria on teada; väljakutse on täitmise automatiseerimine. Ka kaane enda disaini võib muuta. 
 
 **Aktuatsiooni küsimus:** Kuidas suruda süstla kolbi? Sinu spetsifikatsioon peab valima kolmest variantist sobivama loogiliste põhjenduste lausel:
 
@@ -42,51 +26,71 @@ Sinu spetsifikatsioon peab defineerima terviksüsteemi: milline aktuatsiooni mee
 
 Milline "valmis" välja näeb Prototüüpimise kursuse lõpus: tootmisvalmis doseerimissüsteem mis suudab tõmmata sirgeid jooni, kaari ja täitealasid ühtlase laiuse ja paksusega, automaatse testimisega kasutades puhaste plaatide sisendpuhvrit ja valminud näidiste väljundpuhvrit.
 
-Sul on eelis kolme kursuse jagu töötavaid prototüüpe, mõõdetud andmeid ja dokumenteeritud ebaõnnestumisi. Kasuta neid. Spetsifikatsioon peaks viitama konkreetsetele numbritele sinu 1. semestri tööst — mitte teooriale vaid sellele mida sa tegelikult mõõtsid.
+Sul on eelis kolme kursuse jagu töötavaid lahendusi, mõõdetud andmeid ja dokumenteeritud ebaõnnestumisi. Kasuta neid. 
 
 ---
 
-#### Rada B: Sumorobot
+#### B: Sumorobot
 
-SMARS-inspireeritud kuid veelgi lihtsam akutoitel robot mida juhib Android telefon, mõeldud sumomaadluse võistlusteks Narva Kolledži robotiareeni inauguratsiooniüritusel sel suvel. Disainifilosoofia: alusta lihtsalt, taaskasuta vana elektroonikat (vanad telefonid, ümbertöödeldud mootorid, taaskasutatud akud) ja ehita kõigepealt midagi mis töötab. Robotid peavad päriselt töötama ja päriselt võistlema — see ei ole lihtsalt harjutus.
+SMARS-inspireeritud kuid veelgi lihtsam akutoitel robot mida juhib Android telefon, mõeldud sumomaadluse võistlusteks Narva Kolledži robotiareeni avaüritusel sel suvel. Disainifilosoofia: alusta lihtsalt, taaskasuta vana elektroonikat (süstemaatiliselt saab ksutada telefone) ja ehita kõigepealt midagi mis töötab. Robotid peavad päriselt töötama sõitma mõõtma kaugust eest, nägmea värvi enda all, nägema kaamera pilti enda ees ja positsioneerima ennast lugedes laest QR koode ja nende asukohtasi. 
 
-**Telefon-ajuna kontseptsioon:** Vanem Android telefon on roboti aju. Sellel on kaamera, arvutusvõimsus, ekraan ja ühenduvus juba sisseehitatult. Telefon ühendub mootoršassiiga läbi USB OTG kaabli ja käitab kaugjuhtimise tarkvara. See tähendab et sinu "manussüsteem" on tegelikult Androidi rakendus. Telefon istub šassii peal, OTG kaabel jookseb mootori draiverikplaadini ja operaator juhib robotit kaugelt.
+**Telefon-ajuna kontseptsioon:** Vanem Android telefon on roboti aju. Sellel on kaamera, arvutusvõimsus, ekraan ja ühenduvus juba sisseehitatult. Telefon ühendub mootoršassiiga läbi USB OTG kaabli ja ESP32 MCU mis liidestab kaugjuhtimise tarkvara. See tähendab et sinu "manussüsteem" on tegelikult Androidi rakendus. Telefon istub šassii peal, OTG kaabel jookseb mootori draiverikplaadini ja operaator juhib robotit kaugelt.
 
 **Areeni formaat:** Areen on 3×3 meetrit punase ringiga keskel. Mäng paneb 5 robotit kummalegi poolele — kokku 10 robotit väljakul. Punasesse ringi mahub napilt 5 botti, mis tähendab et positsioneerimine, tõukejõud ja väledus kõik loevad. Sumoreeglid kehtivad: tõuka vastased välja, jää ise sisse.
 
-Sinu spetsifikatsioon peab katma: šassii mehhaaniline disain (SMARS-inspireeritud roomikud, maavaba, kaalujaotumine tõukamiseks — hoia lihtne ja prinditav), mootorite valik ja draiverelektroonika (eelista taaskasutatud/ümbertöödeldud komponente kus võimalik), telefoni kinnitamine ja OTG liideseprotokoll, tarkvaraarhitektuur (Androidi rakendus kaugjuhtimiseks), areeni mõõtmed ja 5v5 mängu piirangud, energiaeelarve ja aku tööaeg ning realistlik ajakava mis lõpeb töötavate robotitega enne suve.
+Sinu spetsifikatsioon peab katma: šassii mehhaaniline disain (SMARS-inspireeritud roomikud, maavaba, kaalujaotumine tõukamiseks — hoia lihtne ja prinditav), mootorite valik ja draiverelektroonika (eelista taaskasutatud/ümbertöödeldud komponente kus võimalik), telefoni kinnitamine ja OTG liideseprotokoll, tarkvaraarhitektuur (Androidi rakendus kaugjuhtimiseks), areeni mõõtmed ja 5v5 mängu piirangud ja aku tööaeg ning realistlik ajakava mis lõpeb töötavate robotitega enne suve.
 
 Suve tähtaeg on reaalne. Sinu spetsifikatsioon peab sisaldama arendusgraafikut mis arvestab osade tellimise tarneaega, printimise aega, tarkvaraarenduse iteratsioone ja vähemalt kaht nädalat testimist enne üritust. Sul on vaja piisavalt roboteid 5v5 matšiks — planeeri vastavalt.
 
 ---
 
-#### Rada C: MG400 modulaarne tööpink
+#### C: MG400 modulaarne tööpink
 
-Portatiivsed modulaarne tööpink mis pannakse kokku ümber Dobot MG400 roboti, inspireeritud keevitajate T-soontega laudadest. Kontseptsioon: alumiiniumprofiili raam mis loob 4-teljelise tööpiirkonna ümber roboti, standardiseeritud kinnituskohtadega 3D-prinditud tööriistahoidjatele. Silumis- ja tootmistööriistad kinnituvad kindlatesse positsioonidesse kus nii robot kui operaator nendeni ulatub.
+See projekt koosneb kolmest omavahel seotud alamprojektist mis koos moodustavad tervikliku portatiivse tööjaama Dobot MG400 roboti ümber. Eesmärk on et tudeng saab kogu töövoo — roboti, töölaua, tööriistad ja dokumentatsiooni — koju kaasa võtta või kooli sees projektide vahel ümber seadistada. Kui dokumentatsioon on korras, saab sama töövoo üles panna ka teise samasuguse roboti peale kasvõi teises riigis.
 
-**Eelarve piirang:** Kogukulu lisaks MG400 robotile ei tohi ületada 1000 eurot. See katab raami, ühendused, 3D-prinditud detailid, tööriistad ja USB-C jaoturi — kõik mis on vajalik palja roboti muutmiseks terviklikuks tööjaamaks.
+**Eelarve:** Sinu spetsifikatsioon peab defineerima kogu komplekti sihteelarve (lisaks MG400 robotile) ja seda põhjendama. Kui palju tohib kogu komplekt maksma minna et kool saaks seda tudengitele rentimiseks pakkuda? See number peab tulema sinu analüüsist, mitte ette antud piirangust.
 
-**Portatiivsuse nõue:** See tööpink peab olema midagi mida üliõpilane saab oma kodu kööglauale üles panna ja kergesti uuesti kokku pakkida. Samuti peab see kohanduma ühelt projektilt teisele kooli sees — vaheta tööriistahoidjaid, konfigureeri positsioone ümber ja kasuta erinevate ülesannete jaoks ilma raami ümber ehitamata. Mõtle sellele kui komplektile mis läheb kohvrist tööjaamaks alla 10 minutiga.
+##### Alamprojekt 1: Töölaud
 
-**Näidislik tööriistade nimekiri ja ligikaudsed hinnad:**
+Modulaarne töölaud kuhu peale saab lihtsalt kinnitada 3D-prinditud konstruktsioone — tööriistahoidjaid, rakiseid, kinnituselemente. Töölaud peab looma roboti ümber tööpiirkonna kus nii robot kui operaator tööriistadeni ulatuvad.
 
-| Tööriist | Otstarve | Ligikaudne hind | Märkused |
-| :--- | :--- | :--- | :--- |
-| USB videomikroskoop | PCB kontroll, jootmiskohtade kvaliteet | €30–80 | USB-C eelistatud |
-| USB-C jootekolb (TS101 vms) | Jootmine ja ümbertöö | €50–80 | PD-toitel |
-| Kompaktne digitaalne ostsilloskoob (DSO138 või USB-põhine) | Signaalide silumine | €30–150 | USB-C kui saadaval |
-| USB signaaligeneraator | Testsignaalide genereerimine | €20–50 | Funktsioonigeneraatori moodul |
-| USB-C PD toiteplokk (65W+) | USB-C tööriistade toide | €30–50 | GaN laadija |
-| USB-C jaotur (toitega, 7+ porti) | Tsentraalne seadmeühendus | €30–60 | Peab toetama PD läbilaskmist |
-| Alumiiniumprofiili komplekt (2020/2040 profiilid + kinnitused) | Raami konstruktsioon | €80–150 | Mõõtu lõigatud või modulaarsed pikkused |
-| 3D printimise filament | Tööriistahoidjad, kinnitused, rakised | €20–40 | PLA/PETG |
-| Kinnitused, T-mutrid, nurgaklambrid | Koostelisemise riistvara | €20–40 | M5 2020 profiili jaoks |
+Peamine disainiküsimus: kuidas ehitada laud mis on piisavalt jäik tööks, piisavalt kerge transportimiseks ja piisavalt modulaarne ümberseadistamiseks? Variante on palju — alumiiniumprofiil (2020/2040), PVC-lehed punnkinnitustega, 3D-prinditud ühendused metalltoruga, vineer CNC-ga lõigatud pesadega — ja igal lähenemisel on omad kompromissid jäikuse, kaalu, hinna ja modulaarsuse vahel. Sinu ülesanne on valida ja põhjendada.
 
-*See on algusnäidis — sinu spetsifikatsioon peab sisaldama enda uuritud BOM-i tegelike tootelinkkide ja kontrollitud hindadega. Kogusumma peab jääma alla 1000 euro.*
+Kriitilised nõuded:
+* Peab integreeruma MG400 tööulatuse ja koordinaatsüsteemiga
+* 3D-prinditud hoidjate kinnituspositsioonid peavad olema dokumenteeritud roboti koordinaadistiku suhtes
+* Pärast lahtivõtmist ja uuesti kokkupanemist peavad positsioonid olema korratavad
+* Kogu töölaua dokumentatsioon peab olema piisav et keegi teine saaks sama seadistuse reprodutseerida
 
-Sinu spetsifikatsioon peab katma: raami mõõtmed ja alumiiniumprofiili valiku (2020, 2040 jne), integratsiooni MG400 tööulatuse ja koordinaatsüsteemiga, 3D-prinditud hoidjate disainid iga tööriista positsiooni jaoks, USB-C jaoturi arhitektuur ja toitejaotumine ühendatud seadmetele, kaabelhaldus, koostamise/lahtivõtmise protseduur, tööriistade positsioonide spetsifikatsioonid roboti koordinaadistiku suhtes ja kontrollimeetod tagamaks korratavat positsioneerimist pärast uuesti kokku panemist.
+##### Alamprojekt 2: Transpordisüsteem
 
-Eesmärk: üliõpilane kellel on see tööpink saab harjutada robootikat, jootmist, mõõtmist ja silumist kodus samade tööriistadega mis laboris, ning kergesti kohandada seadistust kooliprojektide vahel. Rohkem tööriistade kättesaadavust tähendab rohkem õppimisaega.
+Transpordikast (papp, vineer, vahtkast vms) kuhu mahub Dobot MG400, töölaud ja kõik tööriistad. See peab olema piisavalt vastupidav et tudeng saab komplekti kooli ja kodu vahel turvaliselt transportida.
+
+Spetsifikatsioon peab katma:
+* Kasti sisemised mõõtmed ja paigutus — kõik peab oma kohale mahtuma ilma lahtise ruumita kus asjad ringi logisevad
+* Kaitsev polsterdus roboti ja tööriistade jaoks
+* Kaal ja kandevõime — üks inimene peab suutma kanda
+* Materjali valik ja hind
+* Inventuuri nimekiri kastis (et kontrollida kas kõik on tagastatud)
+
+##### Alamprojekt 3: Elektroonika tööriistad
+
+Komplekt elektroonika tööriistu mis katab jootmise, mõõtmise, silumise ja signaalianalüüsi. Eelistada USB-C toitega tööriistu kus võimalik — üks toiteplokk ja jaotur katab kogu komplekti.
+
+| Tööriist | Otstarve | Märkused |
+| :--- | :--- | :--- |
+| Jootekolb (TS101 vms) | Jootmine ja ümbertöö | USB-C PD toitel |
+| Ostsilloskoob / multimeeter | Signaalide mõõtmine ja silumine | Kompaktne, USB-põhine või DSO138 |
+| Toiteplokk | Reguleeritav pinge ahelate toiteks | USB-C PD kui võimalik |
+| Signaaligeneraator | Testsignaalide genereerimine | Funktsioonigeneraatori moodul |
+| Seerialanalüsaator | UART/SPI/I2C silumiseks | Saleae Logic vms |
+| Jootmismikroskoop | PCB kontroll, jootmiskohtade kvaliteet | USB videomikroskoop |
+| USB-C PD toiteplokk (65W+) | Kõigi USB-C tööriistade toide | GaN laadija |
+| USB-C jaotur (toitega, 7+ porti) | Tsentraalne ühendus | Peab toetama PD läbilaskmist |
+
+*See on algusnäidis — sinu spetsifikatsioon peab sisaldama enda uuritud BOM-i tegelike tootelinkkide ja kontrollitud hindadega.*
+
+Sinu spetsifikatsioon peab katma kõik kolm alamprojekti koos BOM-i, mõõtmete, materjalivalikute ja põhjendustega. Iga tehniline omadus — eelarve, kaal, mõõtmed, tööriistade arv, toitevõimsus — on midagi mida sina defineerid ja põhjendad, mitte midagi mis on ette antud. Kogu süsteem peab olema dokumenteeritud nii et teine meeskond saaks selle reprodutseerida.
 
 ---
 
@@ -94,59 +98,43 @@ Eesmärk: üliõpilane kellel on see tööpink saab harjutada robootikat, jootmi
 
 Kirjuta põhjalik süsteemispetsifikatsioon oma valitud projektiraja jaoks. Spetsifikatsioon peab sisaldama funktsionaalseid nõudeid, jõudluseesmärke, liideste definitsioone, komponentide valikuid koos põhjendustega, riskianalüüsi ja testkriteeriume. See peab olema piisavalt detailne et teine meeskond saaks süsteemi ainult sinu dokumendi põhjal üles ehitada.
 
-*See on elav dokument, uuenda eesmärke kui need töö käigus muutuvad — uued teadmised muudavad vanad eesmärgid vahel mõttetuks. Eesmärk on hoida meeskonda kogu aeg sihil, et ei eksitaks detailide metsa ära ja põhiprobleem jääb lahendamata*
-
-*Sinu spetsifikatsioon on sinu juhend verstapostide 2–5 jaoks. Kui vahetad rada hiljem, kaotad spetsifikatsiooni töö. Vali hoolikalt ja spetsifitseeri põhjalikult.*
-
 ### Taustainfo
 
-#### Jagatud ressursid (kõik rajad)
+#### Jagatud ressursid
 
-* **Kuidas kirjutada tehnilist spetsifikatsiooni**
-  [https://www.youtube.com/watch?v=OA6BfCUBnuo](https://www.youtube.com/watch?v=OA6BfCUBnuo)
-* **Nõuete inseneeria — MoSCoW prioritiseerimine**
-  [https://www.youtube.com/watch?v=jBMnTJa4ZnI](https://www.youtube.com/watch?v=jBMnTJa4ZnI)
-* **draw.io süsteemidiagrammide jaoks**
-  [https://app.diagrams.net/](https://app.diagrams.net/)
-* **Kuidas koostada BOM-i (materjalide nimekiri)**
-  [https://www.youtube.com/watch?v=fRhL7bXjITg](https://www.youtube.com/watch?v=fRhL7bXjITg)
-
-#### Rada A: Süstla doseerija
+#### A: Süstla doseerija
 
 * **Dobot MG400 dokumentatsioon ja tööulatus**
   [https://www.dobot-robots.com/products/desktop-four-axis/mg400.html](https://www.dobot-robots.com/products/desktop-four-axis/mg400.html)
-* **Kommertsdoseerimissüsteemide võrdlusalused (Nordson EFD)**
-  [https://www.nordson.com/en/divisions/efd/products/dispensing-systems](https://www.nordson.com/en/divisions/efd/products/dispensing-systems)
+* **Kommertsdoseerimissüsteemide võrdlusalused**
+  
+  tba
 * **Aja-rõhu doseerimise põhimõtted**
   [https://www.youtube.com/watch?v=jG5Lab-z3r4](https://www.youtube.com/watch?v=jG5Lab-z3r4)
 
-#### Rada B: Sumorobot
+#### B: Sumorobot
 
 * **SMARS — avatud lähtekoodiga modulaarne robotiplatvorm (disaini inspiratsioon)**
   [https://www.smarsfan.com/](https://www.smarsfan.com/)
-* **Robotisumo võistlusreeglid (RobotChallenge)**
-  [https://www.robotchallenge.org/fileadmin/user_upload/en_Mini_Sumo.pdf](https://www.robotchallenge.org/fileadmin/user_upload/en_Mini_Sumo.pdf)
+* **mecArena**
+  [https://github.com/KKallas/Robot-Arena/blob/main/BOT-SPECIFICATIONS.md](https://github.com/KKallas/Robot-Arena/blob/main/BOT-SPECIFICATIONS.md)
 * **Android USB Host (OTG) režiimi dokumentatsioon**
   [https://developer.android.com/develop/connectivity/usb/host](https://developer.android.com/develop/connectivity/usb/host)
-* **Alalisvoolumootorite juhtimine H-sillaga (TB6612FNG)**
-  [https://www.youtube.com/watch?v=JPPTRj0KWFg](https://www.youtube.com/watch?v=JPPTRj0KWFg)
+* **Alalisvoolumootorite juhtimine**
+  [https://www.youtube.com/watch?v=ygrsIqWOh3Y&t=77s](https://www.youtube.com/watch?v=ygrsIqWOh3Y&t=77s)
 * **Diferentsiaalajam / tankroolimise kinemaatika**
   [https://www.youtube.com/watch?v=aE7RosGMcwg](https://www.youtube.com/watch?v=aE7RosGMcwg)
-* **Androidi rakenduste arendamine Kotliniga**
-  [https://developer.android.com/courses](https://developer.android.com/courses)
+* **Androidi terminal (python ja flask)**
+  [hhttps://www.youtube.com/watch?v=HarwU8bxvTQ](https://www.youtube.com/watch?v=HarwU8bxvTQ)
 
-#### Rada C: MG400 modulaarne tööpink
+#### C: MG400 modulaarne tööpink
 
-* **Alumiiniumprofiili (2020 V-soon) süsteemi juhend**
-  [https://www.youtube.com/watch?v=pT03yWCTmGg](https://www.youtube.com/watch?v=pT03yWCTmGg)
 * **Dobot MG400 tööulatus ja koordinaatsüsteem**
   [https://www.dobot-robots.com/products/desktop-four-axis/mg400.html](https://www.dobot-robots.com/products/desktop-four-axis/mg400.html)
-* **USB-C Power Delivery selgitatuna**
-  [https://www.youtube.com/watch?v=LhTd5siGE1c](https://www.youtube.com/watch?v=LhTd5siGE1c)
-* **Modulaarse kinnitamise kontseptsioonid (keevituslaua tarvikud)**
-  [https://www.youtube.com/watch?v=mH2h0NBlYeg](https://www.youtube.com/watch?v=mH2h0NBlYeg)
-* **Portatiivsed elektroonika tööjaama disainiideed**
-  [https://www.youtube.com/watch?v=YLIPaSk5vos](https://www.youtube.com/watch?v=YLIPaSk5vos)
+
+* **Modulaarse kinnitamise kontseptsioonid**
+  tba
+
 
 *Lisa siia omapoolseid allikaid ja kasulikku informatsiooni mis aitaks sul projektis aru saada aastaid hiljem kui selle uuesti lahti teed.*
 
@@ -159,19 +147,17 @@ Kirjuta põhjalik süsteemispetsifikatsioon oma valitud projektiraja jaoks. Spet
 5. Jupyter Lab (teostatavuse arvutused ja analüüs)
 6. Tabelarvutustööriist (BOM, kuluanalüüs, võrdlustabelid)
 
-Rajaspetsiifilised täiendused:
-
-* Rada A: Ostsilloskoob, rõhutestimise pink, 1. semestri prototüüp referentsmõõtmisteks
-* Rada B: Android telefon OTG teostatavuse testimiseks, mootori draiverikplaat pinktestide jaoks
-* Rada C: Nihikkaliiber, mõõdulint, MG400 juurdepääs tööulatuse kontrollimiseks
+* A: Ostsilloskoob, rõhutestimise pink, 1. semestri prototüüp referentsmõõtmisteks
+* B: Android telefon OTG teostatavuse testimiseks, mootori draiverikplaat pinktestide jaoks
+* C: Nihikkaliiber, mõõdulint, MG400 juurdepääs tööulatuse kontrollimiseks
 
 *Kui plaan muutub siis muuda ka vahendeid, või tee [draw.io](http://draw.io)'s joonis kuidas asjad funktsionaalselt seostuvad.*
 
 ### Mida spetsifikatsioon sisaldab
 
-See sektsioon õpetab sulle kuidas korralik insenerispetsifikatsioon välja näeb. Iga allolev alajaotis peab esinema sinu spetsifikatsiooni dokumendis. Näited kasutavad süstla doseerijat, kuna kõik mõistavad seda konteksti 1. semestrist — kohanda need oma valitud raja järgi.
+See sektsioon õpetab sulle kuidas korralik insenerispetsifikatsioon välja näeb. Iga allolev alajaotis peab esinema sinu spetsifikatsiooni dokumendis. Näited kasutavad süstla doseerijat, kuna kõik mõistavad seda konteksti 1. semestrist — kohanda need oma valitud projekti järgi.
 
-*Sul on 10 tundi. Terviklik aga pinnapealne spetsifikatsioon on parem kui sügav aga mittetäielik. Kata kõigepealt kõik sektsioonid, seejärel süvene sinu raja jaoks kõige kriitilisematesse valdkondadesse.*
+*Sul on 10 tundi. Terviklik aga pinnapealne spetsifikatsioon on parem kui sügav aga mittetäielik. Kata kõigepealt kõik sektsioonid, seejärel süvene sinu projekti jaoks kõige kriitilisematesse valdkondadesse.*
 
 #### Süsteemi ülevaade
 
@@ -192,25 +178,21 @@ Eesmärk on vähemalt 10 funktsionaalset nõuet.
 
 #### Jõudluseesmärgid
 
-Kvantitatiivsed spetsifikatsioonid ühikute ja mõõtemeetoditega. Kasuta seda tabeliformaati:
+Kvantitatiivsed spetsifikatsioonid ühikute ja mõõtemeetoditega. Iga parameeter on midagi mida sina defineerid — mis on sinu süsteemi jaoks oluline mõõta, milline on siht ja milline on minimaalselt vastuvõetav tase? Kasuta seda tabeliformaati:
 
 | Parameeter | Eesmärk | Minimaalne vastuvõetav | Mõõtemeetod |
 | :--- | :--- | :--- | :--- |
-| Joone laiuse täpsus | ±0.1 mm | ±0.3 mm | Mikroskoobimõõtmine |
-| Doseerimiskiirus | 5–50 mm/s | 5–20 mm/s | Roboti trajektoori ajastus |
-| Süstla vahetuse aeg | < 30 s | < 60 s | Stopper |
+| ... | ... | ... | ... |
+| ... | ... | ... | ... |
+| ... | ... | ... | ... |
 
-Täida see oma raja tegelike parameetritega.
-
-#### Süsteemi arhitektuur
-
-Plokkskeem mis näitab kõiki alamsüsteeme ja nende liidesesid. Iga liidese jaoks täpsusta: protokoll, signaalitasemed, andmeformaat. Viita selgelt kolmele eeldusainele — milline alamsüsteem tuli millisest ainest (või on selle projekti jaoks uus).
+Vali parameetrid mis on sinu projekti jaoks kriitilised. Numbrid peavad tulema sinu analüüsist — ära võta laest ega arva, vaid põhjenda miks just see väärtus.
 
 #### Komponentide valik ja põhjendus
 
 Iga olulise komponendi kohta: mis see on, miks sa selle valisid, milliseid alternatiive kaalusid. Kasuta sama otsustusmudelit mis Andmehõive Labor 2-s (kus võrdlesid pingejaagurit vs. op-ampi) — sama struktuur, erinev teema.
 
-Lisa esialgne BOM (materjalide nimekiri) koos hinnanguliste kuludega. Radade B ja C meeskonnad: lisage kust iga komponenti tellida ja hinnangulised tarneajad.
+Lisa esialgne BOM (materjalide nimekiri) koos hinnanguliste kuludega. B ja C meeskonnad: lisage kust iga komponenti tellida ja hinnangulised tarneajad.
 
 #### Mehhaaniline kontseptsioon
 
@@ -226,13 +208,7 @@ Plokitaseme skemaatiline joonis kõikidest elektrilistest ühendustest. Energiae
 
 Mooduldiagramm mis näitab tarkvarakomponente ja nende seoseid. Kommunikatsiooniprotokollide definitsioonid. Olekumasin või vooskeem peamise juhtusloogika jaoks.
 
-Rada B meeskonnad: siin elab teie Androidi rakenduse arhitektuur. Defineeri OTG kommunikatsiooniprotokoll, mootori juhtimisliides ja kasutajaliides.
-
-#### Riskianalüüs
-
-Tabel tuvastatud tehnilistest riskidest. Iga risk saab: kirjeldus, tõenäosus (K/M/M), mõju (K/M/M) ja leevendusstrateegia. Tuvasta vähemalt 5 reaalset riski — mitte üldist "asjad võivad katki minna" vaid konkreetseid tehnilisi riske mida oled spetsifikatsiooni kirjutamise käigus tuvastanud.
-
-Näide: *"Risk: ESP32 ADC mittelineaarsus põhjustab >5% viga kõrgel rõhul. Tõenäosus: M. Mõju: K. Leevendus: Kasuta op-amp signaali konditsioneerimist AH Labor 2 disainist, valideeri kalibreerimisega 5 rõhupunktis."*
+B meeskonnad: siin elab teie Androidi rakenduse arhitektuur. Defineeri OTG kommunikatsiooniprotokoll, mootori juhtimisliides ja kasutajaliides.
 
 #### Testimisplaan
 
@@ -240,13 +216,13 @@ Iga funktsionaalse nõude kohta: kuidas testid seda? Millist varustust on vaja? 
 
 #### Arenduse ajakava
 
-Kaardista ülejäänud verstapostid 2–5 konkreetsete tulemustega. Kes teeb mida (meeskonna rollide jaotus). Ülesannete vahelised sõltuvused. Rada B jaoks: ajakava peab lõppema töötavate robotitega enne suve areeniüritust — planeeri sellest kuupäevast tagurpidi.
+Kaardista ülejäänud verstapostid 2–5 konkreetsete tulemustega. Kes teeb mida (meeskonna rollide jaotus). Ülesannete vahelised sõltuvused. B jaoks: ajakava peab lõppema töötavate robotitega enne suve areeniüritust — planeeri sellest kuupäevast tagurpidi.
 
 ### Projekti ülesehitus
 
 **Faas 1: Uurimine ja võrdlusanalüüs**
 
-- [ ] Uuri olemasolevaid kommerts- või avatud lähtekoodiga lahendusi oma valitud raja jaoks
+- [ ] Uuri olemasolevaid kommerts- või avatud lähtekoodiga lahendusi oma valitud projekti jaoks
 - [ ] Dokumenteeri vähemalt 3 referentssüsteemi koos nende spetsifikatsioonidega
 - [ ] Tuvasta olemasolevate lahenduste peamised eristajad ja piirangud
 
@@ -264,7 +240,6 @@ Kaardista ülejäänud verstapostid 2–5 konkreetsete tulemustega. Kes teeb mid
 
 **Faas 4: Teostatavusanalüüs**
 
-- [ ] Komponentide valik koos alternatiivide analüüsiga
 - [ ] Esialgne BOM kuluhinnanguga
 - [ ] Energiaeelarve arvutus
 - [ ] Tuvasta 5 peamist tehnilist riski koos leevendusstrateegiatega
@@ -291,11 +266,11 @@ Kuna sa kirjutad spetsifikatsiooni ja veel ei ehita, on selle verstaposti "simul
 
 Vali oma spetsifikatsioonist kõige kriitilisem jõudlusparameeter. Näita arvutuste või lihtsa simulatsiooniga et sinu disain suudab seda saavutada.
 
-**Rada A näide:** Arvuta rõhk mis on vajalik sihtvoolu saavutamiseks läbi antud nõelagabarite. Kasuta Poiseuille'i seadust või tootja andmeid. Kas sinu pneumaatiline süsteem annab piisavalt rõhku? Kas voolu kiirus on ühilduv sinu sihtdoseerimiskiirusega?
+**A näide:** Arvuta rõhk mis on vajalik sihtvoolu saavutamiseks läbi antud nõelagabarite. Kasuta Poiseuille'i seadust või tootja andmeid. Kas sinu pneumaatiline süsteem annab piisavalt rõhku? Kas voolu kiirus on ühilduv sinu sihtdoseerimiskiirusega?
 
-**Rada B näide:** Arvuta pöördemoment mis on vajalik vastase roboti (hinnanguline mass) areenist välja tõukamiseks ajalimiti jooksul. Kas sinu valitud mootor annab ülekandearvu kaudu piisavalt pöördemomenti? Milline on aku tööaeg täiskoormusel?
+**B näide:** Arvuta pöördemoment mis on vajalik vastase roboti (hinnanguline mass) areenist välja tõukamiseks ajalimiti jooksul. Kas sinu valitud mootor annab ülekandearvu kaudu piisavalt pöördemomenti? Milline on aku tööaeg täiskoormusel?
 
-**Rada C näide:** Modelleeri MG400 tööulatus Fusion 360-s. Paiguta oma tööpingi raam ja tööriistahoidjad mudelisse. Kas robot ulatub kõigisse vajalikesse positsioonidesse ilma kokkupõrketeta? Milline on maksimaalne tööriista kõrgus enne kui robot ei ulatu sellest üle?
+**C näide:** Modelleeri MG400 tööulatus Fusion 360-s. Paiguta oma tööpingi raam ja tööriistahoidjad mudelisse. Kas robot ulatub kõigisse vajalikesse positsioonidesse ilma kokkupõrketeta? Milline on maksimaalne tööriista kõrgus enne kui robot ei ulatu sellest üle?
 
 #### Analüüs 2: Kulu-jõudluse kompromiss
 
@@ -307,9 +282,9 @@ Tuvasta üks disainiotsus kus seisad silmitsi kulu-jõudluse kompromissiga. Esit
 
 #### Analüüs 3: Varasema töö ülevaade
 
-**Rada A:** Vaata üle mõõtmisandmed, veebiliidese jõudlus või mehhaaniline disain 1. semestrist. Mis töötas? Mida on vaja parandada? Viita konkreetsetele numbritele oma varasemast laborist — mitte teooriale vaid sellele mida sa mõõtsid. Kasuta neid andmeid spetsifikatsioonivalikute põhjendamiseks.
+**A:** Vaata üle mõõtmisandmed, veebiliidese jõudlus või mehhaaniline disain 1. semestrist. Mis töötas? Mida on vaja parandada? Viita konkreetsetele numbritele oma varasemast laborist — mitte teooriale vaid sellele mida sa mõõtsid. Kasuta neid andmeid spetsifikatsioonivalikute põhjendamiseks.
 
-**Rajad B ja C:** Kuna 1. semestri eelkäijat pole, tee selle asemel tehnoloogia uuring. Leia 3 sarnast projekti (GitHubi repod, Instructables, teadusartiklid, YouTube'i ehitused) ja analüüsi nende spetsifikatsioone vs. tegelikke tulemusi. Mida saad nende kogemusest õppida? Milliseid vigu sa väldid?
+**B ja C:** Kuna 1. semestri eelkäijat pole, tee selle asemel tehnoloogia uuring. Leia 3 sarnast projekti (GitHubi repod, Instructables, teadusartiklid, YouTube'i ehitused) ja analüüsi nende spetsifikatsioone vs. tegelikke tulemusi. Mida saad nende kogemusest õppida? Milliseid vigu sa väldid?
 
 *Need on sinu esimesed analüüsid. Lisa rohkem kui avastad küsimusi spetsifikatsiooni kirjutamise käigus. Spetsifikatsioon mis ei tekita ühtegi küsimust on spetsifikatsioon mis ei vaadanud piisavalt sügavale.*
 
@@ -317,23 +292,26 @@ Tuvasta üks disainiotsus kus seisad silmitsi kulu-jõudluse kompromissiga. Esit
 
 ### Tulemused
 
-**Kõik rajad esitavad:**
+**Kaitsmiseks on vaja ainult git repositooriumi linki.**
 
-| Väljund | Kirjeldus |
+Repositoorium peab sisaldama:
+
+* **Projekti kirjeldus `.md` formaadis** — spetsifikatsioon, simulatsioonid, analüüsid ja seletused kuidas projekt läbi viia. Markdown on põhiformaat kogu dokumentatsiooni jaoks.
+* **Tarkvarafailide arhiivid** — kui kasutasid tarkvara nagu Fusion 360, FlatCAM vms, siis esitamise versioon peab olema arhiivina (`.zip`, `.7z`) git'i üles laetud. Õppejõud peab saama testida just seda versiooni mida sa kaitsed.
+* **Milestone iga verstaposti kohta** — loo GitHub/GitLab'is milestone iga järgmise verstaposti (2–5) jaoks. See on sinu arendusgraafik ja ülesannete jälgimine ühes kohas.
+* **Esimese prototüübi ostunimekiri** — nimekiri komponentidest mida on vaja tellida või osta et ehitada verstaposti 2 tehnoloogia prototüüp. Iga komponendi kohta: nimetus, kogus, tarnija, hind ja tarneaeg. Eesmärk on et tellimused saab kohe pärast kaitsmist välja saata ja ei kaota aega.
+
+| Väljund | Formaat |
 | :--- | :--- |
-| Spetsifikatsiooni dokument | PDF või Markdown — kõik sektsioonid ülalpool olevast "Mida spetsifikatsioon sisaldab" |
-| Süsteemiarhitektuuri diagramm | draw.io — plokkskeem liidestega |
-| Teostatavusanalüüsi notebook | Jupyter Lab — kõik kolm analüüsi koos arvutustega |
-| BOM tabel | Komponendid, kogused, ühikuhinnad, kokku ja tarnija lingid |
-| Kontseptsioonimudelid | Fusion 360 — mõõtmetega kontseptsiooni maketid |
-| Arenduse ajakava | Gantti diagramm või verstapostide tabel verstapostide 2–5 jaoks |
+| Spetsifikatsiooni dokument | `.md` — kõik sektsioonid ülalpool olevast "Mida spetsifikatsioon sisaldab" |
+| Süsteemiarhitektuuri diagramm | draw.io (`.drawio` fail repos) — plokkskeem liidestega |
+| Teostatavusanalüüsi notebook | Jupyter Lab (`.ipynb` fail repos) — kõik kolm analüüsi koos arvutustega |
+| BOM tabel | `.md` või `.csv` — komponendid, kogused, ühikuhinnad, kokku ja tarnija lingid |
+| Kontseptsioonimudelid | Fusion 360 (`.f3z` arhiiv repos) — mõõtmetega kontseptsiooni maketid |
+| Arenduse ajakava | GitHub/GitLab milestones — verstapostide 2–5 jaoks |
+| Esimese prototüübi ostunimekiri | `.md` või `.csv` — komponendid, kogused, tarnija, hind, tarneaeg |
 
-Git repo:
-Spetsifikatsiooni dokument:
-Süsteemiarhitektuuri diagramm:
-Teostatavusanalüüsi notebook:
-BOM tabel:
-Arenduslogi:
+Git repo link:
 
 ### Hindamine
 
@@ -351,7 +329,7 @@ Kõik nõutud spetsifikatsiooni sektsioonid olemas ja sisulised (mitte kohahoidj
 
 **Simulatsioon / Analüüs (4 punkti) — Teostatavuse valideerimine**
 
-Füüsilise teostatavuse arvutus on korrektne ja asjakohane. Kulu-jõudluse kompromissi analüüs kasutab tegelikke numbreid. 1. semestri retrospektiiv (Rada A) viitab tegelikele mõõdetud andmetele, või tehnoloogiauuring (Rajad B/C) viitab reaalsetele projektidele. Arvutused on reprodutseeritavad esitatud Jupyteri notebooks.
+Füüsilise teostatavuse arvutus on korrektne ja asjakohane. Kulu-jõudluse kompromissi analüüs kasutab tegelikke numbreid. 1. semestri retrospektiiv (A) viitab tegelikele mõõdetud andmetele, või tehnoloogiauuring (B/C) viitab reaalsetele projektidele. Arvutused on reprodutseeritavad esitatud Jupyteri notebooks.
 
 * 4 p: Kõik kolm analüüsi terviklikud korrektse metoodikaga
 * 3 p: Kaks analüüsi terviklikud
@@ -361,7 +339,7 @@ Füüsilise teostatavuse arvutus on korrektne ja asjakohane. Kulu-jõudluse komp
 
 **Prototüüp / Füüsiline (4 punkti) — Kontseptsiooni elujõulisus**
 
-Mehhaanilisel kontseptsioonil on realistlikud mõõtmed (mitte fantaasianumbrid). Komponentide valikud on tegelikult ostetavad detailid koos andmelehtedega. Energiaeelarve läheb kokku (kogutarbimine vs. toitevõimsus). Vähemalt üks kriitiline mõõde on füüsiliselt kontrollitud (mõõdetud päris riistvaralt või andmelehelt). Rada A jaoks: 1. semestri prototüübi fotod/mõõtmised lisatud viitena.
+Mehhaanilisel kontseptsioonil on realistlikud mõõtmed. Komponentide valikud on tegelikult ostetavad detailid koos andmelehtedega. Energiaeelarve läheb kokku (kogutarbimine vs. toitevõimsus). Vähemalt üks kriitiline mõõde on füüsiliselt kontrollitud (mõõdetud päris riistvaralt või andmelehelt). A jaoks: 1. semestri prototüübi fotod/mõõtmised lisatud viitena.
 
 * 4 p: Kontseptsioon on ehitatav nagu spetsifitseeritud
 * 3 p: Enamasti ehitatav, väikesed teostatavuse puudujäägid
