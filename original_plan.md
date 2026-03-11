@@ -482,11 +482,9 @@ Projects become progressively more challenging \- early projects are accessible 
 
 ### **Milestone Details**
 
-**Milestone 1: System Specification** Teams choose one of three project tracks and write a comprehensive system specification. Track A: MG400-mounted syringe dispenser for silicone application (continues semester 1 work). Track B: SMARS-inspired sumo robot with Android phone brain for Narva College's summer arena event (5v5 format). Track C: modular portable workstation around the MG400 — worktable, transport system, and electronics toolkit. The specification must include functional requirements, performance targets, component selection with justification, feasibility analysis, and a test plan. Defense requires only a git repository link with all documentation in `.md` format, software archives, and GitHub/GitLab milestones for subsequent milestones.
+**Specification Document** Develop comprehensive specification for dispensing system. Include functional requirements, performance targets, interface definitions, and environmental conditions. Research commercial systems, identify key technologies, and define clear success criteria. Submit a detailed specification document with diagrams, use cases, and technical parameters that guide the entire development process.
 
-[Full workbook (EST)](EST/Prototyping/Prototyping%20[Milestone%201]%20EST.md) | [Full workbook (ENG)](ENG/Prototyping/Prototyping%20[Milestone%201]%20ENG.md)
-
-*Assessment criteria: Technical specifications, feasibility analysis, concept viability, documentation quality, defense*
+*Assessment criteria: Technical specifications, analysis*
 
 **Key Technology Prototype** Build working prototype of critical technical components specifically the dispensing actuator and precision dosing mechanism. Students choose actuation method (servo-driven, pneumatic, or hybrid) based on lessons learned from first-semester prototypes. This focused prototype should demonstrate core functionality without integration concerns. Validate basic dosing principle, volume control accuracy, and material compatibility. Submit working technical prototype, test results documenting performance against specifications, and potential modifications to original specifications based on findings.
 

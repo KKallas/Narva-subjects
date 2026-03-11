@@ -1,7 +1,7 @@
 ##  **Analoogmaailm on Teistsugune**
 
-Sa oled harjunud digitaalse signaaliga: KÕRGE on 5/3.3V, MADAL on 0V, asi ants. Aga analoogmaailmas on pinge jaotus ajas olulilne. Sinu MPX5700AP rõhuandur annab 0,2V kui rõhku pole. Kui rõhk kasvab, kasvab ka pinge tasapisi kuni 4,7V-ni.   
-Digitaalses maailmas on ainult kaks seisundit: sees või väljas (ja isegi siis kipub müra sisse ronima). Analoog maailmas on lõpmatu hulk seisundeid vahepeal ning ükski väärtus ei püsi diskreetne. Seega kui koostame analoog skeeme siis on vaja ka analüüsida müra ja signaali moonutusi. 
+Sa oled harjunud digitaalse signaaliga: KÕRGE on 5/3.3V, MADAL on 0V, asi ants. Aga analoogmaailmas on pinge jaotus ajas oluline. Sinu MPX5700AP rõhuandur annab 0,2V kui rõhku pole. Kui rõhk kasvab, kasvab ka pinge tasapisi kuni 4,7V-ni.   
+Digitaalses maailmas on ainult kaks seisundit: sees või väljas (ja isegi siis kipub müra sisse ronima). Analoogmaailmas on lõpmatu hulk seisundeid vahepeal ning ükski väärtus ei püsi diskreetne. Seega kui koostame analoogskeeme siis on vaja ka analüüsida müra ja signaali moonutusi. 
 
 Probleem on selles, et sinu ESP32 ADC suudab korralikult lugeda ainult 0V kuni 3,3V. Sinu andur annab 0,2V kuni 4,7V. Need ei sobi kokku. Sa pead signaali muutma ilma teavet märkimisväärselt muutmata mis teeb mängu oluliselt keerulisemaks. Operatsioonvõimendid aitavad sul seda teha.
 
@@ -71,7 +71,7 @@ Signaal pööratakse ümber nihkepunkti. See ei ole nagu digitaalne mõtlemine, 
 
 **Aga meelde jätta:** nihkepinge peab olema piisavalt kaugel maa ja toitepinge piiridest. Kui nihkepinge on liiga lähedal ühele otsale, siis signaal ei saa teise otsa poole liikuda—väljund satureerub.
 
-**Näide:** Sa toidatd 5V-ga. Väljund saab liikuda umbes 0,02V kuni 3,5V vahel. Kui valid nihkepinge 0,5V, siis signaal saab liikuda ainult ülespoole, mitte allapoole. Kui valid nihkepinge 3V, siis signaal saab liikuda ainult allapoole, mitte ülespoole. Parem on valida nihkepinge kusagil keskel, näiteks 1,8V. Siis on ruumi mõlemasse suunda.
+**Näide:** Sa toidad 5V-ga. Väljund saab liikuda umbes 0,02V kuni 3,5V vahel. Kui valid nihkepinge 0,5V, siis signaal saab liikuda ainult ülespoole, mitte allapoole. Kui valid nihkepinge 3V, siis signaal saab liikuda ainult allapoole, mitte ülespoole. Parem on valida nihkepinge kusagil keskel, näiteks 1,8V. Siis on ruumi mõlemasse suunda.
 
 ## **Kolm Asja Mida Alati Meeles Pidada**
 
@@ -93,7 +93,7 @@ Kui ehitad opamp vooluahelat, kontrolli alati:
 * Kas kõik arvutatud väljundpinged jäävad väljundi hüppevahemikku?  
 * Kas oled jätnud puhverruumi, et väike müra või võnkumine ei põhjustaks saturatsiooni?
 
-Kui üks nendest kolmest asjast on valesti, siis vooluahel ei tööta nagu arvutasid. Signaal lõigatakse otsast ära või opamp hakkab käituma veidi.
+Kui üks nendest kolmest asjast on valesti, siis vooluahel ei tööta nagu arvutasid. Signaal lõigatakse otsast ära või opamp hakkab käituma ettearvamatult.
 
 ## **Võimendustegur Alla Ühe**
 
@@ -139,7 +139,7 @@ Esimene aste teeb kolm asja korraga:
 2. Nõrgestab signaali (võimendus 0,68)  
 3. Inverteerib signaali nihkepunkti ümber
 
-Aga kontrolli: kas arvutatud väljundid jäävad väljundi hüppevahemikku? Kui toidatd 5V-ga ja väljund saab olla 0,02V kuni 3,5V, siis kas kõik arvutatud väärtused on selles vahemikus? Kui ei ole, pead nihkepinget või võimendust muutma.   
+Aga kontrolli: kas arvutatud väljundid jäävad väljundi hüppevahemikku? Kui toidad 5V-ga ja väljund saab olla 0,02V kuni 3,5V, siis kas kõik arvutatud väärtused on selles vahemikus? Kui ei ole, pead nihkepinget või võimendust muutma.   
 Falstadi seaded op amp’i kohta kui kasutame 0-5V toidet ja **LM358N**
 
 **![][image6]**
@@ -162,7 +162,7 @@ Tagasiside takisti määrab võimenduse.
 
 See aste inverteerib uuesti. See taastab algse polaarsuse. Ja skaleerib signaali nii, et lõplik väljund jääb umbes 3,2V maksimumi lähedale. See jätab puhverruumi alla 3,3V ADC piiri.
 
-Jälle kontrolli: kas lõplik väljund 3,2V on madalam kui opampi väljundi hüppevahemiku ülemine piir? Kui toidatd 5V-ga, siis jah—3,5V on piir ja 3,2V jääb sinna alla. Aga kui toidatd 3,3V-ga, siis ei—opamp suudab ainult umbes 1,8V ja sinu 3,2V ei ole saavutatav. Sellepärast on oluline valida õige toitepinge.
+Jälle kontrolli: kas lõplik väljund 3,2V on madalam kui opampi väljundi hüppevahemiku ülemine piir? Kui toidad 5V-ga, siis jah—3,5V on piir ja 3,2V jääb sinna alla. Aga kui toidad 3,3V-ga, siis ei—opamp suudab ainult umbes 1,8V ja sinu 3,2V ei ole saavutatav. Sellepärast on oluline valida õige toitepinge.
 
 Võimendus siin on valitud nii, et sinu täielik andurivahemik (0,2V kuni 4,7V) muutub ligikaudu 0V kuni 3,2V lõplikus väljundis.
 
@@ -211,7 +211,7 @@ Aga ära unusta kontrollida: kas väljund jääb väljundi hüppevahemikku?
 
 Ühenda oma signaal mitteinverteeriva sisendiga. Ühenda takisti (Rsisend) inverteerivast sisendist maaga. Ühenda tagasiside takisti (Rtagasiside) väljundist inverteeriva sisendisse. Võimendus on: 1 \+ (Rtagasiside/Rsisend)
 
-See konfiguratsiõn ei saa anda võimendust alla ühe.
+See konfiguratsioon ei saa anda võimendust alla ühe.
 
 See on kasulik, kui vajad võimendust ilma inverteerimata, näiteks kõrge takistusega allika puhverdamiseks või nõrga signaali tugevdamiseks.
 
@@ -262,7 +262,7 @@ Mõnikord vajad jah-ei otsust: kas signaal on künnisest kõrgemal?
 
 ![][image15]
 
-Konfigureeri opamp ilma tagasisideta.xxxx
+Konfigureeri opamp ilma tagasisideta.
 
 Ühenda oma signaal ühte sisendisse.
 
