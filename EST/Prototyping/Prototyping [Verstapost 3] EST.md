@@ -2,11 +2,11 @@
 
 **Maht:** 18 tundi | **Hindamine:** 20 punkti | **Kohtumine: L 18.04**
 
-**NB: 2. tellimus (PCB) peab olema esitatud hiljemalt 08.04!**
+**NB: 2. tellimus: Kellel veel PCB tellimata siis teeme kiiresti ära**
 
 V2 lõpus sul oli sõitev testšassii ja veebileht nupuga "edasi". Nüüd paned kõik kokku ühele šassiile ja asendad nupud kaamerapildil klõpsamisega. Kui operaator klõpsab pildil kohale, sõidab robot sinna — see on V3 põhiülesanne.
 
-Prioriteet on järjekorras: kõigepealt pane komponendid ühele šassiile ja kontrolli et kõik ikka töötab. Siis kalibreeri kaamera (ilma selleta ei saa klõps → maapind töötama). Siis ehita raycast loogika. Siis integreeri andurid piiri tuvastamiseks. Kui midagi ei tööta, küsi enne kui kulutad kogu päeva silumisele.
+Prioriteet on järjekorras: kõigepealt pane komponendid ühele šassiile ja kontrollime üle et kõik ikka töötab. Siis kalibreeri kaamera (ilma selleta ei saa klõpsu pildil asukohaks maapinnal tõlgendada). Siis ehita raycast loogika. Leia lahendus kuidas nüüd robot "enam vähem" ±10mm ja ±3 kraadi nurgaga. Kui midagi ei tööta, küsi kõigepealt meeskonna kaaslaselt, siis moodli foorumis või minult isiklikult, ära marineeri kauem kui 15 minutit plaani tegemisega.
 
 ---
 
@@ -14,11 +14,11 @@ Prioriteet on järjekorras: kõigepealt pane komponendid ühele šassiile ja kon
 
 **Eeldus:** V2 ajam, side ja veebiliides peavad töötama.
 
-**Eesmärk:** kõik komponendid ühel šassiil, toide ühest akust, üks süsteem mis käivitub ühe lülitiga.
+**Eesmärk:** Koosta kõik komponendid ja oma PCB ühel šassiil, toide ühest akust, üks süsteem mis käivitub ühe lülitiga.
 
 **Mida vaja:**
 - Kõik V2 komponendid (mootorid, draiver, MCU, andurid, arvutusplatvorm)
-- Aku (LiPo või USB powerbank — sõltub sinu valikust)
+- Aku (LiPo, USB powerbank vms. — sõltub sinu valikust)
 - Toitelüliti
 - Juhtmed, klemmid, kahepoolne teip / kruvid
 
@@ -31,55 +31,51 @@ Prioriteet on järjekorras: kõigepealt pane komponendid ühele šassiile ja kon
 
 **Toitehierarhia kontroll:**
 
+- Aku pinge (nt 7.4V LiPo või 5V powerbank) → (Boost 5V/12V) → Motor Driver → Motor
 - Aku pinge (nt 7.4V LiPo või 5V powerbank) → regulaator → 5V loogikale ja 3.3V MCU-le
-- Mootorid saavad toidet kas otse akult (kui aku on 6–12V vahemikus) või eraldi liinilt
 - **Ühine GND kõigil komponentidel** — ilma selleta ei tööta side
 
 **Kontroll multimeetriga:**
 
 ```
-Enne esimest käivitust:
-1. Mõõda aku pinge laadituna (nt LiPo 2S: ~8.4V täis)
-2. Mõõda toitejaotuse punkte — kas kõik mis peab olema 5V on 5V?
-3. Kontrolli ühendusi: pole lühiühendust VCC → GND?
-4. Alles siis lülita sisse
+Enne pinge rakendamist (multimeeter, toide VÄLJAS):
+1. Lühiühenduse test — multimeeter „continuity" režiimis (piiks). Kontrolli VCC → GND,
+   12V → GND, 6V → GND, 5V → GND, 3.3V → GND. Kui piiksub või takistus on alla ~10 Ω → lühis, ära lülita sisse.
+2. Mõõda aku pinge (akuklemmid, koormuseta) — nt LiPo 2S täis ~8.4V, kui erineb millegipooles, peatu, uuri, saa aru 
+
+Alles nüüd lülita sisse:
+3. Mõõda toitejaotuse punkte koormuse all — kas 5V on tõesti 5V, 6V tõesti 6V?
+4. Kontrolli et MCU käivitus (LED, seerial output). Kui mingi regulaator on kuum — kohe välja.
 ```
 
-**YouTube otsisõnad:**
-- `robot chassis layout design`
-- `LiPo battery voltage regulator 5V 3.3V`
-- `robot power distribution bus`
-- `common ground wiring microcontroller`
-
+**YouTube/AI otsisõnad:**
+- `rover robot chassis layout design`
+- `LiPo battery voltage regulator 12V 5V 3.3V`
+- `USB-C PD trigger`
+- `How to test PCBs`
+- `Top PCB hidden tricks`
 ---
 
 ### 2. Kaamera kalibreerimine — A4 malelaud + OpenCV
 
-**Eesmärk:** kalibreeri kaamera ühe A4 prinditud malelaudga ja rakisega. OpenCV tuvastab kõik malelaud nurgad automaatselt sub-piksli täpsusega, rakis fikseerib roboti ja malelaud suhtelise asendi, ja homograafiamaatriks tõlgib iga klõpsu otse põrandakoordinaatideks. **Mitte ühtegi käsitsi tape-mõõtmist kalibreerimise hetkel.**
+**Eesmärk:** kalibreeri kaamera ühe A4 prinditud malelaudga. OpenCV tuvastab kõik malelaud nurgad automaatselt alla-piksli täpsusega, malelaud ise defineerib koordinaatsüsteemi, ja homograafiamaatriks tõlgib iga klõpsu otse põrandakoordinaatideks. **Mitte ühtegi käsitsi mõõdulindiga mõõtmist kalibreerimise hetkel.**
 
-**Miks see on parem kui tape/laser:**
+**Miks see on parem kui mõõdulint/laser:**
 - **Sub-piksli täpsus** — `cv2.cornerSubPix` täpsustub alla 0,1 piksli
 - **63 punkti 4 asemel** (tavaline 7×9 malelaud) — RANSAC filtreerib müra välja
-- **Null mõõtmisviga kalibreerimise hetkel** — kogu geomeetria tuleneb rakise ehitusest
+- **Kogu geomeetria tuleb mustri sisemisest struktuurist** (teadaolev ruudu suurus) — mitte käsitsi mõõtmisest
 - **Korratav** — printi üks kord, kasuta alati samamoodi
 - **Visuaalne kontroll** — OpenCV joonistab tuvastatud nurgad peale, näed kohe kas töötab
 - **Sama tehnika** mida kasutavad päris visioonisüsteemid (autod, droonid, tööstusrobootika)
 
-**Koordinaadisüsteem:** põrandatasapind on matemaatiliselt lõpmatu ja origo võime valida kus tahes. Panime origo **malelaua nurka `[0,0]`** — ehk malelaud ise defineerib koordinaatsüsteemi. X = kaugus ette (malelaua pikiteljel), Y = positiivne paremale.
+**Koordinaadisüsteem:** malelaud defineerib geomeetria, aga me tahame koordinaate **roboti pöördekeskme** suhtes, mitte malelaua suhtes. Sellepärast mõõdame kalibreerimise ajal ühe arvu: **kui kaugel on malelaua keskpunkt roboti pöördekeskmest** (`X0_CM`). See arv läheb otse homograafia arvutusse — iga piksliklõps annab kohe roboti-suhtelise koordinaadi. X = ette, Y = paremale.
 
-**Kus on robot selles süsteemis?** Robot pöörab rataste vahelise punkti (pöördekese) ümber. Selle positsioon malelaua koordinaatides `(robot_X, robot_Y)` tuleneb **sellest, kuidas malelaud paika pandi**:
-
-- **Lihtsaim juhtum:** paigutad malelaua nii, et selle nurk `[0,0]` on **täpselt roboti pöördekesel** (vajaduse korral rakis fikseerib selle). Siis `robot_X = 0, robot_Y = 0` ja malelaua koordinaat = roboti koordinaat otse.
-- **Tavaline juhtum:** malelaud asub roboti ees mingi nihke `(X0, Y0)` võrra. Need kaks arvu tulenevad rakise ehitusest, mitte joostes mõõtmistest. Iga klõps → malelaua koordinaat → lahuta `(X0, Y0)` → saad roboti raamis oleva vektori.
-
-Niisiis: **ainukesed mõõdud mida vaja on rakise kaks konstantsi** — sama rakis, samad numbrid igal kalibreerimisel.
-
----
+**Paigutus:** robot seisab paigal, kaamera vaatab ette. Pane malelaud põrandale kaamera vaatevälja — sinna kuhu enamus klõpse läheb. Mõõda roboti pöördekeskmest malelaua keskpunktini — see on `X0_CM`. Kui malelaud on roboti pikiteljel sümmeetriliselt, siis `Y0_CM = 0`. Üks mõõtmine, üks kord.
 
 **Mida vaja:**
 - Töötav kaamera voog + võimalus salvestada üks kaader
-- A4 prindid 7×9 sisemise nurgaga malelaudst (vt all)
-- Rakis mis hoiab roboti ja malelaud kindlas asendis
+- A4 prinditud 7×9 sisemise nurgaga malelaud (vt all)
+- Mõõdulint (üks mõõtmine: robot → malelaua keskpunkt)
 - Python paketid: `opencv-python`, `numpy`
 
 ---
@@ -145,51 +141,37 @@ print("Salvestatud: malelaud_a4.pdf")
 - **„Scale = 100%" / „Actual size"** — MITTE „Fit to page", „Shrink oversized", „Auto rotate and scale"
 - Pärast printimist **mõõda joonlauaga kontrolljoont** — kui see on 50 mm (±0,5 mm), siis ruudud on ka õiged 25 mm
 - **Kui kontrolljoon on vale** → muuda `SQUARE_MM` koodis päris väärtuseks (nt mõõdad 49 mm → ruut on 24,5 mm) või printida uuesti teise printeriga
-- **Liimi jäigale alusele** (papp, PET-plaat, MDF) — voldi või kõveraks jäänud muster annab vale tuvastuse
 
 **Varuvariant — valmis PDF internetist:**
 
 Kui Python ei ole käepärast, [calib.io pattern generator](https://calib.io/pages/camera-calibration-pattern-generator) teeb sama asja brauseris. Vali „Checkerboard", 8×10 ruutu, 25 mm ruut, lae alla PDF. Kontrollida ikka trükitud suurust joonlauaga.
 
-**Samm 2: Rakis paigutab malelaua ja roboti**
+**Samm 2: Paigutus ja offset mõõtmine**
 
-Rakise ainus ülesanne: kindlustada, et **malelaud ja robot on igal kalibreerimisel samas suhtelises asendis**. Rakis ei mõõda midagi — see **kordub**. Ehita seda **üks kord**, siis kogu koordinaatsüsteem tuleneb sellest.
-
-Kaks lähenemist, kumb sulle mugavam:
-
-**Lähenemine A — malelaud tõmmatakse roboti ette, mingi nihke võrra:**
-- Rakis hoiab roboti kindlal kohal.
-- Sama rakis (või eraldi riba põrandal) hoiab malelauda kindlal kaugusel roboti eest, nt `15 cm` pöördekesest edasi.
-- Koodis: `X0_CM = 15.0, Y0_CM = -(COLS-1)*SQUARE_MM/20` (malelaud sümmeetriliselt keskel).
-
-**Lähenemine B — malelaud otse pöördekeskme alla:**
-- Paigutad malelaua nii, et nurk `[0,0]` on **täpselt roboti pöördekese all või kõrval** (sama positsioon).
-- Koodis: `X0_CM = 0, Y0_CM = 0`.
-- Robot on ise osaliselt malelaua peal — see toimib, kui robot ei varja tervet mustrit kaamerast. Kui varjab liiga palju, kasuta A.
-
-Mõlemal juhul: **mõõda rakise geomeetria üks kord disainimisel**, pane see koodi, ära muuda.
-
-**Kui rakist veel pole:** märgi põrandale teibiga kaks risti (rataste kontaktpunktid) ja kolmas joon kaugusel `X0_CM` ette. Malelaud tõmmatakse kolmanda joone vastu. Vähem kordustäpne, aga toimib.
+1. Pane robot põrandale, kaamera vaatab ette
+2. Pane malelaud kaamera vaatevälja — nihuta kuni **malelaua keskpunkt on umbes pildi keskel** (parim nurkade levikut)
+3. Mõõda roboti pöördekeskmest malelaua keskpunktini: see on `X0_CM`. Kui malelaud on roboti ees sümmeetriliselt, siis `Y0_CM = 0`
+4. Kirjuta need arvud koodi — need lähevad homograafia arvutusse
 
 **Samm 3: Salvesta üks kaader malelaudga**
 
-Robot rakises, malelaud servas, kaamera tavapaikas. Salvesta üks jpg/png kaader kaamerast (nt ava kaamera `/capture` endpoint või salvesta selle piksli-täpsusega).
+Salvesta üks jpg/png kaader kaamerast (nt ava kaamera `/capture` endpoint või salvesta pildi brauserist). Malelaud peab olema tervesti nähtav — kõik 63 sisemist nurka kaadris.
 
 **Samm 4: Tuvasta nurgad ja arvuta homograafia**
+
+*testimata näidiskood, võibolla vajab parandamist, polnud andmeid veel et testida*
 
 ```python
 import cv2
 import numpy as np
 
-# --- Malelaua ja rakise parameetrid (kõik tulenevad rakise ehitusest, üks kord mõõdetud) ---
+# --- Parameetrid ---
 PATTERN_SIZE = (7, 9)       # sisemiste nurkade arv (veerud, read)
 SQUARE_MM    = 25.3         # tegelik prinditud ruudu suurus (mõõda joonlauaga!)
 
-# Malelaua nurga [0,0] asukoht roboti raamis:
-# Lähenemine A (malelaud ees):  X0_CM = 15.0, Y0_CM = -8.75 (sümmeetriline keskjoonel)
-# Lähenemine B (malelaud pöördekesel): X0_CM = 0.0, Y0_CM = 0.0
-X0_CM        = 15.0
-Y0_CM        = -(PATTERN_SIZE[0] - 1) * SQUARE_MM / 20.0  # sümmeetriliselt keskel
+# Roboti pöördekeskmest malelaua keskpunktini (mõõdetud samm 2-s)
+X0_CM        = 30.0         # ette (cm)
+Y0_CM        = 0.0          # paremale (cm), 0 kui sümmeetriline
 
 # --- Lae kaader ---
 img = cv2.imread("calibration_frame.jpg")
@@ -206,12 +188,15 @@ corners_refined = cv2.cornerSubPix(gray, corners, (11, 11), (-1, -1), criteria)
 pixel_pts = corners_refined.reshape(-1, 2).astype(np.float32)
 
 # --- Genereeri iga nurga tegelikud (X, Y) cm-des ---
-# Malelaua nurkade järjekord: rida-rea kaupa, vasakult paremale
+# Koordinaadid on keskpunkti ümber: esimene nurk on (-half_h, -half_w) kaugusel keskpunktist
+half_rows = (PATTERN_SIZE[1] - 1) / 2.0   # X suunas poollaius (cm)
+half_cols = (PATTERN_SIZE[0] - 1) / 2.0   # Y suunas poollaius (cm)
+
 floor_pts = []
 for row in range(PATTERN_SIZE[1]):         # rida = X suunas (ette)
     for col in range(PATTERN_SIZE[0]):     # veerg = Y suunas (paremale)
-        x_cm = X0_CM + row * (SQUARE_MM / 10.0)
-        y_cm = Y0_CM + col * (SQUARE_MM / 10.0)
+        x_cm = X0_CM + (row - half_rows) * (SQUARE_MM / 10.0)
+        y_cm = Y0_CM + (col - half_cols) * (SQUARE_MM / 10.0)
         floor_pts.append([x_cm, y_cm])
 floor_pts = np.array(floor_pts, dtype=np.float32)
 
@@ -234,24 +219,13 @@ Avada `calibration_check.jpg` — iga malelaud nurk peab olema märgitud värvil
 
 ---
 
-**Kui sul pole printerit või tahad alustada kiiresti — varuvariandid:**
+**Kui sul pole printerit — varuvariant:**
 
-**Varu 1: 4 teipmärki põrandale + mõõdulint.** Märgi põrandale 4 nurka mida kaamera näeb, mõõda tape'iga X ja Y pöördekeskmest. `cv2.getPerspectiveTransform(4 pikslit, 4 põrandapunkti)`. ±2 cm täpsus parimal juhul.
-
-**Varu 2: rakis + laserkaugusmõõtja + trilateration.** Kaks sihikut rakise rataste kohal, laser annab `d_L` ja `d_R` igale sihtpunktile, trilateri arvutab XY:
-
-```python
-def trilaterate(d_L, d_R, W):
-    y = (d_L**2 - d_R**2) / (2 * W)
-    x = (d_L**2 - (y + W/2)**2) ** 0.5
-    return x, y
-```
-
-Parem kui mõõdulint (±5 mm), aga ikka 10× halvem kui malelaud meetod.
+Märgi põrandale 4 teipmärki sinna, kus nad paistavad kaamera pildi nurkades, ja mõõda mõõdulindiga nende X ja Y roboti pöördekeskmest. Siis `cv2.getPerspectiveTransform(4 pikslit, 4 põrandapunkti)` asendab `cv2.findHomography` + malelaua osa. Täpsus on ~±2 cm parimal juhul, malelauaga saad alla 1 cm.
 
 ---
 
-**YouTube otsisõnad:**
+**YouTube/AI otsisõnad:**
 - `OpenCV findChessboardCorners Python`
 - `cv2 cornerSubPix tutorial`
 - `chessboard camera calibration OpenCV`
@@ -263,11 +237,19 @@ Parem kui mõõdulint (±5 mm), aga ikka 10× halvem kui malelaud meetod.
 
 ### 3. Pixel-to-ground homograafiaga
 
+**Mis on `H` maatriks?** H = **h**omograafia (kreeka: *homo* = sama, *graphia* = joonis). See on 3×3 maatriks mis teisendab pikslikoordinaadi põrandakoordinaadiks. Malelaua kalibreerimine andis OpenCV-le 63 paari: "see piksel = see punkt põrandal." Nendest 63 paarist arvutas OpenCV ühe maatriksi mis töötab **kõigi** pikslite jaoks, mitte ainult 63 nurga jaoks — see ongi H. Pärast arvutamist malelaua enam vaja ei ole, H-s on kogu teisendus sees.
+
+```
+piksel (px, py)  →  [ H ]  →  põrand (x_cm, y_cm) roboti suhtes
+```
+
 **Eeldus:** kalibreerimine (samm 2) tehtud, `H` maatriks olemas.
 
 **Eesmärk:** iga klõps pildil → põrandakoordinaat `(x_ette, y_paremale)`.
 
-**Kood:**
+**Koodi idee:**
+
+*testimata näidiskood, võibolla vajab parandamist, polnud andmeid veel et testida*
 
 ```python
 import cv2
@@ -293,11 +275,11 @@ See on kogu loogika — 3 rida tööd teevad cv2 eest. Pikslist põrandakoordina
 3. Serveris kutsu `pixel_to_ground(px, py)` — kas tulemus on lähedal `(60, 20)`-le?
 4. Korda 5 kohaga üle põranda (lähedal, kaugel, servades).
 
-**Tolerants:** mediaan viga peaks olema alla 5 cm. Kui üle 10 cm → 4 nurga mõõtmised olid ebatäpsed, kalibreeri uuesti.
+**Tolerants:** mediaan viga peaks olema alla 3 cm. Kui üle 5 cm → 4 nurga mõõtmised olid ebatäpsed, kalibreeri uuesti.
 
 **Kui servades on palju suurem viga** → kaameral on läätsemoonutus (fisheye). Lahendus: vali 4 kalibreerimispunkti, mis katavad pildi keskosa (20%–80%), mitte servad.
 
-**YouTube otsisõnad:**
+**YouTube/AI otsisõnad:**
 - `cv2 perspectiveTransform point example`
 - `pixel to world coordinates homography`
 - `robot camera ground plane mapping`
@@ -312,80 +294,23 @@ See on kogu loogika — 3 rida tööd teevad cv2 eest. Pikslist põrandakoordina
 
 **Põhiloogika:**
 
-```python
-import time
-import math
+Klõps pildil käivitab järgmise ahela:
 
-WHEELBASE_CM = 12.0       # rataste vaheline kaugus (oma mõõt!)
-SPEED_CM_PER_S = 20.0     # mõõdetud V2 tõuketestist
-TURN_RATE_DEG_PER_S = 90  # mõõda eraldi: pane robot pöörama 90°, ajasta
+1. **Piksel → põrandakoordinaat**: homograafia (samm 3) teisendab klõpsu piksli (px, py) põrandakoordinaadiks (x_ette, y_paremale) roboti suhtes
+2. **Koordinaat → kaugus ja nurk**: Pythagorase teoreemiga kaugus, `atan2`-ga nurk. Nurk 0° = otse ees, positiivne = paremale, negatiivne = vasakule
+3. **Kontroll**: kui sihtpunkt on roboti taga (x negatiivne) või liiga kaugel (üle 3m) → loobu, ära sõida
+4. **Pööra**: kui nurk on üle 5° (alla seda mürasse läheb), pööra õiges suunas. Pööramisaeg = nurk jagatud pöördekiirusega (kraadi sekundis, mõõdetud). Peata, oota hetk (inerts)
+5. **Sõida otse**: sõiduaeg = kaugus jagatud kiirusega (cm/s, mõõdetud). Peata.
 
-def drive_to_point(px, py):
-    """Klõps pildil (px, py) → robot sõidab sinna."""
-    x_fwd, y_right = pixel_to_ground(px, py)
-
-    # Teisenda kaugus + nurk
-    distance_cm = math.sqrt(x_fwd**2 + y_right**2)
-    angle_deg = math.degrees(math.atan2(y_right, x_fwd))
-    # Nurk: positiivne = paremale, negatiivne = vasakule, 0 = otse ees
-
-    # Sanity check — kui klõps on roboti taga või liiga kaugel, loobu
-    if x_fwd < 0 or distance_cm > 300:
-        print(f"Kehtetu siht: x={x_fwd:.0f}, d={distance_cm:.0f} cm")
-        return
-
-    # 1. Pööra
-    if abs(angle_deg) > 5:  # alla 5° ära pööra (mürasse läheb)
-        turn_time = abs(angle_deg) / TURN_RATE_DEG_PER_S
-        if angle_deg < 0:
-            send_cmd("left", 150)
-        else:
-            send_cmd("right", 150)
-        time.sleep(turn_time)
-        send_cmd("stop")
-        time.sleep(0.1)  # inertsi ootamine
-
-    # 2. Sõida
-    drive_time = distance_cm / SPEED_CM_PER_S
-    send_cmd("forward", 200)
-    time.sleep(drive_time)
-    send_cmd("stop")
-```
+Sul on vaja kahte mõõdetud konstanti oma robotilt: **lineaarne kiirus** (cm/s) ja **pöördekiirus** (kraadi/s). Mõlemad mõõdad kronomeetriga.
 
 **Veebiliidese pool:**
 
-Kui V2 HTML-is oli varem `<button>` nupud, lisa nüüd `<img>` element kaamera voo jaoks ja klõpsutus sündmus:
-
-```html
-<img id="cam" src="/stream" style="cursor: crosshair;">
-<script>
-document.getElementById('cam').addEventListener('click', async (e) => {
-  const rect = e.target.getBoundingClientRect();
-  const px = Math.round(e.clientX - rect.left);
-  const py = Math.round(e.clientY - rect.top);
-  // Skaleeri brauseri pildi suurus → tegelik kaamera resolutsioon
-  const scaleX = e.target.naturalWidth / rect.width;
-  const scaleY = e.target.naturalHeight / rect.height;
-  const realX = Math.round(px * scaleX);
-  const realY = Math.round(py * scaleY);
-
-  await fetch(`/click?x=${realX}&y=${realY}`);
-});
-</script>
-```
-
-FastAPI serveris:
-
-```python
-@app.get("/click")
-def on_click(x: int, y: int):
-    drive_to_point(x, y)
-    return {"status": "done"}
-```
+Asenda V2 nupud kaamera pildiga mille peale saab klõpsata. Klõpsu koordinaadid (pikslites) lähevad serverisse, server käivitab pööra-ja-sõida ahela. Pea meeles: brauseris on pilt skaleeritud — klõpsu piksel tuleb teisendada kaamera tegelikuks resolutsiooniks (`naturalWidth` / kuvatud laius).
 
 **Ülesanne:**
 
-1. Mõõda `SPEED_CM_PER_S` ja `TURN_RATE_DEG_PER_S` oma robotil — pane kronomeeter, saada käsk, ajastada
+1. Mõõda lineaarne kiirus ja pööramiskiirus oma robotil — pane kronomeeter, tee tee pöörde suunaks ja ajaks ning otse sõitmiseks ja ajaks
 2. Lisa drive_to_point loogika serverisse
 3. Lisa klõps sündmus veebilehele
 4. Ava veebileht, klõpsa pildil otse roboti ette 50 cm kaugusele — kas jõuab umbes kohale?
@@ -393,11 +318,11 @@ def on_click(x: int, y: int):
 
 **Tüüpilised probleemid:**
 
-- **Robot jookseb üle:** `SPEED_CM_PER_S` on tegelikult väiksem — mõõda uuesti
-- **Pöörab liiga palju/vähe:** `TURN_RATE_DEG_PER_S` vale — mõõda uuesti
+- **Robot jookseb üle:** lineaar kiirus on tegelikult väiksem — mõõda uuesti
+- **Pöörab liiga palju/vähe:** pöördekiirus vale — mõõda uuesti
 - **Piksli koordinaadid valed:** unusta brauseris skaleerimine (`naturalWidth` vs `clientWidth`)
 
-**YouTube otsisõnad:**
+**YouTube/AI otsisõnad:**
 - `differential drive robot turn calculation`
 - `JavaScript image click coordinate`
 - `FastAPI GET parameters`
@@ -405,63 +330,64 @@ def on_click(x: int, y: int):
 
 ---
 
-### 5. Piiri tuvastamine ja reaktsioon
+### 5. Piiri ja tsoonide tuvastamine
 
 **Eeldus:** värviandur töötab V2 maketeerimisplaadil, on nüüd robotile paigaldatud.
 
-**Eesmärk:** kui värviandur näeb piiriala värvi (nt must joon), robot peatub automaatselt — enne kui sõidab areenilt maha.
+**Eesmärk:** robot peab aru saama:
+- **millal on õiget värvi blokil** (nt skooripunkt, algpositsioon, turvatsoon)
+- **millal on piiril** (punane joon — peata kohe)
+- **millal ei sobi miski** — nüüd saadab anduri näidud operaatorile, et teada mida tegelikult näeb
 
-**Põhimõte:**
+Viimane punkt on oluline: kui andur näeb midagi ootamatut (läikiv pind, varjus, kahe plönnsi vaheline servaala), ei tohi loogika kohkuda ega eksitada. Operaator saab reaalajas näidud → saab kalibreerimist parandada. Andur peaks jääma 5cm raadiussesse roboti pöörlemise keskmest.
 
-Piirituvastus peab töötama **paralleelselt** klõpsa-ja-sõida loogikaga. See ei tohi olla midagi mis käivitub ainult kui kood jõuab vastava rea peale — see peab olema alati valvel. Lihtsaim viis: kontrolli iga kord kui saadad mootori käsu.
+---
 
-**Kaks lähenemist — vali üks:**
+**Põhimõte — kihiline:**
 
-**Variant A: MCU-l autonoomne valvur (soovitatud)**
+1. **MCU kiht:** andur loeb alati. Kui värv vastab **punasele piirile** → mootorid kohe peatatud, sõltumata serveri käskudest. See on turvamehhanism, mis ei tohi viibida.
+2. **Telemeetria kiht:** andur saadab näidud (R, G, B, C + klassifikatsioon) serverile/veebiliidesele iga ~100 ms. Operaator näeb päriselt mida robot „näeb" ja saab klassifitseerida.
+3. **Klassifitseerimise kiht:** tarkvara otsustab näitude järgi millises tsoonis robot on. Reeglid on lihtsad (RGB vahemikud) ja kirjutatud serveris, et saaks neid muuta ilma MCU-d uuesti flashima.
 
-ESP32 kontrollib värviandurit iga loop'i iteratsiooni ja kui näeb piiri, peatab mootorid kohe ise — sõltumata sellest mis käsku veebiliides saatis. See on kõige töökindlam.
+---
 
-```cpp
-// Add to main loop on ESP32:
-void loop() {
-  server.handleClient();  // or serial.available() — whichever you have
+**Kalibreeri tsoonid (üks kord areenil):**
 
-  // Boundary check runs every iteration
-  uint16_t r, g, b, c;
-  tcs.getRawData(&r, &g, &b, &c);
+Enne mängu pane robot iga värvi plönn peale, loe 30 näitu, arvuta mediaan ja standardhälve.
 
-  if (c < BOUNDARY_THRESHOLD) {  // dark = boundary
-    stop();
-    // Optionally: send notification to operator
-    if (!boundaryFlag) {
-      Serial.println("{\"event\":\"boundary_detected\"}");
-      boundaryFlag = true;
-    }
-  } else {
-    boundaryFlag = false;
-  }
-}
-```
+Tee tabel: iga tsoon → keskmine (R, G, B, C) + hajuvus. Tuvastamine on siis „millisele tsoonile mu näit lähim on" — klassika lähima naabri meetod.
 
-**Variant B: serveripoolne valvur**
+---
 
-Server küsib iga 100 ms ESP32-lt anduri näitu ja kui piir, saadab stop-käsu. Aeglasem (side latentsus) ja ebausaldusväärsem — MCU-l autonoomia on alati kindlam.
+**MCU kiht (piirihoid + pidev telemeetria):**
 
-**Läve (threshold) valimine:**
+ESP32 peab tegema kaht asja:
+1. **Iga loop-iteratsioon:** kontrolli piiri (punane joon → stop). Kõige kiirem otsus, mitte mingit klassifitseerimist.
+2. **Iga ~100 ms:** saada anduri näidud (R, G, B, C) veebiliidesele — 100ms intervall on operaatori jaoks piisav.
 
-Kasuta V2 anduri analüüsi tulemusi. Sul on areenipinna ja piirivärvi näitude jaotused. Vali lävi mis on nende **vahel** ja millel ei kattu kumbki jaotus. Näiteks kui areenipind on clear=800±50 ja piir on clear=200±40 → lävi 500 on ohutu.
+---
+
+**Veebiliides:**
+
+- **Praegune tsoon** (tekst/värv): „punane plönn", „kollane plönn", „punane piir", „**tundmatu**"
+- **Toorväärtused** (debug): R, G, B, C reaalajas
+
+Viimane info on kuld kui midagi ei tööta — operaator näeb et „robot oli vist kahe plönnsi serval, seepärast ei klassifitseerinud".
+
+---
 
 **Ülesanne:**
 
-1. Määra BOUNDARY_THRESHOLD V2 värvianduri mõõtmiste järgi (keskkoht kahe jaotuse vahel)
-2. Lisa piirikontroll MCU loop'i
-3. Testi stendil: pane piiriala värv roboti alla → kas peatub? Pane areenipind alla → kas käivitub uuesti?
-4. Testi elus: saada klõpsa-ja-sõida käsk mis viiks roboti piirist üle → kas peatub enne piiri ületamist?
+1. Kirjuta `zone_calibration.py` — kalibreeri kõik areeni värvid (3 pinda)
+2. Lisa MCU loopi **ainult piiri lävi + pidev telemeetria** (ei klassifitseerida kogu masinas)
+3. Lisa serverisse `classify_reading()` ja saada tulemus WebSocketi kaudu veebiliidesele
+4. Lisa veebiliidesele „praegune tsoon" kuvar + toorväärtused
+5. Testi stendil: pane robot iga tsooni peale, kontrolli et klassifitseerimine vastab. Pane kahe plönnsi vahele — kas kuvab „tundmatu"?
+6. Testi elus: saada klõpsa-ja-sõida käsk mis viiks roboti piirist üle → kas peatub enne piiri?
 
-**YouTube otsisõnad:**
+**YouTube/AI otsisõnad:**
 - `Arduino non-blocking loop sensor check`
-- `robot boundary detection line sensor`
-- `TCS34725 color threshold detection`
+- `Color calibration multiple surfaces`
 - `safety watchdog microcontroller`
 
 ---
@@ -470,63 +396,13 @@ Kasuta V2 anduri analüüsi tulemusi. Sul on areenipinna ja piirivärvi näitude
 
 **Eesmärk:** tea kui kaua robot vastu peab enne akut vahetada. Vajalik ka V3 analüüsis 3 (aku tööaeg).
 
-**Kaks võimalust:**
+**Kaks võimalust sõltuvalt sinu raudvarast:**
 
-**A: Telefon on aku** — kasuta Android API-d `BatteryManager`. Termuxis:
+**A: Telefon on aku** — Termuxis saad `termux-battery-status` käsuga küsida telefoni aku protsendi JSON-ina. Kirjuta skript mis küsib seda iga 30 sekundi tagant ja logib CSV-sse (ajatempel + protsent). Vajalik `pkg install termux-api` + Termux:API äpp.
 
-```python
-import subprocess
-import time
+**B: LiPo aku + ESP32 ADC** — mõõda akupinge ESP32 ADC-ga pingejaguri kaudu. LiPo 2S täispinge on 8.4V, aga ESP32 ADC loeb max 3.3V — seega vajad pingejagurit (nt 3:1 suhe). ESP32 loeb ADC väärtuse, teisendab pingeks (ADC näit × referentspinge / resolutsioon × jaguri suhe) ja saadab iga 5 sekundi tagant JSON-ina seerialporti. Server logib CSV-sse.
 
-def get_battery():
-    result = subprocess.run(
-        ["termux-battery-status"],
-        capture_output=True, text=True
-    )
-    # Tagastab JSON: {"percentage": 85, "status": "DISCHARGING", ...}
-    import json
-    return json.loads(result.stdout)
-
-# Log every 30 seconds
-with open("battery.csv", "w") as f:
-    f.write("timestamp,percent\n")
-    while True:
-        data = get_battery()
-        f.write(f"{time.time()},{data['percentage']}\n")
-        f.flush()
-        time.sleep(30)
-```
-
-NB: vajalik `pkg install termux-api` + Termux:API äpp Play Store'ist või F-Droid'ist.
-
-**B: LiPo aku + ESP32 ADC** — mõõda akupinge ESP32 ADC-ga pingejaguri kaudu (LiPo 2S = 8.4V täis, ADC tald 3.3V — jagur 3:1 teeb sellest 2.8V).
-
-```cpp
-const int BATT_ADC_PIN = 34;
-const float DIVIDER_RATIO = 3.0;  // sõltub su takistitest
-const float ADC_REF = 3.3;
-const int ADC_RESOLUTION = 4095;
-
-float readBatteryVoltage() {
-  int raw = analogRead(BATT_ADC_PIN);
-  float pin_v = (raw / (float)ADC_RESOLUTION) * ADC_REF;
-  return pin_v * DIVIDER_RATIO;
-}
-
-// In loop, send every 5 seconds:
-void loop() {
-  static unsigned long last = 0;
-  if (millis() - last > 5000) {
-    float v = readBatteryVoltage();
-    Serial.print("{\"battery_v\":");
-    Serial.print(v);
-    Serial.println("}");
-    last = millis();
-  }
-}
-```
-
-**YouTube otsisõnad:**
+**YouTube/AI otsisõnad:**
 - `ESP32 battery voltage monitoring ADC`
 - `voltage divider battery measurement`
 - `termux-api battery status`
@@ -555,21 +431,29 @@ Asenda silma-järgi-hindamine füüsilise sihikuga — muudab mõõtmise palju t
 - **Ette-keskele** (soovitatud) — vars ulatub roboti ninast ette, rist kõlgub põranda kohal. Näed visuaalselt kuidas sihik läheneb sihtpunktile sõidu ajal.
 - **Taha-keskele** — sama asi roboti tagasuunas. Vähem intuitiivne sõidu ajal, aga sobib kui nina on juba täis (kaamera, ToF).
 
-Oluline: sihik peab olema **täpselt roboti pikitelgel** (X-teljel). Siis on Y-nihet null ja matemaatika lihtne.
+Ideaalis on sihik roboti pikitelgel, aga praktikas on alati mingi Y-nihe ka. **Mõõda mõlemad nihked** — matemaatika ei ole keerulisem.
 
 **Kuidas sõiduloogikas arvestada:**
 
-Kui sihik on `SIGHT_X_CM` roboti pöördekeskmest ees (või taga, negatiivne), siis:
+Mõõda sihiku asukoht roboti pöördekeskmest: `SIGHT_X_CM` (ette) ja `SIGHT_Y_CM` (paremale). Me tahame et **sihik** jõuaks sihtpunktile, mitte pöördekese. Seega arvutame pöördekeskme sihtkoha:
 
-1. Robot pöörab nii, et nina (ja sihik) on sihi suunas — sama nagu varem
-2. Sõidu distants on **sihtpunkti kaugus MIINUS sihiku nihke**: `drive_cm = distance_cm - SIGHT_X_CM`
+```python
+# Sihtpunkt roboti raamis (homograafiast)
+target_x, target_y = pixel_to_ground(px, py)
 
-Nii jääb sihik täpselt sihtpunktile. `drive_to_point` koodis vajad vaid ühte rida juurde.
+# Pöördekeskme sihtkoht = sihtpunkt miinus sihiku nihe
+adj_x = target_x - SIGHT_X_CM
+adj_y = target_y - SIGHT_Y_CM
+
+# Edasi sama loogika: nurk ja kaugus adj_x, adj_y järgi
+distance_cm = math.sqrt(adj_x**2 + adj_y**2)
+angle_deg = math.degrees(math.atan2(adj_y, adj_x))
+```
 
 **Disainispetsid STL jaoks:**
 - Vars piisavalt pikk et rist ulatub üle roboti korpuse ääre (ei blokeeri vaatepilti)
 - Modulaarne kinnitus — sihik tuleb küljest ära kui segab
-- Kinnituspunkt olemasolevas 3D-prinditud korpuses (M3 kruvi või klambrituul)
+- Kinnituspunkt olemasolevas 3D-prinditud korpuses
 - Risti jooned õhukesed (1–2 mm), et mitte varjata sihtpunkti mõõtmise ajal
 - STL repo all näiteks `cad/sight_cross.stl`
 
@@ -582,50 +466,20 @@ Nii jääb sihik täpselt sihtpunktile. `drive_to_point` koodis vajad vaid ühte
 
 1. Klõpsa veebiliideses sihtpunktile
 2. Oota kuni robot peatub
-3. Mõõda referentspunkti (sihiku laser / rist) tegelik positsioon auguvõrgustiku järgi (lähim auk + nihke hinnang cm-des)
+3. Mõõda referentspunkti (sihiku rist) tegelik positsioon auguvõrgustiku järgi (lähim auk + nihke hinnang cm-des)
 4. Korda iga sihtpunkti 3 korda
 
 **Andmete analüüs Jupyter Lab'is:**
 
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-import numpy as np
+Salvesta mõõtmised CSV-na (veerud: `target_x`, `target_y`, `actual_x`, `actual_y`). Jupyter notebookis tee järgmist:
 
-df = pd.read_csv("accuracy.csv")  # columns: target_x, target_y, actual_x, actual_y
+1. **Arvuta iga mõõtmise viga** — eukleidiline kaugus sihtpunkti ja tegeliku peatumiskoha vahel (cm)
+2. **Arvuta iga sihtpunkti kaugus alguspunktist** — et näha kas viga sõltub kaugusest
+3. **Scatter-graafik "siht vs tegelik"** — joonista samale graafikule sinised punktid (kuhu pidid jõudma) ja punased punktid (kuhu tegelikult jõudsid), ühenda iga paar hallide joontega. See näitab visuaalselt kus ja kui palju robot eksib.
+4. **Scatter-graafik "viga vs kaugus"** — X-teljel sihtpunkti kaugus algusest, Y-teljel viga. Kas kaugemad sihtpunktid on ebatäpsemad?
+5. **Mediaan- ja maksimaalne viga** — kaks arvu mis kokkuvõtlikult ütlevad kui täpne süsteem on
 
-df["error_cm"] = np.sqrt(
-    (df["actual_x"] - df["target_x"])**2 +
-    (df["actual_y"] - df["target_y"])**2
-)
-df["distance_cm"] = np.sqrt(df["target_x"]**2 + df["target_y"]**2)
-
-# Scatter: sihtpunktid vs tegelikud
-plt.figure(figsize=(8, 8))
-plt.scatter(df["target_x"], df["target_y"], c="blue", label="Siht", s=50)
-plt.scatter(df["actual_x"], df["actual_y"], c="red", label="Tegelik", s=50)
-for _, row in df.iterrows():
-    plt.plot([row["target_x"], row["actual_x"]],
-             [row["target_y"], row["actual_y"]], "gray", alpha=0.3)
-plt.xlabel("X (cm)")
-plt.ylabel("Y (cm)")
-plt.legend()
-plt.axis("equal")
-plt.title("Klõpsa-ja-sõida täpsus")
-plt.show()
-
-# Viga vs kaugus
-plt.scatter(df["distance_cm"], df["error_cm"])
-plt.xlabel("Sihi kaugus alguspunktist (cm)")
-plt.ylabel("Viga (cm)")
-plt.title("Kas viga kasvab kaugusega?")
-plt.show()
-
-print(f"Mediaanviga: {df['error_cm'].median():.1f} cm")
-print(f"Max viga: {df['error_cm'].max():.1f} cm")
-```
-
-**Hinnang:** kui mediaanviga on alla 10 cm ja max alla 20 cm → kasutatav manuaalse juhtimise jaoks. Kui viga kasvab kaugusega → raycast on ebatäpne kaugemal (tüüpiline), arvesta sellega või piira maksimaalset sihikaugust.
+**Hinnang:** kui mediaanviga on alla 10 cm ja max alla 20 cm → kasutatav manuaalse juhtimise jaoks. Kui viga kasvab kaugusega → homograafia on ebatäpne kaugemal (tüüpiline), arvesta sellega või piira maksimaalset sihikaugust.
 
 ---
 
@@ -637,63 +491,22 @@ print(f"Max viga: {df['error_cm'].max():.1f} cm")
 
 **Mõõtmine 1 — anduri reaktsiooniaeg:**
 
-1. Aseta värviandur statsionaarselt piiriala kohal (andur näeb piirivärvi)
+1. Aseta värviandur statsionaarselt piiriala kohal (andur näeb punast piirivärvi)
 2. Kiiresti tõmba piir anduri alt ära (või libista anduri alla teine värv)
-3. MCU koodis: mõõda aeg mikrosekundites anduri muutuse tuvastamiseni
-
-```cpp
-// Measure reaction time
-unsigned long t_start = 0;
-bool waiting_for_change = false;
-
-void loop() {
-  uint16_t r, g, b, c;
-  tcs.getRawData(&r, &g, &b, &c);
-
-  if (Serial.available()) {
-    Serial.readStringUntil('\n');  // press Enter in Serial Monitor to arm
-    t_start = micros();
-    waiting_for_change = true;
-    Serial.println("Armed — change surface now");
-  }
-
-  if (waiting_for_change && c > LIGHT_THRESHOLD) {
-    unsigned long elapsed_us = micros() - t_start;
-    Serial.print(elapsed_us / 1000.0);
-    Serial.println(" ms");
-    waiting_for_change = false;
-  }
-}
-```
-
+3. Kirjuta MCU koodi mõõtmisloogika: vajutad Serial Monitoris Enter → taimer käivitub → kui anduri näit muutub (punane kaob) → taimer peatub → kuvab millisekundites. Loogika: `micros()` enne ja pärast, vahe on reaktsiooniaeg.
 4. Korda 30 korda, salvesta CSV-sse
 
 **Arvutus — pidurdusteekond:**
 
-```python
-import pandas as pd
+Pidurdusteekond koosneb kolmest osast mis kuhjuvad:
 
-df = pd.read_csv("sensor_reaction.csv")  # column: "reaction_ms"
+1. **Anduri reaktsiooniaeg** — mõõtsid just (mediaan ja max CSV-st)
+2. **Side latentsus** — kui kaua läheb käsk MCU-lt mootoriteni (V2-st juba mõõdetud)
+3. **Mootori pidurdusaeg** — sõida täiskiirusel, saada stop-käsk, mõõda kui kaugele robot veel liigub
 
-sensor_median = df["reaction_ms"].median()
-sensor_max = df["reaction_ms"].max()
+Kogu reaktsiooniaeg (halvimal juhul) = anduri max + side max + mootori pidurdus
 
-# From V2 latency analysis
-comm_latency_median = 15   # fill in from V2
-comm_latency_max = 50      # fill in from V2
-
-# Measured separately — pressing "stop" and measuring distance traveled
-motor_brake_time_ms = 100  # mõõda: sõida täisgaasil, saada stop, mõõda läbitud teekond
-
-total_worst = sensor_max + comm_latency_max + motor_brake_time_ms
-robot_speed_cm_per_s = 20  # from V2
-
-brake_distance_cm = robot_speed_cm_per_s * (total_worst / 1000)
-
-print(f"Anduri reaktsioon (mediaan/max): {sensor_median:.1f} / {sensor_max:.1f} ms")
-print(f"Kogu reaktsiooniaeg (max): {total_worst:.1f} ms")
-print(f"Pidurdusteekond: {brake_distance_cm:.1f} cm")
-```
+Pidurdusteekond (cm) = roboti kiirus (cm/s) × kogu reaktsiooniaeg (s)
 
 **Tabel:**
 
@@ -721,31 +534,11 @@ print(f"Pidurdusteekond: {brake_distance_cm:.1f} cm")
 4. Seejärel 1 minut passiivselt (robot seisab, aga süsteem töötab) — matši vahe
 5. Korda kuni aku on 20% juures
 
-**Graafik:**
+**Jupyter Lab analüüs:**
 
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-
-df = pd.read_csv("battery.csv")
-df["minutes"] = (df["timestamp"] - df["timestamp"].iloc[0]) / 60
-
-plt.figure(figsize=(10, 5))
-plt.plot(df["minutes"], df["percent"])
-plt.xlabel("Aeg (min)")
-plt.ylabel("Aku (%)")
-plt.axhline(20, color="red", linestyle="--", label="20% lävi")
-plt.legend()
-plt.title("Aku tööaeg simuleeritud matšitingimustes")
-plt.grid(True)
-plt.show()
-
-# Mitu matši saab?
-time_to_20pct = df[df["percent"] <= 20]["minutes"].min()
-matches = time_to_20pct / 4  # 3 min matš + 1 min vahe
-print(f"Aeg 20%-ni: {time_to_20pct:.1f} min")
-print(f"Matše: {matches:.1f}")
-```
+1. **Joongraafik: aku % vs aeg (minutites)** — X-teljel aeg alates algusest, Y-teljel aku protsent. Lisa horisontaalne joon 20% juures (ohulävi).
+2. **Arvuta aeg 20%-ni** — mitu minutit kulus?
+3. **Arvuta mitu matši saad** — aeg 20%-ni jagatud 4-ga (3 min matš + 1 min vahe)
 
 **Hinnang:** kui saad alla 3 matši → vaja suuremat akut, kiiremat laadijat või vahetatavaid akusid. Kui üle 5 → korras.
 
@@ -764,9 +557,9 @@ print(f"Matše: {matches:.1f}")
 
 ---
 
-### YouTube otsisõnade koondnimekiri
+### YouTube/AI otsisõnade koondnimekiri
 
-Otsi neid YouTube'ist — ära vaata kogu videot, keri sinna kus sinu probleem on.
+Otsi neid YouTube/AI'ist — ära vaata kogu videot, keri sinna kus sinu probleem on.
 
 **Kokkupanek ja toide:**
 - `robot chassis layout design`
