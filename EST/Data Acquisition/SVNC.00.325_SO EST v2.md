@@ -1,21 +1,22 @@
 ## Üldinfo
 ### Eesmärgid
-Kursuse eesmärk on anda tudengitele praktilised ja teoreetilised oskused andmehõive süsteemide ehitamiseks, analoogsignaali töötlemiseks ja masinõppe rakendamiseks mõõteandmetele. Kursus keskendub MG400 doseerimissüsteemi rõhumõõtmisele: alustades toorsignaalist ja jõudes masinõppe mudelini mis hindab süstla täitetaset rõhukõvera kujust. Akadeemiline tuum on **signaalitöötluse teooria** (Fourier analüüs aja- ja sagedusruumis, analoog- ja digitaalfiltreerimine, tuletise mõju mürale) ja **masinõpe** (tunnuste eraldamine aegridadest, mudelite treenimine ja valideerimine, feature engineering). Iga elektroonika teema on seotud konkreetse probleemiga — op-amp võimendab rõhuandurit mis mõõdab päris doseerimist, I2C filter on vajalik sest mootorijuhtmed tekitavad müra.
+Kursus annab oskused mõõte- ja andmehõivesüsteemi ehitamiseks päris insenerprobleemile — Dobot MG400 doseerimissüsteemile rõhupõhise mahuhinnangu andmiseks. Tudengid alustavad anduri valikust ja toorsignaalist ning jõuavad trükkplaadi disainini, mõõtesüsteemi statistilise iseloomustamiseni (resolutsioon, müratase, mõõtemääramatus, absoluutne täpsus) ja masinõppemudelini, mis hindab süstla täitetaset rõhukõvera kujust. Iga tehniline valik tehakse alternatiivide mõõdetud võrdluse põhjal: pingejagur vs op-amp, polling vs katkestus (IRQ), analoog- vs digitaalfilter. Akadeemiline raam on **signaalitöötluse teooria** (Fourier analüüs, filtreerimine, tuletise mõju mürale) ja **masinõpe** aegridadel (tunnuste eraldamine, mudeli treenimine ja valideerimine).
 
 ### Õpiväljundid
 Õppeaine läbinud õppija:
-- eristab andmehõivesüsteemi komponente ja mõistab riistvarapõhiseid signaalitöötlusahelaid;
-- selgitab analoog-digitaalmuunduri põhimõtteid, veallikaid ja efektiivse resolutsiooni arvutamist;
-- projekteerib operatsioonivõimendiga signaali konditsioneerimise ahela (nihe, skaleerimine) ja põhjendab disainivalikuid;
-- rakendab Fourier analüüsi (FFT) müra allikate tuvastamiseks ja filtreerimise tõhususe hindamiseks;
-- rakendab tuletise (dP/dt) põhist reaalajalise reageerimise loogikat katkestuste (IRQ) kaudu;
-- diagnoosib I2C sideliini müraprobleeme ja rakendab filtreerimislahendusi;
-- disainib trükkplaadi (PCB) mis koondab kogu mõõtesüsteemi;
-- kogub ja puhastab mõõteandmeid automatiseeritult (Python + MG400 API);
-- treenib ja valideerib masinõppe mudelit (scikit-learn) süstla täitetaseme hindamiseks rõhukõvera tunnustest.
+- eristab andmehõivesüsteemi komponente ja kirjeldab signaalitee analoog- ja digitaalosa;
+- selgitab analoog-digitaalmuunduri tööpõhimõtet, peamisi veaallikaid ja efektiivse resolutsiooni arvutamist;
+- projekteerib operatsioonivõimendiga signaali konditsioneerimisahela (nihe ja skaleerimine) ning põhjendab komponentide valikut simulatsiooni ja mõõtmiste põhjal;
+- valib mõõdetud võrdluse alusel sobiva lahenduse alternatiivide vahel (pingejagur vs op-amp, analoog- vs digitaalfilter, polling vs IRQ), arvestades täpsust, kulu ja arendusaega;
+- rakendab analoog- (RC-filter, Schmitt-trigger) ja digitaalfiltreerimise (keskmistamine, mediaan, ülekoguse võtmine) tehnikaid ning hindab nende tõhusust Fourier analüüsi abil;
+- programmeerib ESP32 mikrokontrollerit kasutades katkestusi (IRQ), riistvaralisi taimereid ja kahetuumalist tööd reaalajalisteks mõõtmisteks;
+- disainib trükkplaadi (Fusion 360 EDA), valmistab Gerber-failid ja tellib JLCPCB tootmisest;
+- iseloomustab mõõtesüsteemi statistiliselt (resolutsioon, mõõtemääramatus, absoluutne täpsus, korratavus) ja dokumenteerib tulemused Jupyter Lab'is;
+- automatiseerib andmekogumise (Python + roboti API) ja kogub piisava andmestiku masinõppemudeli treenimiseks;
+- treenib ja valideerib masinõppemudeli (scikit-learn) mõõteandmetel, eraldades tunnused aegreast (sh Fourier tunnused).
 
 ### Sisu lühikirjeldus
-Kursus ehitab MG400 doseerimissüsteemile rõhumõõtmise süsteemi samm-sammult samale maketeerimisplaadile. Laborid 1–3 lisavad igaüks kihi: toorsignaal → op-amp filtreerimine → dP/dt tuletis ja I2C kalibreerimine. Igas laboris kasutatakse Fourier analüüsi näitamaks mida iga täiustus konkreetselt parandab. Ülesanded 4–5 kasutavad MG400 robotit automaatseks andmekogumiseks (500+ mõõtmist) ja masinõppe mudeli treenimiseks mis hindab süstla täitetaset rõhukõvera kujust. Labor 3 sisaldab ka PCB disaini ja tellimist.
+Kursus ehitab Dobot MG400 doseerimissüsteemile rõhumõõtmise süsteemi samm-sammult. Laborid ehitavad füüsilist mõõtesüsteemi: esimene prototüüp MPX5700AP rõhuanduri ja ESP32-ga koos veebiliidesega (Labor 1), op-amp põhise signaali konditsioneerimise prototüüp koos pingejaguri lahenduse võrdlusega ning trükkplaadi disain JLCPCB-st tellimiseks ja roboti integratsiooni valideerimine (Labor 2), pneumaatiline süstla täitetaseme mõõtmine kahe alternatiivse lahendusega — sh analoogsignaali tuletise jälgimine Schmitt-triggeri ja IRQ-ga, kahetuumaline ESP32 programmeerimine, analoog- ja digitaalfiltreerimine (Labor 3). Iga labor sisaldab simulatsiooni (Falstad), füüsilist prototüüpi, mõõtmiste statistilist analüüsi (Jupyter Lab) ja vähemalt kahe lahendusalternatiivi kvantitatiivset võrdlust. Ülesanded 4–5 kasutavad valminud süsteemi ja MG400 robotit automaatseks andmekogumiseks (sadu mõõtmisi erinevatel täitetasemetel) ning treenivad masinõppemudeli, mis hindab süstla täitetaseme rõhukõvera kujust. Läbivad teemad on insenerlik otsustamine mõõdetud andmete põhjal.
 
 ### Hindamine
 Iseseisvate tööde loetelu ja juhised nende tegemiseks:
