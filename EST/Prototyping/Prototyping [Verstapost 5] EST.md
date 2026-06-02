@@ -12,7 +12,7 @@ V5-l on kolm paralleelset eesmärki:
 
 Pluss üks asi, mida sa terve semestri jooksul oled kogunud, aga pole veel kokku pannud: **V1–V4 mõõtmiste koondvaade**. Mis paranes? Mis halvenes? Mis jäi lahendamata? See on insener-projekti tõehetk — kas spetsifikatsioonis ette ennustatu sai päriselt täidetud?
 
-Prioriteet on järjekorras: kõigepealt viimistlus (paranda kõik V4 tabelis "aktsepteeritav = ei" read). Siis asukoha määramine. Siis dokumentatsioon, mis on tõesti loetav võõrale. Siis testmatšid meeskondade vahel — viimane päris kontroll. Lõpuks koondgraafik.
+Prioriteet on järjekorras: kõigepealt viimistlus (paranda kõik V4 tabelis "aktsepteeritav = ei" read). Siis asukoha määramine. Siis dokumentatsioon, mis on tõesti loetav võõrale. Lõpuks koondgraafik.
 
 ---
 
@@ -28,7 +28,7 @@ Järgmised inimesed, kes su prototüübiga töötavad — tarkvaraarendaja, juht
 
 Vaikne mahajätmine, kus rida aruandest lihtsalt kaob, ei ole mõistlik. Aga ka "ma pean kõik mehaaniliselt täiuslikuks lihvima" pole insener-vastutuse mõte. Tark insener teab, **kus tasub veel masinatöö pingutus**, ja kus on aeg piirang üles kirjutada ja anda see üle järgmisele kihile.
 
-**V5 viimistlustabel jätkub V4 tabeli sealt, kus see lõppes:**
+**V5 viimistlustabel näidis jätkub V4 tabeli sealt, kus see lõppes:**
 
 | Komponent | V4 staatus | V5 otsus | Tulemus | Lõplik staatus |
 |:---|:---|:---|:---|:---|
@@ -68,10 +68,10 @@ Areenil on **kolm tasandit navigatsiooniabi**, mis kõik on kõikidele meeskonda
 
 **9 markerit** DICT_4X4_50 sõnaraamatust, igaüks **20 × 20 cm** (mahub A4 lehele), paigaldatud iga 1×1 m OSB mooduli **keskele** umbes **2 m kõrgusele lakke**.
 
-Standardpaigutus chess-laadse notatsiooniga (vaade ülevalt):
+Standardpaigutus chess-laadse notatsiooniga (vaade ülevalt). **Areeni kaks vastasseina on kokku leppides märgitud punase ja sinise värviga** — kumb meeskond alustab kumma seina äärest, otsustatakse matšil:
 
 ```
-        Vastase sein
+        Sinine pool
    ┌──────┬──────┬──────┐
    │  A3  │  B3  │  C3  │
    ├──────┼──────┼──────┤
@@ -79,7 +79,7 @@ Standardpaigutus chess-laadse notatsiooniga (vaade ülevalt):
    ├──────┼──────┼──────┤
    │  A1  │  B1  │  C1  │
    └──────┴──────┴──────┘
-         Oma sein
+        Punane pool
 ```
 
 ArUco ID-d vastavad ruutudele:
@@ -90,7 +90,7 @@ ArUco ID-d vastavad ruutudele:
 | A2 | 3 | B2 | 4 | C2 | 5 |
 | A3 | 6 | B3 | 7 | C3 | 8 |
 
-**Markerite "ülemine" külg suunatud vastase seina poole** — annab rovveri suuna referentsi.
+**Markerite "ülemine" külg on suunatud sinise poole** — kõik 9 markerit on laes ühte suunda paigutatud, sõltumata sellest, kummalt poolt rover neid loeb. See annab rovverile globaalse suuna referentsi (tunneb ära, kuhu "sinise poole" jääb).
 
 **Suurus 20×20 cm — kuidas saadi:**
 
@@ -100,7 +100,12 @@ ArUco ID-d vastavad ruutudele:
 
 Kui sinu kaamera FOV või resolutsioon erineb, tee sama arvutus. Lagi madalam kui 2 m → võid markeri väiksemaks teha; kõrgem → peab suuremaks.
 
-**Roveri pool:** rover vaatab esikaameralt üles (laia FOV-iga kaamera ≥ 90° haarab nii ette kui osaliselt üles), dekodeerib nähtava markeri ID, teab oma ruutu. OpenCV `cv2.aruco` moodul.
+**Roveri pool:** rover vajab **ülespoole vaatavat kaamerat** — ainult see näeb laes asuvaid markereid. Kaks praktilist lahendust:
+
+- **Eraldi kaamera lakkesuunas:** lisada teine M5-CAM (või lihtne USB-webcam), mille objektiiv on suunatud üles. See on lihtsam ja eraldab esikaameravoo ülevaatevoost.
+- **Olemasoleva kaamera ümberorienteerimine:** kui rover juba kasutab M5-CAM-i autopilooti/agendi jaoks, võib selle ümber paigaldada üles ja navigeerida ainult värviandurite + ArUco abil. Esikaamera kaob, agent peab täielikult tuginema asukoha-mäluga + alt-anduritega.
+
+Mõlemad on töökindlad — vali oma riistvara võimaluste järgi. Roveri server loeb ülespoole vaatava kaamera kaadri OpenCV `cv2.aruco` mooduliga, dekodeerib nähtava markeri ID, teab oma ruutu.
 
 ---
 
@@ -112,9 +117,9 @@ Põrand on puuritud **10×10 cm võrgustikuga** (5 mm augud). Standardseks navig
 |:---|:---|:---|:---|
 | Iga mooduli **keskpunkt** | **Sinine** | 9 | Mooduli keskpunkti referents |
 | Iga mooduli **4 nurka** | **Kollane** | 9 × 4 = 36 | Mooduli nurga referents (jagatud nurkades tekib klaster — naabermoodulid mõlemad märgivad sama füüsilist kohta) |
-| Areeni keskpunkt (B2 keskel) | **Valge** | 1 | Globaalne origin (0, 0) |
+| Areeni keskpunkt (B2 keskel) | **Roheline** | 1 | Globaalne origin (0, 0) |
 
-Värvid (sinine, kollane, valge) on valitud nii, et need **ei sega punaste markeritud aladega**. Roveri värviandur(id) (V4 sektsioon 2) loevad neid, kui rover üle sõidab.
+Värvid (sinine, kollane, roheline) on valitud nii, et need on **RGB-anduriga selgesti eristatavad** — igal on oma kanali domineerimine (S kõrge sinisel, R+G kõrge kollasel, G kõrge rohelisel). Lisaks **ei sega need punaste markeritud aladega**. Valge oleks RGB-anduriga raskelt eristatav heledast OSB-pinnast (mõlema kõik kolm kanalit kõrged), seetõttu valitakse roheline. Roveri värviandur(id) (V4 sektsioon 2) loevad neid, kui rover üle sõidab.
 
 **Punased alad ja värvitäpid:** kui punast ala (paber/kile) paigutatakse värvitäpi peale, **lõigatakse selle koha peale auk**. Värvitäpid jäävad alati nähtavale — augud tehakse vastavalt vajadusele iga matši alguses, kui ala asend on teada.
 
@@ -155,10 +160,10 @@ Rover lisab põhja **Hall- või reed-anduri**. Kui rover üle magneti sõidab, a
 
 **Roveri loogika:**
 
-1. Iga ~1 sek (või sagedamini) loeb roveri server esikaamera kaadri ArUco dekoodriga
+1. Iga ~1 sek (või sagedamini) loeb roveri server **ülespoole vaatava kaamera** kaadri ArUco dekoodriga
 2. Tunneb nähtava markeri ID → teab oma ruutu
-3. Kui üle värvitäpi sõidab, värviandur registreerib → täpsem positsioon
-4. Kui Hall-andur reageerib magnetile → kõige täpsem positsioon
+3. Kui üle värvitäpi sõidab, alt-vaatav värviandur registreerib → täpsem positsioon
+4. Kui alt-vaatav Hall-andur reageerib magnetile → kõige täpsem positsioon
 
 Need on **loomulik täiendus V3 raycastile**: raycast annab täpse koordinaadi *ette nähtavate* objektide jaoks; areeni standardvarustus annab koordinaadi, kus rover *ise* areenil asub.
 
@@ -205,7 +210,7 @@ Need on **loomulik täiendus V3 raycastile**: raycast annab täpse koordinaadi *
 |:---|:---|:---|
 | **README.md repo juures** | Mis see projekt on, milline rover, kuidas alustada | Markdown |
 | **Kokkupanekujuhend** | Samm-sammuline, piltidega, igal sammul mida vaja, mida teha, mida kontrollida | Markdown / PDF |
-| **3D prindifailid** | STL-id valideeritud printimise seadetega (orientatsioon, tugestinad, täituvus iga detaili kohta) | STL + tabel märgistustega |
+| **3D prindifailid + CAD lähtefailid** | STL-id valideeritud printimise seadetega (orientatsioon, tugestinad, täituvus iga detaili kohta) **JA** CAD lähtefailid — Fusion 360 puhul `.f3z`/`.f3d` arhiivid, CadQuery puhul `.py` skriptifailid. STL-id on eksport; tegelik disain peab olema avatav ja muudetav. | STL + .f3z/.f3d või .py + tabel märgistustega |
 | **BOM (Bill of Materials)** | Lõplik komponentide nimekiri tegelike hindade ja tarnijatega | CSV või Markdown tabel |
 | **Tarkvarapaigalduse juhend** | Repo cloneda → seadista → flashi MCU → käivita server → veebileht avaneb | Markdown |
 | **Hooldusjuhend** | Mis kulub kõige kiiremini, kuidas vahetada, kui sageli kontrollida | Markdown |
@@ -241,50 +246,7 @@ Need on **loomulik täiendus V3 raycastile**: raycast annab täpse koordinaadi *
 
 ---
 
-### 4. Meeskondade vahelised testmatšid
-
-**Eeldus:** kõikidel meeskondadel on viimistletud rover ja vähemalt üks operaator on liidesega harjunud.
-
-**Eesmärk:** viimane päris-elu kontroll enne tiraaži. Iga meeskond mängib teiste vastu päris matšitingimustes nii palju, kui infrastruktuur lubab. Iga matš annab kaks asja: **tulemus** (kes võitis) ja **leiud** (mis läks valesti, mida pole varem näinud).
-
-**Tähtis: päris mängu infrastruktuur (ülevaate kaamera, ametlik skoori-server) tõenäoliselt pole V5 ajaks valmis.** Testmatšid teed sama simuleeritud lähenemisega nagu V4-s:
-
-- **Areen** — areen ise (kui valmis) või põrandale paigutatud paberid punase värvi alaga
-- **Taimer** — telefon/kronomeeter, 90 sek
-- **Kohtunik** — inimene, hindab visuaalselt, kelle rover on lõpus paberil (≥ 70%)
-- **Operaatori liides** — sama mis V4-s, "ON KOHAL" indikaator on operaatori UX
-
-Kui täis-infrastruktuur **on** valmis, kasutad seda — kohtunik vaatab ülevaate kaameralt, server peab automaatselt arvet. Aga V5 ei sõltu sellest.
-
-**Matšikava:**
-
-- Iga meeskond mängib **vähemalt 2 matši vastasmeeskondade vastu** (ringturniir, kui võimalik)
-- Matš = **90 sekundit** (vt V4 mängu reeglid)
-- Skoori hindab kohtunik visuaalselt (või automaatselt ülevaate kaameralt, kui valmis). Rovveri "ON KOHAL" indikaator on operaatori-poolne tagasiside, mitte ametlik skoor.
-- Kohtunik kinnitab tulemuse, lahendab vaidlused
-
-**Mida iga matši järel logida:**
-
-| Andme | Miks |
-|:---|:---|
-| Lõppskoor (kohtuniku otsusena) | Tulemus |
-| Voorude käik (kus oli skoor 10, 30, 60 sek peal) | Strateegia analüüsiks |
-| Tehnilised vead (WiFi katkestused, taaskäivitused, anduri probleemid) | Usaldusväärsuse jälgimine — V4 oli sünteetiline test, see on päris koormus |
-| Millist autonoomsuse astet meeskond kasutas | Erinevate strateegiate võrdlus |
-| Probleemid, mida varem polnud — riistvaras, tarkvaras või operaatori arusaamises | Tagasiside V5 viimistluse jaoks |
-
-**Testmatšid annavad sageli üllatusi, mida sünteetilised testid ei näita:**
-
-- Kaks roverit lähevad samale alale → kohtunik hindab, kelle rover katab ala rohkem (≥ 70% lävi)
-- Operaator klõpsab teise meeskonna roverile (sarnane välimus) → vaja selgemaid meeskonna märgiseid
-- Claude Code agent läheb segadusse, kui pildil on müra (teised roverid kaadris) → vaja paremat tööriistadokumentatsiooni või eesmärgi sõnastust
-- Värviandur näeb hetkeks vastase roveri varju → operaatori indikaator eksib hetkeks
-
-Iga selline asi on V5 viimase päeva-paari sisend. Kui sul on aega tagasi tulla ja parandada — tee. Kui ei, dokumenteeri "teadaolevate probleemide" nimekirja.
-
----
-
-### 5. Operaatori juhend — 1 lehekülg
+### 4. Operaatori juhend — 1 lehekülg
 
 **Eeldus:** rover töötab ja autonoomsuse astmed töötavad.
 
@@ -431,47 +393,10 @@ See refleksioon ei ole jutuke — see on kõige väärtuslikum osa, mida sa terv
 
 | Kategooria | Punktid | Mida hinnatakse |
 |:---|:---|:---|
-| Tööfailid | 4 p | Lõplik kood, STL-id, BOM, fotod ja videod |
+| Tööfailid | 4 p | Lõplik kood, STL-id **ja CAD lähtefailid** (Fusion `.f3z`/`.f3d` või CadQuery `.py`), BOM, fotod ja videod |
 | Analüüs | 4 p | 3 Jupyter notebook'i (tiraaži ajaeelarve, dokumentatsiooni läbikäik, V1–V4 koondgraafik) |
-| Prototüüp | 4 p | Rover on viimistletud, asukoha määramine (ArUco lakke) töötab, testmatšid läbi viidud, tulemused dokumenteeritud |
+| Prototüüp | 4 p | Rover on viimistletud, asukoha määramine (ArUco lakke) töötab, tulemused dokumenteeritud |
 | Dokumentatsioon | 4 p | Tiraaživalmis (kokkupanek, tarkvara, hooldus, operaatori juhend, teadaolevad probleemid) |
 | Küsimused-vastused | 4 p | Demo kohtumisel + refleksioon: mis õpitu kandub edasi järgmistesse projektidesse? |
 | **Kokku** | **20 p** | |
 
----
-
-### YouTube/AI otsisõnade koondnimekiri
-
-**Dokumentatsioon ja tiraaž:**
-
-- `technical documentation best practices`
-- `assembly instructions photography tutorial`
-- `BOM bill of materials template`
-- `readme github structure best practices`
-- `3D print farm production time estimate`
-
-**Testmatšid ja kohtunikutöö:**
-
-- `robot tournament scoring system`
-- `multi-team match logging`
-- `referee software arena game`
-
-**Andmeanalüüs ja koondvaade:**
-
-- `pandas concatenate multiple csv files`
-- `matplotlib subplots time series`
-- `seaborn comparison bar chart`
-- `jupyter notebook executive summary`
-
-**Asukoha määramine (ArUco):**
-
-- `OpenCV ArUco marker detection tutorial`
-- `ceiling marker robot localization`
-- `aruco DICT_4X4_50 print A4`
-- `ArUco vs QR code distance readable`
-
-**Refleksioon ja õpiväljundid:**
-
-- `post-mortem engineering project`
-- `agile retrospective format`
-- `lessons learned documentation`

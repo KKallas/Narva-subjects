@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cyber Defense — Simulator</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #05060c; color: #cfd8e3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  body { display: flex; flex-direction: column; }
+  #top { flex: 1 1 auto; position: relative; min-height: 0; }
+  #stage { display: block; width: 100%; height: 100%; cursor: default; }
+  #controls {
+    flex: 0 0 auto; height: 50px;
+    background: linear-gradient(to top, #0a0c18, #060810);
+    border-top: 1px solid #1a2030;
+    display: flex; flex-direction: column;
+    padding: 6px 20px;
+    z-index: 10;
+  }
+  /* ---- operator joint panels ---- */
+  #jointPanels {
+    flex: 0 0 auto; height: 294px;
+    display: flex; gap: 16px;
+    padding: 12px 20px 16px;
+    background: linear-gradient(to top, #06070e, #0a0c18);
+    border-top: 1px solid #1a2030;
+  }
+  .teamPanel {
+    flex: 1; background: #0a0e18; border: 1px solid #1a2030;
+    border-radius: 6px; padding: 12px 18px;
+    display: flex; flex-direction: column; gap: 11px;
+  }
+  .teamPanel.red  { border-color: #3a1620; }
+  .teamPanel.blue { border-color: #15273f; }
+  .teamHead {
+    font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .teamHead .sub { font-size: 10px; font-weight: 400; color: #5a6378; letter-spacing: 0.5px; }
+  .sliderRow { display: flex; align-items: center; gap: 12px; }
+  .sliderRow label { width: 70px; font-size: 12px; color: #8a92a8; }
+  .sliderRow .val {
+    width: 56px; text-align: right; font-size: 12px;
+    font-variant-numeric: tabular-nums; color: #cfd8e3;
+  }
+  .jslider {
+    flex: 1; -webkit-appearance: none; appearance: none;
+    height: 5px; background: #1a2030; border-radius: 3px; outline: none;
+    pointer-events: none;  /* scenario-driven, read-only */
+  }
+  .jslider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 13px; height: 13px; border-radius: 50%; border: none;
+  }
+  .jslider::-moz-range-thumb { width: 13px; height: 13px; border-radius: 50%; border: none; }
+  .jslider.red::-webkit-slider-thumb   { background: #ff3355; box-shadow: 0 0 6px #ff3355; }
+  .jslider.red::-moz-range-thumb       { background: #ff3355; box-shadow: 0 0 6px #ff3355; }
+  .jslider.blue::-webkit-slider-thumb  { background: #3a8cff; box-shadow: 0 0 6px #3a8cff; }
+  .jslider.blue::-moz-range-thumb      { background: #3a8cff; box-shadow: 0 0 6px #3a8cff; }
+  .suctionRow { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8a92a8; margin-top: 2px; }
+  .lamp {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #222a3a; box-shadow: inset 0 0 4px #000; transition: all 0.2s;
+  }
+  .lamp.on { background: #44ff88; box-shadow: 0 0 10px #44ff88; }
+  .suctState { font-weight: 700; color: #8a92a8; letter-spacing: 1px; }
+  /* live (user-driven) operator controls */
+  .jslider.driveable { pointer-events: auto; cursor: pointer; height: 7px; }
+  .teamPanel.driving { border-color: #3a8cff; box-shadow: 0 0 0 1px #3a8cff inset; }
+  .suctBtn {
+    margin-left: auto; padding: 3px 12px; font-size: 12px;
+    background: #15273f; border: 1px solid #2a6fc4; color: #cfe0ff; border-radius: 4px; cursor: pointer;
+  }
+  .suctBtn:hover { background: #1f4d8a; }
+  .suctBtn.on { background: #1f7a4d; border-color: #44ff88; color: #eafff2; }
+  #liveToggle.on { background: #1f4d8a; border-color: #3a8cff; color: #fff; }
+  .row { display: flex; align-items: center; gap: 14px; flex: 1; }
+  .row.top { gap: 18px; }
+  button {
+    background: #131826; color: #cfd8e3; border: 1px solid #2a3142;
+    padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px;
+    font-family: inherit; transition: all 0.15s;
+  }
+  button:hover { background: #1a2030; border-color: #3a4258; color: #fff; }
+  button.primary { background: #1f4d8a; border-color: #2a6fc4; color: #fff; }
+  button.primary:hover { background: #2a6fc4; }
+  #scrubBar {
+    flex: 1; height: 6px; appearance: none; background: #1a2030;
+    border-radius: 3px; outline: none; cursor: pointer; position: relative;
+  }
+  #scrubBar::-webkit-slider-thumb {
+    appearance: none; width: 16px; height: 16px; background: #4a9eff;
+    border-radius: 50%; cursor: pointer; box-shadow: 0 0 8px #4a9eff;
+  }
+  #scrubBar::-moz-range-thumb {
+    width: 16px; height: 16px; background: #4a9eff; border: none;
+    border-radius: 50%; cursor: pointer; box-shadow: 0 0 8px #4a9eff;
+  }
+  #scrubWrap {
+    flex: 1; position: relative; height: 20px; display: flex; align-items: center;
+  }
+  #markerLayer {
+    position: absolute; left: 0; right: 0; top: -2px; height: 10px;
+    pointer-events: none;
+  }
+  .event-marker {
+    position: absolute; width: 2px; height: 10px; background: #ffaa00;
+    transform: translateX(-1px); box-shadow: 0 0 4px #ffaa00;
+  }
+  .event-label {
+    position: absolute; top: -18px; transform: translateX(-50%);
+    font-size: 10px; color: #ffaa00; white-space: nowrap;
+    text-shadow: 0 0 4px rgba(0,0,0,0.8);
+  }
+  #timeDisplay {
+    color: #8a92a8; font-size: 13px; font-variant-numeric: tabular-nums;
+    min-width: 110px; text-align: center;
+  }
+  #endingLabel { color: #4a9eff; font-size: 12px; font-weight: 600; }
+  .live-event {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    font-size: 28px; font-weight: 700; color: #fff;
+    text-shadow: 0 0 12px currentColor;
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; z-index: 5;
+    letter-spacing: 2px;
+  }
+  .live-event.visible { opacity: 1; }
+  /* ---- Level 2: click-on-image control surface ---- */
+  #clickPanels {
+    flex: 0 0 auto; height: 294px;
+    display: none;                 /* shown when GUI = Level 2 */
+    align-items: center; justify-content: center;
+    gap: 24px;
+    padding: 10px 20px 14px;
+    background: linear-gradient(to top, #06070e, #0a0c18);
+    border-top: 1px solid #1a2030;
+  }
+  #clickPanels .cropWrap {
+    height: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  #clickPanels canvas {
+    height: 230px; width: auto; border-radius: 6px;
+    border: 1px solid #1a2030; background: #05070e;
+  }
+  #clickPanels .cropCap { font-size: 11px; color: #8a92a8; letter-spacing: 0.5px; }
+  #clickPanels .legend { display: flex; gap: 16px; font-size: 11px; color: #8a92a8; }
+  #clickPanels .legend b { font-weight: 700; }
+</style>
+</head>
+<body>
+<div id="top">
+  <canvas id="stage"></canvas>
+  <div id="liveEvent" class="live-event"></div>
+</div>
+<div id="controls">
+  <div class="row top">
+    <button id="playPause" class="primary">⏸ Pause</button>
+    <div id="scrubWrap">
+      <div id="markerLayer"></div>
+      <input id="scrubBar" type="range" min="0" max="90" step="0.1" value="0">
+    </div>
+    <span id="timeDisplay">0:00 / 1:30</span>
+    <span id="endingLabel">SURVIVAL WIN</span>
+    <button id="restartBtn">↻ Restart</button>
+    <button id="endingToggle">Toggle Ending</button>
+    <button id="guiToggle">GUI: L1 Joint sliders</button>
+    <button id="liveToggle">🎮 Play BLUE</button>
+  </div>
+</div>
+<div id="jointPanels">
+  <div class="teamPanel red">
+    <div class="teamHead" style="color:#ff3355">RED ROBOT <span class="sub">operator input — what the player dials in</span></div>
+    <div class="sliderRow"><label>Base rot.</label><input class="jslider red" id="red_base" type="range" min="-180" max="180" value="0"><span class="val" id="red_base_v">0°</span></div>
+    <div class="sliderRow"><label>Joint A rot.</label><input class="jslider red" id="red_A" type="range" min="-180" max="180" value="0"><span class="val" id="red_A_v">0°</span></div>
+    <div class="sliderRow"><label>Joint B rot.</label><input class="jslider red" id="red_B" type="range" min="-180" max="180" value="0"><span class="val" id="red_B_v">0°</span></div>
+    <div class="suctionRow"><span>Suction</span><span class="lamp" id="red_lamp"></span><span class="suctState" id="red_suct">OFF</span></div>
+  </div>
+  <div class="teamPanel blue">
+    <div class="teamHead" style="color:#3a8cff">BLUE ROBOT <span class="sub">operator input — what the player dials in</span></div>
+    <div class="sliderRow"><label>Base rot.</label><input class="jslider blue" id="blu_base" type="range" min="-180" max="180" value="0"><span class="val" id="blu_base_v">0°</span></div>
+    <div class="sliderRow"><label>Joint A rot.</label><input class="jslider blue" id="blu_A" type="range" min="-180" max="180" value="0"><span class="val" id="blu_A_v">0°</span></div>
+    <div class="sliderRow"><label>Joint B rot.</label><input class="jslider blue" id="blu_B" type="range" min="-180" max="180" value="0"><span class="val" id="blu_B_v">0°</span></div>
+    <div class="suctionRow"><span>Suction</span><span class="lamp" id="blu_lamp"></span><span class="suctState" id="blu_suct">OFF</span><button id="blu_suctBtn" class="suctBtn" style="display:none">Grab ▼</button></div>
+  </div>
+</div>
+<div id="clickPanels">
+  <div class="cropWrap">
+    <div class="cropCap" style="color:#ff3355"><b>RED operator</b> — camera view · click tool to pick · click board to place</div>
+    <canvas id="cropCanvasRed" width="600" height="455"></canvas>
+  </div>
+  <div class="cropWrap">
+    <div class="cropCap" style="color:#3a8cff"><b>BLUE operator</b> — camera view · click tool to pick · click board to place</div>
+    <canvas id="cropCanvasBlue" width="600" height="455"></canvas>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+// ============================================================
+// CONFIG & CONSTANTS
+// ============================================================
+const W = 1600, H = 900;  // internal logical coordinates
+const TOOL_NAMES = ['NEUTRALIZE', 'HONEYPOT', 'SANDBOX', 'DDOS', 'UPGRADE'];
+const TOOL_COLORS = {
+  NEUTRALIZE: '#ff4488',
+  HONEYPOT:   '#ffaa00',
+  SANDBOX:    '#44ddff',
+  DDOS:       '#aa44ff',
+  UPGRADE:    '#44ff88'
+};
+// Internal team keys stay 'red' / 'green'; the second team is shown as BLUE.
+const TEAM_COLORS = { red: '#ff3355', green: '#3a8cff', neutral: '#999999' };
+const TEAM_LABEL  = { red: 'RED', green: 'BLUE', neutral: '—' };
+
+// Layout regions
+const HUD_H = 60;
+const TOOLBOX_Y = HUD_H + 20;
+const TOOLBOX_H = 110;
+const SCREEN_X = 280, SCREEN_Y = 220, SCREEN_W = 1040, SCREEN_H = 640;
+const ASSET_W = 320;
+// Toolbox is the same width as the asset, centred above the screen.
+const TOOLBOX_W = ASSET_W;
+const TOOLBOX_X = SCREEN_X + SCREEN_W / 2 - TOOLBOX_W / 2;
+const TOOL_SIZE = 32;   // ArUco marker size (was 48 — ~1/3 smaller)
+const ROBOT_RED_BASE = { x: 80, y: H/2 + 30 };
+const ROBOT_GREEN_BASE = { x: W - 80, y: H/2 + 30 };
+const TOOLBOX_SLOTS = [];
+for (let i = 0; i < 5; i++) {
+  TOOLBOX_SLOTS.push({ x: TOOLBOX_X + 32 + i * (TOOLBOX_W - 64) / 4, y: TOOLBOX_Y + TOOLBOX_H/2 });
+}
+
+// ============================================================
+// CANVAS SETUP
+// ============================================================
+const canvas = document.getElementById('stage');
+const ctx = canvas.getContext('2d');
+let scale = 1, offsetX = 0, offsetY = 0;
+
+// Level-2 "camera view" crop: the central board (toolbox + screen), no arms.
+const CROP_X = SCREEN_X, CROP_Y = TOOLBOX_Y - 10;
+const CROP_W = SCREEN_W, CROP_H = (SCREEN_Y + SCREEN_H) - (TOOLBOX_Y - 10);
+const cropCanvasRed = document.getElementById('cropCanvasRed');
+const cctxRed = cropCanvasRed.getContext('2d');
+const cropCanvasBlue = document.getElementById('cropCanvasBlue');
+const cctxBlue = cropCanvasBlue.getContext('2d');
+
+function resize() {
+  canvas.width = canvas.clientWidth * devicePixelRatio;
+  canvas.height = canvas.clientHeight * devicePixelRatio;
+  const sx = canvas.width / W, sy = canvas.height / H;
+  scale = Math.min(sx, sy);
+  offsetX = (canvas.width - W * scale) / 2;
+  offsetY = (canvas.height - H * scale) / 2;
+}
+window.addEventListener('resize', resize);
+resize();
+
+function applyTransform() {
+  ctx.setTransform(scale, 0, 0, scale, offsetX, offsetY);
+}
+
+// ============================================================
+// SIMULATION STATE
+// ============================================================
+let state = null;
+
+function freshState() {
+  return {
+    t: 0,
+    playing: true,
+    ending: 'win',
+    asset: { hp: 300, maxHp: 300, x: SCREEN_X + SCREEN_W/2, y: SCREEN_Y + 60 },
+    tools: TOOL_NAMES.map((name, i) => ({
+      id: i,
+      name,
+      // 'in_toolbox' / 'carried' / 'placed_active' / 'placed_spent'
+      mode: 'in_toolbox',
+      carrier: null,    // 'red' / 'green' / null
+      owner: null,      // 'red' / 'green' / null (team color)
+      x: TOOLBOX_SLOTS[i].x,
+      y: TOOLBOX_SLOTS[i].y,
+      placedAt: 0,
+      duration: 5,
+      effectActive: false,  // for Sandbox / DDoS sustained effects
+      effectStart: 0,
+      effectEnd: 0,
+    })),
+    threats: [],
+    robots: {
+      // Articulated arms: base pan + joint A + joint B, suction tip.
+      // homeBase = the "facing the board" direction (0° on the operator slider).
+      red:   makeRobot('red',   ROBOT_RED_BASE,   0,        +1),
+      green: makeRobot('green', ROBOT_GREEN_BASE, Math.PI,  -1),
+    },
+    scores: { red: 0, green: 0 },
+    particles: [],
+    flashes: [],
+    threatCounter: 0,
+    clicks: [],   // Level-2 operator clicks (pick/place), for the camera-view GUI
+  };
+}
+
+// ============================================================
+// SCENARIOS
+// Pre-scripted timelines of events.
+// Format: { t: seconds, do: (state) => {} }
+// ============================================================
+
+function spawnThreat(state, opts) {
+  const t = {
+    id: ++state.threatCounter,
+    x: SCREEN_X + (opts.x ?? SCREEN_W/2),
+    y: SCREEN_Y + SCREEN_H - 20,
+    vx: (opts.vx ?? 0),
+    vy: -(opts.speed ?? 30),
+    vectorLength: opts.length ?? 20,
+    frozen: 0,        // remaining freeze seconds
+    pulledTo: null,   // {x, y} if being pulled by DDoS
+    alive: true,
+    age: 0,
+  };
+  state.threats.push(t);
+}
+
+function spawnWave(state, count, opts = {}) {
+  for (let i = 0; i < count; i++) {
+    spawnThreat(state, {
+      x: 80 + Math.random() * (SCREEN_W - 160),
+      vx: (Math.random() - 0.5) * (opts.vxMax ?? 8),
+      speed: (opts.speedMin ?? 25) + Math.random() * (opts.speedRange ?? 15),
+      length: (opts.lengthMin ?? 10) + Math.random() * (opts.lengthRange ?? 15)
+    });
+  }
+}
+
+// Build a human-operator approach to (tx, ty): the operator dials the joints
+// PAST the spot (overshoot), corrects back with a couple of small adjustments,
+// settles on it, then lowers the tool down to commit. The arm follows these
+// waypoints, so the mirrored sliders show the overshoot + fine-tuning.
+function buildApproach(robot, tx, ty) {
+  const dx = tx - robot.tipX, dy = ty - robot.tipY;
+  const dist = Math.hypot(dx, dy) || 1;
+  const ux = dx / dist, uy = dy / dist;
+  const over = Math.min(130, dist * 0.18 + 45);   // how far the operator sails past
+  robot.plan = [
+    { x: tx + ux * over,        y: ty + uy * over },          // overshoot — went too far
+    { x: tx - ux * over * 0.40, y: ty - uy * over * 0.40 },   // corrected back, a touch short
+    { x: tx + ux * over * 0.12, y: ty + uy * over * 0.12 },   // small nudge forward
+    { x: tx,                    y: ty },                       // dialed in
+    { x: tx,                    y: ty + 16 },                  // lower the tool down → commit
+  ];
+  // Never let the overshoot sail PAST the target toward the other arm — that's
+  // what would make the two base→TCP lines cross. RED never overshoots right of
+  // its target; BLUE never overshoots left of its target.
+  if (robot.name === 'red')   robot.plan.forEach(wp => { wp.x = Math.min(wp.x, tx); });
+  else                        robot.plan.forEach(wp => { wp.x = Math.max(wp.x, tx); });
+  robot.planIdx = 0;
+  robot._commitX = tx;
+  robot._commitY = ty;
+  robot.targetX = robot.plan[0].x;
+  robot.targetY = robot.plan[0].y;
+}
+
+function recordClick(state, team, x, y, kind) {
+  state.clicks.push({ team, x, y, kind, t: state.t });
+  if (state.clicks.length > 14) state.clicks.shift();
+}
+
+function robotPickTool(state, robotName, toolId) {
+  const robot = state.robots[robotName];
+  const tool = state.tools[toolId];
+  robot.action = 'picking';
+  robot._pickToolId = toolId;
+  buildApproach(robot, tool.x, tool.y);
+  recordClick(state, robotName, tool.x, tool.y, 'pick');
+}
+
+function robotPlaceAt(state, robotName, screenX, screenY) {
+  const robot = state.robots[robotName];
+  robot.action = 'placing';
+  buildApproach(robot, SCREEN_X + screenX, SCREEN_Y + screenY);
+  recordClick(state, robotName, SCREEN_X + screenX, SCREEN_Y + screenY, 'place');
+}
+
+function showLiveEvent(text, color = '#fff') {
+  const el = document.getElementById('liveEvent');
+  el.textContent = text;
+  el.style.color = color;
+  el.classList.add('visible');
+  clearTimeout(el._hideTimer);
+  el._hideTimer = setTimeout(() => el.classList.remove('visible'), 1600);
+}
+
+// Helper for scenario authoring
+const E = (t, fn, label) => ({ t, do: fn, label });
+
+function buildWinScenario() {
+  // SIDE DISCIPLINE so the two arms never cross: RED works the LEFT half
+  // (screenX ≤ 420 → world ≤ 700) with tools 0 & 1; BLUE works the RIGHT half
+  // (screenX ≥ 620 → world ≥ 900) with tools 2, 3 & 4. Each team only ever
+  // picks/places/reuses its own tools, so RED's TCP stays left of BLUE's.
+  return [
+    E(0.5, s => showLiveEvent('GAME START', '#4a9eff')),
+
+    // Calm opening
+    E(2.0, s => spawnThreat(s, { x: 150, speed: 22, length: 8 })),
+    E(3.5, s => spawnThreat(s, { x: 420, speed: 25, length: 10 })),
+
+    // RED arms Neutralize (left)
+    E(3.0, s => robotPickTool(s, 'red', 0)),
+    E(7.0, s => robotPlaceAt(s, 'red', 180, 470)),
+    E(7.5, s => showLiveEvent('NEUTRALIZE ARMED', '#ff4488')),
+    E(12.8, s => { fireToolEffect(s, 0); showLiveEvent('NEUTRALIZE', '#ff4488'); }),
+
+    // BLUE arms DDoS (right)
+    E(4.5, s => robotPickTool(s, 'green', 3)),
+    E(9.0, s => spawnThreat(s, { x: 880, speed: 28, length: 12 })),
+    E(9.0, s => robotPlaceAt(s, 'green', 760, 450)),
+    E(9.5, s => showLiveEvent('DDoS DEPLOYED', '#aa44ff')),
+    E(15.0, s => { fireToolEffect(s, 3); showLiveEvent('DDoS FIRES', '#aa44ff'); }),
+
+    E(15.5, s => spawnWave(s, 3, { speedMin: 28, lengthMin: 10, lengthRange: 12 })),
+    E(18.0, s => spawnThreat(s, { x: 820, speed: 30, length: 15 })),
+
+    // RED arms Honeypot (left) — it backfires
+    E(16.0, s => robotPickTool(s, 'red', 1)),
+    E(20.5, s => robotPlaceAt(s, 'red', 300, 500)),
+    E(21.0, s => showLiveEvent('HONEYPOT PLACED', '#ffaa00')),
+    E(25.5, s => {
+      const tool = s.tools[1];
+      for (let i = 0; i < 4; i++) {
+        spawnThreat(s, {
+          x: (tool.x - SCREEN_X) + (Math.random() - 0.5) * 180,
+          vx: (Math.random() - 0.5) * 20,
+          speed: 40 + Math.random() * 10,
+          length: 5 + Math.random() * 3
+        });
+      }
+      tool.mode = 'placed_spent';
+      addParticleBurst(s, tool.x, tool.y, '#ffaa00', 60);
+      showLiveEvent('HONEYPOT FAILS!', '#ff6633');
+    }),
+
+    // BLUE plays SOFTWARE UPGRADE — the selfless move (right)
+    E(22.0, s => robotPickTool(s, 'green', 4)),
+    E(26.5, s => robotPlaceAt(s, 'green', 820, 300)),
+    E(31.8, s => {
+      fireToolEffect(s, 4);
+      s.threats.forEach(t => t.vectorLength *= 0.5);
+      showLiveEvent('SOFTWARE UPGRADE — VECTORS −50%', '#44ff88');
+      addParticleBurst(s, s.tools[4].x, s.tools[4].y, '#44ff88', 100);
+      s.flashes.push({ color: 'rgba(68,255,136,0.18)', t: s.t, duration: 0.8 });
+    }),
+
+    E(32.0, s => spawnWave(s, 3, { speedMin: 30, lengthMin: 12, lengthRange: 12 })),
+
+    // RED reuses its own Neutralize (left)
+    E(28.0, s => robotPickTool(s, 'red', 0)),
+    E(32.5, s => robotPlaceAt(s, 'red', 240, 440)),
+    E(37.5, s => { fireToolEffect(s, 0); showLiveEvent('NEUTRALIZE', '#ff4488'); }),
+
+    // BLUE reuses its own DDoS (right)
+    E(34.0, s => robotPickTool(s, 'green', 3)),
+    E(38.5, s => robotPlaceAt(s, 'green', 800, 470)),
+    E(43.5, s => { fireToolEffect(s, 3); showLiveEvent('DDoS', '#aa44ff'); }),
+
+    E(40.0, s => spawnWave(s, 3, { speedMin: 32, lengthMin: 10, lengthRange: 10 })),
+    E(45.0, s => spawnWave(s, 3, { speedMin: 32, lengthMin: 10, lengthRange: 10 })),
+
+    // BLUE brings the Sandbox down from the centre slot (right) while RED is far left
+    E(46.0, s => robotPickTool(s, 'green', 2)),
+    E(50.5, s => robotPlaceAt(s, 'green', 660, 420)),
+    E(55.5, s => { fireToolEffect(s, 2); showLiveEvent('SANDBOX', '#44ddff'); }),
+
+    // RED reuses its Honeypot — this time it lands (left)
+    E(48.0, s => robotPickTool(s, 'red', 1)),
+    E(52.5, s => robotPlaceAt(s, 'red', 360, 470)),
+    E(57.5, s => { fireToolEffect(s, 1); showLiveEvent('HONEYPOT CLEARS', '#ffaa00'); }),
+
+    E(60.0, s => spawnWave(s, 3, { speedMin: 33, lengthMin: 10, lengthRange: 10 })),
+    E(63.0, s => spawnWave(s, 2, { speedMin: 35, lengthMin: 10, lengthRange: 10 })),
+
+    // Final flurry — each on its own side
+    E(60.5, s => robotPickTool(s, 'green', 4)),
+    E(64.5, s => robotPlaceAt(s, 'green', 800, 460)),
+    E(69.5, s => {
+      fireToolEffect(s, 4);
+      s.threats.forEach(t => t.vectorLength *= 0.7);
+      showLiveEvent('SOFTWARE UPGRADE', '#44ff88');
+      s.flashes.push({ color: 'rgba(68,255,136,0.14)', t: s.t, duration: 0.6 });
+    }),
+
+    E(62.0, s => robotPickTool(s, 'red', 0)),
+    E(66.0, s => robotPlaceAt(s, 'red', 300, 470)),
+    E(71.0, s => { fireToolEffect(s, 0); showLiveEvent('NEUTRALIZE', '#ff4488'); }),
+
+    E(72.0, s => spawnWave(s, 2, { speedMin: 34, lengthMin: 8, lengthRange: 10 })),
+
+    E(74.0, s => robotPickTool(s, 'green', 3)),
+    E(78.0, s => robotPlaceAt(s, 'green', 760, 480)),
+    E(83.0, s => { fireToolEffect(s, 3); showLiveEvent('DDoS', '#aa44ff'); }),
+
+    E(88.0, s => showLiveEvent('FINAL SECONDS', '#ffaa00')),
+    E(90.0, s => {
+      s.playing = false;
+      const winner = s.scores.green > s.scores.red ? 'BLUE' : 'RED';
+      const color = s.scores.green > s.scores.red ? '#3a8cff' : '#ff3355';
+      showLiveEvent(`${winner} WINS — ${Math.max(s.scores.red, s.scores.green)} vs ${Math.min(s.scores.red, s.scores.green)}`, color);
+      addBigBurst(s, s.asset.x, s.asset.y, '#44ff88');
+    }),
+  ];
+}
+
+function buildDefeatScenario() {
+  // Same side discipline as the win run: RED (left) uses tools 0 & 1, BLUE
+  // (right) uses tools 2, 3 & 4 — the arms never cross even as they lose.
+  return [
+    E(0.5, s => showLiveEvent('GAME START', '#4a9eff')),
+
+    E(1.5, s => spawnThreat(s, { x: 250, speed: 25, length: 12 })),
+    E(2.5, s => spawnThreat(s, { x: 720, speed: 28, length: 15 })),
+
+    // RED neutralize (left)
+    E(3.0, s => robotPickTool(s, 'red', 0)),
+    E(6.5, s => robotPlaceAt(s, 'red', 220, 460)),
+    E(10.5, s => { fireToolEffect(s, 0); showLiveEvent('NEUTRALIZE', '#ff4488'); }),
+
+    E(10.0, s => spawnWave(s, 4, { speedMin: 28, lengthMin: 15 })),
+
+    // BLUE sandbox (right) — placed too far from the swarm
+    E(11.0, s => robotPickTool(s, 'green', 2)),
+    E(15.0, s => robotPlaceAt(s, 'green', 700, 380)),
+    E(20.0, s => { fireToolEffect(s, 2); showLiveEvent('SANDBOX', '#44ddff'); }),
+
+    // RED honeypot (left) — FAILS
+    E(13.0, s => robotPickTool(s, 'red', 1)),
+    E(17.0, s => robotPlaceAt(s, 'red', 320, 430)),
+    E(22.0, s => {
+      const tool = s.tools[1];
+      for (let i = 0; i < 8; i++) {
+        spawnThreat(s, {
+          x: (tool.x - SCREEN_X) + (Math.random() - 0.5) * 220,
+          vx: (Math.random() - 0.5) * 15,
+          speed: 42 + Math.random() * 12,
+          length: 8 + Math.random() * 5
+        });
+      }
+      tool.mode = 'placed_spent';
+      addParticleBurst(s, tool.x, tool.y, '#ffaa00', 80);
+      showLiveEvent('HONEYPOT FAILS!', '#ff6633');
+    }),
+
+    E(20.0, s => spawnWave(s, 4, { speedMin: 35, lengthMin: 18 })),
+    E(24.0, s => spawnWave(s, 4, { speedMin: 36, lengthMin: 18 })),
+
+    // BLUE ddos (right)
+    E(26.0, s => robotPickTool(s, 'green', 3)),
+    E(30.0, s => robotPlaceAt(s, 'green', 640, 400)),
+    E(35.0, s => { fireToolEffect(s, 3); showLiveEvent('DDoS', '#aa44ff'); }),
+
+    E(30.0, s => spawnWave(s, 6, { speedMin: 38, lengthMin: 20, lengthRange: 15 })),
+    E(40.0, s => spawnWave(s, 8, { speedMin: 40, lengthMin: 22, lengthRange: 15 })),
+
+    // BLUE software upgrade (right) — too late
+    E(42.0, s => robotPickTool(s, 'green', 4)),
+    E(46.0, s => robotPlaceAt(s, 'green', 780, 320)),
+    E(51.0, s => {
+      fireToolEffect(s, 4);
+      s.threats.forEach(t => t.vectorLength *= 0.7);
+      showLiveEvent('SOFTWARE UPGRADE — TOO LATE', '#44ff88');
+      addParticleBurst(s, s.tools[4].x, s.tools[4].y, '#44ff88', 100);
+      s.flashes.push({ color: 'rgba(68,255,136,0.15)', t: s.t, duration: 0.6 });
+    }),
+
+    E(52.0, s => spawnWave(s, 6, { speedMin: 42, lengthMin: 20 })),
+
+    // Asset reaches critical — no more tools to use effectively
+    E(58.0, s => showLiveEvent('ASSET CRITICAL', '#ff3333')),
+    E(60.0, s => spawnWave(s, 8, { speedMin: 45, lengthMin: 22 })),
+
+    // Defeat — asset hits 0 somewhere in here
+    E(73.0, s => {
+      if (s.asset.hp > 0) {
+        s.asset.hp = 0;
+      }
+      s.playing = false;
+      addBigBurst(s, s.asset.x, s.asset.y, '#ff3333');
+      showLiveEvent('ASSET DESTROYED — BOTH TEAMS LOSE', '#ff3333');
+      s.flashes.push({ color: 'rgba(255,51,51,0.3)', t: s.t, duration: 2.0 });
+    }),
+  ];
+}
+
+// ------------------------------------------------------------
+// MISTAKE DEMO
+// Green arms a Neutralize on the board. Before it fires, RED reaches
+// for the wrong marker and lifts GREEN's already-placed tool off the
+// table. Picking up another team's armed tool cancels its countdown —
+// it never fires, the threats it would have cleared slip through, and
+// green's turn is wasted.
+// ------------------------------------------------------------
+function buildMistakeScenario() {
+  return [
+    E(0.5, s => showLiveEvent('GAME START', '#4a9eff')),
+
+    // A cluster of threats rising toward where BLUE will defend
+    E(1.5, s => spawnThreat(s, { x: 430, speed: 32, length: 16 })),
+    E(2.0, s => spawnThreat(s, { x: 510, speed: 32, length: 18 })),
+    E(2.6, s => spawnThreat(s, { x: 470, speed: 34, length: 14 })),
+
+    // BLUE arms a Neutralize right over the cluster
+    E(3.0, s => robotPickTool(s, 'green', 0)),
+    E(5.5, s => robotPlaceAt(s, 'green', 480, 470)),
+    E(6.6, s => showLiveEvent('BLUE ARMS NEUTRALIZE — fires in 5s', '#3a8cff')),
+
+    // More threats feed in; the armed tool WOULD have wiped them
+    E(7.0, s => spawnThreat(s, { x: 450, speed: 34, length: 16 })),
+    E(7.8, s => spawnThreat(s, { x: 520, speed: 34, length: 16 })),
+
+    // RED reaches for the wrong marker...
+    E(8.0, s => showLiveEvent('RED REACHES FOR THE WRONG MARKER…', '#ff3355')),
+    E(8.4, s => robotPickTool(s, 'red', 0)),   // red lifts BLUE's armed tool
+    // red arrives → pickup of an active opponent tool cancels its fire
+
+    // The moment it would have fired — but it's in red's gripper now
+    E(11.6, s => showLiveEvent("NEUTRALIZE NEVER FIRED — WASTED", '#ff6633')),
+
+    // The threats BLUE meant to clear now reach the asset
+    E(12.0, s => spawnThreat(s, { x: 480, speed: 38, length: 18 })),
+    E(13.0, s => spawnThreat(s, { x: 460, speed: 38, length: 16 })),
+    E(18.0, s => showLiveEvent('THREATS SLIP THROUGH — ASSET TAKES THE HIT', '#ff3355')),
+
+    E(26.0, s => showLiveEvent('LIFTING ANOTHER TEAM’S ARMED TOOL = A LOST TURN', '#ffaa00')),
+
+    // Settle, then stop on a clear teaching card
+    E(32.0, s => {
+      s.playing = false;
+      showLiveEvent('MISTAKE DEMO — pickup canceled the activation', '#ffaa00');
+      s.flashes.push({ color: 'rgba(255,170,0,0.12)', t: s.t, duration: 1.2 });
+    }),
+  ];
+}
+
+// ------------------------------------------------------------
+// FREE PLAY — the human drives BLUE; RED auto-defends the left.
+// No scripted BLUE moves: the operator's sliders + suction run that arm.
+// ------------------------------------------------------------
+function buildFreeplayScenario() {
+  const ev = [
+    E(0.5, s => showLiveEvent('FREE PLAY — you drive BLUE', '#3a8cff')),
+  ];
+  // Steady waves across the whole board for both sides to handle.
+  for (let t = 3; t < 88; t += 6) {
+    const n = 2 + ((Math.round(t / 6)) % 2);
+    ev.push(E(t, s => spawnWave(s, n, { speedMin: 24 + t * 0.12, lengthMin: 9, lengthRange: 12 })));
+  }
+  // Light RED auto-defender, LEFT half only (tools 0 & 1, reused) — never crosses BLUE.
+  const redBeats = [
+    [4,  s => robotPickTool(s, 'red', 0)],
+    [8,  s => robotPlaceAt(s, 'red', 220, 470)],
+    [13, s => { fireToolEffect(s, 0); }],
+    [16, s => robotPickTool(s, 'red', 1)],
+    [20, s => robotPlaceAt(s, 'red', 320, 500)],
+    [25, s => { fireToolEffect(s, 1); }],
+    [30, s => robotPickTool(s, 'red', 0)],
+    [34, s => robotPlaceAt(s, 'red', 260, 440)],
+    [39, s => { fireToolEffect(s, 0); }],
+    [45, s => robotPickTool(s, 'red', 1)],
+    [49, s => robotPlaceAt(s, 'red', 360, 480)],
+    [54, s => { fireToolEffect(s, 1); }],
+    [60, s => robotPickTool(s, 'red', 0)],
+    [64, s => robotPlaceAt(s, 'red', 300, 460)],
+    [69, s => { fireToolEffect(s, 0); }],
+    [74, s => robotPickTool(s, 'red', 1)],
+    [78, s => robotPlaceAt(s, 'red', 240, 500)],
+    [83, s => { fireToolEffect(s, 1); }],
+  ];
+  redBeats.forEach(([t, fn]) => ev.push(E(t, fn)));
+  ev.push(E(90, s => {
+    s.playing = false;
+    const youWin = s.scores.green >= s.scores.red && s.asset.hp > 0;
+    if (s.asset.hp <= 0) showLiveEvent('ASSET LOST — try again', '#ff3333');
+    else showLiveEvent(`TIME — BLUE ${Math.round(s.scores.green)} · RED ${Math.round(s.scores.red)}`,
+                       youWin ? '#3a8cff' : '#ff3355');
+  }));
+  return ev;
+}
+
+// Event markers shown on the scrub bar for the WIN scenario
+const WIN_MARKERS = [
+  { t: 12.8, label: 'Neutralize' },
+  { t: 15.0, label: 'DDoS' },
+  { t: 25.5, label: 'Honeypot fails' },
+  { t: 31.8, label: 'Software Upgrade' },
+  { t: 55.5, label: 'Sandbox' },
+  { t: 90.0, label: 'Win' },
+];
+const DEFEAT_MARKERS = [
+  { t: 10.5, label: 'Neutralize' },
+  { t: 22.0, label: 'Honeypot fails' },
+  { t: 51.0, label: 'Upgrade (late)' },
+  { t: 58.0, label: 'Critical' },
+  { t: 73.0, label: 'Defeat' },
+];
+const MISTAKE_MARKERS = [
+  { t: 5.5, label: 'Blue arms' },
+  { t: 8.4, label: 'Red grabs it' },
+  { t: 11.6, label: "Won't fire" },
+  { t: 32.0, label: 'Lost turn' },
+];
+const FREEPLAY_MARKERS = [];
+
+// ============================================================
+// EFFECT MECHANICS
+// ============================================================
+
+function fireToolEffect(state, toolId) {
+  const tool = state.tools[toolId];
+  if (tool.mode !== 'placed_active') return;
+  tool.mode = 'placed_spent';
+
+  const fx = tool.x, fy = tool.y;
+  const owner = tool.owner;
+
+  if (tool.name === 'NEUTRALIZE') {
+    // Clear every threat in a tight radius, credit owner
+    const radius = 150;
+    let gained = 0;
+    state.threats.forEach(t => {
+      if (!t.alive) return;
+      const d = Math.hypot(t.x - fx, t.y - fy);
+      if (d < radius) {
+        t.alive = false;
+        addThreatDeath(state, t, owner);
+        gained += t.vectorLength;
+      }
+    });
+    if (owner) state.scores[owner] += gained;
+    addParticleBurst(state, fx, fy, '#ff4488', 30);
+  }
+  else if (tool.name === 'HONEYPOT') {
+    // 50/50 — scripted in scenario for predictability; here just do "wipe all in range" version
+    const radius = 180;
+    state.threats.forEach(t => {
+      if (!t.alive) return;
+      const d = Math.hypot(t.x - fx, t.y - fy);
+      if (d < radius) {
+        t.alive = false;
+        addThreatDeath(state, t, owner);
+        if (owner) state.scores[owner] += t.vectorLength;
+      }
+    });
+    addParticleBurst(state, fx, fy, '#ffaa00', 50);
+  }
+  else if (tool.name === 'SANDBOX') {
+    // Quarantine: pull every threat in range out of play, credit owner.
+    // Keep the ring visible briefly for readability.
+    tool.effectActive = true;
+    tool.effectStart = state.t;
+    tool.effectEnd = state.t + 6;
+    const radius = 240;
+    let gained = 0;
+    state.threats.forEach(t => {
+      if (!t.alive) return;
+      const d = Math.hypot(t.x - fx, t.y - fy);
+      if (d < radius) {
+        t.alive = false;
+        addThreatDeath(state, t, owner);
+        gained += t.vectorLength;
+      }
+    });
+    if (owner) state.scores[owner] += gained;
+    addParticleBurst(state, fx, fy, '#44ddff', 50);
+  }
+  else if (tool.name === 'DDOS') {
+    // Absorb: drag every threat in a wide range into the trap, credit owner.
+    tool.effectActive = true;
+    tool.effectStart = state.t;
+    tool.effectEnd = state.t + 5;
+    const radius = 300;
+    let gained = 0;
+    state.threats.forEach(t => {
+      if (!t.alive) return;
+      const d = Math.hypot(t.x - fx, t.y - fy);
+      if (d < radius) {
+        t.alive = false;
+        addThreatDeath(state, t, owner);
+        gained += t.vectorLength;
+      }
+    });
+    if (owner) state.scores[owner] += gained;
+    addParticleBurst(state, fx, fy, '#aa44ff', 50);
+  }
+  else if (tool.name === 'UPGRADE') {
+    // System-wide optimization bonus; vector shorten handled in scenario
+    if (owner) state.scores[owner] += 30;
+  }
+}
+
+function addParticleBurst(state, x, y, color, count) {
+  for (let i = 0; i < count; i++) {
+    const ang = Math.random() * Math.PI * 2;
+    const sp = 100 + Math.random() * 250;
+    state.particles.push({
+      x, y,
+      vx: Math.cos(ang) * sp,
+      vy: Math.sin(ang) * sp,
+      life: 0.6 + Math.random() * 0.4,
+      age: 0,
+      color, size: 2 + Math.random() * 3
+    });
+  }
+}
+
+function addBigBurst(state, x, y, color) {
+  for (let i = 0; i < 200; i++) {
+    const ang = Math.random() * Math.PI * 2;
+    const sp = 150 + Math.random() * 500;
+    state.particles.push({
+      x, y,
+      vx: Math.cos(ang) * sp,
+      vy: Math.sin(ang) * sp,
+      life: 1.0 + Math.random() * 1.0,
+      age: 0,
+      color, size: 3 + Math.random() * 5
+    });
+  }
+}
+
+function addThreatDeath(state, threat, ownerColor) {
+  const color = ownerColor ? TEAM_COLORS[ownerColor] : '#ffffff';
+  for (let i = 0; i < 18; i++) {
+    const ang = Math.random() * Math.PI * 2;
+    const sp = 80 + Math.random() * 180;
+    state.particles.push({
+      x: threat.x, y: threat.y,
+      vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+      life: 0.4 + Math.random() * 0.4, age: 0,
+      color, size: 2 + Math.random() * 2
+    });
+  }
+}
+
+// ============================================================
+// UPDATE LOOP
+// ============================================================
+
+function runScheduledEvents(state, scenario, prevT, curT) {
+  for (const e of scenario) {
+    if (e.t > prevT && e.t <= curT) {
+      e.do(state);
+    }
+  }
+}
+
+// ---- Articulated arm: link lengths (base pedestal + upper + fore-arm) ----
+const ARM = { L0: 170, L1: 560, L2: 560 };
+
+function angWrap(a) {
+  while (a >  Math.PI) a -= 2 * Math.PI;
+  while (a < -Math.PI) a += 2 * Math.PI;
+  return a;
+}
+
+function makeRobot(name, base, homeBase, elbowSign) {
+  const r = {
+    name, base, homeBase, elbowSign,
+    L0: ARM.L0, L1: ARM.L1, L2: ARM.L2,
+    joints:      { base: homeBase, A: 0, B: 0 },  // current (eased) angles
+    jointTarget: { base: homeBase, A: 0, B: 0 },  // goal angles from IK
+    jointVel:    { base: 0, A: 0, B: 0 },          // angular velocity (for settle)
+    p1x: base.x, p1y: base.y, p2x: base.x, p2y: base.y,
+    tipX: base.x, tipY: base.y,
+    targetX: base.x + (name === 'red' ? 300 : -300), targetY: base.y - 60,
+    carrying: null, action: 'idle', suction: false, _pickToolId: null,
+    // Live-control fields (used when a human drives this arm):
+    userDriven: false,
+    userJoints: { base: homeBase, A: 0, B: 0 },  // joints the operator dials in
+    suctionDesired: false,                        // operator's grab/release toggle
+  };
+  const t = ikSolve(r, r.targetX, r.targetY);
+  r.joints = { ...t };
+  r.jointTarget = { ...t };
+  r.userJoints = { ...t };
+  fkCompute(r);
+  return r;
+}
+
+// Inverse kinematics: base pans toward the target, the two links reach it.
+function ikSolve(r, tx, ty) {
+  const bx = r.base.x, by = r.base.y;
+  const baseAng = Math.atan2(ty - by, tx - bx);
+  const p1x = bx + r.L0 * Math.cos(baseAng);
+  const p1y = by + r.L0 * Math.sin(baseAng);
+  let dx = tx - p1x, dy = ty - p1y;
+  let D = Math.hypot(dx, dy);
+  const maxR = r.L1 + r.L2 - 1, minR = Math.abs(r.L1 - r.L2) + 1;
+  D = Math.max(minR, Math.min(maxR, D));
+  let cosB = (D * D - r.L1 * r.L1 - r.L2 * r.L2) / (2 * r.L1 * r.L2);
+  cosB = Math.max(-1, Math.min(1, cosB));
+  const elbow = r.elbowSign * Math.acos(cosB);              // joint B (relative)
+  const targAng = Math.atan2(dy, dx);
+  const k1 = r.L1 + r.L2 * Math.cos(elbow);
+  const k2 = r.L2 * Math.sin(elbow);
+  const link1Ang = targAng - Math.atan2(k2, k1);            // absolute upper-arm angle
+  return { base: baseAng, A: angWrap(link1Ang - baseAng), B: elbow };
+}
+
+// Forward kinematics: place the joints and tip from current angles.
+function fkCompute(r) {
+  const a0 = r.joints.base;
+  r.p1x = r.base.x + r.L0 * Math.cos(a0);
+  r.p1y = r.base.y + r.L0 * Math.sin(a0);
+  const a1 = a0 + r.joints.A;
+  r.p2x = r.p1x + r.L1 * Math.cos(a1);
+  r.p2y = r.p1y + r.L1 * Math.sin(a1);
+  const a2 = a1 + r.joints.B;
+  r.tipX = r.p2x + r.L2 * Math.cos(a2);
+  r.tipY = r.p2y + r.L2 * Math.sin(a2);
+}
+
+function updateRobot(state, robot, dt) {
+  // Target joint angles. A user-driven arm follows the operator's dialed-in
+  // joints directly; a scripted arm solves IK toward its cartesian goal.
+  const tgt = robot.userDriven ? robot.userJoints : ikSolve(robot, robot.targetX, robot.targetY);
+  robot.jointTarget = tgt;
+
+  // Near-critically-damped follower: the arm tracks each waypoint cleanly.
+  // The overshoot/fine-tuning feel comes from the operator's WAYPOINTS, not
+  // from the spring bouncing.
+  const k = 70, c = 15;
+  ['base', 'A', 'B'].forEach(j => {
+    const diff = angWrap(tgt[j] - robot.joints[j]);
+    const acc = k * diff - c * robot.jointVel[j];
+    robot.jointVel[j] += acc * dt;
+    robot.joints[j] += robot.jointVel[j] * dt;
+  });
+  fkCompute(robot);
+
+  // Carried tool rides the suction tip.
+  if (robot.carrying !== null) {
+    const tool = state.tools[robot.carrying];
+    tool.x = robot.tipX;
+    tool.y = robot.tipY;
+  }
+
+  // ---- User-driven arm: suction grabs the tool under the tip / releases to place ----
+  if (robot.userDriven) {
+    if (robot.suctionDesired && robot.carrying === null) {
+      // Grab the nearest pickable tool within reach of the tip.
+      let best = null, bd = 60;
+      state.tools.forEach((tool, i) => {
+        if (tool.mode === 'carried') return;
+        const dd = Math.hypot(tool.x - robot.tipX, tool.y - robot.tipY);
+        if (dd < bd) { bd = dd; best = i; }
+      });
+      if (best !== null) {
+        const tool = state.tools[best];
+        const wasArmedByOther = tool.mode === 'placed_active' && tool.owner && tool.owner !== robot.name;
+        tool.mode = 'carried'; tool.carrier = robot.name; tool.owner = null;
+        tool.effectActive = false; tool._autoFireAt = null;
+        robot.carrying = best;
+        showLiveEvent(wasArmedByOther ? `${TEAM_LABEL[robot.name]} GRABS IT — WON'T FIRE`
+                                       : `${TEAM_LABEL[robot.name]} GRABS`, TEAM_COLORS[robot.name]);
+      }
+    } else if (!robot.suctionDesired && robot.carrying !== null) {
+      // Release → drop the tool here, armed with its timer.
+      const tool = state.tools[robot.carrying];
+      tool.mode = 'placed_active'; tool.owner = robot.name; tool.carrier = null;
+      tool.placedAt = state.t; tool.x = robot.tipX; tool.y = robot.tipY;
+      tool._autoFireAt = state.t + tool.duration;
+      robot.carrying = null;
+      showLiveEvent(`${TEAM_LABEL[robot.name]} DEPLOYS`, TEAM_COLORS[robot.name]);
+    }
+    robot.suction = robot.suctionDesired;
+    return;
+  }
+
+  // Reached the current waypoint?
+  const d = Math.hypot(robot.targetX - robot.tipX, robot.targetY - robot.tipY);
+  if (d < 12 && (robot.action === 'picking' || robot.action === 'placing')) {
+    if (robot.plan && robot.planIdx < robot.plan.length - 1) {
+      // Advance through the operator's approach: overshoot → correct → settle → drop.
+      robot.planIdx++;
+      robot.targetX = robot.plan[robot.planIdx].x;
+      robot.targetY = robot.plan[robot.planIdx].y;
+    } else {
+      // Reached the drop point — commit the action at the true target.
+      if (robot.action === 'picking') {
+        const toolId = robot._pickToolId;
+        if (toolId !== undefined && toolId !== null) {
+          const tool = state.tools[toolId];
+          const robotColor = robot.name;
+          // Picking lifts the tool onto the suction tip — it never returns to the
+          // tray. Lifting an armed tool cancels its pending fire and clears owner.
+          const wasArmedByOther = tool.mode === 'placed_active' && tool.owner && tool.owner !== robotColor;
+          const wasArmedByOwn   = tool.mode === 'placed_active' && tool.owner === robotColor;
+          tool.mode = 'carried';
+          tool.carrier = robotColor;
+          tool.owner = null;
+          tool.effectActive = false;
+          tool._autoFireAt = null;
+          robot.carrying = toolId;
+          if (wasArmedByOther) showLiveEvent(`${TEAM_LABEL[robotColor]} GRABS IT — WON'T FIRE`, TEAM_COLORS[robotColor]);
+          else if (wasArmedByOwn) showLiveEvent(`${TEAM_LABEL[robotColor]} PICKS IT UP`, TEAM_COLORS[robotColor]);
+          robot._pickToolId = null;
+        }
+      }
+      else if (robot.action === 'placing' && robot.carrying !== null) {
+        const tool = state.tools[robot.carrying];
+        tool.mode = 'placed_active';
+        tool.owner = robot.name;
+        tool.carrier = null;
+        tool.placedAt = state.t;
+        tool.x = robot._commitX;
+        tool.y = robot._commitY;
+        tool._autoFireAt = state.t + tool.duration;
+        robot.carrying = null;
+      }
+      robot.plan = null;
+      robot.action = 'idle';
+    }
+  }
+
+  // Suction is engaged whenever the arm is holding a marker.
+  robot.suction = robot.carrying !== null;
+}
+
+function updateState(state, scenario, dt) {
+  if (!state.playing) return;
+  const prevT = state.t;
+  state.t += dt;
+  if (state.t > 92) state.t = 92;
+
+  runScheduledEvents(state, scenario, prevT, state.t);
+
+  // Auto-fire any tool whose timer ran out without explicit scenario call
+  state.tools.forEach((tool, i) => {
+    if (tool.mode === 'placed_active' && tool._autoFireAt && state.t >= tool._autoFireAt) {
+      tool._autoFireAt = null;
+      fireToolEffect(state, i);
+    }
+  });
+
+  // Robots
+  updateRobot(state, state.robots.red, dt);
+  updateRobot(state, state.robots.green, dt);
+
+  // Threats: motion, asset damage
+  state.threats.forEach(t => {
+    if (!t.alive) return;
+    t.age += dt;
+    if (t.frozen > 0) {
+      t.frozen -= dt;
+      return;
+    }
+    // DDoS pull
+    if (t.pulledTo) {
+      const tool = state.tools[t.pulledTo.toolId];
+      if (tool && tool.effectActive && state.t < tool.effectEnd) {
+        const dx = tool.x - t.x, dy = tool.y - t.y;
+        const d = Math.hypot(dx, dy);
+        if (d > 10) {
+          const sp = 60;
+          t.x += (dx / d) * sp * dt;
+          t.y += (dy / d) * sp * dt;
+        }
+        return;
+      } else {
+        t.pulledTo = null;
+      }
+    }
+    t.x += t.vx * dt;
+    t.y += t.vy * dt;
+    // Hit asset?
+    if (t.y < SCREEN_Y + 100) {
+      // In the win run the defenders are holding, so leaked hits sting less —
+      // the asset survives on its own merits rather than on the safety floor.
+      const dmgScale = state.ending === 'win' ? 0.55 : 1;
+      state.asset.hp -= t.vectorLength * dmgScale;
+      if (state.asset.hp < 0) state.asset.hp = 0;
+      t.alive = false;
+      state.flashes.push({ color: 'rgba(255,80,80,0.25)', t: state.t, duration: 0.3 });
+      // damage particles
+      for (let i = 0; i < 12; i++) {
+        const ang = -Math.PI/2 + (Math.random() - 0.5);
+        const sp = 100 + Math.random() * 200;
+        state.particles.push({
+          x: t.x, y: t.y,
+          vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp,
+          life: 0.5, age: 0, color: '#ff3333', size: 3
+        });
+      }
+    }
+    // Boundary
+    if (t.x < SCREEN_X + 20) t.vx = Math.abs(t.vx);
+    if (t.x > SCREEN_X + SCREEN_W - 20) t.vx = -Math.abs(t.vx);
+  });
+  state.threats = state.threats.filter(t => t.alive || t.age < 100);
+  state.threats = state.threats.filter(t => t.alive);
+
+  // Survival guarantee: in the WIN run the defenders hold the line, so the
+  // asset never falls below a safe floor — it ends the round clearly alive.
+  if (state.ending === 'win' && state.asset.hp < 90) state.asset.hp = 90;
+
+  // Sustained effects
+  state.tools.forEach(tool => {
+    if (tool.effectActive && state.t >= tool.effectEnd) {
+      tool.effectActive = false;
+    }
+  });
+
+  // Particles
+  state.particles.forEach(p => {
+    p.age += dt;
+    p.x += p.vx * dt;
+    p.y += p.vy * dt;
+    p.vx *= 0.96; p.vy *= 0.96;
+  });
+  state.particles = state.particles.filter(p => p.age < p.life);
+
+  // Flashes decay
+  state.flashes = state.flashes.filter(f => state.t - f.t < f.duration);
+
+  // Asset HP is clamped to 0 above. The scenario decides when to actually stop —
+  // we never auto-stop on HP=0 because the simulator should keep rendering even
+  // if a win-scenario takes more damage than scripted.
+}
+
+// ============================================================
+// RENDERING
+// ============================================================
+
+function clearScreen() {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.fillStyle = '#05060c';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  applyTransform();
+}
+
+function drawBackground(state) {
+  // Subtle grid pulse
+  const pulse = (Math.sin(state.t * 1.5) * 0.5 + 0.5) * 0.1 + 0.05;
+  ctx.fillStyle = '#070a14';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.strokeStyle = `rgba(40, 60, 100, ${pulse})`;
+  ctx.lineWidth = 1;
+  for (let x = 0; x < W; x += 60) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+  }
+  for (let y = 0; y < H; y += 60) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+  }
+}
+
+function drawHUD(state) {
+  // Top bar
+  ctx.fillStyle = '#0c1020';
+  ctx.fillRect(0, 0, W, HUD_H);
+  ctx.strokeStyle = '#1a2030';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(0, HUD_H); ctx.lineTo(W, HUD_H); ctx.stroke();
+
+  // Red score (left)
+  ctx.fillStyle = TEAM_COLORS.red;
+  ctx.font = 'bold 22px sans-serif';
+  ctx.textAlign = 'left';
+  ctx.shadowColor = TEAM_COLORS.red;
+  ctx.shadowBlur = 12;
+  ctx.fillText(`RED: ${Math.round(state.scores.red)}`, 30, 38);
+
+  // Green score (right)
+  ctx.fillStyle = TEAM_COLORS.green;
+  ctx.shadowColor = TEAM_COLORS.green;
+  ctx.textAlign = 'right';
+  ctx.fillText(`BLUE: ${Math.round(state.scores.green)}`, W - 30, 38);
+  ctx.shadowBlur = 0;
+
+  // Center: timer
+  const remaining = Math.max(0, 90 - state.t);
+  const min = Math.floor(remaining / 60);
+  const sec = Math.floor(remaining % 60);
+  ctx.fillStyle = remaining < 15 ? '#ff5566' : '#ffffff';
+  ctx.shadowColor = remaining < 15 ? '#ff5566' : '#4a9eff';
+  ctx.shadowBlur = 12;
+  ctx.font = 'bold 30px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(`${min}:${String(sec).padStart(2, '0')}`, W/2, 42);
+  ctx.shadowBlur = 0;
+}
+
+function drawScreen(state) {
+  // Screen background
+  ctx.fillStyle = '#0a0e1a';
+  ctx.fillRect(SCREEN_X, SCREEN_Y, SCREEN_W, SCREEN_H);
+
+  // Screen border (the monitor bezel)
+  ctx.strokeStyle = '#222a3a';
+  ctx.lineWidth = 6;
+  ctx.strokeRect(SCREEN_X, SCREEN_Y, SCREEN_W, SCREEN_H);
+
+  // Geometry Dash style background — diagonal lines
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(SCREEN_X, SCREEN_Y, SCREEN_W, SCREEN_H);
+  ctx.clip();
+
+  // Animated background gradient lines
+  const bgPulse = (Math.sin(state.t * 2) * 0.5 + 0.5);
+  for (let i = 0; i < 30; i++) {
+    const yPos = SCREEN_Y + ((i * 60 + state.t * 20) % (SCREEN_H + 60));
+    ctx.strokeStyle = `rgba(80, 100, 160, ${0.05 + bgPulse * 0.04})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(SCREEN_X, yPos);
+    ctx.lineTo(SCREEN_X + SCREEN_W, yPos);
+    ctx.stroke();
+  }
+
+  // Asset at top
+  drawAsset(state);
+
+  // Sustained effect ranges (sandbox, ddos)
+  state.tools.forEach((tool, i) => {
+    if (tool.mode !== 'placed_active' && !tool.effectActive) return;
+    if (tool.effectActive && tool.name === 'SANDBOX') {
+      ctx.fillStyle = 'rgba(68, 221, 255, 0.07)';
+      ctx.beginPath(); ctx.arc(tool.x, tool.y, 220, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = 'rgba(68, 221, 255, 0.4)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 8]);
+      ctx.beginPath(); ctx.arc(tool.x, tool.y, 220, 0, Math.PI * 2); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    if (tool.effectActive && tool.name === 'DDOS') {
+      const t = (state.t - tool.effectStart) * 4;
+      ctx.save();
+      ctx.translate(tool.x, tool.y);
+      ctx.rotate(t);
+      ctx.strokeStyle = 'rgba(170, 68, 255, 0.5)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let a = 0; a < Math.PI * 8; a += 0.1) {
+        const r = a * 12;
+        const px = Math.cos(a) * r, py = Math.sin(a) * r;
+        if (a === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+        if (r > 280) break;
+      }
+      ctx.stroke();
+      ctx.restore();
+      // Fill
+      ctx.fillStyle = 'rgba(170, 68, 255, 0.05)';
+      ctx.beginPath(); ctx.arc(tool.x, tool.y, 280, 0, Math.PI * 2); ctx.fill();
+    }
+  });
+
+  // Threats
+  drawThreats(state);
+
+  // Particles
+  drawParticles(state);
+
+  // Tools placed on screen (drawn at the end so they're on top — but Aruco markers belong to physical layer, drawn above)
+
+  // Flashes (full-screen color overlays)
+  state.flashes.forEach(f => {
+    const age = state.t - f.t;
+    const a = 1 - age / f.duration;
+    ctx.fillStyle = f.color.replace(/[\d.]+\)/, `${a * parseFloat(f.color.match(/[\d.]+(?=\))/)[0])})`);
+    ctx.fillRect(SCREEN_X, SCREEN_Y, SCREEN_W, SCREEN_H);
+  });
+
+  ctx.restore();
+}
+
+function drawAsset(state) {
+  const a = state.asset;
+  const hpFrac = Math.max(0, a.hp / a.maxHp);
+
+  // Asset block
+  const w = ASSET_W, h = 70;
+  const ax = a.x - w/2, ay = a.y - h/2;
+
+  ctx.fillStyle = '#0a1820';
+  ctx.fillRect(ax, ay, w, h);
+  ctx.strokeStyle = hpFrac > 0.5 ? '#44ff88' : hpFrac > 0.25 ? '#ffaa44' : '#ff3355';
+  ctx.lineWidth = 3;
+  ctx.shadowColor = ctx.strokeStyle;
+  ctx.shadowBlur = 15;
+  ctx.strokeRect(ax, ay, w, h);
+  ctx.shadowBlur = 0;
+
+  // Hash pattern inside
+  ctx.fillStyle = 'rgba(68, 200, 255, 0.3)';
+  ctx.font = 'bold 18px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('▮ ▮ ASSET ▮ ▮', a.x, a.y - 2);
+
+  // HP bar
+  const bw = w - 20, bh = 8;
+  const bx = ax + 10, by = ay + h - 16;
+  ctx.fillStyle = '#1a2030';
+  ctx.fillRect(bx, by, bw, bh);
+  ctx.fillStyle = hpFrac > 0.5 ? '#44ff88' : hpFrac > 0.25 ? '#ffaa44' : '#ff3355';
+  ctx.shadowColor = ctx.fillStyle;
+  ctx.shadowBlur = 8;
+  ctx.fillRect(bx, by, bw * hpFrac, bh);
+  ctx.shadowBlur = 0;
+
+  // HP number
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 14px sans-serif';
+  ctx.fillText(`HP ${Math.round(a.hp)}/${a.maxHp}`, a.x, by - 4);
+}
+
+function drawThreats(state) {
+  state.threats.forEach(t => {
+    if (!t.alive) return;
+    const len = t.vectorLength * 4;  // visual scale
+    const angle = Math.atan2(-t.vy, t.vx);  // direction of motion (going up = -y)
+
+    // Glowing tail behind threat (opposite direction of motion)
+    ctx.save();
+    ctx.translate(t.x, t.y);
+
+    const tailDx = -t.vx, tailDy = -t.vy;
+    const tailMag = Math.hypot(tailDx, tailDy);
+    const tx = tailDx / tailMag, ty = tailDy / tailMag;
+
+    // Tail gradient
+    const grad = ctx.createLinearGradient(0, 0, tx * len, ty * len);
+    const baseHue = 320 - Math.min(t.vectorLength, 30) * 8;  // shorter = pinker, longer = redder
+    const baseColor = t.frozen > 0 ? '#88ccff' : `hsl(${baseHue}, 85%, 60%)`;
+    grad.addColorStop(0, baseColor);
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 8;
+    ctx.lineCap = 'round';
+    ctx.shadowColor = baseColor;
+    ctx.shadowBlur = 18;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(tx * len, ty * len);
+    ctx.stroke();
+
+    // Threat head (angular shape)
+    ctx.fillStyle = baseColor;
+    ctx.shadowBlur = 12;
+    ctx.beginPath();
+    const a1 = angle;
+    ctx.moveTo(Math.cos(a1) * 12, Math.sin(a1) * 12);
+    ctx.lineTo(Math.cos(a1 + 2.2) * 9, Math.sin(a1 + 2.2) * 9);
+    ctx.lineTo(Math.cos(a1 + Math.PI) * 5, Math.sin(a1 + Math.PI) * 5);
+    ctx.lineTo(Math.cos(a1 - 2.2) * 9, Math.sin(a1 - 2.2) * 9);
+    ctx.closePath();
+    ctx.fill();
+
+    if (t.frozen > 0) {
+      // Ice crystals overlay
+      ctx.strokeStyle = '#aaddff';
+      ctx.lineWidth = 1.5;
+      ctx.shadowBlur = 8;
+      for (let i = 0; i < 4; i++) {
+        const a = (Math.PI * 2 / 4) * i;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a) * 4, Math.sin(a) * 4);
+        ctx.lineTo(Math.cos(a) * 16, Math.sin(a) * 16);
+        ctx.stroke();
+      }
+    }
+
+    ctx.shadowBlur = 0;
+    ctx.restore();
+  });
+}
+
+function drawParticles(state) {
+  state.particles.forEach(p => {
+    const a = 1 - p.age / p.life;
+    ctx.fillStyle = p.color;
+    ctx.globalAlpha = a;
+    ctx.shadowColor = p.color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * a, 0, Math.PI * 2);
+    ctx.fill();
+  });
+  ctx.globalAlpha = 1;
+  ctx.shadowBlur = 0;
+}
+
+function drawToolboxBackground() {
+  // Toolbox bar — same width as the asset, centred above the screen
+  ctx.fillStyle = '#0a0e18';
+  ctx.fillRect(TOOLBOX_X, TOOLBOX_Y, TOOLBOX_W, TOOLBOX_H);
+  ctx.strokeStyle = '#1a2030';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(TOOLBOX_X, TOOLBOX_Y, TOOLBOX_W, TOOLBOX_H);
+
+  // Label
+  ctx.fillStyle = '#8a92a8';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('TOOLBOX', TOOLBOX_X + TOOLBOX_W / 2, TOOLBOX_Y + 13);
+
+  // Slot outlines
+  const half = TOOL_SIZE / 2 + 4;
+  TOOLBOX_SLOTS.forEach((slot, i) => {
+    ctx.strokeStyle = '#1f2638';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    ctx.strokeRect(slot.x - half, slot.y - half, half * 2, half * 2);
+    ctx.setLineDash([]);
+  });
+}
+
+function drawTool(state, tool) {
+  const x = tool.x, y = tool.y;
+  const size = TOOL_SIZE;
+
+  // Team color background ring (the ArUco marker color border)
+  const teamCol = tool.owner ? TEAM_COLORS[tool.owner] : (tool.carrier ? TEAM_COLORS[tool.carrier] : TEAM_COLORS.neutral);
+
+  // Outer team color square (this is the "ArUco color" that signals ownership)
+  ctx.fillStyle = teamCol;
+  ctx.shadowColor = teamCol;
+  ctx.shadowBlur = tool.mode === 'placed_active' ? 12 : 5;
+  ctx.fillRect(x - size/2 - 3, y - size/2 - 3, size + 6, size + 6);
+  ctx.shadowBlur = 0;
+
+  // ArUco marker (5x5 grid) — black and white pattern, unique per tool
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(x - size/2, y - size/2, size, size);
+
+  // Generate pseudo-ArUco pattern based on tool ID
+  ctx.fillStyle = '#000';
+  const cellSize = size / 5;
+  const patterns = [
+    // tool 0 - Neutralize
+    [[1,0,1,0,1], [0,1,1,1,0], [1,1,0,1,1], [0,1,1,1,0], [1,0,1,0,1]],
+    // tool 1 - Honeypot
+    [[0,1,1,1,0], [1,0,0,0,1], [1,0,1,0,1], [1,0,0,0,1], [0,1,1,1,0]],
+    // tool 2 - Sandbox
+    [[1,1,1,1,1], [1,0,0,0,1], [1,0,1,0,1], [1,0,0,0,1], [1,1,1,1,1]],
+    // tool 3 - DDoS
+    [[0,1,0,1,0], [1,0,1,0,1], [0,1,0,1,0], [1,0,1,0,1], [0,1,0,1,0]],
+    // tool 4 - Upgrade
+    [[0,0,1,0,0], [0,1,1,1,0], [1,1,1,1,1], [0,0,1,0,0], [0,0,1,0,0]]
+  ];
+  const pattern = patterns[tool.id];
+  for (let r = 0; r < 5; r++) {
+    for (let c = 0; c < 5; c++) {
+      if (pattern[r][c]) {
+        ctx.fillRect(
+          x - size/2 + c * cellSize,
+          y - size/2 + r * cellSize,
+          cellSize, cellSize
+        );
+      }
+    }
+  }
+
+  // Tool name label (when in toolbox)
+  if (tool.mode === 'in_toolbox') {
+    // already drawn by toolbox slot labels
+  }
+
+  // Tool icon overlay (small colored symbol on top)
+  const toolColor = TOOL_COLORS[tool.name];
+  ctx.fillStyle = toolColor;
+  ctx.shadowColor = toolColor;
+  ctx.shadowBlur = 4;
+  ctx.beginPath();
+  ctx.arc(x, y - size/2 - 8, 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+
+  // Timer ring (perimeter LED) — for placed_active
+  if (tool.mode === 'placed_active') {
+    const elapsed = state.t - tool.placedAt;
+    const remain = Math.max(0, (tool.duration - elapsed) / tool.duration);
+    const ringR = size/2 + 8;
+
+    // Background ring
+    ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(x, y, ringR, 0, Math.PI * 2);
+    ctx.stroke();
+
+    // Active ring — depleting, in team color
+    ctx.strokeStyle = teamCol;
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.shadowColor = teamCol;
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.arc(x, y, ringR, -Math.PI/2, -Math.PI/2 + remain * Math.PI * 2);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+
+  // Spent indicator — X mark
+  if (tool.mode === 'placed_spent') {
+    ctx.strokeStyle = 'rgba(255, 100, 100, 0.7)';
+    ctx.lineWidth = 3;
+    ctx.shadowColor = '#ff3333';
+    ctx.shadowBlur = 6;
+    ctx.beginPath();
+    ctx.moveTo(x - 8, y - 8); ctx.lineTo(x + 8, y + 8);
+    ctx.moveTo(x + 8, y - 8); ctx.lineTo(x - 8, y + 8);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+  }
+}
+
+function drawArmLink(x1, y1, x2, y2, color, width) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineCap = 'round';
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 10;
+  ctx.beginPath();
+  ctx.moveTo(x1, y1); ctx.lineTo(x2, y2);
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+}
+
+function drawArmJoint(x, y, r, color) {
+  ctx.fillStyle = '#0a0e18';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill(); ctx.stroke();
+}
+
+function drawRobot(state, robotName) {
+  const robot = state.robots[robotName];
+  const color = TEAM_COLORS[robotName];
+
+  // Articulated arm: base pedestal → upper arm → fore-arm → suction tip
+  drawArmLink(robot.base.x, robot.base.y, robot.p1x, robot.p1y, color, 18);
+  drawArmLink(robot.p1x, robot.p1y, robot.p2x, robot.p2y, color, 14);
+  drawArmLink(robot.p2x, robot.p2y, robot.tipX, robot.tipY, color, 10);
+
+  // Joints
+  drawArmJoint(robot.p1x, robot.p1y, 12, color);
+  drawArmJoint(robot.p2x, robot.p2y, 10, color);
+
+  // Base hub with team letter
+  ctx.fillStyle = '#1a2030';
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 3;
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 12;
+  ctx.beginPath();
+  ctx.arc(robot.base.x, robot.base.y, 24, 0, Math.PI * 2);
+  ctx.fill(); ctx.stroke();
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = color;
+  ctx.font = 'bold 16px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(robotName === 'red' ? 'R' : 'B', robot.base.x, robot.base.y + 5);
+
+  // Suction tip — solid glowing cup when engaged, open ring when off
+  const tip = { x: robot.tipX, y: robot.tipY };
+  if (robot.suction) {
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 16;
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 13, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#0a0e18';
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 6, 0, Math.PI * 2);
+    ctx.fill();
+  } else {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.arc(tip.x, tip.y, 13, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    // small crosshair
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(tip.x - 6, tip.y); ctx.lineTo(tip.x + 6, tip.y);
+    ctx.moveTo(tip.x, tip.y - 6); ctx.lineTo(tip.x, tip.y + 6);
+    ctx.stroke();
+  }
+}
+
+function drawTools(state) {
+  // Draw tools that are in toolbox / placed / spent (these are "on the table")
+  state.tools.forEach(tool => {
+    if (tool.mode === 'in_toolbox' || tool.mode === 'placed_active' || tool.mode === 'placed_spent') {
+      drawTool(state, tool);
+    }
+  });
+  // Draw carried tools last (they're on the gripper)
+  state.tools.forEach(tool => {
+    if (tool.mode === 'carried') {
+      drawTool(state, tool);
+    }
+  });
+}
+
+function drawTeamInfo(state) {
+  // Robot labels near bases — already drawn in drawRobot
+
+  // Status text
+  ctx.fillStyle = '#5a6378';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('RED ROBOT', ROBOT_RED_BASE.x, ROBOT_RED_BASE.y + 56);
+  ctx.fillText('BLUE ROBOT', ROBOT_GREEN_BASE.x, ROBOT_GREEN_BASE.y + 56);
+}
+
+function render(state) {
+  clearScreen();
+  applyTransform();
+  drawBackground(state);
+  drawHUD(state);
+  drawToolboxBackground();
+  drawScreen(state);  // game area: asset, threats, effects
+  drawTeamInfo(state);
+  drawRobot(state, 'red');
+  drawRobot(state, 'green');
+  drawTools(state);   // tools (carried markers sit on top of the suction tip)
+}
+
+// ---- Level-2 GUI: arm-free "camera" crop of the board + one team's clicks ----
+function drawBoardCrop(state, cctx, cropCanvas, team) {
+  const cw = cropCanvas.width, ch = cropCanvas.height;
+  const sx = cw / CROP_W, sy = ch / CROP_H;
+  const MX = bx => (bx - CROP_X) * sx;
+  const MY = by => (by - CROP_Y) * sy;
+
+  // background
+  cctx.fillStyle = '#070a12';
+  cctx.fillRect(0, 0, cw, ch);
+
+  // toolbox strip (asset-width, centred)
+  cctx.fillStyle = '#0a0e18';
+  cctx.fillRect(MX(TOOLBOX_X), MY(TOOLBOX_Y), TOOLBOX_W * sx, TOOLBOX_H * sy);
+  cctx.strokeStyle = '#1a2030'; cctx.lineWidth = 1;
+  cctx.strokeRect(MX(TOOLBOX_X), MY(TOOLBOX_Y), TOOLBOX_W * sx, TOOLBOX_H * sy);
+  cctx.fillStyle = '#5a6378'; cctx.font = '8px sans-serif'; cctx.textAlign = 'center';
+  cctx.fillText('TOOLBOX', MX(TOOLBOX_X + TOOLBOX_W / 2), MY(TOOLBOX_Y) + 10);
+
+  // screen area
+  cctx.fillStyle = '#0a0e1a';
+  cctx.fillRect(MX(SCREEN_X), MY(SCREEN_Y), SCREEN_W * sx, SCREEN_H * sy);
+  cctx.strokeStyle = '#222a3a'; cctx.lineWidth = 2;
+  cctx.strokeRect(MX(SCREEN_X), MY(SCREEN_Y), SCREEN_W * sx, SCREEN_H * sy);
+
+  // asset bar
+  const a = state.asset, hpFrac = Math.max(0, a.hp / a.maxHp);
+  const awc = 320 * sx, ahc = 18;
+  const axc = MX(a.x) - awc / 2, ayc = MY(a.y) - ahc / 2;
+  cctx.fillStyle = '#0a1820'; cctx.fillRect(axc, ayc, awc, ahc);
+  cctx.fillStyle = hpFrac > 0.5 ? '#44ff88' : hpFrac > 0.25 ? '#ffaa44' : '#ff3355';
+  cctx.fillRect(axc, ayc, awc * hpFrac, ahc);
+  cctx.strokeStyle = '#1a2030'; cctx.lineWidth = 1; cctx.strokeRect(axc, ayc, awc, ahc);
+
+  // sustained effect rings (sandbox/ddos)
+  state.tools.forEach(tool => {
+    if (!tool.effectActive) return;
+    const rad = (tool.name === 'SANDBOX' ? 240 : tool.name === 'DDOS' ? 300 : 0) * sx;
+    if (!rad) return;
+    cctx.strokeStyle = tool.name === 'SANDBOX' ? 'rgba(68,221,255,0.5)' : 'rgba(170,68,255,0.5)';
+    cctx.lineWidth = 1.5;
+    cctx.beginPath(); cctx.arc(MX(tool.x), MY(tool.y), rad, 0, Math.PI * 2); cctx.stroke();
+  });
+
+  // threats
+  state.threats.forEach(t => {
+    if (!t.alive) return;
+    cctx.fillStyle = t.frozen > 0 ? '#88ccff' : '#ff5588';
+    cctx.beginPath(); cctx.arc(MX(t.x), MY(t.y), Math.max(1.5, t.vectorLength * 0.18), 0, Math.PI * 2); cctx.fill();
+  });
+
+  // tools (toolbox + on board) as little markers, team-coloured border
+  state.tools.forEach(tool => {
+    if (tool.mode === 'carried') return;
+    const tx = MX(tool.x), ty = MY(tool.y), s = 9;
+    const teamCol = tool.owner ? TEAM_COLORS[tool.owner] : '#888';
+    cctx.fillStyle = teamCol; cctx.fillRect(tx - s/2 - 1.5, ty - s/2 - 1.5, s + 3, s + 3);
+    cctx.fillStyle = '#fff'; cctx.fillRect(tx - s/2, ty - s/2, s, s);
+    cctx.fillStyle = TOOL_COLORS[tool.name];
+    cctx.beginPath(); cctx.arc(tx, ty, 2.2, 0, Math.PI * 2); cctx.fill();
+    if (tool.mode === 'placed_spent') {
+      cctx.strokeStyle = '#ff5555'; cctx.lineWidth = 1.5;
+      cctx.beginPath(); cctx.moveTo(tx - 4, ty - 4); cctx.lineTo(tx + 4, ty + 4);
+      cctx.moveTo(tx + 4, ty - 4); cctx.lineTo(tx - 4, ty + 4); cctx.stroke();
+    }
+  });
+
+  // this operator's clicks — expanding ripple + marker, fading over 1.6s
+  state.clicks.forEach(c => {
+    if (c.team !== team) return;
+    const age = state.t - c.t;
+    if (age < 0 || age > 1.6) return;
+    const col = TEAM_COLORS[c.team];
+    const x = MX(c.x), y = MY(c.y);
+    const alpha = 1 - age / 1.6;
+    cctx.globalAlpha = alpha;
+    cctx.strokeStyle = col; cctx.lineWidth = 2;
+    cctx.beginPath(); cctx.arc(x, y, 4 + age * 26, 0, Math.PI * 2); cctx.stroke();
+    if (c.kind === 'place') {
+      cctx.beginPath(); cctx.arc(x, y, 7, 0, Math.PI * 2); cctx.stroke();
+      cctx.beginPath();
+      cctx.moveTo(x - 10, y); cctx.lineTo(x + 10, y);
+      cctx.moveTo(x, y - 10); cctx.lineTo(x, y + 10); cctx.stroke();
+    } else {
+      cctx.fillStyle = col;
+      cctx.beginPath(); cctx.arc(x, y, 4, 0, Math.PI * 2); cctx.fill();
+    }
+    cctx.globalAlpha = Math.min(1, alpha + 0.2);
+    cctx.fillStyle = col; cctx.font = 'bold 10px sans-serif'; cctx.textAlign = 'center';
+    cctx.fillText(c.kind === 'pick' ? 'PICK' : 'PLACE', x, y - 12);
+    cctx.globalAlpha = 1;
+  });
+}
+
+// ============================================================
+// MAIN LOOP
+// ============================================================
+
+let scenario = null;
+let lastTime = 0;
+let guiMode = 'level1';   // 'level1' = joint sliders, 'level2' = click-on-image
+
+function frame(now) {
+  const dt = Math.min(0.05, (now - lastTime) / 1000);
+  lastTime = now;
+
+  if (state.playing) {
+    updateState(state, scenario, dt);
+    document.getElementById('scrubBar').value = state.t;
+  }
+
+  // Also update particles & flashes even when paused (so they don't freeze unnaturally)
+  // ...Actually let's let them pause too for true pause behavior.
+
+  render(state);
+  updateTimeDisplay();
+  if (guiMode === 'level1') {
+    updatePanels(state);
+  } else {
+    drawBoardCrop(state, cctxRed, cropCanvasRed, 'red');
+    drawBoardCrop(state, cctxBlue, cropCanvasBlue, 'green');
+  }
+
+  requestAnimationFrame(frame);
+}
+
+// Mirror each robot's live joint angles + suction onto its operator panel —
+// this is "what the user dialed in to get these results".
+function updatePanels(state) {
+  updateTeamPanel('red', state.robots.red);
+  updateTeamPanel('blu', state.robots.green);
+}
+
+function updateTeamPanel(prefix, robot) {
+  const deg = rad => Math.round(angWrap(rad) * 180 / Math.PI);
+  // A user-driven arm's sliders hold the operator's command — don't overwrite
+  // them from the (lagging) live joints. Mirrored arms track their joints.
+  if (!robot.userDriven) {
+    setPanelSlider(prefix + '_base', deg(robot.joints.base - robot.homeBase));
+    setPanelSlider(prefix + '_A', deg(robot.joints.A));
+    setPanelSlider(prefix + '_B', deg(robot.joints.B));
+  }
+
+  const lamp = document.getElementById(prefix + '_lamp');
+  const st = document.getElementById(prefix + '_suct');
+  if (robot.suction) {
+    lamp.classList.add('on');
+    st.textContent = 'ON';
+    st.style.color = '#44ff88';
+  } else {
+    lamp.classList.remove('on');
+    st.textContent = 'OFF';
+    st.style.color = '#8a92a8';
+  }
+}
+
+function setPanelSlider(id, valDeg) {
+  const el = document.getElementById(id);
+  if (el) el.value = Math.max(-180, Math.min(180, valDeg));
+  const v = document.getElementById(id + '_v');
+  if (v) v.textContent = valDeg + '°';
+}
+
+function updateTimeDisplay() {
+  const t = state.t;
+  const min = Math.floor(t / 60);
+  const sec = Math.floor(t % 60);
+  document.getElementById('timeDisplay').textContent =
+    `${min}:${String(sec).padStart(2, '0')} / 1:30`;
+}
+
+function resetAndStart(ending) {
+  state = freshState();
+  state.ending = ending;
+  scenario = ending === 'win' ? buildWinScenario()
+           : ending === 'defeat' ? buildDefeatScenario()
+           : ending === 'mistake' ? buildMistakeScenario()
+           : buildFreeplayScenario();
+
+  // Update event markers on scrub bar
+  const markerLayer = document.getElementById('markerLayer');
+  markerLayer.innerHTML = '';
+  const markers = ending === 'win' ? WIN_MARKERS
+                : ending === 'defeat' ? DEFEAT_MARKERS
+                : ending === 'mistake' ? MISTAKE_MARKERS
+                : FREEPLAY_MARKERS;
+  markers.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'event-marker';
+    div.style.left = `${(m.t / 90) * 100}%`;
+    const label = document.createElement('div');
+    label.className = 'event-label';
+    label.style.left = `${(m.t / 90) * 100}%`;
+    label.textContent = m.label;
+    markerLayer.appendChild(div);
+    markerLayer.appendChild(label);
+  });
+
+  document.getElementById('endingLabel').textContent =
+    ending === 'win' ? 'SURVIVAL WIN' : ending === 'defeat' ? 'DEFEAT RUN'
+    : ending === 'mistake' ? 'MISTAKE DEMO' : 'LIVE — PLAY BLUE';
+  document.getElementById('endingLabel').style.color =
+    ending === 'win' ? '#33ff77' : ending === 'defeat' ? '#ff5566'
+    : ending === 'mistake' ? '#ffaa00' : '#3a8cff';
+  document.getElementById('scrubBar').value = 0;
+  state.playing = true;
+  document.getElementById('playPause').textContent = '⏸ Pause';
+  lastTime = performance.now();
+  refreshBlueControl();
+}
+
+// ============================================================
+// CONTROLS
+// ============================================================
+
+document.getElementById('playPause').addEventListener('click', () => {
+  state.playing = !state.playing;
+  document.getElementById('playPause').textContent = state.playing ? '⏸ Pause' : '▶ Play';
+  if (state.playing) lastTime = performance.now();
+});
+
+document.getElementById('restartBtn').addEventListener('click', () => {
+  resetAndStart(state.ending);
+});
+
+document.getElementById('endingToggle').addEventListener('click', () => {
+  const order = ['win', 'defeat', 'mistake'];
+  const next = order[(order.indexOf(state.ending) + 1) % order.length];
+  resetAndStart(next);
+});
+
+function applyGuiMode() {
+  const isL2 = guiMode === 'level2';
+  document.getElementById('jointPanels').style.display = isL2 ? 'none' : 'flex';
+  document.getElementById('clickPanels').style.display = isL2 ? 'flex' : 'none';
+  document.getElementById('guiToggle').textContent =
+    isL2 ? 'GUI: L2 Click image' : 'GUI: L1 Joint sliders';
+  refreshBlueControl();
+}
+
+document.getElementById('guiToggle').addEventListener('click', () => {
+  guiMode = guiMode === 'level1' ? 'level2' : 'level1';
+  applyGuiMode();
+});
+
+// ---- Live mode: the human operates BLUE ----
+let lastWatchEnding = 'win';
+
+function refreshBlueControl() {
+  if (!state) return;
+  const live = state.ending === 'freeplay';
+  const r = state.robots.green;
+  r.userDriven = live && guiMode === 'level1';
+  if (r.userDriven) {
+    r.userJoints = { ...r.joints };
+    const deg = rad => Math.round(angWrap(rad) * 180 / Math.PI);
+    setPanelSlider('blu_base', deg(r.joints.base - r.homeBase));
+    setPanelSlider('blu_A', deg(r.joints.A));
+    setPanelSlider('blu_B', deg(r.joints.B));
+  }
+  ['base', 'A', 'B'].forEach(j =>
+    document.getElementById('blu_' + j).classList.toggle('driveable', r.userDriven));
+  document.querySelector('.teamPanel.blue').classList.toggle('driving', r.userDriven);
+  const sb = document.getElementById('blu_suctBtn');
+  sb.style.display = r.userDriven ? 'inline-block' : 'none';
+  sb.classList.toggle('on', r.suctionDesired);
+  sb.textContent = r.suctionDesired ? 'Release ▲' : 'Grab ▼';
+  const lt = document.getElementById('liveToggle');
+  lt.classList.toggle('on', live);
+  lt.textContent = live ? '⏹ Stop / Watch' : '🎮 Play BLUE';
+}
+
+document.getElementById('liveToggle').addEventListener('click', () => {
+  if (state.ending === 'freeplay') {
+    resetAndStart(lastWatchEnding);
+  } else {
+    lastWatchEnding = state.ending;
+    resetAndStart('freeplay');
+  }
+});
+
+document.getElementById('blu_suctBtn').addEventListener('click', () => {
+  const r = state.robots.green;
+  if (!r.userDriven) return;
+  r.suctionDesired = !r.suctionDesired;
+  r.suction = r.suctionDesired;
+  const sb = document.getElementById('blu_suctBtn');
+  sb.classList.toggle('on', r.suctionDesired);
+  sb.textContent = r.suctionDesired ? 'Release ▲' : 'Grab ▼';
+});
+
+// BLUE joint sliders drive the operator's commanded pose (works while paused;
+// the arm only moves toward it during play).
+['base', 'A', 'B'].forEach(j => {
+  const el = document.getElementById('blu_' + j);
+  el.addEventListener('input', () => {
+    const r = state.robots.green;
+    if (!r.userDriven) return;
+    const rad = parseFloat(el.value) * Math.PI / 180;
+    if (j === 'base') r.userJoints.base = r.homeBase + rad;
+    else r.userJoints[j] = rad;
+    const v = document.getElementById('blu_' + j + '_v');
+    if (v) v.textContent = Math.round(parseFloat(el.value)) + '°';
+  });
+});
+
+// In live + Level-2, clicking the BLUE camera view drives BLUE: click a tool to
+// pick, click the board to place (uses the same approach-and-commit motion).
+cropCanvasBlue.addEventListener('click', (e) => {
+  if (state.ending !== 'freeplay' || guiMode !== 'level2') return;
+  const rect = cropCanvasBlue.getBoundingClientRect();
+  const bx = CROP_X + ((e.clientX - rect.left) / rect.width) * CROP_W;
+  const by = CROP_Y + ((e.clientY - rect.top) / rect.height) * CROP_H;
+  const r = state.robots.green;
+  if (r.carrying !== null) {
+    robotPlaceAt(state, 'green', bx - SCREEN_X, by - SCREEN_Y);
+  } else {
+    let best = null, bd = 70;
+    state.tools.forEach((tool, i) => {
+      if (tool.mode === 'carried') return;
+      const dd = Math.hypot(tool.x - bx, tool.y - by);
+      if (dd < bd) { bd = dd; best = i; }
+    });
+    if (best !== null) robotPickTool(state, 'green', best);
+  }
+});
+
+document.getElementById('scrubBar').addEventListener('input', (e) => {
+  if (state.ending === 'freeplay') { e.target.value = state.t; return; }  // no rewind in live play
+  const target = parseFloat(e.target.value);
+  if (Math.abs(target - state.t) < 0.2) return;
+  // Rewind: reset and fast-forward
+  const ending = state.ending;
+  const wasPlaying = state.playing;
+  state = freshState();
+  state.ending = ending;
+  scenario = ending === 'win' ? buildWinScenario()
+           : ending === 'defeat' ? buildDefeatScenario()
+           : ending === 'mistake' ? buildMistakeScenario()
+           : buildFreeplayScenario();
+
+  // Fast-forward
+  const step = 0.05;
+  while (state.t < target - step) {
+    updateState(state, scenario, step);
+  }
+  // Apply remaining time
+  if (target > state.t) {
+    updateState(state, scenario, target - state.t);
+  }
+  state.playing = wasPlaying;
+  lastTime = performance.now();
+});
+
+// Start
+applyGuiMode();
+resetAndStart('win');
+requestAnimationFrame(frame);
+
+</script>
+</body>
+</html>

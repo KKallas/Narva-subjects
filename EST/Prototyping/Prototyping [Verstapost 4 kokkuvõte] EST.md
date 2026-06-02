@@ -47,14 +47,14 @@ Kolm analüüsi Jupyter notebooks:
 - Tööriistakomplekti (Aste 3 jaoks) API-dokumentatsioon, et keegi võõras saaks Claude Code'iga su roveriga rääkima
 - Analüüside Jupyter notebooks koos mõõteandmetega (CSV)
 - Uuendatud spetsifikatsioon + **enne-pärast tabel** korpuse tugevdustest
-- STL-id koos prindiseadetega tugevdatud korpusest
+- STL-id koos prindiseadetega tugevdatud korpusest **+ CAD lähtefailid** (Fusion `.f3z`/`.f3d` arhiivid või CadQuery `.py` skriptid)
 - Fotod ja videod korpusest ning testidest
 
 ### Hindamiskriteeriumid
 
 | Kategooria | Punktid |
 | :--- | :--- |
-| Tööfailid — kood repos, STL-id, fotod/videod | 4 p |
+| Tööfailid — kood repos, STL-id **+ CAD lähtefailid** (Fusion `.f3z`/`.f3d` või CadQuery `.py`), fotod/videod | 4 p |
 | Analüüs — 3 Jupyter notebooki | 4 p |
 | Prototüüp — PLA korpus poldikinnitustega, vähemalt 2 autonoomsuse astet töötavad | 4 p |
 | Dokumentatsioon — spetsifikatsiooni uuendus + Aste 3 API dokumentatsioon | 4 p |

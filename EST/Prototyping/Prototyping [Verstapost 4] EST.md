@@ -450,7 +450,7 @@ Pärast tabelit kirjuta **lõik vabas vormis**: kus eelistaksid sina iga astet p
 
 | Kategooria | Punktid | Mida hinnatakse |
 |:---|:---|:---|
-| Tööfailid | 4 p | Kood repos, STL-id, fotod ja videod korpusest ning matšidest |
+| Tööfailid | 4 p | Kood repos, STL-id **+ CAD lähtefailid** (Fusion `.f3z`/`.f3d` või CadQuery `.py`), fotod ja videod korpusest ning matšidest |
 | Analüüs | 4 p | 3 Jupyter notebook'i (operaatori-tagasiside täpsus, autonoomsuse astmete võrdlus, 10 matši usaldusväärsus) |
 | Prototüüp | 4 p | PLA korpus poldikinnitustega, vähemalt kaks autonoomsuse astet töötavad, 90-sek matš lõpetab puhtalt |
 | Dokumentatsioon | 4 p | Spetsifikatsiooni uuendus + kasutusjuhendi mustand |
