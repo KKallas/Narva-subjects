@@ -43,4 +43,4 @@ Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas robot joonist
 
 ### Täielik tööleht
 
-📎 *Lisa siia link täielikule töölehele*
+📎 [Link täielikule töölehele](https://github.com/KKallas/Narva-subjects/blob/91448f00106eb3a1f4f68a99a78c1543b98afd28/EST/2026-27/3D%20printing/3D%20Printing%20%5BLab%201%5D%20EST.md)

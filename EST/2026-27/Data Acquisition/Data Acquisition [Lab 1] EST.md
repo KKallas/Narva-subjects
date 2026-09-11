@@ -8,6 +8,7 @@
 * **ANTUD** on see, mida õppejõud teab. **KAARDISTA ISE** on tühi, sest vastust ei tea veel keegi. Sina mõõdad ja kirjutad numbri koos põhjusega siia.
 * Midagi ei kustutata. Vale number jääb, kuupäevaga, parandus tuleb tema alla.
 * Kirjuta nii, et meeskonnakaaslane, kes sel päeval ruumis ei olnud, saab aru: päris failinimed, päris numbrid, ühikud.
+* Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile, et teine saaks selle lahti teha ja edasi muuta. Näited: osas 1 Falstadi simulatsioon, osas 2 draw.io skeem. Tee enda omad samade tööriistadega.
 * Tähtaeg ei ole tähtis. Tähtis on, et asi saab tehtud ja sa saad aru. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti. Kaitsta saab nii mitu korda, kui vaja.
 
 ### Eesmärk
@@ -42,7 +43,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Sisendid
 
 * Riiulilt: AtomS3, MPX5700AP, maketeerimisplaat, passiivkomplekt, multimeeter, ostsilloskoop, 4 mm voolik, T-liitmik, vooliku kork, iminapp, polükarbonaatklaas.
-* Õppejõult: MG400 koos oma pumbakastiga, tehase tark kast kordamööda, MG400 baaspakett Pythonis, kus on DO sisse ja välja.
+* Õppejõult: MG400 koos oma pumbakastiga, tehase tark kast kordamööda, MG400 baaspakett Pythonis, kus on DO sisse ja välja: [code/mg400-base](https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base).
 * Nutikad Lahendused L1: kanal tähe jaoks, lepitakse kokku esimesel nädalal.
 
 ### Vahendid
@@ -54,7 +55,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 5. 4 mm voolik, T-liitmik, vooliku kork, iminapp φ13 või φ16, 24 × 24 mm klaas
 6. MG400 koos pumbakasti ja baaspaketiga
 7. Arduino IDE või PlatformIO ESP32 jaoks; Python 3, pyserial, Jupyter Lab, numpy, pandas, scipy, matplotlib
-8. Falstad skeemisimulaator
+8. Falstad skeemisimulaator, draw.io skeemide jaoks
 9. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
 
 *Kui plaan muutub, uuenda ka vahendeid, või tee draw.io skeem, mis näitab, kuidas asjad omavahel töötavad.*
@@ -93,11 +94,19 @@ MPX5700AP on vale skaalaga, aga absoluutne, ja atmosfäär on tema skaala sees: 
 
 Kirjuta üles: Pa ühe ADC sammu kohta, müra LSB-des pump väljas ja pump sees, spektri tipud nimedega (pumba mootor, MG400 servod, USB toide, 50 Hz), vähemalt kaks neist kontrollitud allika väljalülitamisega. Falstadi skeem andur → ADC koos müraallikaga, simuleeritud müra mõõdetu vastu.
 
+Falstadi algus: andur on vahelduvpingeallikas 0,2–5 V, ADC on op-amp järgur, mille väljund on piiratud 0 ja 3,3 V vahele. Skoop ADC viigul näitab, kus signaal ära lõigatakse. Lisa sellele oma müraallikas. [Ava simulatsioon](https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgAwKgFwM6KQOiUgRlTBEQNwCZ8KB2GgZiQA4KA2ATnZtRACNEArCigAHfgiGoAbhEGoAtpkEBTALQEiAPgBQUKMClQAHmVZIojACxQCZmzVap4yVAHdnRWLISf5AQyMpRAocS1ReMD8sBBDHAHodPWAAc2NTcysbO3p6R1hsBATdfVc0nzsCBwska0q85xQipL8yzNtzS3ws4WcmBT9Eehx6BTACqGSBn3wZwsSS1pqbS2s2ggonAqaFkwQ1iihO8w0N-Jdt4FLdo5t1w672zfP5y7Kb9sP2Vm6nxpeAeTeX26UAEKx+Z08GFIz2KwCMb3MFHBGm+yO4Z2EGDGPlOaGUiAAggA7AAmAFdoEgADQUQDIBAIoAA1OZwhG7CjAihUQ62KDckaY1DYsh4gkIQkAEQAwlB5OTyWTKVAkHT6NT6MzWUl2YhLMCCMCwQdDexfsKcetUPiiTKoFIwGAANba-QAeygymJiD6UAwIlMTyMpwDLnmSRE9vG0Lk2wjnvGQRcfphAldwDibp0GfAEB0QA)
+
+![Falstad: andur 0,2–5 V → ADC mudel 0–3,3 V](lab1_falstad_adc.png)
+
 #### 2. Tark kast
 
 T-liitmik tehase targa kasti väljundtorusse, napp otsas, napp klaasi peal. Pump imemisele baaspaketi CLI-st. Logi viis minutit.
 
 Kirjuta üles: väljalülitusrõhk, sisselülitusrõhk, pumba tööaeg, seisuaeg, käivitusi minutis. Need viis numbrit on sinu kasti sihtmärk.
+
+Kuidas asjad omavahel töötavad: arvuti, robot, pumbakast, andur, Atom ja haarats. [Ava draw.io skeem](https://drive.google.com/file/d/1YczRgRYat7b16Y7tdC8Wtg52FTfknlgd/view?usp=sharing)
+
+![draw.io: arvuti, MG400, pumbakast, andur, AtomS3, haarats](lab1_drawio_tark_kast.png)
 
 #### 3. Sinu kast
 

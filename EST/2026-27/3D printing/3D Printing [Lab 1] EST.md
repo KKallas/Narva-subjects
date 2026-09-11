@@ -41,7 +41,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 * Riiulilt: printerid, PLA, nihik, kuulpastakad, marker, maalriteip, paber.
 * Vanade asjade kastist, kui see on: eelmise aasta hoidikud, et elu lihtsam oleks. Kui ei ole, ei ole midagi puudu.
-* Õppejõult: MG400 baaspakett Pythonis.
+* Õppejõult: MG400 baaspakett Pythonis: [code/mg400-base](https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base).
 
 ### Vahendid
 

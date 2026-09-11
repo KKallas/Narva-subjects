@@ -1,164 +1,140 @@
-## Nutikad Lahendused: Labor 1 — Ahel
+## Nutikad Lahendused: Labor 1 — Robot, ekraan ja täht
 
-**Töömaht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 12.09.26 | **Tellimise kuupäev:** 22.09.26 | **Kaitsmine:** 06.10.26, veebis
+**Töömaht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 12.09.26 | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 06.10.26, veebis
 
 ### Kuidas see dokument töötab
 
-Pool sellest dokumendist on meelega puudu.
-
-See, mis siin kirjas on, on **ANTUD**: kuupäevad, seosed teiste ainetega, vastuvõtu tingimused, ohutusreeglid ja küsimused, mida tasub küsida. See on kaardi serv, mitte kaart.
-
-Kõik, mille juures on **KAARDISTA ISE**, on tühi, sest vastust ei tea veel keegi — ka õppejõud mitte. Sina kaardistad selle: mõõdad, otsustad, ja kirjutad numbri ja põhjuse siia faili, kõrvuti.
-
-Kopeeri see fail esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus. Seda ei kirjutata kaitsmise eelõhtul: tagantjärele kirjutatud dokument on jutt, ja juttu ei saa hinnata. Tag'i sees olevat versiooni loetakse täpselt nii, nagu ta on, ja tühi koht, mis jäi tühjaks, on ka vastus.
-
-Midagi ei kustutata. Number, mis osutus valeks, jääb oma kohale, kuupäevaga, ja parandus tuleb tema alla. Vale käik on tavaliselt aruande kõige kasulikum lehekülg — järgmisele meeskonnale, ja sulle endale aasta pärast.
-
-Kirjuta nii, et seda ei peaks tõlkima: päris failinimed, päris numbrid, ühikud iga numbri juures, ja põhjus valiku kõrval. Lugeja, kellele sa kirjutad, on meeskonnakaaslane, kes sel päeval ruumis ei olnud.
+* Kopeeri see fail esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus.
+* **ANTUD** on see, mida õppejõud teab. **KAARDISTA ISE** on tühi, sest vastust ei tea veel keegi. Sina mõõdad ja kirjutad numbri koos põhjusega siia.
+* Midagi ei kustutata. Vale number jääb, kuupäevaga, parandus tuleb tema alla.
+* Kirjuta nii, et meeskonnakaaslane, kes sel päeval ruumis ei olnud, saab aru: päris failinimed, päris numbrid, ühikud.
+* Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile, et teine saaks selle lahti teha ja edasi muuta. Näited on Andmehõive Labori 1 töölehel: Falstadi simulatsioon ja draw.io skeem. Tee enda omad samade tööriistadega.
+* Tähtaeg ei ole tähtis. Tähtis on, et asi saab tehtud ja sa saad aru. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti. Kaitsta saab nii mitu korda, kui vaja.
 
 ### Eesmärk
 
-Kolm kasti, mis igaüks töötab, ei ole süsteem. Andmehõive meeskonnal on Atom, mis saadab tähe, kui nuppu vajutad. 3D printimise meeskonnal on pliiatsihoidik roboti flantsi küljes. Robotil on TCP port, mis võtab vastu liikumiskäske. Mitte miski sellest ei joonista. Süsteem on see osa, mis jääb nende vahele, ja see osa on sinu: **vajuta tähte Atomil, ja MG400 joonistab selle.**
+Kolm kasti, mis igaüks töötab, ei ole süsteem. Andmehõive meeskonnal on Atom, mis saadab tähe, kui nuppu vajutad. 3D printimise meeskonnal on pastakahoidik roboti flantsi küljes. Robotil on TCP port, mis võtab vastu liikumiskäske. Mitte miski sellest ei joonista. Süsteem on see osa, mis jääb nende vahele, ja see osa on sinu. Sama meeskond teeb kõiki kolme ainet. Kolm ainet, üks demo: **vajuta tähte, robot joonistab selle.**
 
-Ahel jookseb võrgus, mille sa ise ehitad. Mitte sülearvuti, mis on roboti külge pistetud — vaid ruuter, kus robotitel on oma alamvõrk, aadressid jäävad sinna, kuhu sa need panid, WiFi, millega Atom liitub, tulemüür, ja marsruut, mis juba ootab VPN tunnelit, mis tuleb Laboris 3. Siin elavad alamvõrgud, ruutimistabel ja NAT päriselt, ja siin need ka selgeks saavad. Joonista aadressiplaan paberile, enne kui midagi sisse pistad; suurem osa esimesest nädalast on see joonis valesti olemas.
+Selles laboris on kolm asja:
 
-Kood algab sinu enda sülearvutis, sest nii on kiire: ühenda robotiga, liiguta seda, loe tema asendit, lülita pumbakasti, võta täht vastu, tee tähest tee. Siis kolib see sinu sülearvutist masinasse, mis jääb laborisse — varu-sülearvuti või lauaarvuti, kus IDE-d peal ei ole, staatiline aadress roboti alamvõrgus, ja kõik käivitub alglaadimisel, ilma et keegi sisse logiks. Kood, mis jookseb seal, kus sa ta kirjutasid, ei ole sama, mis kood, mis jookseb. Jaam pakub üht lehte: liiguta, õpeta asend, mine asendisse. Samsungi telefon alusel laua serval näitab seda lehte täisekraanil, nuppudega, mis on pöidla jaoks piisavalt suured. Operaator ei puutu klaviatuuri.
+1. **Robot.** MG400 API-režiimi ja sinu sülearvutist Pythoniga liikuma. Baaspakett on olemas: CLI, leht liugurite, salvestatud asendite ja pumba nuppudega. Sina paned ta tööle, kontrollid tema oletused ja õpetad neli asendit.
+2. **Ekraan.** AtomS3 PlatformIO-st, oma WiFi võrk, captive portal ja leht, kust pilt ekraanile läheb. See leht jääb: siit seadistatakse ja testitakse tööriista kogu aasta. Rõhuandur, UART, kõik, mis hiljem juurde tuleb, saab oma seaded ja testinupu siia, mitte eraldi lehele.
+3. **Täht.** Atomi nupp valib tähe, jaam saab selle kätte, robot joonistab pastakahoidikuga. Vähemalt kolm tähte.
 
-Sel aastal Raspberry Pi'd ei ole. Tema tööd on jagatud kolmeks ja igaüks läheb paremasse kohta: ruuter kannab võrku, Digital Oceani droplet (Labor 3) kannab seda, mis peab püsti olema ka siis, kui kedagi ruumis ei ole, ja ESP32 tööriista küljes on odav kohalik loogikaüksus — piiratud protsessor, mis teenindab mitut seadet korraga, reaalajas. Jaam on lihtsalt kast, mis räägib robotiga ja pakub lehte.
+Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 22.09.
 
 *See on elav dokument. Uuenda eesmärke, kui need töö käigus muutuvad — uued teadmised teevad vanad eesmärgid vahel mõttetuks. Mõte on hoida meeskond kogu aeg sihil, et ei eksitaks detailide metsa ja põhiprobleem ei jääks lahendamata.*
 
-**KAARDISTA ISE — eesmärk nii, nagu ta tegelikult välja tuli.** Kui sa tead, mis see töö päriselt on, kirjuta ülal olevad lõigud oma sõnadega ümber ja pane kuupäev juurde. Kui eesmärk kaitsmisel ikka muutmata kehtib, kirjuta see lause koos kuupäevaga; ka see on tulemus.
+**KAARDISTA ISE — eesmärk nii, nagu ta tegelikult välja tuli.**
 
-### Liidesed
+### Kontrollnimekiri
 
-**Võtab**
-* Õppejõult: MG400 baaspakett Pythonis (tag'itud git URL, README, `AGENTS.md`, CLI), MG400 koos iminapa komplekti ja vaakumpumba kastiga, ruuter koos adminni ligipääsuga, Samsungi telefon alusega, USB-C → Ethernet adapter, LAN kaablid.
-* Andmehõive L1: täht, ühe sõnumina kanalis, mille te esimesel nädalal kokku lepite — näiteks üks JSON rida `{"letter":"A"}`. Leppige kanal kokku enne, kui kumbki selle jaoks koodi kirjutab.
-* 3D printimine L1: pliiatsihoidik, mis annab järele, flantsi küljes. Kuni seda ei ole, joonistab flantsi külge teibitud marker antud rutiiniga ruudu.
+**Peab olema tehtud**
 
-**Annab**
-* Andmehõive L1: pumbakast sinu jaamast imemisele ja puhumisele lülitatud, teisest nädalast, et neil oleks teine rõhuallikas.
-* Nutikad Lahendused L2: jaama rakendus ja paketi kiht, kuhu tööriistaplaat külge käib.
-* Andmehõive L4: jaam koos õpeta, salvesta ja korda funktsioonidega, mis hiljem andmekogumist jooksutab.
-* Kõigi meeskondade agentidele: `AGENTS.md`.
+- [ ] MG400 API-režiimis, `mg400 status` vastab, leht liigutab robotit, pump imeb ja puhub CLI-st.
+- [ ] Neli asendit õpetatud, `data/positions.json`, robot tõstab sildi kümme korda.
+- [ ] AtomS3 flashitud PlatformIO-st, teeb oma WiFi võrgu, telefon satub lehele ilma aadressi trükkimata, pilt jõuab ekraanile.
+- [ ] Atomi lehel on seadete ja testide osa, `docs/atom_page.md` ütleb, mis seal on.
+- [ ] Täht: Atomi nupp valib, jaam saab kätte, robot joonistab kolm tähte.
+- [ ] Repo ja arenduspäevik täidetud, tag `smart-solutions-lab1`.
 
-### Taustainfo
+**KAARDISTA ISE — kuupäevad ja sinu enda sammud.**
 
-* **Dobot MG400 TCP/IP protokoll** — Dobot MG400 TCP/IP protokolli dokument (Dobot GitHub, TCP-IP-Protocol). Pordid 29999 (dashboard: EnableRobot, ClearError, DO, GetPose) ja 30003 (liikumine: MovJ, MovL, jog). Baaspakett mähib selle sisse; loe dokumenti, et aru saada, mida pakett teeb, ja et leida tema vigu.
-* **IPv4 alamvõrgud** — otsi fraasi "IPv4 subnet mask gateway explained CIDR /24". Sul on vaja: aadress, mask, võrk, broadcast, gateway, ja milliste pakettide jaoks on gateway'd vaja ja milliste jaoks mitte.
-* **Ruuteri seadistamine** — otsi fraasi "router DHCP reservation static lease subnet firewall rule". Mis ruuter riiulil ka ei ole, tema juhendis on need neli asja; leia need enne kokkusaamist.
-* **Pythoni paketi paigaldamine gitist pip'iga** — tag'itud URL-id, miks tag on tähtis: https://pip.pypa.io/en/stable/topics/vcs-support/
-* **Flaski kiirstart** — marsruudid, mallid, JSON vastused: https://flask.palletsprojects.com/en/stable/quickstart/
-* **Teenuse käivitamine alglaadimisel** — otsi fraasi "systemd service unit run python on boot" Linuxi jaama jaoks, või sama asi selle OS-i jaoks, mis varumasinal peal on.
-* **Täisekraani brauser Androidis** — otsi fraasi "Android kiosk mode fullscreen browser". Paneel peab üle elama ekraani kustumise ja taaskäivituse.
-* **Dobot vaakumpumba kast** — otsi fraasi "Dobot vacuum pump box MG400 I/O wiring suction blow". Kaks DO liini lülitavad seda; loe juhendist täpsed klemmid enne ühendamist.
-* **draw.io** — võrguskeemi jaoks: https://app.diagrams.net
+### Sisendid
 
-*Lisa siia oma allikaid ja kasulikku infot, mis aitaks sul projektist aru saada ka aastaid hiljem, kui selle uuesti lahti teed.*
-
-**KAARDISTA ISE — sinu allikad.** Iga link, andmelehe lehekülg, foorumivastus ja video, mis päriselt aitas, ja iga juures üks rida: mida sa sealt said, ja mis seal valesti või puudu oli. Link, mille kõrval lauset ei ole, ei ole allikas.
+* Riiulilt: AtomS3, USB-C kaabel, USB-C → Ethernet adapter, LAN kaabel, marker, maalriteip, paber, AtomS3 näidissilt või mistahes 24 × 24 mm lameda pealsega asi esimese tõstmise jaoks.
+* Õppejõult: MG400 API-režiimis, koos pumbakasti ja iminapa komplektiga; MG400 baaspakett.
+* Andmehõive L1: täht, üks JSON rida kanalis, mille te esimesel nädalal kokku lepite. Leppige kanal kokku enne, kui kumbki selle jaoks koodi kirjutab.
+* 3D printimine L1: pastakahoidik flantsi külge. Kuni seda ei ole, joonistab flantsi külge teibitud marker.
 
 ### Vahendid
 
-1. MG400 koos Doboti iminapa komplektiga (tõstev otsik, φ13 või φ16 iminapp) ja vaakumpumba kastiga (24 V, I/O juhitav)
-2. Ruuter meeskonna kohta, või üks ruuter alamvõrguga iga meeskonna jaoks
-3. Jaam: varu-sülearvuti või lauaarvuti, mis jääb laborisse, USB-C → Ethernet adapteriga, kui tal porti ei ole
-4. Samsungi telefon alusega ja laadijaga, paneelina
-5. AtomS3 Andmehõive meeskonnalt, mis saadab tähe
-6. MG400 baaspakett Pythonis (õppejõu tag'itud git URL)
-7. Python 3.11+, `venv`, pip, Flask
-8. Git, meeskonna repo koos `AGENTS.md`-ga
+1. MG400 koos iminapa komplektiga ja pumbakastiga
+2. Sülearvuti Ethernet pordi või adapteriga; Python 3.11+, venv, pip, Flask
+3. MG400 baaspakett: `code/mg400-base` sellest repost
+4. AtomS3, USB-C kaabel; VS Code ja PlatformIO laiendus; M5Unified
+5. ESP32-Image-Server alguspunktiks (link taustainfos)
+6. Telefon, millega Atomi võrku minna
+7. Marker, maalriteip, paber; pastakahoidik 3D printimise L1-st, kui valmis
+8. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
 9. draw.io
-10. AtomS3 näidissilt või mistahes 24×24 mm lameda pealsega asi, ja alus riiulilt, esimese tõstmise jaoks
-11. Pliiatsihoidik 3D printimise L1-st; seni marker ja maalriteip
 
 *Kui plaan muutub, uuenda ka vahendeid, või tee draw.io skeem, mis näitab, kuidas asjad omavahel töötavad.*
 
-**KAARDISTA ISE — mida sa päriselt kasutasid.** Versioonid, masinate nimed, mis riiuliasi mille asemele läks, mis läks katki ja mis sai otsa. Ülal olev nimekiri on see, mida oodati; see nimekiri on see, mida inimene vajab, et sinu töö uuesti teha.
+**KAARDISTA ISE — mida sa päriselt kasutasid.**
 
-### Projekti ülesehitus
+### Taustainfo
 
-- [ ] Aadressiplaan paberil: iga seade, tema liides, tema aadress, mask ja gateway, ja millised paketid millist ühendust läbivad. draw.io-s, enne kui ükski kaabel sisse läheb.
-- [ ] Ruuter: alamvõrk robotitele, DHCP reserveeringud, et MG400 ja jaam hoiaksid aadresse, mille sa neile andsid, WiFi, millega Atom liitub, tulemüür, ja marsruut Labori 3 tunneli jaoks valmis jäetud.
-- [ ] Sülearvuti räägib MG400-ga: ühenda, luba, tühista viga, liiguta iga telge, loe asendit, DO sisse ja välja — kõigepealt paketi CLI-st, siis oma koodist.
-- [ ] Sülearvuti räägib Atomiga: tähesõnum jõuab kokkulepitud kanalis kohale ja logitakse ajatempliga.
-- [ ] Täht → liikumine: vähemalt kolm tähte, meeskonna initsiaalid, teedena, mida robot pliiatsiga joonistab. Kus on paber, mis on pliiatsi allasõidu Z, mis juhtub, kui robot ei ole valmis — kõik sinu.
-- [ ] Pumbakast kahel DO liinil: imemine, puhumine, väljas, sinu enda koodist; Andmehõive meeskond võib seda teisest nädalast küsida.
-- [ ] Koli sülearvutist ära: sama kood jaamas, ilma IDE-ta, staatiline IP roboti alamvõrgus, käivitub alglaadimisel ilma sisselogimiseta.
-- [ ] Jaama leht: liigutamise nupud (X/Y/Z/R, samm 1/10/50 mm), salvestatud asendite nimekiri koos Mine, Õpeta ja Kustuta nuppudega, pumba nupud, olekurida.
-- [ ] Telefon on paneel: täisekraani brauser lehe peal, alusel laua serval, elab üle ekraani kustumise ja taaskäivituse.
-- [ ] Esimene tõstmine: õpeta `above_source`, `source`, `above_finished`, `finished`; kordamine tõstab sildi üles ja paneb maha.
-- [ ] `AGENTS.md` repo juurkaustas: mis see süsteem on, kuidas seda käivitada, kus on baaspaketi README, kuidas saata tähte ilma Atomita.
-- [ ] Iga parandus baaspaketti pull request'ina õppejõu repole, lingitud kaustast `docs/`.
-- [ ] Tag `smart-solutions-lab1` 72 h enne 06.10.
+* **MG400 baaspakett**: README, kus on kaabel ja aadress, CLI ja HTTP API. API-režiim on robotil juba sees; kui ei ole, on `docs/api-mode-utm.md` ühekordne juhend, kuidas see Macist sisse lülitada.
+  [https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base](https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base)
+* **Dobot TCP/IP protokoll**: pordid 29999 (EnableRobot, ClearError, DO, GetPose), 30003 (MovL, ServoP), 30004 (tagasiside iga 8 ms)
+  [https://github.com/Dobot-Arm/TCP-IP-Protocol](https://github.com/Dobot-Arm/TCP-IP-Protocol)
+  Doboti enda Pythoni näide: [https://github.com/Dobot-Arm/TCP-IP-4Axis-Python](https://github.com/Dobot-Arm/TCP-IP-4Axis-Python)
+* **Pumbakast**: otsi fraasi "Dobot MG400 vacuum pump box IO control". Kaks DO liini; klemmid juhendist.
+* **AtomS3**: viigud, ekraan, nupp
+  [https://docs.m5stack.com/en/core/AtomS3](https://docs.m5stack.com/en/core/AtomS3)
+* **PlatformIO**: [https://docs.platformio.org/](https://docs.platformio.org/) ja M5Unified: [https://github.com/m5stack/M5Unified](https://github.com/m5stack/M5Unified)
+* **ESP32-Image-Server**: AtomS3 püsivara, mis teeb WiFi võrgu, näitab pilti ja pakub lehte, kust pilt üles laadida. Captive portalit seal ei ole.
+  [https://github.com/KKallas/ESP32-Image-Server](https://github.com/KKallas/ESP32-Image-Server)
+* **ESP32 WiFi AP**: [https://randomnerdtutorials.com/esp32-access-point-ap-web-server/](https://randomnerdtutorials.com/esp32-access-point-ap-web-server/)
+* **Captive portal**: otsi fraasi "ESP32 captive portal DNSServer generate_204 hotspot-detect". Telefon küsib liitumisel kindlat aadressi; kui vastus ei ole see, mida ta ootab, avab ta lehe ise.
+* **Flask**: [https://flask.palletsprojects.com/en/stable/quickstart/](https://flask.palletsprojects.com/en/stable/quickstart/)
 
-*Kui kaugel te olete? Millal valmis saate? Kuidas saaks kiiremini? — tavalised küsimused*
+*Lisa siia oma allikaid ja kasulikku infot, mis aitaks sul projektist aru saada ka aastaid hiljem, kui selle uuesti lahti teed.*
 
-**KAARDISTA ISE — kuupäevad ja sinu enda sammud.** Pane iga linnukese kõrvale kuupäev ja lisa sammud, mida see dokument ette ei näinud — need on lugemist väärt. Kast, mida ei saa linnukesega märkida, saab ühe rea, miks; teda ei jäeta lihtsalt lahti.
+**KAARDISTA ISE — sinu allikad.**
 
-### Simulatsioon
+### Osad
 
-Selle labori simulatsioon on võrguskeem, ja seda tehakse kaks korda. Üks kord enne, kui midagi sisse pistetakse: iga seade, liides, aadress, mask ja gateway, ja nool iga paketi jaoks, mille täht tekitab — Atomist jaama, jaamast robotile, jaamast telefonile — koos ühendusega, mida igaüks läbib. Siis uuesti pärast ehitamist: loe ruutimistabel ruuterilt ja jaamast ja võrdle rida-realt joonisega. Iga erinevus on kas viga joonises või viga võrgus, ja sina ütled, kumb. Mõlemad versioonid lähevad failidesse `docs/network.drawio` ja `docs/network.md`.
+#### 1. Robot
 
-### Analüüs
+Robot on LAN1 pordis aadressil 192.168.1.6 ja API-režiimis: ta teenindab porte 29999, 30003 ja 30004 nii kaua, kui ta on voolu all. Sinu arvuti Ethernet saab käsitsi aadressi 192.168.1.50, mask 255.255.255.0, gateway tühi. Ping enne, kui midagi muud. Kui ping käib, aga port keeldub, on API-režiim väljas; ühekordne juhend on baaspaketi kaustas `docs/`.
 
-1. **Aadressiplaan** (`docs/network.md`): tabel — seade, liides, aadress, mask, gateway, ja üks rida, miks. Siis ruuteri ja jaama ruutimistabel tekstina, iga rida selgitatud.
-2. **Tähe latentsus** (`docs/latency.csv`, `notebooks/lab1_chain.ipynb`): kolmkümmend vajutust. Iga kohta: Atomi saatmise ajatempel, jaama vastuvõtu ajatempel, robotile saadetud esimese liikumiskäsu ajatempel. Keskmine, maksimum ja hajuvus iga hüppe kohta. Milline hüpe on aeglane?
-3. **Täheteed** (`docs/letters.md`): kolm tähte punktide nimekirjadena, pliiatsi allasõidu Z ja kuidas see leiti, joonistatud tulemus joonlauaga mõõdetud neljast kohast kavandatud suuruse vastu.
-4. **Alglaadimise test** (`docs/boot.csv`): jaam viis korda voolust välja ja sisse; aeg sisselülitamisest lehe laadimiseni telefonis; kõik, mis üles ei tulnud.
-5. **Esimene tõstmine** (`docs/pick_test.csv`): kümme tõstmist 20 % kiirusel; tõstetud, pandud, märkused.
+Baaspakett: `mg400 status` ütleb režiimi ja asendi; `mg400 serve` annab lehe, kus on ühenda, luba, liugurid X/Y/Z/R, kiirus, kümme salvestatud asendit ja pumba nupud. Esimene liigutus 20 % kiirusel, käsi hädastopi juures. Ainult üks programm saadab liikumiskäske korraga.
 
-**KAARDISTA ISE — vastused.** Iga ülaloleva nummerdatud punkti kohta üks rida: number, mille sa said, tema ühik, ja koht, kus ta elab (notebook, lahter, fail). Iga tegemata asja kohta üks rida, miks. Kaitsmise küsimused tulevad sellest osast.
+Pumbakast on kahel DO liinil. Pakett arvab, et DO2 on imemine ja DO1 puhumine; kontrolli kasti juhendist ja multimeetriga enne, kui ühendad. Andmehõive meeskond küsib pumpa sinu CLI-st teisest nädalast.
 
-### Testimine
+Õpeta neli asendit: `above_source`, `source`, `above_finished`, `finished`. Kordamine tõstab sildi allikast ja paneb valmis pessa, kümme korda 20 % kiirusel.
 
-#### Testinäide 1: Joonis klapib tabeliga
+Kirjuta üles: aadressiplaan (robot, arvuti, liides, mask); pordid ja mis igaüks teeb; DO indeksid ja kuidas kontrollitud; neli asendit failis `data/positions.json`; kümme tõstmist failis `docs/pick_test.csv` (tõstetud, pandud, märkus); mis paketis oli valesti või puudu, ja pull request õppejõu repole.
 
-Jaama ja ruuteri ruutimistabel klapivad failis `docs/network.md` oleva joonisega, rida-realt. Siis tõmba roboti kaabel välja: joonis peab ennustama, milline lehe funktsioon seiskub, ja nii ka läheb.
+#### 2. Ekraan
 
-#### Testinäide 2: Tähest liikumiseni alla sekundi
+ESP32-Image-Server, kaust `atom-image-server`, PlatformIO-s AtomS3 peale. Plaat on `m5stack-atoms3`, M5Unified tunneb ekraani ise ära. Seerial 115200. Ilma salvestatud võrguta teeb Atom oma WiFi võrgu aadressil 192.168.4.1 ja leht on seal: lõika pilt, saada slotti, pilt on ekraanil.
 
-Vajuta Atomil tähte. Läbi: esimene liikumiskäsk jõuab robotini 1 s jooksul, kümme korda kümnest, ajatemplite järgi failis `docs/latency.csv`.
+Sinu osa: captive portal. Telefon liitub võrguga ja satub lehele ilma, et keegi aadressi trükiks. DNS vastab igale nimele Atomi aadressiga, ja telefoni kontrollaadressid saavad vastuseks lehe. Logi, mida telefon küsis; Android ja iPhone küsivad eri asju.
 
-#### Testinäide 3: Jaam tuleb üles ise
+Teine osa: lehele tuleb seadete ja testide osa. Praegu: võrgu nimi ja parool, jaama aadress, testinupp, mis näitab ekraanil olekut. See osa jääb ja kasvab: Laboris 2 tulevad siia rõhuanduri lugem ja UART test, hiljem klapp ja LED. Reegel: iga riistvara, mis Atomi külge tuleb, saab oma seaded ja testinupu sellele lehele. Eraldi lehti ei tule.
 
-Lülita jaam välja ja sisse. Läbi: 90 s jooksul laadib leht telefonis, roboti olek näitab ühendatud, ja keegi ei ole sisse loginud ega midagi kirjutanud. Viis korda viiest.
+Kirjuta üles: flashimise sammud ja aeg; AP nimi, aadress, lehe URL; ühe 128 × 128 kaadri üleslaadimise aeg üle AP; captive portali kontrollaadressid, mida telefon küsis; lehe seadete ja testide nimekiri failis `docs/atom_page.md`.
 
-#### Testinäide 4: Robot ei ole valmis
+#### 3. Täht
 
-Keela robot, siis vajuta tähte. Läbi: leht näitab, miks midagi ei juhtunud, midagi ei liigu, ja jaam ei jookse kokku ega jää kinni. Luba robot: järgmine vajutus joonistab.
+Andmehõive L1 osas 5 valib lühike vajutus tähe ja pikk saadab selle. Kanal on teie kokkulepe: Atom on WiFi võrk ja HTTP server, seega kas jaam küsib Atomilt või Atom saadab jaamale. Üks JSON rida, ajatempel jaamas vastuvõtul.
 
-#### Testinäide 5: Kümme kümnest
+```
+Atom → jaam:   {"letter":"A"}
+jaam → robot:  täht → punktide nimekiri → MovL punkt-punktilt, pliiats üles joonte vahel
+```
+```
+täht tuleb:  kui robot ei ole lubatud → midagi ei liigu, leht näitab põhjust
+             muidu: pliiats üles → esimene punkt → pliiats alla → punktid → pliiats üles
+```
 
-Neljast õpetatud asendist tõstab kordamine näidissildi allikast ja paneb valmis pessa, 10 korda 10-st 20 % kiirusel, ühe täisringi videoga.
+Vähemalt kolm tähte, meeskonna initsiaalid, punktide nimekirjadena. Pliiatsi allasõidu Z leitakse markeriga ja hiljem hoidikuga; kui õpetatud kõrgus on paar millimeetrit paigast ära, jääb hoidik terveks. Esimene joonistus 20 % kiirusel, pliiats 20 mm paberist kõrgemal.
 
-*Need on esimesed näited. Lisa siia järgmised testid, et kui projektile uusi osi juurde tuleb, saaks automaatselt kontrollida, et vana osa katki ei läinud — käsitsi tehes kulub sellele suurem osa projekti ajast!*
+Kirjuta üles: kanal (kes ühendab kelle poole, aadress, formaat) failis `docs/letter_channel.md`; kolm tähte punktidena ja pliiatsi Z failis `docs/letters.md`, joonistatud tulemus joonlauaga mõõdetuna kavandatud suuruse vastu; kolmkümmend vajutust ajatemplitega (Atom saatis, jaam sai, esimene käsk robotile) failis `docs/latency.csv`, keskmine ja maksimum iga hüppe kohta.
 
-**KAARDISTA ISE — sinu testid ja sinu ebaõnnestumised.** Iga ülaloleva testi kohta: tee see läbi, kirjuta tulemus ja kuupäev. Siis lisa testid, mille sa ise välja mõtlesid, ja — see osa jääb tavaliselt puudu — mis läks esimesena katki, kuidas see välja nägi, ja mis selle korda tegi.
-
-### Vastuvõtt
-
-* Video: täht vajutatud Atomil, MG400 joonistab selle prinditud hoidikuga, ühe võttega.
-* `docs/network.md` aadressiplaani, mõlema ruutimistabeli ja enne/pärast joonistega.
-* `docs/latency.csv` kolmekümne reaga ja hüpe-haaval kokkuvõte notebookis.
-* Video jaama alglaadimisest kuni leheni telefonis, ilma sisselogimiseta.
-* `docs/pick_test.csv` kümne reaga ja ühe ringi video.
-* `AGENTS.md` kontrollitud: teise meeskonna agent käivitab sinu süsteemi selle põhjal, ja nende transkript on kaustas `docs/`.
-
-**KAARDISTA ISE — kus iga asi on.** Iga ülaloleva punkti kõrvale tee repos ja commit või tag, kus ta ilmus. Vastuvõtu punkt, millel teed ei ole, ei ole vastu võetud; keegi seda otsima ei lähe.
-
-### Tekkivad andmed
-
-Ainult repo. Salvestatud asendeid (`data/positions.json`) ja latentsuse CSV-d loevad Labor 2 ja Andmehõive meeskond Laboris 4; hoia failinimed alles.
+**KAARDISTA ISE — vastused.** Iga osa kohta: numbrid, ühikud, kus fail on. Tegemata asja kohta üks rida, miks.
 
 ### Ohutus
 
-* MG400 tööala on 440 mm raadius; kellegi käed ei ole selle sees, kui käsk on ootel. Inimene telefoni juures ütleb "liigub" enne iga kordamist.
-* Hädastopp MG400 alusel on ainus stopp, mida sa usaldad. Stopp-nupp lehel on mugavus — testi seda, aga hoia käsi hädastopi lähedal iga uue jada esimesel jooksul.
+* MG400 tööala on 440 mm raadius; kellegi käed ei ole selle sees, kui käsk on ootel. Enne iga kordamist ütleb keegi "liigub".
+* Hädastopp MG400 alusel on ainus stopp, mida sa usaldad. Stopp-nupp lehel on mugavus; testi seda, aga hoia käsi hädastopi lähedal iga uue jada esimesel jooksul.
 * Iga uue tähe või jada esimene jooks 20 % kiirusel, ilma sildita, pliiats või iminapp 20 mm pinnast kõrgemal.
-* Pumbakast töötab 24 V peal; ühenda DO liinid siis, kui robot on keelatud ja kast vooluvõrgust väljas.
-* Ruuteri adminni parool vahetatud vaikimisi omast ära esimesel päeval, ja kirjas meeskonna paroolihoidlas, mitte repos.
+* Ainult üks programm saadab liikumiskäske korraga.
+* Pumbakast on 24 V. DO liinid ühendatakse siis, kui robot on keelatud ja kast vooluvõrgust väljas.
+* Atomi WiFi parool ei ole vaikimisi oma, kui Atom laborist välja läheb.
 
 ### Komponendid järgmiseks laboriks
 
@@ -181,34 +157,23 @@ Tellimus läheb välja 22.09.26. Kogused meeskonna kohta.
 
 | Kategooria | Punktid |
 | :--- | :--- |
-| Tööfailid — jaama rakendus, täheteed, ruuteri seadistus eksporditud, paketi kiht | 5 p |
-| Analüüs — aadressiplaan mõlema ruutimistabeliga selgitatud, latentsus hüpe-haaval, alglaadimise ja tõstmise tabelid | 5 p |
-| Prototüüp — Atomil vajutatud tähe joonistab robot; jaam tuleb ise üles telefonini; 10 tõstmist 10-st | 5 p |
-| Dokumentatsioon — võrguskeemid enne ja pärast, `AGENTS.md` tõestatud teise meeskonna agendiga, see README | 5 p |
+| Tööfailid — baaspaketi seadistus ja sinu muudatused, Atomi püsivara, täheteed, `positions.json` | 5 p |
+| Analüüs — aadressiplaan, DO kontroll, tõstmise tabel, üleslaadimise aeg, latentsus hüpe-haaval | 5 p |
+| Prototüüp — leht liigutab robotit, pump CLI-st, Atom teeb võrgu ja telefon satub lehele, pilt ekraanil, robot joonistab Atomil valitud tähe | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
-### Kaitsmiseks on vaja
+### Kaitsmine
 
-**Ainult link git repole, tag'iga `smart-solutions-lab1` 72 h enne kaitsmist.**
+Link git repole, tag `smart-solutions-lab1`.
 
-Kaitsmine on veebis 06.10.26. Tag peab olema tehtud 72 h enne seda, see tähendab laupäeval 03.10.26 — samal nädalavahetusel, kui toimub kontakttund, kus järgmine labor välja antakse. Kõik, mida on vaja elusalt näidata — robot liigub, print, mõõtmine —, peab kõnes näha olema, nii et ühine laborist.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas Atomil vajutatud tähe robot joonistab, avad telefonist Atomi lehe ja oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Tag'itud repo peab sisaldama kaustas `smart-solutions/lab1/`:
-* `src/`: jaama rakendus, täheteed, pumbakasti juhtimine, alglaadimise seadistus.
-* `config/`: ruuteri seadistus eksporditud, parool eemaldatud.
-* `data/positions.json`, `docs/latency.csv`, `docs/boot.csv`, `docs/pick_test.csv`.
-* `notebooks/lab1_chain.ipynb` väljunditega.
-* `docs/`: `network.drawio`, `network.md`, `letters.md`, videod, teise meeskonna agendi transkript.
-* `README.md`: see dokument, täidetud.
-* `AGENTS.md` repo juurkaustas.
-
-Muudatus kohapeal kaitsmisel: õppejõud küsib neljandat tähte, või nihutab paberit 50 mm, või nimetab asendi ümber. Meeskond teeb muudatuse jaamas — mitte sülearvutis — ja robot joonistab selle kokkusaamise ajal.
+Repos on kaustas `smart-solutions/lab1/`: `src/` jaama kood (baaspaketi seadistus, tähe kanal, täheteed), `firmware/` Atomi PlatformIO projekt, `data/positions.json`, `docs/` (`atom_page.md`, `letters.md`, `letter_channel.md`, `pick_test.csv`, `latency.csv`, fotod, draw.io skeem ahelast), see fail kui `README.md`, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 
-**KAARDISTA ISE — päevik.** Üks sissekanne iga töösessiooni kohta, kirjutatud iseendale, keeles, milles teie meeskond töötab, ja nii, et inimene, kes seal ei olnud, saab aru ilma küsimata. Kõigepealt kuupäev, siis kes olid kohal, mida te proovisite, mis päriselt juhtus — numbrites —, mida otsustasite ja miks, ja mis jäi järgmiseks korraks lahti. Sissekandeid lisatakse, mitte ei muudeta: kui 18.09 sissekanne osutus valeks, ütleb seda 25.09 sissekanne, ja vana jääb nii, nagu ta oli.
-
-Omadussõnad ei ole tulemused. "Andur oli mürarikas" ei ole midagi; "±14 LSB paigal, ±40 LSB kui pumbakast töötab" on sissekanne. Kaks-kolm ausat lauset sessiooni kohta on küllalt — aga sessioon, milles oli viga, väärib viit.
+**KAARDISTA ISE — päevik.** Üks sissekanne iga töösessiooni kohta, kirjutatud iseendale, nii et inimene, kes seal ei olnud, saab aru. Sissekandeid lisatakse, mitte ei muudeta.
 
 **PP.KK.AA — kes olid kohal**
 * Tegime:
@@ -216,13 +181,17 @@ Omadussõnad ei ole tulemused. "Andur oli mürarikas" ei ole midagi; "±14 LSB p
 * Otsustasime, ja miks:
 * Lahti järgmiseks korraks:
 
-### Tulemused
+### Väljundid ja tulemused
+
+**Väljundid**
+* Andmehõive L1: pumbakast imemisele ja puhumisele baaspaketi CLI-st, teisest nädalast; tähe kanal.
+* 3D printimine L1: robot joonistab hoidikuga tähe.
+* Nutikad Lahendused L2: Atomi leht, kuhu tööriistaplaadi seaded ja testid juurde tulevad; jaam, mille külge tööriistaplaat käib.
 
 **KAARDISTA ISE, lõpus.**
-
 * Git repo ja tag:
-* Kolm-neli numbrit, mille see labor andis, ühikutega:
-* Mida me teeksime teisiti, kui alustaksime uuesti esimesest päevast:
+* Numbrid, mille see labor andis, ühikutega:
+* Mida me teeksime teisiti:
 * Mida järgmine labor peaks enne alustamist teadma:
 
 ### Tagasiside
