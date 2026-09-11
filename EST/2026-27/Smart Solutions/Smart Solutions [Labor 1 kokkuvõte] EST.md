@@ -4,15 +4,17 @@
 
 ### Mida teete
 
-Kolm kasti, mis igaüks töötab, ei ole süsteem. Andmehõive meeskonnal on Atom, mis saadab tähe. 3D printimise meeskonnal on pastakahoidik roboti flantsi küljes. Robotil on TCP port, mis võtab vastu liikumiskäske. Süsteem on see osa, mis jääb nende vahele, ja see osa on sinu. **Vajuta tähte, robot joonistab selle.**
+Sama meeskond teeb kõiki kolme ainet. Iga aine annab ühe tüki: Andmehõive teeb AtomS3, mille nupp valib tähe ja saadab selle välja. 3D printimine teeb pastakahoidiku, mis käib roboti käe otsa. Robotil MG400 on võrguport, kust ta võtab vastu liikumiskäske. Igaüks neist töötab eraldi, aga eraldi ei joonista neist ükski. Puudu on osa, mis võtab tähe Atomist vastu ja teeb sellest roboti liigutused. Selle osa teed sina. **Vajuta Atomil tähte, robot joonistab selle paberile.**
+
+**Jaam** on sinu sülearvuti, kus jookseb Pythoni programm. Jaam räägib Atomiga üle WiFi ja robotiga üle Etherneti.
 
 Kolm osa:
 
-**1. Robot** — MG400 API-režiimi, baaspakett sinu sülearvutis: CLI, leht liugurite ja pumba nuppudega. Kontrolli pumba DO liinid, õpeta neli asendit. Tulemus: aadressiplaan, `data/positions.json`, kümme tõstmist.
+**1. Robot** — pane MG400 tööle oma sülearvutist. Õppejõud annab baaspaketi: Pythoni programm, mis avab brauseris lehe liugurite ja pumba nuppudega. Kontrolli, kas paketi eeldused (aadressid, pumba DO liinid) vastavad tõele, ja õpeta robotile neli asendit. Tulemus: aadressiplaan, `data/positions.json`, kümme tõstmist.
 
-**2. Ekraan** — AtomS3 PlatformIO-st, oma WiFi võrk, captive portal, leht, kust pilt ekraanile läheb. Lehele tuleb seadete ja testide osa, mis jääb kogu aastaks: iga hilisem riistvara saab oma seaded ja testinupu siia. Tulemus: telefon satub lehele ilma aadressita, pilt ekraanil, `docs/atom_page.md`.
+**2. Ekraan** — laadi AtomS3-le PlatformIO-st püsivara, mis teeb oma WiFi võrgu ja näitab lehte, kust saab pildi ekraanile saata. Kui telefon võrguga liitub, peab leht ise lahti minema, ilma aadressi trükkimata. Lehele tuleb seadete ja testinuppude osa, mis jääb kogu aastaks: kõik, mis hiljem Atomi külge tuleb, saab oma seaded ja testinupu siia. Tulemus: telefon satub lehele ilma aadressita, pilt ekraanil, `docs/atom_page.md`.
 
-**3. Täht** — Atomi nupp valib tähe, jaam saab selle kätte, robot joonistab kolm tähte. Tulemus: `docs/letter_channel.md`, `docs/letters.md`, `docs/latency.csv`.
+**3. Täht** — Atomi nupp valib tähe, täht jõuab jaama, jaam saadab robotile liikumiskäsud, robot joonistab tähe paberile. Kolm tähte. Tulemus: `docs/letter_channel.md`, `docs/letters.md`, `docs/latency.csv`.
 
 ### Kuidas töö käib
 
@@ -38,7 +40,7 @@ Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas Atomil vajuta
 | :--- | :--- |
 | Tööfailid — baaspaketi seadistus ja sinu muudatused, Atomi püsivara, täheteed, `positions.json` | 5 p |
 | Analüüs — aadressiplaan, DO kontroll, tõstmise tabel, üleslaadimise aeg, latentsus hüpe-haaval | 5 p |
-| Prototüüp — leht liigutab robotit, pump CLI-st, Atom teeb võrgu ja telefon satub lehele, pilt ekraanil, robot joonistab Atomil valitud tähe | 5 p |
+| Prototüüp — leht liigutab robotit, pump käsurealt, Atom teeb võrgu ja telefon satub lehele, pilt ekraanil, robot joonistab Atomil valitud tähe | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 

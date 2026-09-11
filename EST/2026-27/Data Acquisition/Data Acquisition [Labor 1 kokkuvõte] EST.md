@@ -8,7 +8,7 @@ Laboris on viis MG400 ja viis pumbakasti. Üks neist on tark: mõõdab rõhku ja
 
 Viis osa:
 
-**1. Andur ja esimene signaal** — MPX5700AP maketeerimisplaadil, Atom näitab kPa, Python kirjutab CSV 100 Hz. Falstadis andur → ADC koos müraallikaga. Tulemus: Pa ühe ADC sammu kohta, müra LSB-des, spektri tipud nimedega.
+**1. Andur ja esimene signaal** — MPX5700AP maketeerimisplaadil otse ADC-sse, vahel ei ole midagi; jagur ja op-amp tulevad Laboris 2 ja neid võrreldakse selle toore signaaliga. Atom näitab kPa, Python kirjutab CSV 100 Hz. Falstadis andur → ADC koos müraallikaga. Tulemus: Pa ühe ADC sammu kohta, müra LSB-des, spektri tipud nimedega.
 
 **2. Tark kast** — T-liitmik tehase targa kasti torusse, logi viis minutit. Tulemus: välja- ja sisselülitusrõhk, tööaeg, seisuaeg, käivitusi minutis. Need on sinu kasti sihtmärk.
 
@@ -24,7 +24,7 @@ Kopeeri täielik tööleht esimesel päeval oma repo laborikausta `README.md`-ks
 
 ### Komponendid järgmiseks laboriks
 
-Tellimus läheb välja 22.09.26. Sinu valitud pumba-andur, MPX5100DP süstla haru jaoks, LM358N op-amp, teine maketeerimisplaat, T-liitmikud ja korgid. Kogused ja põhjused on töölehel.
+Tellimus läheb välja 22.09.26. Sinu valitud pumba-andur, MPX5100DP süstla haru jaoks, LM358N op-amp Labori 2 jagur vs op-amp võrdluseks, teine maketeerimisplaat, T-liitmikud ja korgid. Kogused ja põhjused on töölehel.
 
 ### Kaitsmiseks on vaja
 

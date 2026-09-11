@@ -88,13 +88,13 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 #### 1. Andur ja esimene signaal
 
-MPX5700AP maketeerimisplaadil: 5 V, GND, Vout → ADC viik. Multimeeter enne, kui Atom külge läheb: toide 5 V, Vout atmosfääril umbes 0,85 V. Atomil iga 10 ms: loe ADC → kPa → ekraan → üks rida UART-i. Arvutis Python, mis kirjutab CSV veergudega `t_ms, adc, p_kpa, pump`. Kontroll: 10 s logi on 1000 ± 5 rida, ja ADC on multimeetriga 2 % piires nõus.
+MPX5700AP maketeerimisplaadil: 5 V, GND, Vout → ADC viik. Andur otse ADC-sse, vahel ei ole midagi: ei jagurit, ei op-ampi, ei filtrit. See on meelega. Labor 2 paneb vahele kõigepealt jaguri, siis op-ampi, ja võrdleb nelja spektrit. Võrdlus on olemas ainult siis, kui toores signaal on siin mõõdetud ja alles. Multimeeter enne, kui Atom külge läheb: toide 5 V, Vout atmosfääril umbes 0,85 V. Atomil iga 10 ms: loe ADC → kPa → ekraan → üks rida UART-i. Arvutis Python, mis kirjutab CSV veergudega `t_ms, adc, p_kpa, pump`. Kontroll: 10 s logi on 1000 ± 5 rida, ja ADC on multimeetriga 2 % piires nõus.
 
 MPX5700AP on vale skaalaga, aga absoluutne, ja atmosfäär on tema skaala sees: −70 kPa on 31 kPa absoluutset, +110 kPa on 211 kPa, väljund 0,40–1,56 V. Kogu pumba ulatus on 26 % tema skaalast, umbes 125 Pa ühe ADC sammu kohta. Ülekandefunktsioon: `Vout = 5 · (0.0012858 · P + 0.04)`, P kPa absoluutne.
 
 Kirjuta üles: Pa ühe ADC sammu kohta, müra LSB-des pump väljas ja pump sees, spektri tipud nimedega (pumba mootor, MG400 servod, USB toide, 50 Hz), vähemalt kaks neist kontrollitud allika väljalülitamisega. Falstadi skeem andur → ADC koos müraallikaga, simuleeritud müra mõõdetu vastu.
 
-Falstadi algus: andur on vahelduvpingeallikas 0,2–5 V, ADC on op-amp järgur, mille väljund on piiratud 0 ja 3,3 V vahele. Skoop ADC viigul näitab, kus signaal ära lõigatakse. Lisa sellele oma müraallikas. [Ava simulatsioon](https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgAwKgFwM6KQOiUgRlTBEQNwCZ8KB2GgZiQA4KA2ATnZtRACNEArCigAHfgiGoAbhEGoAtpkEBTALQEiAPgBQUKMClQAHmVZIojACxQCZmzVap4yVAHdnRWLISf5AQyMpRAocS1ReMD8sBBDHAHodPWAAc2NTcysbO3p6R1hsBATdfVc0nzsCBwska0q85xQipL8yzNtzS3ws4WcmBT9Eehx6BTACqGSBn3wZwsSS1pqbS2s2ggonAqaFkwQ1iihO8w0N-Jdt4FLdo5t1w672zfP5y7Kb9sP2Vm6nxpeAeTeX26UAEKx+Z08GFIz2KwCMb3MFHBGm+yO4Z2EGDGPlOaGUiAAggA7AAmAFdoEgADQUQDIBAIoAA1OZwhG7CjAihUQ62KDckaY1DYsh4gkIQkAEQAwlB5OTyWTKVAkHT6NT6MzWUl2YhLMCCMCwQdDexfsKcetUPiiTKoFIwGAANba-QAeygymJiD6UAwIlMTyMpwDLnmSRE9vG0Lk2wjnvGQRcfphAldwDibp0GfAEB0QA)
+Falstadi algus: andur on vahelduvpingeallikas 0,2–5 V, ADC sisend on modelleeritud järgurina, mis lõikab 0 ja 3,3 V vahele. See on ADC mudel, mitte signaaliaste. Skoop ADC viigul näitab, kus signaal ära lõigatakse. Lisa sellele oma müraallikas. [Ava simulatsioon](https://www.falstad.com/circuit/circuitjs.html?ctz=DwYwlgTgBAZgvAIgAwKgFwM6KQOiUgRlTBEQNwCZ8KB2GgZiQA4KA2ATnZtRACNEArCigAHfgiGoAbhEGoAtpkEBTALQEiAPgBQUKMClQAHmVZIojACxQCZmzVap4yVAHdnRWLISf5AQyMpRAocS1ReMD8sBBDHAHodPWAAc2NTcysbO3p6R1hsBATdfVc0nzsCBwska0q85xQipL8yzNtzS3ws4WcmBT9Eehx6BTACqGSBn3wZwsSS1pqbS2s2ggonAqaFkwQ1iihO8w0N-Jdt4FLdo5t1w672zfP5y7Kb9sP2Vm6nxpeAeTeX26UAEKx+Z08GFIz2KwCMb3MFHBGm+yO4Z2EGDGPlOaGUiAAggA7AAmAFdoEgADQUQDIBAIoAA1OZwhG7CjAihUQ62KDckaY1DYsh4gkIQkAEQAwlB5OTyWTKVAkHT6NT6MzWUl2YhLMCCMCwQdDexfsKcetUPiiTKoFIwGAANba-QAeygymJiD6UAwIlMTyMpwDLnmSRE9vG0Lk2wjnvGQRcfphAldwDibp0GfAEB0QA)
 
 ![Falstad: andur 0,2–5 V → ADC mudel 0–3,3 V](lab1_falstad_adc.png)
 
@@ -159,7 +159,7 @@ Tellimus läheb välja 22.09.26. Kogused meeskonna kohta.
 | :--- | :--- | :--- |
 | Sinu valitud pumba-andur | 2 | −70 … +110 kPa, üks töösse, üks varuks; kood ja põhjus `docs/sensor_choice.md`-st |
 | MPX5100DP | 2 | Süstla haru, 0–100 kPa, Labori 2 signaalitee |
-| LM358N | 5 | Op-amp DIP-8 Labori 2 jaoks, varudega |
+| LM358N | 5 | Op-amp DIP-8 Labori 2 jaoks: jagur vs op-amp võrdlus, varudega |
 | Maketeerimisplaat, juhtmekomplekt | 1 + 1 | Teine plaat op-amp astme jaoks |
 | T-liitmik 4 mm, vooliku kork | 3 + 3 | Kui riiulilt otsa said |
 
@@ -195,7 +195,7 @@ Repos on kaustas `data-acquisition/lab1/`: `src/` püsivara ja logijaga, `data/`
 
 **Väljundid**
 * Nutikad Lahendused L1: täht jaama; pumba juhtimise loogika ja lülituspunktid failis `docs/pump_control.md`.
-* Andmehõive L2: maketeerimisplaat, 100 Hz logija, CSV formaat, esimesed spektrid.
+* Andmehõive L2: maketeerimisplaat, 100 Hz logija, CSV formaat, esimesed spektrid toore signaaliga, mille vastu jagur ja op-amp võrreldakse.
 * Andmehõive L3: sama loogika, mis kolib tööriistaplaadile.
 
 **KAARDISTA ISE, lõpus.**
