@@ -5,7 +5,7 @@
 ### Kuidas see dokument töötab
 
 * Kopeeri see fail esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus.
-* **ANTUD** on see, mida õppejõud teab. **KAARDISTA ISE** on tühi, sest vastust ei tea veel keegi. Sina mõõdad ja kirjutad numbri koos põhjusega siia.
+* KAARDISTA ise on puudu, sest vastust ei tea veel keegi. Sina ise mõõdad ja kirjutad numbri ja põhjuse siia.
 * Midagi ei kustutata. Vale number jääb, kuupäevaga, parandus tuleb tema alla.
 * Kirjuta nii, et meeskonnakaaslane, kes sel päeval ruumis ei olnud, saab aru: päris failinimed, päris numbrid, ühikud.
 * Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile, et teine saaks selle lahti teha ja edasi muuta. Näited: osas 1 Falstadi simulatsioon, osas 2 draw.io skeem. Tee enda omad samade tööriistadega.
