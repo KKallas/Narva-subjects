@@ -22,9 +22,9 @@ Viis osa:
 
 Kopeeri täielik tööleht esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus. Midagi ei kustutata: vale number jääb, parandus tuleb tema alla. Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile; näited on töölehel. Tähtaeg ei ole tähtis. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti.
 
-### Komponendid järgmiseks laboriks
+### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26. Sinu valitud pumba-andur, MPX5100DP süstla haru jaoks, LM358N op-amp Labori 2 jagur vs op-amp võrdluseks, teine maketeerimisplaat, T-liitmikud ja korgid. Kogused ja põhjused on töölehel.
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Sinu valitud pumba-andur, T-liitmikud ja korgid, kui riiulilt otsa said. Kogused ja põhjused on töölehel.
 
 ### Kaitsmiseks on vaja
 

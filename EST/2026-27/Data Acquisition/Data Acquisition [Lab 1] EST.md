@@ -151,16 +151,13 @@ Lühike vajutus käib tähestikku läbi, pikk vajutus saadab `{"letter":"A"}` Nu
 * Robot: käed ei ole laual, kui robot on sisse lülitatud. Esimene jooks aeglaselt, hädastopp käeulatuses.
 * Selles laboris ei joodeta.
 
-### Komponendid järgmiseks laboriks
+### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26. Kogused meeskonna kohta.
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Kogused meeskonna kohta. Jagur ja kõik muu, mida see labor vajab, tuleb riiulilt.
 
 | Asi | Kogus meeskonna kohta | Märkus |
 | :--- | :--- | :--- |
 | Sinu valitud pumba-andur | 2 | −70 … +110 kPa, üks töösse, üks varuks; kood ja põhjus `docs/sensor_choice.md`-st |
-| MPX5100DP | 2 | Süstla haru, 0–100 kPa, Labori 2 signaalitee |
-| LM358N | 5 | Op-amp DIP-8 Labori 2 jaoks: jagur vs op-amp võrdlus, varudega |
-| Maketeerimisplaat, juhtmekomplekt | 1 + 1 | Teine plaat op-amp astme jaoks |
 | T-liitmik 4 mm, vooliku kork | 3 + 3 | Kui riiulilt otsa said |
 
 ### Hindamiskriteeriumid
