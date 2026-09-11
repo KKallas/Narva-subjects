@@ -83,7 +83,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 #### 1. Kuup
 
-Fusionis. 5 × 5 × 5 cm, sees silinder raadiusega 2 cm. Lõtk silindri ja seina vahel on parameeter. Kui print võtab liiga kaua aega, tee kuup madalamaks.
+Fusionis. 5 × 5 × 5 cm, sees silinder raadiusega 2 cm. Lõtk silindri ja seina vahel on parameeter. Kui print võtab üle 60 minut siis tee kuup madalamaks
 
 Kirjuta üles: mis lõtkuga silinder pöörleb ja mis lõtkuga on kinni sulanud. See number on iga hilisema detaili jaoks.
 
