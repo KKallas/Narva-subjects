@@ -20,15 +20,15 @@ Kolm osa:
 
 Kopeeri täielik tööleht esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus. Midagi ei kustutata: vale number jääb, parandus tuleb tema alla. Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile. Tähtaeg ei ole tähtis. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti.
 
-### Komponendid järgmiseks laboriks
+### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26. Teine Atom tööriista külge, otsiku kaamera, 3/2 klapp liitmike ja voolikuga, MOSFET moodulid, 405 nm LED-id jahutite ja draiveriga, USB kaablid, kaitseprillid. Kogused ja põhjused on töölehel.
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond käib labori alguses läbi, mõtleb välja, mis puudu on, ja paneb tellimuse ise kokku faili `docs/bom.md`.
 
 ### Kaitsmiseks on vaja
 
 **Ainult git repositooriumi link, tag `smart-solutions-lab1`.** Repos peab olema:
 - `src/` jaama kood, `firmware/` Atomi PlatformIO projekt, `data/positions.json`
-- `docs/`: `atom_page.md`, `letters.md`, `letter_channel.md`, `pick_test.csv`, `latency.csv`, fotod, draw.io skeem
+- `docs/`: `atom_page.md`, `letters.md`, `letter_channel.md`, `bom.md`, `pick_test.csv`, `latency.csv`, fotod, draw.io skeem
 - Täidetud tööleht `README.md`-na koos arenduspäevikuga
 - `AGENTS.md` uuendatud
 
@@ -41,7 +41,7 @@ Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas Atomil vajuta
 | Tööfailid — baaspaketi seadistus ja sinu muudatused, Atomi püsivara, täheteed, `positions.json` | 5 p |
 | Analüüs — aadressiplaan, DO kontroll, tõstmise tabel, üleslaadimise aeg, latentsus hüpe-haaval | 5 p |
 | Prototüüp — leht liigutab robotit, pump käsurealt, Atom teeb võrgu ja telefon satub lehele, pilt ekraanil, robot joonistab Atomil valitud tähe | 5 p |
-| Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, AGENTS.md | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
 ### Täielik tööleht

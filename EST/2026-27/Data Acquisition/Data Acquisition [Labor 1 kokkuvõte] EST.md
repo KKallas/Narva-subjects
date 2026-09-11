@@ -8,13 +8,13 @@ Laboris on viis MG400 ja viis pumbakasti. Üks neist on tark: mõõdab rõhku ja
 
 Viis osa:
 
-**1. Andur ja esimene signaal** — MPX5700AP maketeerimisplaadil otse ADC-sse, vahel ei ole midagi; jagur ja op-amp tulevad Laboris 2 ja neid võrreldakse selle toore signaaliga. Atom näitab kPa, Python kirjutab CSV 100 Hz. Falstadis andur → ADC koos müraallikaga. Tulemus: Pa ühe ADC sammu kohta, müra LSB-des, spektri tipud nimedega.
+**1. Mida tellida** — esimene asi, enne ehitamist: käi labor läbi, vaata, mis riiulil on ja mis puudu. Andurikandidaadid andmelehe numbritega, otsus numbritega. Tulemus: `docs/sensor_choice.md` ja tellimus Mouseri koodidena `docs/bom.md`, 22.09-ks.
 
-**2. Tark kast** — T-liitmik tehase targa kasti torusse, logi viis minutit. Tulemus: välja- ja sisselülitusrõhk, tööaeg, seisuaeg, käivitusi minutis. Need on sinu kasti sihtmärk.
+**2. Andur ja esimene signaal** — MPX5700AP maketeerimisplaadil otse ADC-sse, vahel ei ole midagi; jagur ja op-amp tulevad Laboris 2 ja neid võrreldakse selle toore signaaliga. Atom näitab kPa, Python kirjutab CSV 100 Hz. Falstadis andur → ADC koos müraallikaga. Tulemus: Pa ühe ADC sammu kohta, müra LSB-des, spektri tipud nimedega.
 
-**3. Sinu kast** — Atom otsustab ja näitab, arvuti lülitab pumba. Kui midagi on valesti, pump seisab. Robot võtab napiga klaasi kümme korda. Tulemus: riba, seisuaja alampiir ja käivituste piir failis `docs/pump_control.md`.
+**3. Tark kast** — T-liitmik tehase targa kasti torusse, logi viis minutit. Tulemus: välja- ja sisselülitusrõhk, tööaeg, seisuaeg, käivitusi minutis. Need on sinu kasti sihtmärk.
 
-**4. Anduri valik ja tellimus** — iga kandidaadi kohta samad numbrid, otsus numbritega. Tulemus: `docs/sensor_choice.md` ja tellimus Mouseri koodidena `docs/bom_lab2.md`, 22.09-ks.
+**4. Sinu kast** — Atom otsustab ja näitab, arvuti lülitab pumba. Kui midagi on valesti, pump seisab. Robot võtab napiga klaasi kümme korda. Tulemus: riba, seisuaja alampiir ja käivituste piir failis `docs/pump_control.md`.
 
 **5. Täht** — lühike vajutus valib tähe, pikk saadab selle jaama. Robot joonistab.
 
@@ -24,13 +24,13 @@ Kopeeri täielik tööleht esimesel päeval oma repo laborikausta `README.md`-ks
 
 ### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Sinu valitud pumba-andur, T-liitmikud ja korgid, kui riiulilt otsa said. Kogused ja põhjused on töölehel.
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku osa 1 põhjal.
 
 ### Kaitsmiseks on vaja
 
 **Ainult git repositooriumi link, tag `data-acquisition-lab1`.** Repos peab olema:
 - `src/` püsivara ja logijaga, `data/` CSV failidega, `notebooks/` spektritega
-- `docs/`: skeemi foto, ostsilloskoobi pilt, Falstadi eksport, `pump_control.md`, `sensor_choice.md`, `bom_lab2.md`
+- `docs/`: skeemi foto, ostsilloskoobi pilt, Falstadi eksport, `pump_control.md`, `sensor_choice.md`, `bom.md`
 - Täidetud tööleht `README.md`-na koos arenduspäevikuga
 - `AGENTS.md` uuendatud
 
@@ -43,7 +43,7 @@ Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas sinu kast ise
 | Tööfailid — Atomi püsivara, Pythoni logija ja pumba juhtimine, CSV failid | 5 p |
 | Analüüs — Pa ühe ADC sammu kohta, spektrid nimedega, targa kasti numbrid, hoidmiskõverad, anduri valik | 5 p |
 | Prototüüp — sinu kast jääb ise seisma imemisel ja puhumisel, USB välja = pump välja, robot võtab klaasi, täht jõuab jaama | 5 p |
-| Dokumentatsioon — README, arenduspäevik, `pump_control.md`, `sensor_choice.md`, `bom_lab2.md`, AGENTS.md | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `pump_control.md`, `sensor_choice.md`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
 ### Täielik tööleht

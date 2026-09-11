@@ -8,7 +8,7 @@
 * KAARDISTA ise on puudu, sest vastust ei tea veel keegi. Sina ise mõõdad ja kirjutad numbri ja põhjuse siia.
 * Midagi ei kustutata. Vale number jääb, kuupäevaga, parandus tuleb tema alla.
 * Kirjuta nii, et meeskonnakaaslane, kes sel päeval ruumis ei olnud, saab aru: päris failinimed, päris numbrid, ühikud.
-* Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile, et teine saaks selle lahti teha ja edasi muuta. Näited: osas 1 Falstadi simulatsioon, osas 2 draw.io skeem. Tee enda omad samade tööriistadega.
+* Skeemid ja simulatsioonid lähevad dokumenti pildina, pildi juurde link elavale failile, et teine saaks selle lahti teha ja edasi muuta. Näited: osas 2 Falstadi simulatsioon, osas 3 draw.io skeem. Tee enda omad samade tööriistadega.
 * Tähtaeg ei ole tähtis. Tähtis on, et asi saab tehtud ja sa saad aru. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti. Kaitsta saab nii mitu korda, kui vaja.
 
 ### Eesmärk
@@ -21,7 +21,7 @@ Selles laboris on kolm asja:
 2. **Tark kast.** Logi tehase tark kast enne, kui ise midagi disainid. Kaks lülituspunkti ja tsükli aeg.
 3. **Sinu kast.** Atom otsustab, ekraan näitab, arvuti lülitab. Pump jääb ise seisma imemisel ja puhumisel, ja robot võtab sellega klaasi.
 
-Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 22.09.
+Esimene asi on tellimus. Esimesel päeval uusi osi ei ole: mõtle välja, mida see labor üldse vajab ja mis riiulil puudu on, ja kirjuta see tellimuseks, mis läheb välja 22.09. Tellitu jõuab kohale selle labori ajal. Seni ehita sellest, mis riiulil on.
 
 *See on elav dokument. Uuenda eesmärke, kui need töö käigus muutuvad — uued teadmised teevad vanad eesmärgid vahel mõttetuks. Mõte on hoida meeskond kogu aeg sihil, et ei eksitaks detailide metsa ja põhiprobleem ei jääks lahendamata.*
 
@@ -31,10 +31,10 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **Peab olema tehtud**
 
+- [ ] Tellimus 22.09: mis selle labori jaoks riiulil puudu on, anduri valik numbritega.
 - [ ] MPX5700AP maketeerimisplaadil, Atom näitab kPa, logija kirjutab CSV 100 Hz.
 - [ ] Targa kasti logi olemas, kaks lülituspunkti teada.
 - [ ] Sinu kast jääb ise seisma imemisel ja puhumisel. USB välja, pump välja.
-- [ ] Anduri valik numbritega, tellimus 22.09.
 - [ ] Täht: nupp valib tähe, Atom saadab selle jaama.
 - [ ] Repo ja arenduspäevik täidetud, tag `data-acquisition-lab1`.
 
@@ -49,7 +49,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Vahendid
 
 1. AtomS3 ×2, USB-C kaablid
-2. MPX5700AP; sinu valitud andur pärast 22.09 tellimust
+2. MPX5700AP; sinu valitud andur, kui tellimus kohale jõuab
 3. Maketeerimisplaat, juhtmed, takistite ja kondensaatorite komplekt, multimeeter
 4. Ostsilloskoop FFT funktsiooniga
 5. 4 mm voolik, T-liitmik, vooliku kork, iminapp φ13 või φ16, 24 × 24 mm klaas
@@ -86,7 +86,17 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Osad
 
-#### 1. Andur ja esimene signaal
+#### 1. Mida tellida
+
+See tuleb enne ehitamist. Käi labor paberil läbi ja mõtle välja, mida üldse tellida vaja on. Iga osa kohta: mis asju see küsib, mis on riiulil, mis on puudu. Puuduv läheb tellimusse.
+
+Suurim küsimus on andur. Kandidaadid: üks absoluutandur, mille skaala katab 30–210 kPa; kaks manomeetrilist andurit, üks plussile ja üks vaakumile; või jääbki MPX5700AP. Iga kandidaadi kohta andmelehelt samad numbrid: tundlikkus mV/kPa, Pa ühe ADC sammu kohta, skaala kasutus protsentides, väljund 3,3 V vastu. Null-tulemus on ka tulemus: kui MPX5700AP on selle töö jaoks piisav, kirjuta see numbritega.
+
+Kui osas 2 on müra mõõdetud ja osas 4 riba teada, lisa tabelisse riba jagatud müraga. Riba peab olema müra kohal kordades, mitte protsentides. Kui valik selle peale muutub, kirjuta see kuupäevaga vana otsuse alla.
+
+Kirjuta üles: tabel ja otsus faili `docs/sensor_choice.md`; tellimus Mouseri tootekoodidena faili `docs/bom.md` 22.09-ks, iga rea juures üks lause, milline osa või number seda küsib.
+
+#### 2. Andur ja esimene signaal
 
 MPX5700AP maketeerimisplaadil: 5 V, GND, Vout → ADC viik. Andur otse ADC-sse, vahel ei ole midagi: ei jagurit, ei op-ampi, ei filtrit. See on meelega. Labor 2 paneb vahele kõigepealt jaguri, siis op-ampi, ja võrdleb nelja spektrit. Võrdlus on olemas ainult siis, kui toores signaal on siin mõõdetud ja alles. Multimeeter enne, kui Atom külge läheb: toide 5 V, Vout atmosfääril umbes 0,85 V. Atomil iga 10 ms: loe ADC → kPa → ekraan → üks rida UART-i. Arvutis Python, mis kirjutab CSV veergudega `t_ms, adc, p_kpa, pump`. Kontroll: 10 s logi on 1000 ± 5 rida, ja ADC on multimeetriga 2 % piires nõus.
 
@@ -98,7 +108,7 @@ Falstadi algus: andur on vahelduvpingeallikas 0,2–5 V, ADC sisend on modelleer
 
 ![Falstad: andur 0,2–5 V → ADC mudel 0–3,3 V](lab1_falstad_adc.png)
 
-#### 2. Tark kast
+#### 3. Tark kast
 
 T-liitmik tehase targa kasti väljundtorusse, napp otsas, napp klaasi peal. Pump imemisele baaspaketi CLI-st. Logi viis minutit.
 
@@ -108,7 +118,7 @@ Kuidas asjad omavahel töötavad: arvuti, robot, pumbakast, andur, Atom ja haara
 
 ![draw.io: arvuti, MG400, pumbakast, andur, AtomS3, haarats](lab1_drawio_tark_kast.png)
 
-#### 3. Sinu kast
+#### 4. Sinu kast
 
 Sama T sinu meeskonna tavalise kasti torusse. Atom saab arvutist režiimi ja riba, otsustab ise ja näitab ekraanil rõhu, režiimi ja otsuse. Arvuti kirjutab iga rea CSV-sse ja tõmbab DO liini otsuse järgi. Kui 500 ms jooksul rida ei tule, DO maha. Ohutu olek on lihtne: kui midagi on valesti, pump seisab.
 
@@ -130,12 +140,6 @@ Võtmine: robot viib napi klaasile, imemine, tõst, koht, puhumine, lahti. Kümm
 
 Kirjuta üles: riba, seisuaja alampiir, käivitusi minutis kolmes olukorras, rõhk napp klaasil ja napp õhus, pumba töötsükkel kümne võtmise ajal. Kõik koos loogikaga faili `docs/pump_control.md`. Jaam võtab need üle nii, nagu nad on.
 
-#### 4. Anduri valik ja tellimus
-
-Kandidaadid: üks absoluutandur, mille skaala katab 30–210 kPa; kaks manomeetrilist andurit, üks plussile ja üks vaakumile; või jääbki MPX5700AP. Iga kandidaadi kohta samad numbrid: tundlikkus mV/kPa, Pa ühe ADC sammu kohta, skaala kasutus protsentides, väljund 3,3 V vastu, riba jagatud müraga. Riba peab olema müra kohal kordades, mitte protsentides. Null-tulemus on ka tulemus: kui MPX5700AP on selle töö jaoks piisav, kirjuta see numbritega.
-
-Kirjuta üles: tabel ja otsus faili `docs/sensor_choice.md`; tellimus Mouseri tootekoodidena faili `docs/bom_lab2.md` 22.09-ks, iga rea juures üks lause, milline number seda osa küsib.
-
 #### 5. Täht
 
 Lühike vajutus käib tähestikku läbi, pikk vajutus saadab `{"letter":"A"}` Nutikate Lahendustega kokkulepitud kanalisse. Jaam loeb, robot joonistab.
@@ -153,12 +157,7 @@ Lühike vajutus käib tähestikku läbi, pikk vajutus saadab `{"letter":"A"}` Nu
 
 ### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Kogused meeskonna kohta. Jagur ja kõik muu, mida see labor vajab, tuleb riiulilt.
-
-| Asi | Kogus meeskonna kohta | Märkus |
-| :--- | :--- | :--- |
-| Sinu valitud pumba-andur | 2 | −70 … +110 kPa, üks töösse, üks varuks; kood ja põhjus `docs/sensor_choice.md`-st |
-| T-liitmik 4 mm, vooliku kork | 3 + 3 | Kui riiulilt otsa said |
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku osa 1 põhjal. Mõtle näiteks, kas MPX5700AP jääb või tuleb uus andur ja kas ka varuks, ja kas voolikuliitmikke ja korke jätkub.
 
 ### Hindamiskriteeriumid
 
@@ -167,7 +166,7 @@ Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Kogused meeskon
 | Tööfailid — Atomi püsivara, Pythoni logija ja pumba juhtimine, CSV failid | 5 p |
 | Analüüs — Pa ühe ADC sammu kohta, spektrid nimedega, targa kasti numbrid, hoidmiskõverad, anduri valik | 5 p |
 | Prototüüp — sinu kast jääb ise seisma imemisel ja puhumisel, USB välja = pump välja, robot võtab klaasi, täht jõuab jaama | 5 p |
-| Dokumentatsioon — README, arenduspäevik, `pump_control.md`, `sensor_choice.md`, `bom_lab2.md`, AGENTS.md | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `pump_control.md`, `sensor_choice.md`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
 ### Kaitsmine

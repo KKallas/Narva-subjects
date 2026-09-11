@@ -1,4 +1,4 @@
-## Nutikad Lahendused: Labor 1 — Robot, ekraan ja täht
+## Nutikad Lahendused: Labor 1 — Robot, ekraan ja tähemasin
 
 **Töömaht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 12.09.26 | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 06.10.26, veebis
 
@@ -29,7 +29,7 @@ Selles laboris on kolm osa:
 2. **Ekraan.** Laadi AtomS3-le PlatformIO-st püsivara, mis teeb oma WiFi võrgu ja näitab lehte, kust saab pildi ekraanile saata. Kui telefon selle võrguga liitub, peab leht ise lahti minema, ilma et keegi aadressi trükiks. Lehele tuleb ka seadete ja testinuppude osa. See leht jääb kogu aastaks: kõik, mis hiljem Atomi külge tuleb (rõhuandur, UART, klapp, LED), saab oma seaded ja testinupu siia, mitte eraldi lehele.
 3. **Täht.** Atomi nupp valib tähe. Täht jõuab jaama. Jaam saadab robotile liikumiskäsud ja robot joonistab tähe paberile. Vähemalt kolm tähte.
 
-Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 22.09.
+Esimene asi on tellimus. Esimesel päeval uusi osi ei ole: mõtle välja, mida see labor üldse vajab ja mis riiulil puudu on, ja kirjuta see tellimuseks, mis läheb välja 22.09. Tellitu jõuab kohale selle labori ajal. Seni ehita sellest, mis riiulil on.
 
 *See on elav dokument. Uuenda eesmärke, kui need töö käigus muutuvad — uued teadmised teevad vanad eesmärgid vahel mõttetuks. Mõte on hoida meeskond kogu aeg sihil, et ei eksitaks detailide metsa ja põhiprobleem ei jääks lahendamata.*
 
@@ -39,6 +39,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **Peab olema tehtud**
 
+- [ ] Tellimus 22.09: mis selle labori jaoks riiulil puudu on, failis `docs/bom.md`.
 - [ ] Robot on API-režiimis. `mg400 status` vastab. Leht liigutab robotit. Pump imeb ja puhub käsurealt.
 - [ ] Neli asendit õpetatud ja failis `data/positions.json`. Robot tõstab proovitüki allikast valmis pessa kümme korda järjest.
 - [ ] AtomS3 püsivara on PlatformIO-st peale laetud. Atom teeb oma WiFi võrgu. Telefon liitub ja leht avaneb ise, ilma aadressi trükkimata. Pilt jõuab lehelt ekraanile.
@@ -170,22 +171,9 @@ Kirjuta üles:
 * Pumbakast on 24 V. DO juhtmed ühenda ainult siis, kui robot on keelatud ja kast vooluvõrgust väljas.
 * Kui Atom laborist välja läheb, vaheta WiFi parool vaikimisi omast ära.
 
-### Komponendid järgmiseks laboriks
+### Komponendid selle labori jaoks
 
-Tellimus läheb välja 22.09.26. Kogused meeskonna kohta.
-
-| Asi | Kogus meeskonna kohta | Märkus |
-| :--- | :--- | :--- |
-| M5 Atom Lite või AtomS3 (teine seade, tööriista küljes) | 1 | Esimene jääb Andmehõive maketeerimisplaadile |
-| Otsiku kaamera, M5 AtomS3R-CAM või AI-Thinker ESP32-CAM | 1 | MJPEG üle WiFi kummalgi juhul |
-| 3/2 klapp, otsetoimeline, vedrutagastusega, vaakumikõlblik, 24 V | 1 | Ühine ← pump, NO → iminapp, NC → süstal; alla 100 g |
-| 4 mm push-in liitmikud | 4 | Klapi ja kahe haru jaoks |
-| 4 mm PU voolik | 1 m | |
-| Loogikataseme MOSFET moodul | 3 | Klapp, pumbakasti liinid, LED-i luba |
-| 405 nm LED 1–3 W tähtjahutil | 2 | Üks varuks; mitte kunagi 365 nm |
-| Püsivoolu LED draiver | 1 | LED-i voolule vastav |
-| USB kaablid (jaam ↔ Atom, jaam ↔ kaamera toiteks) | 2 | |
-| 405 nm kaitseprillid | 2 | Laual alati, kui LED on toite all |
+Tellimus läheb välja 22.09.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond käib labori alguses läbi ja paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib. Mõtle näiteks, kas igal sülearvutil on Etherneti port või adapter, kas USB-C kaableid jätkub ja millega robot joonistab, kuni hoidikut ei ole.
 
 ### Hindamiskriteeriumid
 
@@ -194,7 +182,7 @@ Tellimus läheb välja 22.09.26. Kogused meeskonna kohta.
 | Tööfailid — baaspaketi seadistus ja sinu muudatused, Atomi püsivara, täheteed, `positions.json` | 5 p |
 | Analüüs — aadressiplaan, DO kontroll, tõstmise tabel, üleslaadimise aeg, latentsus hüpe-haaval | 5 p |
 | Prototüüp — leht liigutab robotit, pump käsurealt, Atom teeb võrgu ja telefon satub lehele, pilt ekraanil, robot joonistab Atomil valitud tähe | 5 p |
-| Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, AGENTS.md | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `atom_page.md`, `letters.md`, `letter_channel.md`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
 ### Kaitsmine
@@ -208,7 +196,7 @@ Repos on kaustas `smart-solutions/lab1/`:
 * `src/` jaama kood: baaspaketi seadistus, tähe kanal, täheteed
 * `firmware/` Atomi PlatformIO projekt
 * `data/positions.json`
-* `docs/`: `atom_page.md`, `letters.md`, `letter_channel.md`, `pick_test.csv`, `latency.csv`, fotod, draw.io skeem ahelast
+* `docs/`: `atom_page.md`, `letters.md`, `letter_channel.md`, `bom.md`, `pick_test.csv`, `latency.csv`, fotod, draw.io skeem ahelast
 * see fail kui `README.md`
 * `AGENTS.md` uuendatud
 
