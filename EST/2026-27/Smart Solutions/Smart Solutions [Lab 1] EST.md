@@ -60,7 +60,7 @@ Esimene asi on tellimus. Esimesel päeval uusi osi ei ole: mõtle välja, mida s
 
 1. MG400 koos iminapa komplektiga ja pumbakastiga
 2. Sülearvuti Ethernet pordi või adapteriga; Python 3.11+, venv, pip, Flask
-3. MG400 baaspakett: `code/mg400-base` sellest repost
+3. MG400 baaspakett: `KKallas/mg400-base` (eraldi repo)
 4. AtomS3, USB-C kaabel; VS Code ja PlatformIO laiendus; M5Unified
 5. ESP32-Image-Server alguspunktiks (link taustainfos)
 6. Telefon, millega Atomi võrku minna
@@ -75,7 +75,7 @@ Esimene asi on tellimus. Esimesel päeval uusi osi ei ole: mõtle välja, mida s
 ### Taustainfo
 
 * **MG400 baaspakett**: README ütleb, kuhu kaabel käib ja mis aadress on, ning kirjeldab käsurea ja HTTP API. API-režiim on robotil juba sees. Kui ei ole, on `docs/dobot-api-mode-windows.md` ühekordne juhend Windowsi arvutist ja `docs/dobot-api-mode.md` Macist.
-  [https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base](https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base)
+  [https://github.com/KKallas/mg400-base](https://github.com/KKallas/mg400-base)
 * **Dobot TCP/IP protokoll**: port 29999 on käsud (EnableRobot, ClearError, DO, GetPose), port 30003 on liikumine (MovL, ServoP), port 30004 on tagasiside iga 8 ms.
   [https://github.com/Dobot-Arm/TCP-IP-Protocol](https://github.com/Dobot-Arm/TCP-IP-Protocol)
   Doboti enda Pythoni näide: [https://github.com/Dobot-Arm/TCP-IP-4Axis-Python](https://github.com/Dobot-Arm/TCP-IP-4Axis-Python)

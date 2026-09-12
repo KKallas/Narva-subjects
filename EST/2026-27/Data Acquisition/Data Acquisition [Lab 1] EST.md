@@ -43,7 +43,7 @@ Esimene asi on tellimus. Esimesel päeval uusi osi ei ole: mõtle välja, mida s
 ### Sisendid
 
 * Riiulilt: AtomS3, MPX5700AP, maketeerimisplaat, passiivkomplekt, multimeeter, ostsilloskoop, 4 mm voolik, T-liitmik, vooliku kork, iminapp, polükarbonaatklaas.
-* Õppejõult: MG400 koos oma pumbakastiga, tehase tark kast kordamööda, MG400 baaspakett Pythonis, kus on DO sisse ja välja: [code/mg400-base](https://github.com/KKallas/Narva-subjects/tree/main/code/mg400-base).
+* Õppejõult: MG400 koos oma pumbakastiga, tehase tark kast kordamööda, MG400 baaspakett Pythonis, kus on DO sisse ja välja: [KKallas/mg400-base](https://github.com/KKallas/mg400-base).
 * Nutikad Lahendused L1: kanal tähe jaoks, lepitakse kokku esimesel nädalal.
 
 ### Vahendid
