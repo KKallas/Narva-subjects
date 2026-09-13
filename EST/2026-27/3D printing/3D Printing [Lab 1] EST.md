@@ -113,7 +113,7 @@ Pane hoidik roboti külge. Robot joonistab tähe, mida ESP32 näitab.
 
 Tellimuse paneb kokku meeskond ise, jagatud Google Sheetis. Tellimus läheb välja 22.09.26.
 
-Mida võib vaja minna: PLA, PETG, M5 poldid ja mutrid (laua augud on 5 mm), M3 kuumsisestused, magnetid. Kirjuta sinna see, mida sul selle labori järgi päriselt puudu jäi.
+Mida võib vaja minna: PLA, PETG, poldid ja mutrid klambrite jaoks (töölaud on 16 mm alumiiniumvardad 120 mm sammuga, nii et kinnitus haarab varda ümbert), M3 kuumsisestused, magnetid. Kirjuta sinna see, mida sul selle labori järgi päriselt puudu jäi.
 
 ### Hindamiskriteeriumid
 
