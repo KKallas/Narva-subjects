@@ -25,7 +25,7 @@ Selles laboris on viis asja:
 
 1. **Protsess ja paigutus.** Mis on sisendid, mitu töökohta, mitu väljundit ja millises ruudus igaüks on.
 2. **Hoidikud.** Sisendhoidikud, töökoha hoidik, väljundhoidikud. Kõik Gridfinity jalaga.
-3. **Test.** Neli Atomit, klaas juba peale liimitud, sisendist töökohale ja sealt väljundisse. Siis hoidikud välja ja tagasi, ja uuesti.
+3. **Test.** Ainult klaas: sisendist töökohale ja töökohalt valmis asjade väljundisse. Siis hoidikud välja ja tagasi, ja uuesti.
 4. **Kaamera tööriistahoidikul.** Iminapa kõrvale käib ESP32 kaameramoodul, ja ta peab kuskilt toite saama.
 5. **Kaamera laua kohal.** Tavaline USB veebikaamera robotist kõrgemal, nii et ta näeb kogu lauda.
 
@@ -39,13 +39,13 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **Peab olema tehtud**
 
-- [ ] Detailid mõõdetud nihikuga: AtomS3, klaas, akumoodul, Atom koos klaasiga. Fusionis parameetritena.
+- [ ] Detailid mõõdetud nihikuga: AtomS3, klaas, akumoodul. Fusionis parameetritena.
 - [ ] Protsess ja paigutus kirjas: sisendid, töökohad, väljundid, iga hoidiku ruut (näiteks D2). Failis `docs/layout.md` koos joonisega.
 - [ ] Kalibreerimishoidik 1 × 1 prinditud, istub ruudustikus ja ei loksu.
 - [ ] Sisendhoidikud valmis: AtomS3, klaas, akumoodul. Igaühes vähemalt neli ühikut.
-- [ ] Töökoha hoidik valmis: Atom saab seal olla ainult ühte moodi.
+- [ ] Töökoha hoidik valmis: Atom saab seal olla ainult ühte moodi ja klaasil on tema peal kindel koht.
 - [ ] Väljundhoidikud valmis: põhiväljund neljale ja praak.
-- [ ] Test tehtud: neli Atomit sisendist töökohale ja väljundisse, hoidikud vahepeal välja ja tagasi. Tulemus failis `docs/refit_test.csv`.
+- [ ] Test tehtud: neli klaasi sisendist töökohale ja töökohalt väljundisse, hoidikud vahepeal välja ja tagasi. Tulemus failis `docs/refit_test.csv`.
 - [ ] Kaamera kinnitus valmis: kaameramoodul istub olemasoleva iminapa tööriistahoidiku küljes, näeb töökohta ja ei jää napale ette.
 - [ ] Kaamera toide otsustatud ja läbi proovitud: käsi käib oma liikumise läbi ja juhe ei jää kuhugi kinni.
 - [ ] Veebikaamera kinnitus valmis: kaamera on robotist kõrgemal, näeb kogu lauda ja käsi ei ulatu temani.
@@ -70,7 +70,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 3. Nihik, 300 mm joonlaud
 4. MG400 koos baaspaketi, pumbakasti ja iminapaga
 5. Töölaud Gridfinity ruudustikuga
-6. AtomS3 või prinditud mannekeen 24 × 24 × 13 mm, neli tükki; polükarbonaatklaasid 24 × 24 × 2 mm; akumoodul
+6. Polükarbonaatklaasid 24 × 24 × 2 mm, vähemalt neli; prinditud Atomi mannekeen 24 × 24 × 13 mm töökohale; AtomS3 ja akumoodul mõõtmiseks
 7. Seeed Studio XIAO ESP32S3 Sense kaameramoodul (tootekood 113991115)
 8. USB veebikaamera (UHD), USB pikenduskaabel
 9. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
@@ -105,6 +105,14 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Töölaud
 
 Siin on see, mida sul hoidiku disainimiseks vaja on. Kõik ülejäänu, ka iga ruudu koordinaadid tabelina, on failis `MG 400 rakis.md`. Anna see fail ka oma agendile.
+
+**Miks Gridfinity**
+
+Laua liides oleks võinud olla ka midagi muud: alumiiniumprofiil, augurida, oma välja mõeldud tapid. Gridfinity sai valitud kolmel põhjusel.
+
+* **Ta on algusest peale mõeldud 3D printimiseks.** Jala kuju on 45° kalded ja püstsein, mis prinditakse ilma tugedeta ja mis juhivad hoidiku ise oma kohale. Seda ei ole metallitööst printerile ümber tõlgitud.
+* **Tal on suur kogukond.** See tähendab palju valmis näiteid, generaatoreid ja teeke, ja see tähendab ka, et sinu agent tunneb seda standardit hästi ja oskab aidata. Oma välja mõeldud liidese kohta ei tea ta midagi.
+* **Tema täpsusest piisab selle roboti jaoks.** Hoidik tuleb ruudustikus tagasi mõne kümnendiku millimeetri sisse. Iminapa ja 24 mm klaasi jaoks on seda küllalt, kui pesal on kaldserv. Kui palju täpselt, mõõdad sa osas 3 ise üle.
 
 **Kolm tsooni, kõik ühel tasasel pinnal**
 
@@ -152,7 +160,7 @@ Tavaline paigutus: sisend ühel pool (read A–C), töökoht keskel (read D–G,
 
 Enne kui Fusioni avad, joonista protsess paberile. Kolm küsimust.
 
-**Mis tuleb sisse?** Sisend on mitu objekti ja igaühte mitu ühikut. Meil: AtomS3, polükarbonaatklaas, akumoodul. Iga objekt saab oma sisendhoidiku ja igas on mitu ühikut — selles laboris vähemalt neli. Mõõda kõik kolm nihikuga, ja mõõda ka Atom, mille peale klaas on juba liimitud, sest just see käib testis läbi. Akumooduli mõõte see dokument sulle ei anna.
+**Mis tuleb sisse?** Sisend on mitu objekti ja igaühte mitu ühikut. Meil: AtomS3, polükarbonaatklaas, akumoodul. Iga objekt saab oma sisendhoidiku ja igas on mitu ühikut — selles laboris vähemalt neli. Mõõda kõik kolm nihikuga. Testis käib läbi ainult klaas, aga hoidikud teed sa kõigile kolmele. Akumooduli mõõte see dokument sulle ei anna.
 
 **Mitu töökohta?** Töökohti on nii palju, kui protsessis on samme, mida üks robot korraga teeb. Kirjuta sildi kokkupanek sammudena välja ja otsusta iga sammu kohta, kas ta vajab oma kohta või saab eelmisega sama kohta jagada. Selle labori testi jaoks piisab ühest töökohast. Aga paigutus peab näitama, kuhu ülejäänud tulevad.
 
@@ -196,15 +204,17 @@ Kirjuta üles: kas Gridfinity jalg istus esimese korraga ja mida sa muutsid; kal
 
 Enne kui oma hoidikuid testima hakkad, vaata ära, kuidas laud ise sama probleemi lahendab. Robot seisab kaldseinaga aluses: sinna on täpselt üks viis istuda, ja seetõttu tuleb roboti asend ruudustiku suhtes iseenesest tagasi — mitte tarkvarast, vaid geomeetriast. Gridfinity jalg teeb hoidikuga sama asja väiksemalt. Selle labori küsimus on, kui hästi.
 
-**Läbijooks.** Lae sisendhoidikusse neli Atomit, klaas juba peale liimitud. Õpeta jaamaga punktid. Robot võtab Atomi sisendist, paneb töökohale tema oma kohale, võtab sealt uuesti ja viib põhiväljundisse. Neli tükki järjest, inimene vahepeal midagi ei puuduta. Ja näita ühe korra ka teist teed: töökohalt praaki.
+Test käib ainult klaasiga. Klaas on kolmest detailist kõige raskem tõsta: õhuke, sile ja kerge. Kui klaas käib läbi, käivad ülejäänud ka.
 
-**Välja ja tagasi.** Võta kõik hoidikud ruudustikust välja, pane tagasi, lae Atomid uuesti sisendisse ja mängi sama jooks üle. Punkte vahepeal ei muudeta. Viis ringi, kokku kakskümmend Atomit.
+**Läbijooks.** Lae klaasi sisendhoidikusse neli klaasi. Töökohal istub Atomi mannekeen. Õpeta jaamaga punktid. Robot võtab klaasi sisendist, paneb töökohale mannekeeni peale, võtab sealt uuesti ja viib valmis asjade väljundisse. Neli tükki järjest, inimene vahepeal midagi ei puuduta. Liimi selles laboris ei ole, nii et klaas ei ole mannekeeni küljes kinni: edasi tõstetakse ainult klaas ja mannekeen jääb töökohale.
 
-Kui mõni kord ei õnnestu, on see kõige kasulikum rida terves tabelis. Kirjuta üles, mis juhtus: kas napp võttis servast, kas Atom jäi kaldserva peale, kas hoidik loksus ruudus. Viimane ütleb sulle, et jala lõtk on liiga suur või et sul on magneteid vaja.
+**Välja ja tagasi.** Võta kõik hoidikud ruudustikust välja, pane tagasi, lae klaasid uuesti sisendisse ja mängi sama jooks üle. Punkte vahepeal ei muudeta. Viis ringi, kokku kakskümmend klaasi.
+
+Kui mõni kord ei õnnestu, on see kõige kasulikum rida terves tabelis. Kirjuta üles, mis juhtus: kas napp võttis servast, kas klaas jäi kaldserva peale või nihkus töökohal paigast, kas hoidik loksus ruudus. Viimane ütleb sulle, et jala lõtk on liiga suur või et sul on magneteid vaja.
 
 Siis teine küsimus: kas samad õpetatud punktid töötavad ka siis, kui hoidik on teises ruudus ja punktile on liidetud täisarv samme, 42 mm korda ruutude arv? Kui töötavad, on sul standard: hoidiku võib panna ükskõik kuhu ja robot teab, kus detail on. Kui ei tööta, kirjuta üles, kui palju mööda läks.
 
-Kirjuta üles: read failis `docs/refit_test.csv` (ring, Atomi number, kas võttis sisendist, kas pani töökohale, kas pani väljundisse, märkus); mitu kahekümnest läks läbi; kui palju detail nihkus, kui sa seda nihikuga või kaameraga mõõta saad; kas teise ruutu tõstetud hoidik töötas arvutatud punktiga. See viimane number ütleb, kui palju lõtku järgmised laborid peavad taluma — kirjuta ta eraldi välja.
+Kirjuta üles: read failis `docs/refit_test.csv` (ring, klaasi number, kas võttis sisendist, kas pani töökohale, kas võttis töökohalt, kas pani väljundisse, märkus); mitu kahekümnest läks läbi; kui palju detail nihkus, kui sa seda nihikuga või kaameraga mõõta saad; kas teise ruutu tõstetud hoidik töötas arvutatud punktiga. See viimane number ütleb, kui palju lõtku järgmised laborid peavad taluma — kirjuta ta eraldi välja.
 
 #### 4. Kaamera tööriistahoidikul
 
@@ -216,7 +226,7 @@ Mõõda enne joonistamist kaks asja nihikuga: moodul ise (plaat, kaameralaiend, 
 
 Mida kinnitus peab tegema:
 
-* **Kaamera näeb töökohta.** Otsusta, kas ta vaatab otse alla või nurga all, ja kui kõrgel napp peab olema, et terve Atom oleks pildis ja terav. Proovi see käes hoides järele, enne kui nurga mudelisse lukku paned.
+* **Kaamera näeb töökohta.** Otsusta, kas ta vaatab otse alla või nurga all, ja kui kõrgel napp peab olema, et terve klaas ja Atom tema all oleksid pildis ja terav. Proovi see käes hoides järele, enne kui nurga mudelisse lukku paned.
 * **Napp jääb vabaks.** Kaamera ega tema kinnitus ei ulatu napa otsast allapoole ega lähe hoidiku seinte vastu, kui napp pesasse laskub. Osa 2 reegel "peale midagi ei ulatu" kehtib nüüd ka tööriista enda kohta.
 * **Kaamera on iga kord samas kohas.** Kui moodul võetakse välja ja pannakse tagasi, vaatab ta sama punkti. See on sama küsimus, mis hoidikul ruudustikus, ja sama vastus: kuju, mis lubab ainult ühte asendit, mitte hõõrdumine.
 * **Moodul tuleb kätte.** USB-C pesa on ligipääsetav ja mooduli saab välja ilma midagi murdmata. Plaat läheb soojaks; ära ehita teda PLA sisse kinni.
@@ -269,7 +279,7 @@ Kirjuta üles: käe suurim kõrgus; kaamera kõrgus ja koht; mitu tükki ja kuid
 
 Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib.
 
-Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaoks; kas sul on neli Atomit või prindid mannekeenid; kas akumooduleid on käes piisavalt, et pesa päris asja peal proovida; kas 6 × 2 mm magnetid hoidiku jala sees on midagi, mida su test küsib; mida su valitud kaamera toide küsib — pikem ja pehmem USB-C juhe, väike aku või pingemuundur; kas veebikaamera USB juhe ulatub posti otsast jaamani; ja kas klaase on piisavalt, sest vähemalt üks läheb selle labori jooksul katki.
+Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaoks; kas töökohale on Atomi mannekeen prinditud; kas akumooduleid on käes piisavalt, et pesa päris asja peal proovida; kas 6 × 2 mm magnetid hoidiku jala sees on midagi, mida su test küsib; mida su valitud kaamera toide küsib — pikem ja pehmem USB-C juhe, väike aku või pingemuundur; kas veebikaamera USB juhe ulatub posti otsast jaamani; ja kas klaase on piisavalt, sest vähemalt üks läheb selle labori jooksul katki.
 
 ### Hindamiskriteeriumid
 
@@ -277,7 +287,7 @@ Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaok
 | :--- | :--- |
 | Tööfailid — parameetritega hoidikud Gridfinity jalaga ja kahe kaamera kinnitused, STL ja 3MF iga prindi kohta | 5 p |
 | Analüüs — protsess ja paigutus, detailide mõõdud, kasutatud lõtk ja kust see tuli, kalibreerimise nihe, testi tabel, kaamera toite valik | 5 p |
-| Prototüüp — neli Atomit liiguvad sisendist töökohale ja väljundisse, hoidikud tulevad samasse kohta tagasi, praagil on koht, kaamera istub tööriistahoidikul ja saab toite, veebikaamera näeb kogu lauda | 5 p |
+| Prototüüp — neli klaasi liiguvad sisendist töökohale ja töökohalt väljundisse, hoidikud tulevad samasse kohta tagasi, praagil on koht, kaamera istub tööriistahoidikul ja saab toite, veebikaamera näeb kogu lauda | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `layout.md`, `refit_test.csv`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
@@ -285,7 +295,7 @@ Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaok
 
 Link git repole, tag `3d-print-lab2`.
 
-Kaitsmine on lihtne suuline 15 minuti jutuajamine. Võtad hoidikud ruudustikust välja ja paned tagasi, ja robot viib neli Atomit sisendist töökohale ja väljundisse, ilma et sa punkte uuesti õpetaksid. Tööriista kaamera on toite all ja veebikaamera näeb kogu lauda. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Võtad hoidikud ruudustikust välja ja paned tagasi, ja robot viib neli klaasi sisendist töökohale ja töökohalt väljundisse, ilma et sa punkte uuesti õpetaksid. Tööriista kaamera on toite all ja veebikaamera näeb kogu lauda. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
 Repos on kaustas `3d-print/lab2/`: lähtefailid, STL ja `.3mf` iga prindi kohta, `docs/` kaustas `layout.md`, `refit_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
