@@ -1,4 +1,4 @@
-## Nutikad Lahendused: Labor 2 — Jaam internetis ja kaamera laua kohal
+## Nutikad Lahendused: Labor 2 — Jaam internetis ja kaks kaamerat
 
 **Töömaht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 07.10.26 | **Tellimise kuupäev:** 16.10.26 | **Esimene kaitsmine:** 27.10.26, veebis
 
@@ -16,7 +16,9 @@ Su sülearvutil ei ole aadressi, mille peale keegi väljastpoolt saaks ühendust
 
 Vahele tuleb **droplet**: väike Linuxi server, millel on päris avalik aadress ja päris nimi. Jaam võtab ise dropletiga ühendust ja hoiab seda üleval. Droplet suunab brauseri päringud sedasama teed tagasi jaamale. Nii saab lehe lahti telefonist, mis ei ole labori võrgus.
 
-Ja laua kohale tuleb **kaamera**, sest robotit, mida sa ei näe, sa ei käsuta. Kui robot teeb kodust vaadates midagi ootamatut, on sul kaks võimalust: sõita laborisse ja loota, et ta teeb seda uuesti, või vaadata pilti. Teine on odavam ja tihti ainus, mis töötab.
+Ja laua juurde tuleb **kaks kaamerat**, sest robotit, mida sa ei näe, sa ei käsuta. Kui robot teeb kodust vaadates midagi ootamatut, on sul kaks võimalust: sõita laborisse ja loota, et ta teeb seda uuesti, või vaadata pilti. Teine on odavam ja tihti ainus, mis töötab.
+
+Üks kaamera ei näe mõlemat asja korraga. Kaamera, mis näeb kogu lauda, ei näe, kas napp on klaasi keskel. Kaamera, mis näeb nappa, ei näe, kuhu käsi läks. Seepärast on neid kaks: **veebikaamera laua kohal**, robotist kõrgemal, näeb kogu lauda, ja **kaamera tööriista küljes** näeb ainult otsikut ja seda, mis otse selle all on.
 
 Labori 1 lubadus kehtib edasi: **iga riistvara, mis Atomi külge tuleb, saab oma seaded ja testinupu sellele samale lehele.** Andmehõive Labor 2 paneb Atomi külge rõhuanduri koos astmega. Selle seaded ja test lähevad Atomi lehele, mitte uude kohta.
 
@@ -24,7 +26,7 @@ Selles laboris on kolm asja:
 
 1. **Droplet.** Server, domeen, võtmed, HTTPS.
 2. **Relee.** Jaam võtab ise ühendust välja. Labori 1 leht avaneb telefonist mobiilse andmesidega. Ja mis juhtub, kui ühendus katkeb keset liigutust.
-3. **Kaamera ja Atomi leht.** Laud on näha. Rõhuandur saab Atomi lehele oma seaded ja testinupu.
+3. **Kaamerad ja Atomi leht.** Üks kaamera näeb kogu lauda, teine otsikut. Rõhuandur saab Atomi lehele oma seaded ja testinupu.
 
 Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 16.10.
 
@@ -41,8 +43,10 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 - [ ] Relee üleval: Labori 1 jaama leht avaneb telefonist, mille WiFi on välja lülitatud.
 - [ ] Latentsus mõõdetud: 30 vajutust labori võrgus ja 30 üle interneti.
 - [ ] Ühenduse katkemine keset liigutust otsustatud, tehtud ja läbi proovitud.
-- [ ] Kaamera näitab lauda, pilt käib sama relee kaudu ja sama parooli taga.
-- [ ] Kaamera viide, kaadrisagedus ja ribalaius mõõdetud; juhtimise latentsus mõõdetud uuesti, kaamera töötamise ajal.
+- [ ] Laua kaamera näitab kogu lauda: ruudustik servast servani ja robot.
+- [ ] Tööriista kaamera näitab otsikut ja detaili selle all.
+- [ ] Mõlemad pildid on jaama lehel, käivad sama relee kaudu ja sama parooli taga.
+- [ ] Mõlema kaamera viide, kaadrisagedus ja ribalaius mõõdetud; juhtimise latentsus mõõdetud uuesti, mõlema kaamera töötamise ajal.
 - [ ] Rõhuanduri seaded ja testinupp Atomi lehel, `docs/atom_page.md` uuendatud.
 - [ ] Ohutuskokkulepe kirjas ja kõigil meeskonnaliikmetel loetud.
 - [ ] Tellimus 16.10 failis `docs/bom.md`.
@@ -54,9 +58,9 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 * Laborist 1: jaam, MG400 baaspakett, `data/positions.json`, Atomi püsivara ja leht, aadressiplaan.
 * Õppejõult: droplet ja domeen. Neid meeskond ise ei telli — kursuse peale on üks droplet ja üks nimi, õppejõu konto pealt. Sina saad ligipääsu ja oma alamdomeeni või alamtee.
-* Riiulilt: veebikaamera, USB pikenduskaabel.
+* Riiulilt: USB veebikaamera (UHD), USB pikenduskaabel, Seeed Studio XIAO ESP32S3 Sense kaameramoodul (tootekood 113991115).
 * Andmehõive L2-st: rõhuandur koos astmega ja kalibratsioonikonstandid, mis Atomi lehele lähevad.
-* 3D printimise L2-st: kinnitus kaamerale — töölaud on 16 mm vardad, nii et ka kaamera käib varda otsa; ja laud, mida kaamera näeb.
+* 3D printimise L2-st: mõlema kaamera kinnitused — post, mis hoiab veebikaamerat robotist kõrgemal, ja kinnitus, mis hoiab kaameramoodulit iminapa tööriistahoidiku küljes koos toitega; ja laud, mida nad näevad: Gridfinity ruudustik, kus iga hoidiku koht on ruudu nimi.
 
 ### Vahendid
 
@@ -66,7 +70,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 4. SSH ja SSH võtmed
 5. Tunnel jaama ja dropleti vahel: WireGuard või SSH pöördtunnel, sinu valik
 6. Pöördproksi, mis oskab sertifikaadi ise võtta ja ise uuendada
-7. Veebikaamera, USB pikenduskaabel
+7. USB veebikaamera (UHD) ja USB pikenduskaabel; Seeed Studio XIAO ESP32S3 Sense kaameramoodul
 8. Telefon mobiilse andmesidega, millega väljastpoolt testida
 9. Python 3, Flask; git; draw.io
 
@@ -128,17 +132,23 @@ Otsusta, mis juhtub. Tee see ära. Ja tõmba siis kaabel välja keset liigutust,
 
 Kirjuta üles: milline relee ja miks; lehe aadress; ekraanipilt telefonist, kus on näha, et WiFi on väljas; latentsuse tabel, labor ja internet, keskmine ja maksimum; mis juhtub ühenduse katkemisel ja mis päriselt juhtus, kui sa kaabli välja tõmbasid.
 
-#### 3. Kaamera ja Atomi leht
+#### 3. Kaamerad ja Atomi leht
 
-Kaamera vaatab lauda: robot, kinnitus, detail. Kaadris peab olema nii palju, et sa kodust vaadates saaksid vastata küsimusele "mis seal päriselt juhtus". Liiga lähedalt näed sa ühte pesa ja mitte seda, et käsi läks mujale.
+Kaameraid on kaks ja neil on eri töö.
 
-Pilt käib sama relee kaudu ja sama parooli taga, mitte eraldi lahtise aadressi peal. Kaamera, mis on lahti kõigile, on kaamera sinu klassiruumis, mis on lahti kõigile.
+**Laua kaamera** on tavaline USB veebikaamera, UHD, posti otsas robotist kõrgemal. Ta käib USB-ga jaama külge. Kaadris on kogu laud: ruudustik servast servani, robot ja kõik hoidikud. Tema vastab küsimusele "mis seal päriselt juhtus" — kus käsi on, milline hoidik on tühi, kas midagi kukkus.
 
-Mõõda kolm asja: kui palju aega jääb sündmuse ja selle nägemise vahele, mitu kaadrit sekundis tuleb, ja kui palju ribalaiust see sööb. Siis mõõda **juhtimise latentsus uuesti, kaamera töötamise ajal.** Kaamera ja juhtimine käivad sama toru kaudu ja kaamera on neist kaugelt ahnem. Kui latentsus kasvas, on sul valida: väiksem pilt, vähem kaadreid, või aeglasem juhtimine. Vali ja kirjuta põhjus välja.
+**Tööriista kaamera** on ESP32 kaameramoodul iminapa kõrval. Ta liigub käega kaasa ja näeb ainult otsikut ja seda, mis otse selle all on. Tema vastab küsimusele, millele laua kaamera ei vasta: kas napp on detaili keskel või serva peal. Ta ei ole USB-ga jaama küljes, vaid on omaette väike arvuti WiFi-s, nagu Atom. Vii ta samasse aadressiplaani, kuhu Atom Laboris 1 läks.
+
+Mõlemad pildid tulevad jaama lehele kõrvuti. Ja mõlemad käivad sama relee kaudu ja sama parooli taga, mitte eraldi lahtise aadressi peal. See kehtib eriti tööriista kaamera kohta: ta oskab oma pilti ise välja anda, ja just seepärast on lihtne ta kogemata lahti jätta. Väljast ei pääse temani keegi otse; pildi toob jaam. Kaamera, mis on lahti kõigile, on kaamera sinu klassiruumis, mis on lahti kõigile.
+
+UHD on rohkem, kui relee kannab. Laua kaamera täislahutus on mõeldud selleks, et laboris pildi pealt midagi mõõta; üle interneti saadad sa väiksema pildi. Otsusta, kui väikese, nii et ruudu nimi on pildilt veel loetav.
+
+Mõõda kummagi kaamera kohta kolm asja: kui palju aega jääb sündmuse ja selle nägemise vahele, mitu kaadrit sekundis tuleb, ja kui palju ribalaiust see sööb. Siis mõõda **juhtimise latentsus uuesti, mõlema kaamera töötamise ajal.** Kaamerad ja juhtimine käivad sama toru kaudu ja kaamerad on neist kaugelt ahnemad. Kui latentsus kasvas, on sul valida: väiksem pilt, vähem kaadreid, üks kaamera korraga, või aeglasem juhtimine. Vali ja kirjuta põhjus välja.
 
 Atomi leht: Labori 1 lubadus. Andmehõive Labor 2 pani Atomi külge rõhuanduri koos astmega. Sellele lehele tulevad nüüd juurde anduri seaded — kalibratsioonikonstandid, mis Andmehõives välja tulid — ja testinupp, mis näitab korraga toorest ADC lugemit, pinget ja kPa. Kolm numbrit kõrvuti sellepärast, et kui üks neist on vale, näed sa kohe, kumb pool valesti on: andur või valem. Uut lehte ei tehta.
 
-Kirjuta üles: foto sellest, mida kaamera näeb; viide millisekundites, kaadreid sekundis, ribalaius; juhtimise latentsus kaameraga ja ilma; Atomi lehe seadete ja testide nimekiri failis `docs/atom_page.md`.
+Kirjuta üles: üks pilt kummastki kaamerast samal hetkel; kummagi lahutus, viide millisekundites, kaadreid sekundis, ribalaius; juhtimise latentsus ilma kaamerateta, ühega ja kahega; kuidas tööriista kaamera pilt jaamani jõuab; Atomi lehe seadete ja testide nimekiri failis `docs/atom_page.md`.
 
 **KAARDISTA ISE — vastused.** Iga osa kohta: numbrid, ühikud, kus fail on. Tegemata asja kohta üks rida, miks.
 
@@ -148,7 +158,7 @@ Selles laboris muutub ohutus teistsuguseks, kui ta seni oli. Seni oli robot ruum
 
 * **Robot, mille juurde saab internetist, saab liikuma panna keegi, keda ruumis ei ole.** Enne, kui relee esimest korda püsti läheb, lepite meeskonnas kokku ja kirjutate faili: kes tohib kaugelt käsu anda, ja mida ta peab enne seda tegema.
 * **Hädastopp on roboti alusel.** Kodus seda nuppu ei ole. Seega: kaugelt ei jooksutata midagi, mille ajal ruumis ei ole inimest, kes hädastoppi ulatub. Kui ruumis ei ole kedagi, on robot välja lülitatud, mitte ainult keelatud.
-* **Kaamera ei ole mugavus, vaid ohutusvahend.** Kui pilti ei tule, ei käsutata.
+* **Kaamera ei ole mugavus, vaid ohutusvahend.** Kui laua kaamera pilti ei tule, ei käsutata. Tööriista kaamera üksi ei loe: ta ei näe, kuhu käsi liigub.
 * Üks ohutusseade selles ruumis töötab ka siis, kui kedagi kohal ei ole, ja tasub teada, milline. MG400 istub negatiivse püramiidaluse peal ja tema all on lüliti: kui robot millegi vastu läheb, tuleb ta pesadest välja, lüliti vabaneb ja kõik jääb seisma. Tarkvara seda ei tee ja internet seda ei takista. Aga tagasi pesadesse paneb ta ainult inimene — ehk kaugelt sa pärast seda enam midagi käima ei pane. Kirjuta üles, kuidas sa kaugelt aru saad, et see juhtus: mille pealt sa seda lehel või kaameras näed.
 * Parool ja HTTPS. Aadress, mida keegi ei tea, ei ole parool — ja aadresse skaneeritakse.
 * Ühenduse katkemine keset liigutust on läbi mängitud enne, kui robot kaugelt esimest korda liigub. Mitte pärast.
@@ -161,15 +171,15 @@ Droplet ja domeen on kursuse peale ühed ja käivad õppejõu kontolt. Neid sa o
 
 Sinu tellimusse läheb see, mis laua juures puudu on. Tellimus läheb välja 16.10.26, faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib.
 
-Mõtle näiteks: kas kaamera on olemas ja kas ta näeb piisavalt laia kaadrit sellelt kauguselt, kuhu ta mahub; kas USB kaabel ulatub sinna, kuhu vaja; ja mille küljes kaamera kinni on, kui ta laua serva ei mahu.
+Mõtle näiteks: kas veebikaamera näeb piisavalt laia kaadrit sellelt kõrguselt, kuhu post ta viib; kas USB kaabel ulatub posti otsast jaamani; ja kas kaameramoodul on olemas ning kas labori WiFi ulatub temani, kui ta on käe otsas.
 
 ### Hindamiskriteeriumid
 
 | Kategooria | Punktid |
 | :--- | :--- |
-| Tööfailid — dropleti seadistus kirjas ja korratav, relee konfiguratsioon, kaamera voog, Atomi lehe uued osad | 5 p |
-| Analüüs — latentsus labori võrgus ja üle interneti, kaamera viide, kaadrisagedus ja ribalaius, latentsus kaameraga ja ilma | 5 p |
-| Prototüüp — leht avaneb telefonist mobiilse andmesidega HTTPS-i peal, kaamera näitab lauda, katkenud ühendus viib süsteemi ohutusse olekusse | 5 p |
+| Tööfailid — dropleti seadistus kirjas ja korratav, relee konfiguratsioon, kahe kaamera vood, Atomi lehe uued osad | 5 p |
+| Analüüs — latentsus labori võrgus ja üle interneti, kummagi kaamera viide, kaadrisagedus ja ribalaius, latentsus kaameratega ja ilma | 5 p |
+| Prototüüp — leht avaneb telefonist mobiilse andmesidega HTTPS-i peal, üks kaamera näitab kogu lauda ja teine otsikut, katkenud ühendus viib süsteemi ohutusse olekusse | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `atom_page.md`, ohutuskokkulepe, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
@@ -177,11 +187,11 @@ Mõtle näiteks: kas kaamera on olemas ja kas ta näeb piisavalt laia kaadrit se
 
 Link git repole, tag `smart-solutions-lab2`.
 
-Kaitsmine on lihtne suuline 15 minuti jutuajamine. Avad oma telefonist mobiilse andmesidega jaama lehe, liigutad robotit ja näed seda kaameras, ja näitad, mis juhtub, kui ühendus katkeb. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Avad oma telefonist mobiilse andmesidega jaama lehe, liigutad robotit ja näed seda mõlemas kaameras — kogu lauda ühes ja otsikut teises — ja näitad, mis juhtub, kui ühendus katkeb. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
 Repos on kaustas `smart-solutions/lab2/`:
 
-* `src/` jaama kood koos relee poolega ja kaamera vooga
+* `src/` jaama kood koos relee poolega ja kaamerate voogudega
 * `firmware/` Atomi PlatformIO projekt uuendatud lehega
 * `docs/`: dropleti ehitus samm-sammult, relee skeem draw.io-s, `atom_page.md`, ohutuskokkulepe, latentsuse CSV-d, ekraanipildid ja fotod, `bom.md`
 * `README.md` selle labori kohta
@@ -201,7 +211,7 @@ Repos on kaustas `smart-solutions/lab2/`:
 
 **Väljundid**
 * Andmehõive L2: Atomi leht, kust anduri lugemit, seadeid ja testi näeb.
-* 3D printimine L2: kaamera, mille pealt näeb, kas robot tabab pesa, ka siis, kui sa ise laual ei ole.
+* 3D printimine L2: kaks pilti — üks, mille pealt näeb, kus käsi laual on, ja teine, mille pealt näeb, kas napp tabab pesa — ka siis, kui sa ise laua juures ei ole.
 * Nutikad Lahendused L3: droplet ja relee, mille peale järgmine kiht ehitatakse.
 
 **KAARDISTA ISE, lõpus.**

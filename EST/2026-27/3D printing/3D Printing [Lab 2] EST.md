@@ -1,4 +1,4 @@
-## 3D printimine ja CAD: Labor 2 — Kinnitus, mis tuleb samasse kohta tagasi
+## 3D printimine ja CAD: Labor 2 — Sisend, töökoht, väljund
 
 **Töömaht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 06.10.26 | **Tellimise kuupäev:** 16.10.26 | **Esimene kaitsmine:** 27.10.26, veebis
 
@@ -9,17 +9,25 @@
 
 ### Eesmärk
 
-Töölaua annab õppejõud, ja ta ei ole plaat. Ta on 16 mm alumiiniumvardad, 120 mm sammuga. Üks varras jookseb roboti käe keskelt, kaks käivad robotist mõlemalt poolt mööda. Vardal ei ole auke, kuhu midagi kinnitada — sinu kinnitus haarab varda ümbert kinni. Ja kuna üks varras ei hoia midagi paigal, ulatub iga kinnitus **kahe või kolme varda peale korraga**.
+Töölaua annab õppejõud ja selle disain on olemas: `MG 400 rakis.f3z` selles kaustas, kirjeldus failis `MG 400 rakis.md`. Laud on PLA-st prinditud. Robot seisab oma aluses ja tema ees on **Gridfinity ruudustik**, 7 × 10 ruutu, samm 42 mm. Kõik, mis laua peal elab, on Gridfinity hoidik, mis kukub ruudustikku. See ruudustik on ainus liides, mille vastu sa disainid.
 
-Aasta lõpuks paneb MG400 kokku sildi: AtomS3, mille ekraani peale on liimitud polükarbonaatklaas. Selleks peavad klaas ja Atom olema kohas, mille robot teab. Ja seda kohta ei õpetata iga kord uuesti: kinnitus tuleb varraste pealt maha ja läheb tagasi, ning detail on ikka samas kohas. See labor teeb selle kinnituse.
+Aasta lõpuks paneb MG400 kokku sildi: AtomS3 (ESP32), mille ekraani peale on liimitud polükarbonaatklaas ja mille all on akumoodul. See on väike tootmisliin, ja tootmisliinil on alati sama kuju:
 
-Laboris 1 mõõtsid sa ära, mis lõtk sellel printeril päriselt on, ja kust su plast paindub ja kust murdub. Nüüd lähevad need numbrid käiku: klambri ava on see lõtk, ja iga vedrutav osa on see paindumine.
+* **Sisend.** Mitu objekti ja igaühte mitu ühikut. Meil on objekte kolm: AtomS3, polükarbonaatklaas ja akumoodul.
+* **Töökohad.** Neid on nii palju, kui protsessis on samme, mida üks robot korraga teeb.
+* **Väljund.** Tavaliselt kaks: põhiväljund ja praak. Võib olla ka rohkem, kui valmis asju sorteeritakse eraldi kastidesse.
 
-Selles laboris on kolm asja:
+See labor teeb hoidikud kõigi kolme jaoks. Ja neid kohti ei õpetata robotile iga kord uuesti: hoidik tuleb ruudustikust välja ja läheb tagasi, ning detail on ikka samas kohas.
 
-1. **Kinnitus.** Kuidas asi varraste külge käib ja mis teda seal paigal hoiab.
-2. **Pesad.** Klaasile, Atomile, valmis sildile. Robot paneb sisse, inimene saab välja.
-3. **Korduvtäpsus.** Võta maha, pane tagasi, kas õpetatud punkt kehtib veel. Kümme korda.
+Laboris 1 mõõtsid sa ära, mis lõtk sellel printeril päriselt on. Nüüd läheb see number käiku kaks korda: hoidiku jalg ruudustikus ja detail pesas.
+
+Selles laboris on viis asja:
+
+1. **Protsess ja paigutus.** Mis on sisendid, mitu töökohta, mitu väljundit ja millises ruudus igaüks on.
+2. **Hoidikud.** Sisendhoidikud, töökoha hoidik, väljundhoidikud. Kõik Gridfinity jalaga.
+3. **Test.** Neli Atomit, klaas juba peale liimitud, sisendist töökohale ja sealt väljundisse. Siis hoidikud välja ja tagasi, ja uuesti.
+4. **Kaamera tööriistahoidikul.** Iminapa kõrvale käib ESP32 kaameramoodul, ja ta peab kuskilt toite saama.
+5. **Kaamera laua kohal.** Tavaline USB veebikaamera robotist kõrgemal, nii et ta näeb kogu lauda.
 
 Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 16.10.
 
@@ -31,11 +39,16 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **Peab olema tehtud**
 
-- [ ] Vardad mõõdetud: läbimõõt mitmest kohast, varraste vahe, kõrguste vahe. Fusionis parameetritena.
-- [ ] Klamber valmis. Kolm tükki prinditud ja omavahel vahetatavad.
-- [ ] Kinnitus ulatub kahe või kolme varda peale ja ei liigu ühessegi suunda. Ka mitte piki varrast.
-- [ ] Pesad valmis: klaas, AtomS3, valmis silt. Robot paneb klaasi pessa, inimene saab selle sõrmedega välja.
-- [ ] Korduvtäpsuse test tehtud: kümme maha-tagasi tsüklit, tulemus failis `docs/refit_test.csv`.
+- [ ] Detailid mõõdetud nihikuga: AtomS3, klaas, akumoodul, Atom koos klaasiga. Fusionis parameetritena.
+- [ ] Protsess ja paigutus kirjas: sisendid, töökohad, väljundid, iga hoidiku ruut (näiteks D2). Failis `docs/layout.md` koos joonisega.
+- [ ] Kalibreerimishoidik 1 × 1 prinditud, istub ruudustikus ja ei loksu.
+- [ ] Sisendhoidikud valmis: AtomS3, klaas, akumoodul. Igaühes vähemalt neli ühikut.
+- [ ] Töökoha hoidik valmis: Atom saab seal olla ainult ühte moodi.
+- [ ] Väljundhoidikud valmis: põhiväljund neljale ja praak.
+- [ ] Test tehtud: neli Atomit sisendist töökohale ja väljundisse, hoidikud vahepeal välja ja tagasi. Tulemus failis `docs/refit_test.csv`.
+- [ ] Kaamera kinnitus valmis: kaameramoodul istub olemasoleva iminapa tööriistahoidiku küljes, näeb töökohta ja ei jää napale ette.
+- [ ] Kaamera toide otsustatud ja läbi proovitud: käsi käib oma liikumise läbi ja juhe ei jää kuhugi kinni.
+- [ ] Veebikaamera kinnitus valmis: kaamera on robotist kõrgemal, näeb kogu lauda ja käsi ei ulatu temani.
 - [ ] Tellimus 16.10: mis selle labori jaoks puudu jäi, failis `docs/bom.md`.
 - [ ] Repo ja arenduspäevik täidetud, tag `3d-print-lab2`.
 
@@ -43,22 +56,24 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Sisendid
 
-* Õppejõult: töölaud — 16 mm alumiiniumvardad 120 mm sammuga, üks käe keskelt, kaks robotist mööda. MG400 negatiivse püramiidaluse peal.
-* Riiulilt: printerid, PLA, PETG, nihik, poldid ja mutrid, M3 kuumsisestused.
+* Õppejõult: töölaud koos disainiga. `MG 400 rakis.f3z` ja `MG 400 rakis.md` selles kaustas. Lühikokkuvõte allpool, osas "Töölaud".
+* Riiulilt: printerid, PLA, nihik.
 * 3D printimise L1-st: lõtk, paindumise ja murdumise numbrid, pastakahoidik.
 * Nutikate Lahenduste L1-st: jaam, millega punkte õpetada ja üle mängida, ja `data/positions.json`.
-* Andmehõive L1-st: iminapp ja pumba juhtimine käsurealt — sellega käib klaasi tõstmise test.
+* Andmehõive L1-st: iminapp ja pumba juhtimine käsurealt — sellega käib tõstmise test.
+* Olemasolev iminapa tööriistahoidik roboti flantsi küljes. Kaamera käib selle külge.
 
 ### Vahendid
 
 1. Fusion 360, hariduslitsents
-2. PrusaSlicer, labori printerid, PLA ja PETG
+2. PrusaSlicer, labori printerid, PLA
 3. Nihik, 300 mm joonlaud
-4. Poldid, mutrid ja M3 kuumsisestused klambrite jaoks, jootekolb sisestusotsikuga
-5. MG400 koos baaspaketi, pumbakasti ja iminapaga
-6. Polükarbonaatklaasid 24 × 24 × 2 mm; AtomS3 või prinditud mannekeen 24 × 24 × 13 mm
-7. 16 mm varda jupp töölaual proovimiseks, kui saada on
-8. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
+4. MG400 koos baaspaketi, pumbakasti ja iminapaga
+5. Töölaud Gridfinity ruudustikuga
+6. AtomS3 või prinditud mannekeen 24 × 24 × 13 mm, neli tükki; polükarbonaatklaasid 24 × 24 × 2 mm; akumoodul
+7. Seeed Studio XIAO ESP32S3 Sense kaameramoodul (tootekood 113991115)
+8. USB veebikaamera (UHD), USB pikenduskaabel
+9. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
 
 *Kui plaan muutub, uuenda ka vahendeid, või tee draw.io skeem, mis näitab, kuidas asjad omavahel töötavad.*
 
@@ -68,8 +83,11 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 * **Fusion 360 mudeldamine FDM printimise jaoks**
   [https://www.youtube.com/watch?v=5hComh1hFzY](https://www.youtube.com/watch?v=5hComh1hFzY)
-* **Parameetrid Fusionis.** Varda läbimõõt, varraste samm ja lõtk ei ole numbrid, mille sa mudelisse trükid. Need on parameetrid, millele mudel viitab. Kui printer järgmisel korral teisiti prindib, muudad ühte numbrit, mitte kahtkümmend.
-* **Lõhikklamber.** Ümar varras, ava ümber varda, lõhik ühest küljest ja polt üle lõhiku. Polti pingutades ava tõmbub kokku ja haarab. Kogu selle labori kinnitus võib olla see üks tükk, korrutatuna kolmega.
+* **Gridfinity: mis see on ja kuidas hoidik ruudustikus istub**
+  YouTube: "Gridfinity explained"
+* **Gridfinity hoidik Fusionis**
+  YouTube: "Gridfinity bin Fusion 360 tutorial"
+* **Parameetrid Fusionis.** Detaili mõõdud, ruudustiku samm ja lõtk ei ole numbrid, mille sa mudelisse trükid. Need on parameetrid, millele mudel viitab. Kui printer järgmisel korral teisiti prindib, muudad ühte numbrit, mitte kahtkümmend.
 * **Prinditavad vedrud ja liigendid**
   [https://www.youtube.com/watch?v=wpriGP45Unw](https://www.youtube.com/watch?v=wpriGP45Unw)
   [https://www.youtube.com/watch?v=fYDJLdOV_zE](https://www.youtube.com/watch?v=fYDJLdOV_zE)
@@ -84,103 +102,192 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **KAARDISTA ISE — sinu allikad.**
 
+### Töölaud
+
+Siin on see, mida sul hoidiku disainimiseks vaja on. Kõik ülejäänu, ka iga ruudu koordinaadid tabelina, on failis `MG 400 rakis.md`. Anna see fail ka oma agendile.
+
+**Kolm tsooni, kõik ühel tasasel pinnal**
+
+* **Roboti alus.** Süvend, mille sein on 20° kaldega. Kui robotit lükata, ronib ta kallakust üles ja libiseb välja; tagasi lükates kukutab raskusjõud ta täpselt samasse kohta. Siia ei disaini sa midagi: ei süvendisse ega kallaku peale.
+* **Ruudustik.** Gridfinity alusplaat roboti ees, 7 veergu × 10 rida, samm 42 mm, kokku 294 × 420 mm.
+* **Kaabliruum ruudustiku all.** Ruudud on alt lahti ja iga seina all on kaar 24 × 12 mm. Selles laboris sul kaableid ei ole, aga järgmistes on, nii et ära ehita hoidiku põhja kinni, kui selleks põhjust ei ole.
+
+**Ruutude nimed**
+
+* Veerud 1–7: 1 on robotile kõige lähemal, 7 kõige kaugemal.
+* Read A–J: A on operaatori paremal, J vasakul, kui seisad laua ees näoga roboti poole.
+* Ruudu keskpunkt, mudeli koordinaatides, nullpunkt roboti J1 teljel:
+  `x = −139,5 − 42 · (veerg − 1)` ja `y = −189 + 42 · rida`, kus A = 0 … J = 9.
+* Roboti enda koordinaadid on eeldatavasti samad, pööratud 180° ümber Z. Seda ei ole kontrollitud, nii et kalibreeri (vaata osa 2).
+
+**Kuhu robot ulatub**
+
+| Kaugus J1 teljest | Ruudud | Milleks |
+| :--- | :--- | :--- |
+| kuni 300 mm | veerud 1–3, read C–H | kõige täpsem; siia käib töökoht |
+| 300–400 mm | ülejäänud | sisend ja väljund |
+| üle 400 mm | A7, B7, C7, H7, I7, J7 | väldi |
+
+Tavaline paigutus: sisend ühel pool (read A–C), töökoht keskel (read D–G, veerud 1–3), väljund teisel pool (read H–J). Käsi liigub siis läbi protsessi ühes suunas.
+
+**Hoidik on Gridfinity kast**
+
+* Välismõõt 42 · n − 0,5 mm, ehk ühe ruudu hoidik on 41,5 mm. Välisnurga raadius 3,75 mm.
+* Jalg on standardne Gridfinity jalg, 4,75 mm kõrge. Võta see valmis generaatorist või teegist; ära joonista seda silma järgi.
+* Mitme ruudu hoidik (2 × 1, 2 × 2, 3 × 2) on lubatud ja jäigem. Üks prinditud tükk kuni 250 × 250 mm.
+* Soovi korral 6 × 2 mm magnetid jala sisse.
+* Ruudustiku pealispind on 24 mm laua pinnast ja 7,28 mm roboti talla tasapinnast kõrgemal. Hoidiku jala ülaserv jääb umbes 0,1 mm ruudustiku pinnast kõrgemale. Mõõda päris laua peal üle, enne kui Z-i usaldad.
+* Kõrged osad (üle 60 mm) ei käi sinna, kust käsi üle liigub. Roboti poolses küljes kõrget seina ei ole.
+
+**Numbrid, mis disaini piiravad**
+
+* Robot kordab oma asendit ±0,05 mm. Laud tervikuna (alus, prinditud osad, Gridfinity istuvus) kordab umbes ±0,3–0,5 mm. Nulllõtkuga pesa ei tööta: detail juhitakse sisse kaldservaga.
+* Robot tõstab 500 g koos tööriistaga.
+* Kokkupõrke tuvastus peatab käe umbes 12 N juures.
+* Laua õppetund: suured täis PLA-klotsid kaarduvad. Hoidik on õõnes või ribidega, üle 20 mm paksust täismassi ei ole, ja üle 150 mm tükil on äär (brim).
+
 ### Osad
 
-#### 1. Kinnitus
+#### 1. Protsess ja paigutus
 
-Kõigepealt mõõda vardad. Läbimõõt kolmest kohast ühe varda pikkuses ja siis kolmest erinevast vardast — 16 mm varras ei ole igal pool 16,00 mm ja sinu klamber peab mahtuma ka kõige jämedama otsa peale. Varraste vahe nii, et mõõdad kahe vahe üle ja jagad kahega. Ja kontrolli, kas vardad on sama kõrgel; kui ei ole, siis kui palju. Need numbrid lähevad Fusionisse parameetritena.
+Enne kui Fusioni avad, joonista protsess paberile. Kolm küsimust.
 
-Siis mõtle läbi, mida klamber ümarvarda peal päriselt kinni hoiab. Tee seda enne, kui midagi joonistad, sest vastus ei ole see, mida sa esimesena arvad.
+**Mis tuleb sisse?** Sisend on mitu objekti ja igaühte mitu ühikut. Meil: AtomS3, polükarbonaatklaas, akumoodul. Iga objekt saab oma sisendhoidiku ja igas on mitu ühikut — selles laboris vähemalt neli. Mõõda kõik kolm nihikuga, ja mõõda ka Atom, mille peale klaas on juba liimitud, sest just see käib testis läbi. Akumooduli mõõte see dokument sulle ei anna.
 
-Üks klamber ühe varda ümber ei lase kinnitusel külgsuunas liikuda ega kalduda. Kaks asja jäävad vabaks: ta **libiseb piki varrast** ja ta **pöörleb varda ümber**. Võta pliiats ja sõrmus ning proovi järele — mõlemat näed kahe sekundiga.
+**Mitu töökohta?** Töökohti on nii palju, kui protsessis on samme, mida üks robot korraga teeb. Kirjuta sildi kokkupanek sammudena välja ja otsusta iga sammu kohta, kas ta vajab oma kohta või saab eelmisega sama kohta jagada. Selle labori testi jaoks piisab ühest töökohast. Aga paigutus peab näitama, kuhu ülejäänud tulevad.
 
-Lisa teine varras, ja pöörlemine kaob: kaks klambrit 120 mm vahega ei saa mõlemad ümber oma varda pöörelda. Aga libisemine jääb, sest mõlemad vardad on ühesuunas.
+**Kuhu läheb välja?** Väljundeid on tavaliselt kaks: põhiväljund ja praak. Kui valmis asju sorteeritakse (näiteks eri tellimused eri kasti), on neid rohkem. Praak ei ole erand, millele hiljem mõelda: kui praagil kohta ei ole, jääb ta töökohale ja liin seisab.
 
-**Libisemine piki varrast on see üks asi, mis sul üle jääb, ja ta ei kao iseenesest.** Kaks vastust:
+Siis pane igaüks ruutu. Töökoht käib sinna, kus robot on kõige täpsem. Sisend ja väljund võivad olla kaugemal. Mõtle roboti tee läbi: kaks hoidikut, mille vahel käsi risti üle kolmanda käib, ei ole hea paigutus. Ja vaata, kas kogu asi mahub 70 ruutu ära nii, et järgmiste laborite moodulitele jääb ruumi.
 
-* **Hõõrdumine.** Polt kinni ja lootus. Töötab, aga sõltub sellest, kui tugevasti eelmine inimene keeras. Homme on ta mujal.
-* **Positiivne tõke.** Midagi, mis puutub vastu varda otsa, vastu teist klambrit, või tihvt läbi varda ristiaugu. See tuleb tagasi samasse kohta ka siis, kui keeraja on väsinud.
+Kirjuta üles: protsessi sammud; mitu töökohta ja miks; mitu väljundit ja mis kuhu läheb; iga hoidiku ruut ja suurus ruutudes; iga detaili mõõdud nihikuga; joonis ülaltvaates. Fail `docs/layout.md`.
 
-Vali, ja kirjuta üles, miks. Korduvtäpsuse test osas 3 vastab sulle nagunii.
+#### 2. Hoidikud
 
-Siis ava mõõt. Lõhikklambri puhul on see üks kord, kus sa ava **meelega alamõõduliseks** teed: polt tõmbab ava kokku ja ava ülesanne on haarata, mitte lasta libiseda. Labori 1 lõtk ütleb sulle, kui palju prinditud ava nagunii väiksem tuleb — see number on siin sisendiks, mitte vastuseks. Teine tee on pealeklõpsatav klamber, ja tema elab Labori 1 paindumise numbrite peal, mitte lõtku peal. Kaks teed, kaks erinevat Labori 1 numbrit. Ütle, kumma sa võtsid.
+Esimene print on kõige väiksem: **kalibreerimishoidik**, 1 × 1, keskel terav tipp või rist. Ta teeb kaks tööd. Esiteks näitab ta, kas sinu Gridfinity jalg istub selles ruudustikus sinu printeri ja Labori 1 lõtkuga — enne kui prindid midagi suurt. Teiseks kalibreerid sa temaga roboti:
 
-Ja siis suurus, sest see otsustatakse enne joonistamist, mitte pärast. Kaks varrast on 120 mm vahe, kolm varrast 240 mm. Mõõda oma printeri lauda enne, kui kolme varda kasuks otsustad: 240 mm pluss klambrid ei pruugi lauale tasapinnaliselt ära mahtuda. Kui ei mahu, on kolm päris vastust — prindi diagonaali peale, prindi kahes tükis ja ühenda, või jää kahe varda juurde. Neljas vastus, mis on mõõtmata jätmine ja lootmine, ei ole vastus.
+1. Pane ta ruutu D2.
+2. Vii tööriista tipp jaamaga tema keskpunkti ja kirjuta roboti koordinaadid üles.
+3. Nihe = mõõdetud − arvutatud (valem osas "Töölaud").
+4. Kontrolli ühte kauget ruutu, näiteks H5. Kui viga on üle 1 mm, on telgede suund valesti eeldatud, mitte sinu hoidik vale.
+5. Z: puuduta ühe korra ruudustiku pealispinda.
 
-Prindi kolm ühesugust klambrit. Pane sama pesa kordamööda nende otsa ja lase robotil tõsta. Kui kolm klambrit ei ole omavahel vahetatavad, ei ole ka pesa oma kohal.
+Sealt edasi kirjutad iga koha üles kujul **ruut + nihe**, mitte paljaste koordinaatidena.
 
-Kirjuta üles: varraste läbimõõt kolmest kohast ja kolmest vardast, varraste vahe, kõrguste vahe; mis jääb vabaks ühe varda peal ja mis kahe varda peal; kuidas sa libisemise piki varrast ära võtad ja miks nii; ava mõõt ja kumma Labori 1 numbri pealt see tuli; kaks või kolm varrast ja miks; kas see mahtus printeri lauale ja mida sa tegid, kui ei mahtunud; kas kolm klambrit on omavahel vahetatavad.
+Siis kolm hoidikutüüpi. Igaühel on teine töö.
 
-#### 2. Pesad
+* **Sisendhoidik** annab detaili robotile kätte kohas, mis on teada ja ei muutu. Pesa lõtkuga 1–2 mm ja 45° kaldservaga ülal. Üks kindel baas (nurk või keskpunkt), mille järgi robot võtab. Võib olla ka virn või kallak, kust detailid ise ette libisevad, nii et võtmise punkt on alati sama.
+* **Töökoha hoidik** hoiab detaili paigal, kui robot temaga midagi teeb. Detail toetub kolmele punktile või kahele servale ja põhjale, nii et ta saab olla ainult ühte moodi. Hoidik peab roboti survele vastu, paar njuutonit. Ülevalt on tööriistale vaba tee. Ja hoidiku baas on selline, mida on lihtne robotiga puudutada.
+* **Väljundhoidik** võtab valmis detaili vastu. Robot paneb ebatäpsemalt, kui võtab, nii et kaldservad on siin suuremad. Praagi jaoks võib see olla lihtsalt kast või renn, kuhu detail kukub.
 
-Klaas on 24 × 24 × 2 mm polükarbonaat. AtomS3 on 24 × 24 × 13 mm. Pesa lõtk tuleb Labori 1 kuubist — kirjuta üles, millise numbri sa võtsid ja miks just selle.
+Pesa lõtk tuleb Labori 1 kuubist. Kirjuta üles, millise numbri sa võtsid ja miks just selle. Pane tähele, et sisendi, töökoha ja väljundi lõtk ei pea olema sama number: mida täpsemalt koht peab detaili hoidma, seda väiksem lõtk ja seda suurem kaldserv.
 
-Igal pesal on kolm nõuet, ja need kolm on põhjus, miks pesa ei ole lihtsalt auk:
+Igal pesal on kolm nõuet:
 
 * **Sissejuhtiv kaldserv.** Robot ei pane detaili täpselt keskele. Kaldserv parandab paari kümnendiku vea ise ära; ilma selleta jääb detail serva peale seisma.
-* **Kätte saamine.** Kaks millimeetrit paks klaas siledas pesas on sõrmedega võimatu välja võtta. Väljalükkeauk põhjas, väljalõige servas või pesa madalamaks — sinu valik, aga see peab olemas olema. Proovi ise järele, enne kui otsustad, et küll saab.
+* **Inimene saab ligi.** Sisendi laeb inimene ja väljundi tühjendab inimene. Kaks millimeetrit paks klaas siledas pesas on sõrmedega võimatu välja võtta. Väljalükkeauk põhjas, väljalõige servas või madalam pesa — sinu valik. Proovi ise järele, enne kui otsustad, et küll saab.
 * **Peale midagi ei ulatu.** Iminapp tuleb otse alla. Kõik, mis detailist kõrgemale jääb, on tee peal.
 
-Atomi pesa käib ekraan ülespoole. Ekraan jääb vabaks, USB-C ja nupp peavad ligipääsetavaks jääma.
+Atom käib igas pesas ekraan ülespoole. Töökohal jäävad USB-C ja nupp ligipääsetavaks.
 
-Ja üks asi, mida plaadi peal ei oleks: **varraste vahel on tühjus.** Mis pesast välja kukub, kukub põrandale. Kui su paigutus lubab klaasil üle serva minna, on sul kas äär või kandik all.
+Kirjuta üles: kas Gridfinity jalg istus esimese korraga ja mida sa muutsid; kalibreerimise nihe ja kauge ruudu viga; iga pesa lõtk ja Labori 1 number, mille pealt see tuli; iga pesa mõõdetud nihikuga, nominaal kõrval; mis läks esimese prindi juures valesti ja mis selle parandas; foto hoidikutest ruudustikus ülevalt, joonlaud kaadris.
 
-Kui palju pesi, on sinu otsus, aga vähemalt: koht, kust klaasid tulevad, koht, kus Atom on, ja koht, kuhu valmis silt läheb. Joonista paigutus paberile enne, kui Fusioni avad, ja mõtle roboti tee läbi — kaks pesa, mille vahel käsi risti üle kolmanda käib, ei ole hea paigutus.
+#### 3. Test
 
-Kirjuta üles: kasutatud lõtk ja Labori 1 number, mille pealt see tuli; iga pesa mõõdetud nihikuga, nominaal kõrval; mis läks esimese prindi juures valesti ja mis selle parandas; foto kinnitustest ja pesadest varraste peal ülevalt, joonlaud kaadris.
+Enne kui oma hoidikuid testima hakkad, vaata ära, kuidas laud ise sama probleemi lahendab. Robot seisab kaldseinaga aluses: sinna on täpselt üks viis istuda, ja seetõttu tuleb roboti asend ruudustiku suhtes iseenesest tagasi — mitte tarkvarast, vaid geomeetriast. Gridfinity jalg teeb hoidikuga sama asja väiksemalt. Selle labori küsimus on, kui hästi.
 
-#### 3. Korduvtäpsus
+**Läbijooks.** Lae sisendhoidikusse neli Atomit, klaas juba peale liimitud. Õpeta jaamaga punktid. Robot võtab Atomi sisendist, paneb töökohale tema oma kohale, võtab sealt uuesti ja viib põhiväljundisse. Neli tükki järjest, inimene vahepeal midagi ei puuduta. Ja näita ühe korra ka teist teed: töökohalt praaki.
 
-Enne, kui sa oma kinnitust testima hakkad, vaata ära, kuidas robot selle sama probleemi juba lahendatud on. Tasub vaadata, sest see on sama ülesanne, tehtud rauast.
+**Välja ja tagasi.** Võta kõik hoidikud ruudustikust välja, pane tagasi, lae Atomid uuesti sisendisse ja mängi sama jooks üle. Punkte vahepeal ei muudeta. Viis ringi, kokku kakskümmend Atomit.
 
-MG400 istub **negatiivse püramiidaluse** peal: punktid püramiidikujulistes pesades. Sinna on täpselt üks viis istuda, ja seetõttu tuleb roboti asend varraste suhtes iseenesest tagasi — mitte tarkvarast, vaid geomeetriast. Ja alla on käinud lüliti: kui robot millegi vastu läheb, tuleb ta oma pesadest välja, lüliti vabaneb ja kõik jääb seisma. Sa paned ta pesadesse tagasi, teed reseti, ja õpetatud punktid kehtivad edasi. Kukkumine ei lõhkunud midagi ja ei nihutanud midagi.
+Kui mõni kord ei õnnestu, on see kõige kasulikum rida terves tabelis. Kirjuta üles, mis juhtus: kas napp võttis servast, kas Atom jäi kaldserva peale, kas hoidik loksus ruudus. Viimane ütleb sulle, et jala lõtk on liiga suur või et sul on magneteid vaja.
 
-Sinu kinnitusel seda ei ole. Selle labori küsimus on, kas sa suudad talle midagi samaväärset anda.
+Siis teine küsimus: kas samad õpetatud punktid töötavad ka siis, kui hoidik on teises ruudus ja punktile on liidetud täisarv samme, 42 mm korda ruutude arv? Kui töötavad, on sul standard: hoidiku võib panna ükskõik kuhu ja robot teab, kus detail on. Kui ei tööta, kirjuta üles, kui palju mööda läks.
 
-Test: õpeta jaamaga klaasi võtmise punkt. Siis võta kinnitus varraste pealt maha, pane tagasi, lase robotil võtta. Kümme korda järjest, sama punkt, punkti vahepeal ei muudeta.
+Kirjuta üles: read failis `docs/refit_test.csv` (ring, Atomi number, kas võttis sisendist, kas pani töökohale, kas pani väljundisse, märkus); mitu kahekümnest läks läbi; kui palju detail nihkus, kui sa seda nihikuga või kaameraga mõõta saad; kas teise ruutu tõstetud hoidik töötas arvutatud punktiga. See viimane number ütleb, kui palju lõtku järgmised laborid peavad taluma — kirjuta ta eraldi välja.
 
-Kui mõni kord ei õnnestu, on see kõige kasulikum rida terves tabelis. Kirjuta üles, mis juhtus: kas nap võttis servast, kas klaas jäi kaldserva peale, kas kinnitus nihkus piki varrast. See viimane on kõige tõenäolisem ja see ütleb sulle, et osas 1 valisid sa hõõrdumise, mitte tõkke.
+#### 4. Kaamera tööriistahoidikul
 
-Siis teine küsimus: kas sama õpetatud punkt töötab ka teise, samast failist prinditud pesaga? Kui töötab, on sul standard. Kui ei tööta, on sul üks pesa — ja kirjuta üles, kui palju need kaks erinesid.
+Järgmistes laborites peab robot nägema, mida ta tõstab. Selleks käib iminapa kõrvale kaamera: Seeed Studio XIAO ESP32S3 Sense, tootekood 113991115. See on pöidlaküüne suurune ESP32 plaat, mille peal on kaameralaiend ja USB-C pesa.
 
-Kirjuta üles: kümme rida failis `docs/refit_test.csv` (tsükli number, kas võttis, kas pani, märkus); mitu korda kümnest õnnestus; kui palju detail nihkus, kui sa seda nihikuga või kaameraga mõõta saad; kas teine prinditud pesa töötas sama punktiga. See viimane number ütleb, kui palju lõtku järgmised laborid peavad taluma — kirjuta ta eraldi välja.
+Uut tööriistahoidikut sa ei tee. **Kaamera käib olemasoleva iminapa tööriistahoidiku külge.** Flants, napp ja voolik jäävad sinna, kus nad on, ja jaamaga õpetatud punktid kehtivad edasi. Sinu osa on tükk, mis kinnitub olemasoleva hoidiku külge ja hoiab kaamerat.
+
+Mõõda enne joonistamist kaks asja nihikuga: moodul ise (plaat, kaameralaiend, objektiiv, USB-C pesa asukoht, antenn) ja olemasolev hoidik — kust saab kinni haarata ja mis pinnad on vabad. MG400 flantsi mudel on Taustainfos.
+
+Mida kinnitus peab tegema:
+
+* **Kaamera näeb töökohta.** Otsusta, kas ta vaatab otse alla või nurga all, ja kui kõrgel napp peab olema, et terve Atom oleks pildis ja terav. Proovi see käes hoides järele, enne kui nurga mudelisse lukku paned.
+* **Napp jääb vabaks.** Kaamera ega tema kinnitus ei ulatu napa otsast allapoole ega lähe hoidiku seinte vastu, kui napp pesasse laskub. Osa 2 reegel "peale midagi ei ulatu" kehtib nüüd ka tööriista enda kohta.
+* **Kaamera on iga kord samas kohas.** Kui moodul võetakse välja ja pannakse tagasi, vaatab ta sama punkti. See on sama küsimus, mis hoidikul ruudustikus, ja sama vastus: kuju, mis lubab ainult ühte asendit, mitte hõõrdumine.
+* **Moodul tuleb kätte.** USB-C pesa on ligipääsetav ja mooduli saab välja ilma midagi murdmata. Plaat läheb soojaks; ära ehita teda PLA sisse kinni.
+* **Kaal.** Robot tõstab 500 g koos tööriistaga. Kaalu tööriist enne ja pärast.
+
+**Kust kaamera toite saab?** See on selle osa päris küsimus, sest kaamera on käe otsas ja käsi liigub. Kolm suunda, igaühel oma hind:
+
+* **USB-C juhe mööda kätt.** Lihtsaim. Aga juhe peab kaasa tulema, kui käsi sirutub välja ja J4 pöörab. Kus ta on kinnitatud, kui palju on lõtku, ja mis juhtub pistikuga, kui juhe pingule läheb?
+* **Aku kaamera juures.** Juhet ei ole. Aga aku on kaal käe otsas, ta saab tühjaks, ja ta peab kuhugi ära mahtuma.
+* **Roboti enda toide käe otsast.** MG400 käe otsas on pistik tööriista jaoks. Vaata järele, mis pinge sealt tuleb ja mida moodul talub, enne kui midagi ühendad. Vale pinge on katkine moodul.
+
+Vali üks, ehita see valmis ja proovi läbi: käsi käib sisendist töökohale ja väljundisse, J4 pöörab oma vahemiku läbi, ja juhe ei jää hoidikute ega käe enda taha kinni. Juhtme kinnitus ja tõmbetõke on osa sinu printidest, mitte kleeplint.
+
+Kirjuta üles: mooduli ja olemasoleva hoidiku mõõdud; kuidas kinnitus hoidiku küljes kinni on; kaamera nurk ja kõrgus, mille pealt töökoht pildis on; tööriista kaal enne ja pärast; millise toite sa valisid ja miks, ning mis kahest ülejäänust loobuma pani; foto tööriistast küljelt ja üks kaamera enda pilt töökohast.
+
+#### 5. Kaamera laua kohal
+
+Tööriista kaamera näeb otsikut lähedalt ja mitte midagi muud. Selleks, et näha, kus käsi on ja mis laual toimub, on vaja teist kaamerat: tavaline USB veebikaamera, UHD, mis on **robotist kõrgemal ja näeb kogu lauda** — ruudustik ühest servast teiseni ja robot ise. Kaks kaamerat, kaks tööd: üks näeb kõike, teine näeb täpselt.
+
+Sinu osa on kinnitus, mis ta sinna üles viib. Mõõda enne joonistamist kolm asja:
+
+* **Kui kõrgele käsi käib.** Sõida jaamaga käsi kõige kõrgemasse ja kõige kaugemasse asendisse ja mõõda joonlauaga. Kaamera ja kõik, mis teda hoiab, on sellest väljas.
+* **Kui kõrgel peab kaamera olema, et kogu laud kaadrisse mahuks.** Ruudustik on 294 × 420 mm ja selle taga on robot. Hoia kaamerat käes laua kohal ja vaata pilti, enne kui kõrguse mudelisse kirjutad. Kaamera vaatenurk otsustab selle, mitte sinu soov.
+* **Kuidas kaamera kinni käib.** Statiivikeere, klamber või lihtsalt kuju. Mõõda oma kaamera pealt.
+
+Siis otsusta, kus kinnitus seisab. Ta võib olla Gridfinity hoidik ruudustikus: nurgaruudud A7 ja J7 on roboti ulatuse piiril ja detailide jaoks nagunii halvad. Ta võib käia ka laua serva külge. Mida ta teha ei või: seista roboti aluse peal või selle vastas, ja olla seal, kust käsi läbi käib.
+
+Kõrge ja peenike PLA-post on vedru. Kui robot liigub ja laud väriseb, väriseb ka pilt, ja Nutikate Lahenduste labor peab selle pildi pealt midagi mõõtma. Jäikus tuleb kujust, mitte täitest: lai jalg, ribid, kolmnurk. Ja post, mis on printeri lauast pikem, prinditakse tükkidena — mõtle läbi, kuidas tükid kokku käivad, nii et ühendus ei oleks kõige nõrgem ja kõige loksuvam koht. Labori 1 murdumise number ütleb sulle, mis suunas kihid käima peavad.
+
+Kaks nõuet veel. Kaamera tuleb **samasse kohta tagasi**, kui kinnitus maha võetakse ja tagasi pannakse, sest pildi ja laua vaheline seos õpetatakse ühe korra. Ja USB juhe jookseb mööda posti alla ja on kinni; ta ei ripu üle laua.
+
+Kirjuta üles: käe suurim kõrgus; kaamera kõrgus ja koht; mitu tükki ja kuidas need kokku käivad; kui palju pilt väriseb, kui robot täiskiirusel liigub (pikslites või millimeetrites laua peal); kas pilt on pärast maha-tagasi sama; üks kaamera pilt, kus kogu ruudustik ja robot on näha.
 
 **KAARDISTA ISE — vastused.** Iga osa kohta: numbrid, ühikud, kus fail on. Tegemata asja kohta üks rida, miks.
 
 ### Ohutus
 
-* **Roboti all olev lüliti on ohutusseade.** Roboti aluse alla ei kiilu midagi, aluse külge ei kinnitata midagi ja alust ei hoita kinni. Kui robot ei saa oma pesadest välja tulla, ei saa ka lüliti tööd teha. Kui su kinnitus ulatub roboti aluse alla või vastu, disainid sa ohutusseadme välja.
-* Kinnitus, mis saab piki varrast libiseda, libiseb, ja robot leiab ta üles. Kontrolli klambrid üle enne iga jooksu.
-* Klambrid keeratakse kinni siis, kui robot on keelatud. Käsi ei ole klambri peal, kui robot on lubatud.
+* **Roboti alus peab jääma vabaks.** Süvendisse ja kallaku peale ei käi midagi, aluse külge ei kinnitata midagi ja robotit ei hoita kinni. Kui robot millegi vastu läheb, peab ta saama kallakust üles ja välja libiseda. Hoidik, mis ulatub roboti aluse vastu, võtab selle võimaluse ära.
+* Hoidik, mis ruudus loksub, liigub, ja robot leiab ta üles. Kontrolli enne iga jooksu, et kõik hoidikud istuvad põhjas.
+* Hoidikuid tõstetakse ja laetakse siis, kui robot on keelatud.
 * Robot: käed ei ole laua kohal, kui robot on sisse lülitatud. Esimene jooks aeglaselt, hädastopp käeulatuses.
-* Uue kinnituse esimene tõstmine käib 20 % kiirusel ja iminapp jääb 20 mm kõrgemale, õhku.
+* Uue hoidiku esimene tõstmine käib 20 % kiirusel ja iminapp jääb 20 mm kõrgemale, õhku.
 * Printeri otsik on 200–230 °C. Detailid spaatliga, kui laud on jahtunud.
-* Kuumsisestused: kolb on 200 °C või kuumem. Tööta lauakattel.
+* Kaamerapost on kõrge ja käib roboti ulatusse, kui ta on vales kohas. Enne esimest jooksu sõida käsi aeglaselt postile kõige lähemale ja vaata, et vahe jääb.
+* Kaamera juhe on käe küljes kinni ja tal on tõmbetõke. Lahtine juhe jääb hoidiku taha ja robot tõmbab pistiku moodulist välja.
+* Roboti käe otsas olevasse pistikusse ei ühendata midagi enne, kui pinge on mõõdetud ja õppejõud on üle vaadanud.
 * Küljelõikurid lõikavad näost eemale.
 
 ### Komponendid selle labori jaoks
 
 Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib.
 
-Mõtle näiteks: milline polt su lõhikklambrisse käib ja kas neid on selles pikkuses; kas mutter või kuumsisestus — ja mida sa kummagagi võidad; kas PETG on otsas; kas 16 mm varda jupp oleks abiks, et klambrit laua taga proovida, selle asemel et iga proovi jaoks töölaud kinni panna; ja kas klaase on piisavalt, sest vähemalt üks läheb selle labori jooksul katki.
+Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaoks; kas sul on neli Atomit või prindid mannekeenid; kas akumooduleid on käes piisavalt, et pesa päris asja peal proovida; kas 6 × 2 mm magnetid hoidiku jala sees on midagi, mida su test küsib; mida su valitud kaamera toide küsib — pikem ja pehmem USB-C juhe, väike aku või pingemuundur; kas veebikaamera USB juhe ulatub posti otsast jaamani; ja kas klaase on piisavalt, sest vähemalt üks läheb selle labori jooksul katki.
 
 ### Hindamiskriteeriumid
 
 | Kategooria | Punktid |
 | :--- | :--- |
-| Tööfailid — parameetritega klamber ja pesad, STL ja 3MF iga prindi kohta | 5 p |
-| Analüüs — varraste mõõdud, mis jääb vabaks ja mis selle ära võtab, kasutatud lõtk ja kust see tuli, korduvtäpsuse tabel | 5 p |
-| Prototüüp — kinnitus kahe või kolme varda peal ei liigu ja tuleb samasse kohta tagasi, robot võtab klaasi pesast, inimene saab selle välja | 5 p |
-| Dokumentatsioon — README, arenduspäevik, `refit_test.csv`, `bom.md`, AGENTS.md | 5 p |
+| Tööfailid — parameetritega hoidikud Gridfinity jalaga ja kahe kaamera kinnitused, STL ja 3MF iga prindi kohta | 5 p |
+| Analüüs — protsess ja paigutus, detailide mõõdud, kasutatud lõtk ja kust see tuli, kalibreerimise nihe, testi tabel, kaamera toite valik | 5 p |
+| Prototüüp — neli Atomit liiguvad sisendist töökohale ja väljundisse, hoidikud tulevad samasse kohta tagasi, praagil on koht, kaamera istub tööriistahoidikul ja saab toite, veebikaamera näeb kogu lauda | 5 p |
+| Dokumentatsioon — README, arenduspäevik, `layout.md`, `refit_test.csv`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
 ### Kaitsmine
 
 Link git repole, tag `3d-print-lab2`.
 
-Kaitsmine on lihtne suuline 15 minuti jutuajamine. Võtad kinnituse varraste pealt maha ja paned tagasi, ja robot võtab klaasi ikka õigest kohast, ilma et sa punkti uuesti õpetaksid. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Võtad hoidikud ruudustikust välja ja paned tagasi, ja robot viib neli Atomit sisendist töökohale ja väljundisse, ilma et sa punkte uuesti õpetaksid. Tööriista kaamera on toite all ja veebikaamera näeb kogu lauda. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Repos on kaustas `3d-print/lab2/`: lähtefailid, STL ja `.3mf` iga prindi kohta, `docs/` kaustas `refit_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
+Repos on kaustas `3d-print/lab2/`: lähtefailid, STL ja `.3mf` iga prindi kohta, `docs/` kaustas `layout.md`, `refit_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 
@@ -195,9 +302,9 @@ Repos on kaustas `3d-print/lab2/`: lähtefailid, STL ja `.3mf` iga prindi kohta,
 ### Väljundid ja tulemused
 
 **Väljundid**
-* Andmehõive L2: klaas kindlas kohas, et rõhukõverat saaks päris tõstmise pealt mõõta.
-* Nutikad Lahendused L2: laud, mida kaamera näeb, ja kinnitus, mille asukoht on teada.
-* 3D printimine L3: klambri standard, mille peale järgmised moodulid käivad, ja korduvtäpsuse number.
+* Andmehõive L2: klaas ja Atom kindlas kohas, et rõhukõverat saaks päris tõstmise pealt mõõta.
+* Nutikad Lahendused L2: kaks kaamerat oma kohal — veebikaamera, mis näeb kogu lauda, ja tööriista kaamera, mis näeb otsikut ja on toite all — ja hoidikud, mille asukoht on teada ruudu nimena.
+* 3D printimine L3: hoidiku standard (Gridfinity jalg ja lõtk), mille peale järgmised moodulid käivad, ja korduvtäpsuse number.
 
 **KAARDISTA ISE, lõpus.**
 * Git repo ja tag:
