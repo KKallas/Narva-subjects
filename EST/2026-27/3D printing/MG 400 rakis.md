@@ -42,94 +42,96 @@ Robot frame: assumed X_robot = −x, Y_robot = −y (robot rotated 180° about Z
 
 ## 4. The grid, cell addressing and coordinates
 
-* Pitch 42 mm. 7 columns (depth) × 10 rows (width) = 70 cells, 294 × 420 mm.
-* Columns 1–7: 1 is nearest the robot, 7 is farthest (front edge of rig).
-* Rows A–J: A is the operator's right (−Y), J the operator's left (+Y).
-* Cell centre: x = −139.5 − 42·(col − 1), y = −189 + 42·(row_index) with A = 0 … J = 9.
+* Pitch 42 mm. 7 cells deep × 10 cells wide = 70 cells, 294 × 420 mm.
+* A cell name is a letter and a signed number, e.g. `B-2`, `E+3`.
+* Letter = depth, counted outward from the robot: A is nearest the robot, G is farthest (front edge of rig).
+* Number = side, counted from the centre line (y = 0, through J1). The centre line is 0 and lies between two cells, so there is no cell 0. +1 … +5 go to the robot's right (+Y, the operator's left when facing the robot); −1 … −5 go to the robot's left (−Y, the operator's right).
+* The scheme extends without renaming anything: a wider grid adds ±6, ±7…; a deeper grid adds H, I…; cells behind the first row would get negative letters (−A, −B…).
+* Cell centre: x = −139.5 − 42·L with A = 0 … G = 6; y = 42·n − 21 for n > 0, y = 42·n + 21 for n < 0.
 * Grid edges: x from −118.5 (touching the nest) to −412.5; y from −210 to +210.
 
 Practical reach zones (radius from J1):
 
-* Best accuracy / work zone: r ≤ 300 mm: columns 1–3, rows C–H. Put the workpiece fixture (where the actual operation happens) here.
+* Best accuracy / work zone: r ≤ 300 mm: letters A–C, numbers −3 … +3. Put the workpiece fixture (where the actual operation happens) here.
 * Normal: 300–400 mm: fine for input/output holders.
-* Near the limit: > 400 mm: cells A7, B7, C7, H7, I7, J7 (radii 405–435 mm); avoid for anything that needs depth or accuracy.
+* Near the limit: > 400 mm: cells G-5, G-4, G-3, G+3, G+4, G+5 (radii 405–435 mm); avoid for anything that needs depth or accuracy.
 
-Recommended layout convention for lessons: input holder on one side (rows A–C), workpiece fixture in the middle (rows D–G, columns 1–3), output holder on the other side (rows H–J). The arm then sweeps in one direction through the process.
+Recommended layout convention for lessons: input holder on one side (numbers −5 … −3), workpiece fixture in the middle (numbers −2 … +2, letters A–C), output holder on the other side (numbers +3 … +5). The arm then sweeps in one direction through the process.
 
 ### Cell table (model frame)
 
 | cell | x (mm) | y (mm) | r from J1 (mm) | note |
 | :--- | :--- | :--- | :--- | :--- |
-| A1 | −139.5 | −189.0 | 235 |  |
-| B1 | −139.5 | −147.0 | 203 |  |
-| C1 | −139.5 | −105.0 | 175 | pipe beam under part of the opening |
-| D1 | −139.5 | −63.0 | 153 |  |
-| E1 | −139.5 | −21.0 | 141 |  |
-| F1 | −139.5 | 21.0 | 141 |  |
-| G1 | −139.5 | 63.0 | 153 |  |
-| H1 | −139.5 | 105.0 | 175 | pipe beam under part of the opening |
-| I1 | −139.5 | 147.0 | 203 |  |
-| J1 | −139.5 | 189.0 | 235 |  |
-| A2 | −181.5 | −189.0 | 262 |  |
-| B2 | −181.5 | −147.0 | 234 |  |
-| C2 | −181.5 | −105.0 | 210 | pipe beam under part of the opening |
-| D2 | −181.5 | −63.0 | 192 |  |
-| E2 | −181.5 | −21.0 | 183 | dowel beam under/next to cell |
-| F2 | −181.5 | 21.0 | 183 | dowel beam under/next to cell |
-| G2 | −181.5 | 63.0 | 192 |  |
-| H2 | −181.5 | 105.0 | 210 | pipe beam under part of the opening |
-| I2 | −181.5 | 147.0 | 234 |  |
-| J2 | −181.5 | 189.0 | 262 |  |
-| A3 | −223.5 | −189.0 | 293 |  |
-| B3 | −223.5 | −147.0 | 268 |  |
-| C3 | −223.5 | −105.0 | 247 | pipe beam under part of the opening |
-| D3 | −223.5 | −63.0 | 232 |  |
-| E3 | −223.5 | −21.0 | 224 | dowel beam under/next to cell |
-| F3 | −223.5 | 21.0 | 224 | dowel beam under/next to cell |
-| G3 | −223.5 | 63.0 | 232 |  |
-| H3 | −223.5 | 105.0 | 247 | pipe beam under part of the opening |
-| I3 | −223.5 | 147.0 | 268 |  |
-| J3 | −223.5 | 189.0 | 293 |  |
-| A4 | −265.5 | −189.0 | 326 |  |
-| B4 | −265.5 | −147.0 | 303 |  |
-| C4 | −265.5 | −105.0 | 286 | pipe beam under part of the opening |
-| D4 | −265.5 | −63.0 | 273 |  |
-| E4 | −265.5 | −21.0 | 266 |  |
-| F4 | −265.5 | 21.0 | 266 |  |
-| G4 | −265.5 | 63.0 | 273 |  |
-| H4 | −265.5 | 105.0 | 286 | pipe beam under part of the opening |
-| I4 | −265.5 | 147.0 | 303 |  |
-| J4 | −265.5 | 189.0 | 326 |  |
-| A5 | −307.5 | −189.0 | 361 |  |
-| B5 | −307.5 | −147.0 | 341 |  |
-| C5 | −307.5 | −105.0 | 325 | pipe beam under part of the opening |
-| D5 | −307.5 | −63.0 | 314 |  |
-| E5 | −307.5 | −21.0 | 308 |  |
-| F5 | −307.5 | 21.0 | 308 |  |
-| G5 | −307.5 | 63.0 | 314 |  |
-| H5 | −307.5 | 105.0 | 325 | pipe beam under part of the opening |
-| I5 | −307.5 | 147.0 | 341 |  |
-| J5 | −307.5 | 189.0 | 361 |  |
-| A6 | −349.5 | −189.0 | 397 |  |
-| B6 | −349.5 | −147.0 | 379 |  |
-| C6 | −349.5 | −105.0 | 365 | pipe beam under part of the opening |
-| D6 | −349.5 | −63.0 | 355 |  |
-| E6 | −349.5 | −21.0 | 350 | dowel beam under/next to cell |
-| F6 | −349.5 | 21.0 | 350 | dowel beam under/next to cell |
-| G6 | −349.5 | 63.0 | 355 |  |
-| H6 | −349.5 | 105.0 | 365 | pipe beam under part of the opening |
-| I6 | −349.5 | 147.0 | 379 |  |
-| J6 | −349.5 | 189.0 | 397 |  |
-| A7 | −391.5 | −189.0 | 435 | near reach limit |
-| B7 | −391.5 | −147.0 | 418 | near reach limit |
-| C7 | −391.5 | −105.0 | 405 | near reach limit; pipe beam under part of the opening |
-| D7 | −391.5 | −63.0 | 397 |  |
-| E7 | −391.5 | −21.0 | 392 |  |
-| F7 | −391.5 | 21.0 | 392 |  |
-| G7 | −391.5 | 63.0 | 397 |  |
-| H7 | −391.5 | 105.0 | 405 | near reach limit; pipe beam under part of the opening |
-| I7 | −391.5 | 147.0 | 418 | near reach limit |
-| J7 | −391.5 | 189.0 | 435 | near reach limit |
+| A-5 | −139.5 | −189.0 | 235 |  |
+| A-4 | −139.5 | −147.0 | 203 |  |
+| A-3 | −139.5 | −105.0 | 175 | pipe beam under part of the opening |
+| A-2 | −139.5 | −63.0 | 153 |  |
+| A-1 | −139.5 | −21.0 | 141 |  |
+| A+1 | −139.5 | 21.0 | 141 |  |
+| A+2 | −139.5 | 63.0 | 153 |  |
+| A+3 | −139.5 | 105.0 | 175 | pipe beam under part of the opening |
+| A+4 | −139.5 | 147.0 | 203 |  |
+| A+5 | −139.5 | 189.0 | 235 |  |
+| B-5 | −181.5 | −189.0 | 262 |  |
+| B-4 | −181.5 | −147.0 | 234 |  |
+| B-3 | −181.5 | −105.0 | 210 | pipe beam under part of the opening |
+| B-2 | −181.5 | −63.0 | 192 |  |
+| B-1 | −181.5 | −21.0 | 183 | dowel beam under/next to cell |
+| B+1 | −181.5 | 21.0 | 183 | dowel beam under/next to cell |
+| B+2 | −181.5 | 63.0 | 192 |  |
+| B+3 | −181.5 | 105.0 | 210 | pipe beam under part of the opening |
+| B+4 | −181.5 | 147.0 | 234 |  |
+| B+5 | −181.5 | 189.0 | 262 |  |
+| C-5 | −223.5 | −189.0 | 293 |  |
+| C-4 | −223.5 | −147.0 | 268 |  |
+| C-3 | −223.5 | −105.0 | 247 | pipe beam under part of the opening |
+| C-2 | −223.5 | −63.0 | 232 |  |
+| C-1 | −223.5 | −21.0 | 224 | dowel beam under/next to cell |
+| C+1 | −223.5 | 21.0 | 224 | dowel beam under/next to cell |
+| C+2 | −223.5 | 63.0 | 232 |  |
+| C+3 | −223.5 | 105.0 | 247 | pipe beam under part of the opening |
+| C+4 | −223.5 | 147.0 | 268 |  |
+| C+5 | −223.5 | 189.0 | 293 |  |
+| D-5 | −265.5 | −189.0 | 326 |  |
+| D-4 | −265.5 | −147.0 | 303 |  |
+| D-3 | −265.5 | −105.0 | 286 | pipe beam under part of the opening |
+| D-2 | −265.5 | −63.0 | 273 |  |
+| D-1 | −265.5 | −21.0 | 266 |  |
+| D+1 | −265.5 | 21.0 | 266 |  |
+| D+2 | −265.5 | 63.0 | 273 |  |
+| D+3 | −265.5 | 105.0 | 286 | pipe beam under part of the opening |
+| D+4 | −265.5 | 147.0 | 303 |  |
+| D+5 | −265.5 | 189.0 | 326 |  |
+| E-5 | −307.5 | −189.0 | 361 |  |
+| E-4 | −307.5 | −147.0 | 341 |  |
+| E-3 | −307.5 | −105.0 | 325 | pipe beam under part of the opening |
+| E-2 | −307.5 | −63.0 | 314 |  |
+| E-1 | −307.5 | −21.0 | 308 |  |
+| E+1 | −307.5 | 21.0 | 308 |  |
+| E+2 | −307.5 | 63.0 | 314 |  |
+| E+3 | −307.5 | 105.0 | 325 | pipe beam under part of the opening |
+| E+4 | −307.5 | 147.0 | 341 |  |
+| E+5 | −307.5 | 189.0 | 361 |  |
+| F-5 | −349.5 | −189.0 | 397 |  |
+| F-4 | −349.5 | −147.0 | 379 |  |
+| F-3 | −349.5 | −105.0 | 365 | pipe beam under part of the opening |
+| F-2 | −349.5 | −63.0 | 355 |  |
+| F-1 | −349.5 | −21.0 | 350 | dowel beam under/next to cell |
+| F+1 | −349.5 | 21.0 | 350 | dowel beam under/next to cell |
+| F+2 | −349.5 | 63.0 | 355 |  |
+| F+3 | −349.5 | 105.0 | 365 | pipe beam under part of the opening |
+| F+4 | −349.5 | 147.0 | 379 |  |
+| F+5 | −349.5 | 189.0 | 397 |  |
+| G-5 | −391.5 | −189.0 | 435 | near reach limit |
+| G-4 | −391.5 | −147.0 | 418 | near reach limit |
+| G-3 | −391.5 | −105.0 | 405 | near reach limit; pipe beam under part of the opening |
+| G-2 | −391.5 | −63.0 | 397 |  |
+| G-1 | −391.5 | −21.0 | 392 |  |
+| G+1 | −391.5 | 21.0 | 392 |  |
+| G+2 | −391.5 | 63.0 | 397 |  |
+| G+3 | −391.5 | 105.0 | 405 | near reach limit; pipe beam under part of the opening |
+| G+4 | −391.5 | 147.0 | 418 | near reach limit |
+| G+5 | −391.5 | 189.0 | 435 | near reach limit |
 
 ## 5. Designing a holder (Gridfinity bin rules)
 
@@ -155,22 +157,22 @@ What each holder type must do:
 * Every grid wall has a 24 mm wide × 12 mm high arch at table level, so cables can run under the whole grid in any direction and exit at the grid edges.
 * Cables are routed down through the cell under the module, then along the arches. Keep connectors small enough to pass a 24 × 12 mm arch (JST, Dupont, USB-C cable fine; full-size USB-A plugs are borderline).
 * Obstructions under the grid (no free passage there):
-  * pipe beams at y = ±110.5 (22.4 mm wide, from the table up to z +2.48), running the whole grid depth. They partly block the openings of rows C and H.
-  * two short dowel beams across the centre line (y −40 … +40, 22.4 mm wide): one on the boundary between columns 2 and 3, one under the middle of column 6.
+  * pipe beams at y = ±110.5 (22.4 mm wide, from the table up to z +2.48), running the whole grid depth. They partly block the openings of the −3 and +3 cells.
+  * two short dowel beams across the centre line (y −40 … +40, 22.4 mm wide): one on the boundary between letters B and C, one under the middle of letter F.
 * Electronics that sit in the module go above the grid (inside the bin); only wires go below. Typical boards: ESP32 / M5Stack Atom (the course standard), sensors, servos, pressure sensors for the syringe dispenser, etc.
 
 ## 7. Calibration procedure (for instructions to include)
 
-1. Put a 1×1 "calibration bin" with a sharp centre point or cross-hair in a known cell (suggested D2, close and accurate).
+1. Put a 1×1 "calibration bin" with a sharp centre point or cross-hair in a known cell (suggested B-2, close and accurate).
 2. Jog the robot tool tip onto it and record the robot coordinates.
 3. Offset = recorded − computed (from §4 with the frame mapping in §2).
-4. Apply the same offset to every cell. Check one far cell (e.g. H5) to verify the rotation/mapping; if it's off by more than ~1 mm the frame mapping in §2 is wrong and must be fixed (rotation sign or axis swap).
+4. Apply the same offset to every cell. Check one far cell (e.g. E+3) to verify the rotation/mapping; if it's off by more than ~1 mm the frame mapping in §2 is wrong and must be fixed (rotation sign or axis swap).
 5. Z: touch the grid top surface once; bins sit at a known height relative to it.
 
 ## 8. Physical build of the rig (for context)
 
 * **Nest:** two halves (nest_front, nest_back, split at x = 0), each 128.5 × 253 mm. Made of 2 mm slices on a 12 mm pitch joined only by square tubes around the pipes; 20 mm hollow end blocks carry the front/back ramp. Pocket = robot outline + 0.5 mm; ramp 20° over 20 mm; 3 mm flat rim.
-* **Grid:** four tiles (grid_pos_0, grid_neg_0 168 × 210 mm; grid_pos_1, grid_neg_1 126 × 210 mm), split at y = 0 and between columns 4 and 5.
+* **Grid:** four tiles (grid_pos_0, grid_neg_0 168 × 210 mm; grid_pos_1, grid_neg_1 126 × 210 mm), split at y = 0 and between letters D and E.
 * **Pipes:** two 16 mm OD pipes at y = ±110.5, length = table depth − 30 mm (670 mm for a 700 mm table), through square 16.4 mm tunnels in nest and grid. Two 70 mm dowels of the same pipe join the left and right grid tiles.
 * **L brackets:** printed L at each pipe end hook over the front and back table edges; the back pair presses against the nest, fixing the robot to the back table edge. Clamps go on the L's flat top.
 * **Printing:** all parts top-up, no supports. Lesson learned: large solid blocks warp (PLA); keep holders hollow/ribbed, avoid solid masses > ~20 mm thick, use brims or mouse ears on parts > ~150 mm.
@@ -183,5 +185,5 @@ What each holder type must do:
 - [ ] Gripper/tool approach path clear from above; no tall walls on the robot side.
 - [ ] Mass the robot moves (tool + part) ≤ 500 g.
 - [ ] Printable on 256 × 256 bed without supports; no thick solid blocks.
-- [ ] Cables (if any) go down through the cell and along the 24 × 12 mm arches, avoiding the pipe beams (rows C/H edge) and dowel beams.
+- [ ] Cables (if any) go down through the cell and along the 24 × 12 mm arches, avoiding the pipe beams (±3 cells) and dowel beams.
 - [ ] Calibrated position written down as cell name + offset, not raw coordinates.

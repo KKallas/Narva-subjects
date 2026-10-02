@@ -9,7 +9,7 @@
 
 ### Eesmärk
 
-Töölaua annab õppejõud ja selle disain on olemas: `MG 400 rakis.f3z` selles kaustas, kirjeldus failis `MG 400 rakis.md`. Laud on PLA-st prinditud. Robot seisab oma aluses ja tema ees on **Gridfinity ruudustik**, 7 × 10 ruutu, samm 42 mm. Kõik, mis laua peal elab, on Gridfinity hoidik, mis kukub ruudustikku. See ruudustik on ainus liides, mille vastu sa disainid.
+Töölaua annab õppejõud ja selle disain on olemas: Fusioni fail [MG 400 rakis.f3z](MG%20400%20rakis.f3z) ja selle kirjeldus [MG 400 rakis.md](MG%20400%20rakis.md). Laud on PLA-st prinditud. Robot seisab oma aluses ja tema ees on **Gridfinity ruudustik**, 7 × 10 ruutu, samm 42 mm. Kõik, mis laua peal elab, on Gridfinity hoidik, mis kukub ruudustikku. See ruudustik on ainus liides, mille vastu sa disainid.
 
 Aasta lõpuks paneb MG400 kokku sildi: AtomS3 (ESP32), mille ekraani peale on liimitud polükarbonaatklaas ja mille all on akumoodul. See on väike tootmisliin, ja tootmisliinil on alati sama kuju:
 
@@ -40,7 +40,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 **Peab olema tehtud**
 
 - [ ] Detailid mõõdetud nihikuga: AtomS3, klaas, akumoodul. Fusionis parameetritena.
-- [ ] Protsess ja paigutus kirjas: sisendid, töökohad, väljundid, iga hoidiku ruut (näiteks D2). Failis `docs/layout.md` koos joonisega.
+- [ ] Protsess ja paigutus kirjas: sisendid, töökohad, väljundid, iga hoidiku ruut (näiteks B-2). Failis `docs/layout.md` koos joonisega.
 - [ ] Kalibreerimishoidik 1 × 1 prinditud, istub ruudustikus ja ei loksu.
 - [ ] Sisendhoidikud valmis: AtomS3, klaas, akumoodul. Igaühes vähemalt neli ühikut.
 - [ ] Töökoha hoidik valmis: Atom saab seal olla ainult ühte moodi ja klaasil on tema peal kindel koht.
@@ -56,7 +56,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Sisendid
 
-* Õppejõult: töölaud koos disainiga. `MG 400 rakis.f3z` ja `MG 400 rakis.md` selles kaustas. Lühikokkuvõte allpool, osas "Töölaud".
+* Õppejõult: töölaud koos disainiga. Fusioni fail [MG 400 rakis.f3z](MG%20400%20rakis.f3z) ja kirjeldus [MG 400 rakis.md](MG%20400%20rakis.md). Lühikokkuvõte allpool, osas "Töölaud".
 * Riiulilt: printerid, PLA, nihik.
 * 3D printimise L1-st: lõtk, paindumise ja murdumise numbrid, pastakahoidik.
 * Nutikate Lahenduste L1-st: jaam, millega punkte õpetada ja üle mängida, ja `data/positions.json`.
@@ -81,20 +81,26 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Taustainfo
 
-* **Fusion 360 mudeldamine FDM printimise jaoks**
-  [https://www.youtube.com/watch?v=5hComh1hFzY](https://www.youtube.com/watch?v=5hComh1hFzY)
-* **Gridfinity: mis see on ja kuidas hoidik ruudustikus istub**
-  YouTube: "Gridfinity explained"
-* **Gridfinity hoidik Fusionis**
-  YouTube: "Gridfinity bin Fusion 360 tutorial"
-* **Parameetrid Fusionis.** Detaili mõõdud, ruudustiku samm ja lõtk ei ole numbrid, mille sa mudelisse trükid. Need on parameetrid, millele mudel viitab. Kui printer järgmisel korral teisiti prindib, muudad ühte numbrit, mitte kahtkümmend.
-* **Prinditavad vedrud ja liigendid**
-  [https://www.youtube.com/watch?v=wpriGP45Unw](https://www.youtube.com/watch?v=wpriGP45Unw)
-  [https://www.youtube.com/watch?v=fYDJLdOV_zE](https://www.youtube.com/watch?v=fYDJLdOV_zE)
-* **3D mudelite harjutused**
-  [https://www.tootalltoby.com/](https://www.tootalltoby.com/)
-* **PrusaSlicer**
-  [https://www.prusa3d.com/page/prusaslicer_424/](https://www.prusa3d.com/page/prusaslicer_424/)
+* **Gridfinity: mis see on**
+  [https://www.youtube.com/watch?v=ra_9zU-mnl8](https://www.youtube.com/watch?v=ra_9zU-mnl8)
+* **Gridfinity hoidik Fusionis, parameetritega**
+  [https://www.youtube.com/watch?v=h8Asgw8fsVE](https://www.youtube.com/watch?v=h8Asgw8fsVE)
+* **Parameetrid Fusionis**
+  [https://www.youtube.com/watch?v=tx89UXMeqwQ](https://www.youtube.com/watch?v=tx89UXMeqwQ)
+* **Komponent vs keha**
+  [https://www.youtube.com/watch?v=L6MMw-dfS8s](https://www.youtube.com/watch?v=L6MMw-dfS8s)
+* **Kas detailid lähevad üksteisest läbi (Interference)**
+  [https://www.youtube.com/watch?v=wy6chd2hP24](https://www.youtube.com/watch?v=wy6chd2hP24)
+* **Kuidas detail paika panna: 3-2-1 reegel**
+  [https://www.youtube.com/watch?v=pwSnycGvHAg](https://www.youtube.com/watch?v=pwSnycGvHAg)
+* **Karp ümber plaadi (Fusioni projekt RPI Pico Box)**
+  [https://www.youtube.com/watch?v=wt1nlLSl8TQ](https://www.youtube.com/watch?v=wt1nlLSl8TQ)
+* **Suur detail tükkideks ja tükid kokku**
+  [https://www.youtube.com/watch?v=-PtARBZEu5g](https://www.youtube.com/watch?v=-PtARBZEu5g)
+* **Tugevus risti kihtidega**
+  [https://www.youtube.com/watch?v=cC5KlelZlx4](https://www.youtube.com/watch?v=cC5KlelZlx4)
+* **Infill**
+  [https://www.youtube.com/watch?v=nV3GbN6hLjg](https://www.youtube.com/watch?v=nV3GbN6hLjg)
 * **MG400 flants**
   [https://a360.co/4nruicX](https://a360.co/4nruicX)
 
@@ -104,7 +110,9 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Töölaud
 
-Siin on see, mida sul hoidiku disainimiseks vaja on. Kõik ülejäänu, ka iga ruudu koordinaadid tabelina, on failis `MG 400 rakis.md`. Anna see fail ka oma agendile.
+Siin on see, mida sul hoidiku disainimiseks vaja on. Kõik ülejäänu, ka iga ruudu koordinaadid tabelina, on failis [MG 400 rakis.md](MG%20400%20rakis.md).
+
+Seda kirjeldust on hea kasutada oma AI agendile seletamiseks, mis Fusionis praegu juba tehtud on. Agent ei näe Fusioni faili sisse; kirjeldus ütleb talle sõnade ja numbritega sama, mida [MG 400 rakis.f3z](MG%20400%20rakis.f3z) ütleb sulle pildina: kus on robot, kus on ruudustik, mis mõõdud ja mis koordinaadid. Pane see oma repo juurde ja viita sellele `AGENTS.md`-st, siis ei pea sa lauda igas vestluses uuesti kirjeldama.
 
 **Miks Gridfinity**
 
@@ -117,26 +125,30 @@ Laua liides oleks võinud olla ka midagi muud: alumiiniumprofiil, augurida, oma 
 **Kolm tsooni, kõik ühel tasasel pinnal**
 
 * **Roboti alus.** Süvend, mille sein on 20° kaldega. Kui robotit lükata, ronib ta kallakust üles ja libiseb välja; tagasi lükates kukutab raskusjõud ta täpselt samasse kohta. Siia ei disaini sa midagi: ei süvendisse ega kallaku peale.
-* **Ruudustik.** Gridfinity alusplaat roboti ees, 7 veergu × 10 rida, samm 42 mm, kokku 294 × 420 mm.
+* **Ruudustik.** Gridfinity alusplaat roboti ees, 7 ruutu sügav × 10 ruutu lai, samm 42 mm, kokku 294 × 420 mm.
 * **Kaabliruum ruudustiku all.** Ruudud on alt lahti ja iga seina all on kaar 24 × 12 mm. Selles laboris sul kaableid ei ole, aga järgmistes on, nii et ära ehita hoidiku põhja kinni, kui selleks põhjust ei ole.
 
 **Ruutude nimed**
 
-* Veerud 1–7: 1 on robotile kõige lähemal, 7 kõige kaugemal.
-* Read A–J: A on operaatori paremal, J vasakul, kui seisad laua ees näoga roboti poole.
+Ruudu nimi on täht ja märgiga number, näiteks `B-2` või `E+3`.
+
+* **Täht on kaugus robotist.** A on robotile kõige lähemal, G kõige kaugemal.
+* **Number on külg.** Nulljoon jookseb laua keskelt, roboti J1 teljest otse ette, ja jääb kahe ruudu vahele: ruutu 0 ei ole. +1 … +5 on robotist vaadates paremal, −1 … −5 vasakul. Kui seisad laua ees näoga roboti poole, on pluss sinu vasakul käel.
+* Nii saab lauda hiljem suuremaks teha, ilma et ükski nimi muutuks: laiem laud saab ±6, sügavam saab H, ja kui ruute tuleb A-st roboti poole, saavad need miinusega tähe.
 * Ruudu keskpunkt, mudeli koordinaatides, nullpunkt roboti J1 teljel:
-  `x = −139,5 − 42 · (veerg − 1)` ja `y = −189 + 42 · rida`, kus A = 0 … J = 9.
+  `x = −139,5 − 42 · täht`, kus A = 0 … G = 6
+  `y = 42 · number − 21`, kui number on plussiga, ja `y = 42 · number + 21`, kui miinusega
 * Roboti enda koordinaadid on eeldatavasti samad, pööratud 180° ümber Z. Seda ei ole kontrollitud, nii et kalibreeri (vaata osa 2).
 
 **Kuhu robot ulatub**
 
 | Kaugus J1 teljest | Ruudud | Milleks |
 | :--- | :--- | :--- |
-| kuni 300 mm | veerud 1–3, read C–H | kõige täpsem; siia käib töökoht |
+| kuni 300 mm | tähed A–C, numbrid −3 … +3 | kõige täpsem; siia käib töökoht |
 | 300–400 mm | ülejäänud | sisend ja väljund |
-| üle 400 mm | A7, B7, C7, H7, I7, J7 | väldi |
+| üle 400 mm | G-5, G-4, G-3, G+3, G+4, G+5 | väldi |
 
-Tavaline paigutus: sisend ühel pool (read A–C), töökoht keskel (read D–G, veerud 1–3), väljund teisel pool (read H–J). Käsi liigub siis läbi protsessi ühes suunas.
+Tavaline paigutus: sisend ühel pool (numbrid −5 … −3), töökoht keskel (numbrid −2 … +2, tähed A–C), väljund teisel pool (numbrid +3 … +5). Käsi liigub siis läbi protsessi ühes suunas.
 
 **Hoidik on Gridfinity kast**
 
@@ -174,10 +186,10 @@ Kirjuta üles: protsessi sammud; mitu töökohta ja miks; mitu väljundit ja mis
 
 Esimene print on kõige väiksem: **kalibreerimishoidik**, 1 × 1, keskel terav tipp või rist. Ta teeb kaks tööd. Esiteks näitab ta, kas sinu Gridfinity jalg istub selles ruudustikus sinu printeri ja Labori 1 lõtkuga — enne kui prindid midagi suurt. Teiseks kalibreerid sa temaga roboti:
 
-1. Pane ta ruutu D2.
+1. Pane ta ruutu B-2.
 2. Vii tööriista tipp jaamaga tema keskpunkti ja kirjuta roboti koordinaadid üles.
 3. Nihe = mõõdetud − arvutatud (valem osas "Töölaud").
-4. Kontrolli ühte kauget ruutu, näiteks H5. Kui viga on üle 1 mm, on telgede suund valesti eeldatud, mitte sinu hoidik vale.
+4. Kontrolli ühte kauget ruutu, näiteks E+3. Kui viga on üle 1 mm, on telgede suund valesti eeldatud, mitte sinu hoidik vale.
 5. Z: puuduta ühe korra ruudustiku pealispinda.
 
 Sealt edasi kirjutad iga koha üles kujul **ruut + nihe**, mitte paljaste koordinaatidena.
@@ -252,7 +264,7 @@ Sinu osa on kinnitus, mis ta sinna üles viib. Mõõda enne joonistamist kolm as
 * **Kui kõrgel peab kaamera olema, et kogu laud kaadrisse mahuks.** Ruudustik on 294 × 420 mm ja selle taga on robot. Hoia kaamerat käes laua kohal ja vaata pilti, enne kui kõrguse mudelisse kirjutad. Kaamera vaatenurk otsustab selle, mitte sinu soov.
 * **Kuidas kaamera kinni käib.** Statiivikeere, klamber või lihtsalt kuju. Mõõda oma kaamera pealt.
 
-Siis otsusta, kus kinnitus seisab. Ta võib olla Gridfinity hoidik ruudustikus: nurgaruudud A7 ja J7 on roboti ulatuse piiril ja detailide jaoks nagunii halvad. Ta võib käia ka laua serva külge. Mida ta teha ei või: seista roboti aluse peal või selle vastas, ja olla seal, kust käsi läbi käib.
+Siis otsusta, kus kinnitus seisab. Ta võib olla Gridfinity hoidik ruudustikus: nurgaruudud G-5 ja G+5 on roboti ulatuse piiril ja detailide jaoks nagunii halvad. Ta võib käia ka laua serva külge. Mida ta teha ei või: seista roboti aluse peal või selle vastas, ja olla seal, kust käsi läbi käib.
 
 Kõrge ja peenike PLA-post on vedru. Kui robot liigub ja laud väriseb, väriseb ka pilt, ja Nutikate Lahenduste labor peab selle pildi pealt midagi mõõtma. Jäikus tuleb kujust, mitte täitest: lai jalg, ribid, kolmnurk. Ja post, mis on printeri lauast pikem, prinditakse tükkidena — mõtle läbi, kuidas tükid kokku käivad, nii et ühendus ei oleks kõige nõrgem ja kõige loksuvam koht. Labori 1 murdumise number ütleb sulle, mis suunas kihid käima peavad.
 
