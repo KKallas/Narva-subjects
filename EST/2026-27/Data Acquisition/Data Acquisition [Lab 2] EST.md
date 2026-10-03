@@ -210,6 +210,8 @@ Kirjuta üles: Pa ühe ADC sammu kohta enne ja pärast; SNR dB-des enne ja pära
 
 Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa või number seda küsib.
 
+Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
+
 Mõtle näiteks: kas op-ampe on ja kas varuks ka — üks läheb katki; kas takistite komplektis on need väärtused, mida su arvutus tahab, või pead sa neid kahest kokku panema; kas trimmer oleks siin mõistlikum kui kaks fikseeritud takistit ja mida sa sellega kaotad; kas takisteid on nii palju, et saad astme ühe korra ümber arvutada ja ümber ehitada; kas teine maketeerimisplaat oleks abiks, et Labori 1 ahel saaks alles jääda.
 
 ### Hindamiskriteeriumid

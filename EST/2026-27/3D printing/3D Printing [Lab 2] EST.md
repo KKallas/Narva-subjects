@@ -291,6 +291,8 @@ Kirjuta üles: käe suurim kõrgus; kaamera kõrgus ja koht; mitu tükki ja kuid
 
 Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib.
 
+Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
+
 Mõtle näiteks: kas PLA-d jätkub kõigi hoidikute ja paari ümbertegemise jaoks; kas töökohale on Atomi mannekeen prinditud; kas akumooduleid on käes piisavalt, et pesa päris asja peal proovida; kas 6 × 2 mm magnetid hoidiku jala sees on midagi, mida su test küsib; mida su valitud kaamera toide küsib — pikem ja pehmem USB-C juhe, väike aku või pingemuundur; kas veebikaamera USB juhe ulatub posti otsast jaamani; ja kas klaase on piisavalt, sest vähemalt üks läheb selle labori jooksul katki.
 
 ### Hindamiskriteeriumid
