@@ -1,6 +1,6 @@
 ## Andmehõive: Labor 1 — Andur, ja kompressor, mis ise seisma jääb
 
-**Töömaht:** 32 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 12.09.26 | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 06.10.26, veebis
+**Töömaht:** 32 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 12.09.26 | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 08.10.26, veebis
 
 ### Kuidas see dokument töötab
 

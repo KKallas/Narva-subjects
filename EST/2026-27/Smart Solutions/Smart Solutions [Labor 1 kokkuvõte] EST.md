@@ -1,6 +1,6 @@
 ## Nutikad Lahendused: Labor 1 — Robot, ekraan ja täht
 
-**Maht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 06.10.26, veebis
+**Maht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 08.10.26, veebis
 
 ### Mida teete
 

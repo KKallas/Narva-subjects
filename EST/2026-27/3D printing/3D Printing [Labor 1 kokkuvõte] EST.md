@@ -1,6 +1,6 @@
 ## 3D printimine ja CAD: Labor 1 — Printer, ja tööriist, mis annab järele
 
-**Maht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 06.10.26, veebis
+**Maht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 08.10.26, veebis
 
 ### Mida teete
 
