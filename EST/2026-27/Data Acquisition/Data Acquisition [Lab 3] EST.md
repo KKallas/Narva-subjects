@@ -1,6 +1,6 @@
 ## Andmehõive: Labor 3 — Tilk ja katkestus
 
-**Töömaht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 28.10.26 | **Tellimise kuupäev:** 06.11.26 | **Esimene kaitsmine:** 17.11.26, veebis
+**Töömaht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 28.10.26 | **Tellimise kuupäev:** 06.11.26 | **Esimene kaitsmine:** 19.11.26, veebis
 
 ### Kuidas see dokument töötab
 
@@ -45,7 +45,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 **Peab olema tehtud**
 
 - [ ] Klapp lülitab Atomi käsu peale. Vooluta on pump napa peal. Mõõdetud, mitte oletatud.
-- [ ] Impulsi pikkust loeb riistvarataimer. Käsk ja ostsilloskoobilt mõõdetud pikkus kõrvuti viie pikkuse kohta.
+- [ ] Impulsi pikkust loeb riistvarataimer. Käsk ja ostsilloskoobilt klapi mähisel mõõdetud pikkus kõrvuti viie pikkuse kohta.
 - [ ] UV LED lülitab Atomi käsu peale ja kustub alati ise.
 - [ ] Anduri koht voolikus valitud ja põhjendatud.
 - [ ] Tilgad: vähemalt viis impulsi pikkust, kümme tilka igaühega, iga tilk mõõdetud ja iga tilga rõhukõver salvestatud. Fail `data/drops.csv`.
@@ -65,18 +65,19 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Sisendid
 
 * Laborist 1 ja 2: andur koos astmega, 100 Hz logija, CSV formaat, pumbajuhtimine ribaga (`pump_control.md`), pooliku haarde logid.
-* Õppejõult: 3/2 solenoidklapp, MOSFET-moodul klapi lülitamiseks, vaik, süstlad ja otsikud kolmes suuruses, otsikukorgid, 405 nm LED draiveriga, 405 nm kaitseprillid, nitriilkindad, isopropanool. Üks otsik, mis on meelega kinni kõvendatud.
+* Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, 4 mm Y-kiirliitmik rõhuanduri jaoks, vaik, süstlad ja otsikud kolmes suuruses, otsikukorgid, LED-i draiver, 405 nm kaitseprillid, nitriilkindad, isopropanool. Üks otsik, mis on meelega kinni kõvendatud.
 * Riiulilt: komparaator või LM358N teine pool, takistite ja kondensaatorite komplekt, ostsilloskoop, multimeeter, nihik.
 * 3D printimise L3-st: tööriist, mis hoiab süstalt, ja süstla õhuühendus, mis peab rõhku. Kuni seda ei ole, on süstal statiivis laua peal.
 * Nutikate Lahenduste L3-st: Atomi leht, kuhu klapi ja LED-i seaded ja testinupud lähevad.
+* Meeskonnalt endalt: 405 nm LED, sama, mille valisid 3D printimise L3 jaoks. Õppejõud ostab selle Mouserist ja ta tuleb tellimusega; kuni seda ei ole, käib katse LED-ita ja taimer lülitab ainult draiverit.
 
 ### Vahendid
 
 1. AtomS3, USB-C kaablid
 2. Sinu andur ja aste Laborist 2
-3. 3/2 solenoidklapp, MOSFET-moodul, kaitsediood
+3. 3/2 solenoidklapp, M5Stack Mini 3A Relay Unit, kaitsediood, 4 mm Y-kiirliitmik
 4. Süstlad, otsikud, otsikukorgid, 405 nm vaik
-5. 405 nm LED draiveriga; kaitseprillid, nitriilkindad, isopropanool, paberrätikud
+5. 405 nm LED (sinu valitud, Mouserist) draiveriga; kaitseprillid, nitriilkindad, isopropanool, paberrätikud
 6. Komparaator (LM393) või LM358N, takistite ja kondensaatorite komplekt, maketeerimisplaat
 7. Ostsilloskoop, kaks kanalit; multimeeter
 8. Nihik; kaal 0,01 g, kui on
@@ -102,8 +103,8 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
   [https://www.youtube.com/watch?v=u40kX1DYKdA](https://www.youtube.com/watch?v=u40kX1DYKdA)
 * **Kuidas op-amp töötab** — komparaator on sama kolmnurk ilma tagasisideta
   [https://www.youtube.com/watch?v=kbVqTMy8HMg](https://www.youtube.com/watch?v=kbVqTMy8HMg)
-* **Solenoid, MOSFET ja kaitsediood**
-  (link puudu — YouTube: "flyback diode solenoid MOSFET explained")
+* **Solenoid, relee ja kaitsediood**
+  (link puudu — YouTube: "flyback diode relay solenoid explained")
 * **ESP32 riistvarataimer**
   (link puudu — YouTube: "ESP32 hardware timer interrupt")
 * **Falstad**
@@ -117,17 +118,21 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 #### 1. Klapp ja impulss
 
-Klapp on mähis, ja mähis tahab rohkem voolu, kui Atomi viik annab, ja teist pinget. Vahele käib MOSFET-moodul. Loe klapi pealt, mis pinget ta tahab, enne kui midagi ühendad.
+Klapp on mähis, ja mähis tahab rohkem voolu, kui Atomi viik annab, ja teist pinget. Vahele käib M5Stack Mini 3A Relay Unit. Atom annab talle 5 V, maa ja ühe signaali, ja moodul lülitab kontakti, mis on Atomist täiesti eraldi ahel. Klemme on kolm: COM, ON ja OFF. Relee ühendab COM-i kas ON-i või OFF-iga. Kumb neist on vooluta ühendatud, mõõda multimeetriga, ära oleta silti järgi. Loe klapi pealt, mis pinget ja voolu ta tahab, ja mooduli pealt, mida kontakt kannab, enne kui midagi ühendad.
 
-Mähisel on üks omadus, mis teeb elektroonika katki: kui vool välja lülitatakse, tekitab mähis hetkeks pinge, mis on mitu korda suurem kui toide. **Kaitsediood** mähise peal võtab selle enda peale. Vaata, kas su moodulil on ta olemas. Kui ei ole, pane. Ostsilloskoop näitab sulle seda tippu ilma dioodita ja dioodiga — tee see pilt, enne kui Atom samas ahelas on.
+Mähisel on üks omadus, mis teeb elektroonika katki: kui vool välja lülitatakse, tekitab mähis hetkeks pinge, mis on mitu korda suurem kui toide. Releega läheb see pinge sädemena üle avaneva kontakti, ja iga säde sööb kontakti. **Kaitsediood** klapi mähise peal võtab selle enda peale. Releemoodulil teda ei ole: moodul ei tea, mida sa kontaktiga lülitad. Diood käib klapi mähisega rööbiti ja tagurpidi, triip plussi poole; teistpidi on ta lühis. Ostsilloskoop näitab sulle seda tippu ilma dioodita ja dioodiga — tee see pilt, sond 10× peal.
 
-**Ohutu olek.** Klapp on vedruga: vooluta läheb ta tagasi ühte kindlasse asendisse. See asend peab olema napp, mitte süstal. Kontrolli seda päriselt: tõmba Atomilt USB välja, pane pump puhuma ja vaata, kas süstla harus on rõhku. Ei tohi olla. See on sama reegel, mis Laboris 1: kui midagi on valesti, ei juhtu midagi.
+**Ohutu olek.** Vedrusid on kaks. Relee on vedruga: vooluta on ta alati samas asendis. Klapp on vedruga: vooluta läheb ta tagasi ühte kindlasse asendisse. Klapp käib selle klemmi peale, mis on vooluta lahti, ja klapi vooluta asend peab olema napp, mitte süstal. Kontrolli seda päriselt: tõmba Atomilt USB välja, pane pump puhuma ja vaata, kas süstla harus on rõhku. Ei tohi olla. See on sama reegel, mis Laboris 1: kui midagi on valesti, ei juhtu midagi.
 
-**Impulss.** Tilk on klapi lahtioleku aeg. Kui seda aega loeb programmi põhitsükkel, mis samal ajal joonistab ekraani ja saadab ridu, on impulss iga kord natuke erineva pikkusega, ja tilk ka. Impulsi pikkuse loeb **riistvarataimer**: sa ütled talle millisekundid, ta sulgeb klapi ise, ükskõik mida ülejäänud programm sel hetkel teeb. Mõõda ostsilloskoobiga klapi juhtsignaali: käsk oli 200 ms, kui pikk oli impulss? Viis pikkust, kümme korda igaüht. Keskmine ja kõikumine.
+**Impulss.** Tilk on klapi lahtioleku aeg. Kui seda aega loeb programmi põhitsükkel, mis samal ajal joonistab ekraani ja saadab ridu, on impulss iga kord natuke erineva pikkusega, ja tilk ka. Impulsi pikkuse loeb **riistvarataimer**: sa ütled talle millisekundid, ta sulgeb klapi ise, ükskõik mida ülejäänud programm sel hetkel teeb.
 
-Ja üks asi, mida ostsilloskoop ei näe: klapp ise on mehaaniline ja tal kulub avanemiseks aega. Rõhukõver näitab seda. Kui kaua pärast käsku hakkab rõhk süstla harus tõusma? See on lühim impulss, millel on üldse mõtet.
+Taimer lülitab Atomi viiku, aga klappi lülitab relee, ja relee on mehaaniline lüliti. Tal kulub mõni millisekund, et kinni minna, ja mõni, et lahti minna, ja need kaks ei ole võrdsed. Seepärast on ostsilloskoobil kaks kanalit: üks Atomi viigul, teine klapi mähisel. Käsk oli 200 ms: kui pikk oli impulss viigul, ja kui pikk mähisel? Viis pikkust, kümme korda igaüht. Keskmine ja kõikumine. Vahe viigu ja mähise vahel on relee. Vaata sisselülitamise serva ka lähedalt: kas kontakt põrkab?
 
-**Kus andur istub.** Sul on üks andur. Ta võib istuda pumba ja klapi vahel: siis näeb ta mõlemat haru, aga kumbagi läbi klapi. Või süstla harus: siis näeb ta tilka teravalt ja nappa üldse mitte. Vali, ja ütle, millest sa loobusid.
+**Relee piirid.** Relee on lihtne ja annab täieliku eralduse, aga tal on piirid, ja need tuleb numbritega teada. Leia mooduli pealt relee nimi ja tema andmeleht. Kolm küsimust. Kas kontakt kannab klapi pinget ja voolu alalisvoolul, varuga? Mis on mõõdetud sisse- ja väljalülitamise aeg võrreldes andmelehega, ja mis on siis lühim tilk, mida relee üldse teha saab? Ja kui kaua ta vastu peab: andmeleht ütleb kontakti elektrilise eluea lülituste arvuna; jaga see tilkade arvuga, mida masin päevas teeb, ja saad päevad. Mähis on induktiivne koormus, ja selle all kulub kontakt kiiremini kui andmelehe takistuslikul koormusel. See on teine põhjus, miks diood peal on. Relee ei sobi ka kiireks lülitamiseks: PWM-iga mähise voolu pärast avanemist alla võtta, et klapp vähem soojeneks, ta ei saa. Hilisemates laborites tuleb sama töö jaoks MOSFET; siis on sul need numbrid, millega teda võrrelda.
+
+Ja üks asi, mida ostsilloskoop ei näe: klapp ise on samuti mehaaniline ja tal kulub avanemiseks aega. Rõhukõver näitab seda. Kui kaua pärast käsku hakkab rõhk süstla harus tõusma? See on lühim impulss, millel on üldse mõtet.
+
+**Kus andur istub.** Sul on üks andur. Ta võib istuda pumba ja klapi vahel: siis näeb ta mõlemat haru, aga kumbagi läbi klapi. Või süstla harus: siis näeb ta tilka teravalt ja nappa üldse mitte. Vali, ja ütle, millest sa loobusid. Õppejõult saad ühe 4 mm Y-kiirliitmiku, millega andur läheb voolikusse pumba ja klapi vahele. Kui valid süstla haru, on teine Y sinu tellimuses.
 
 **UV LED** saab sama kohtlemise: Atom lülitab ta draiveri kaudu sisse ja taimer lülitab välja. LED ei jää põlema sellepärast, et käsk "välja" ei jõudnud kohale.
 
@@ -136,7 +141,7 @@ arvuti → Atom:  {"cmd":"dispense","ms":200}    {"cmd":"uv","ms":5000}    {"cmd
 Atom → arvuti:  {"ev":"dispense_start","t":123456}    {"ev":"dispense_end","t":123660}
 ```
 
-Kirjuta üles: klapi pinge ja kuidas ta on ühendatud, skeem pildina; ostsilloskoobi pilt mähise pingest väljalülitamisel; mis rõhk on süstla harus, kui Atom on vooluta; impulsi pikkuse tabel, käsk ja mõõdetud; klapi avanemise viivitus rõhukõveralt; anduri koht ja põhjus.
+Kirjuta üles: klapi pinge ja kuidas ta on läbi relee ühendatud, skeem pildina; ostsilloskoobi pilt mähise pingest väljalülitamisel, dioodita ja dioodiga; mis rõhk on süstla harus, kui Atom on vooluta; impulsi pikkuse tabel: käsk, viigul mõõdetud, mähisel mõõdetud; relee viivitus sisse ja välja lülitamisel, mõõdetud ja andmelehelt; relee nimi, kontakti lubatud pinge ja vool ning eluiga päevades sinu tilkade arvuga; klapi avanemise viivitus rõhukõveralt; anduri koht ja põhjus.
 
 #### 2. Tilga suurus
 
@@ -194,7 +199,7 @@ alarm püsib, kuni tuleb {"cmd":"clear"}
 
 Katkestuse sees tehakse nii vähe kui võimalik: klapp kinni, lipp püsti. Kõik muu — ekraan, rida arvutile — tehakse hiljem, põhitsüklis. Alarm jääb lukku. Süsteem, mis pärast ummistust ise uuesti proovib, pumpab kinnisesse süstlasse teist korda.
 
-**Mõõda, kui kiire see on.** Ostsilloskoobi üks kanal on rõhk, teine klapi juhtsignaal. Kinnine otsik peal. Aeg hetkest, mil rõhk ületab läve, hetkeni, mil klapp lahti lastakse. Kümme korda.
+**Mõõda, kui kiire see on.** Ostsilloskoobi üks kanal on rõhk, teine pinge klapi mähisel, mitte Atomi viigul: relee lahtilaskmise aeg on osa reageerimise ajast. Kinnine otsik peal. Aeg hetkest, mil rõhk ületab läve, hetkeni, mil klapp lahti lastakse. Kümme korda.
 
 Siis ehita sama kaitse ilma katkestuseta: põhitsükkel loeb iga ringiga andurit ja võrdleb lävega. Mõõda sama aeg, kümme korda. Ja siis anna põhitsüklile tööd — joonista ekraanile, saada ridu — ja mõõda uuesti. Katkestuse number ei tohiks muutuda. Põhitsükli oma muutub. Kirjuta kõrvale ka see, kui kaua kummagi tööle saamine võttis: kiirem lahendus on tavaliselt ka see, mille kallal kauem istuti, ja mõlemad numbrid kuuluvad otsuse juurde.
 
@@ -206,12 +211,12 @@ Kirjuta üles: Falstadi skeem pildina ja lingina, takistid, lävi ja hüstereesi
 
 ### Ohutus
 
-* **405 nm valgus ja silmad.** LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres 405 nm kaitseprillid ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
+* **405 nm valgus ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres 405 nm kaitseprillid ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
 * **Vaik.** Kõvenemata vaik ärritab nahka ja võib tekitada allergia, mis ei lähe üle. Nitriilkindad käes, kui süstal on lahti. Maha läinud vaik pühitakse isopropanooli ja paberiga, ja paber kõvendatakse lambi all enne prügikasti. Kõvenemata vaiku kraanikaussi ei valata.
 * **Lampi ei suunata otsikule.** Kinni kõvenenud otsik on see viga, mida sa siin avastama õpid. Meelega tehakse neid üks, ja selle annab õppejõud.
 * **Kinnine süstal on suletud anum rõhu all.** Ummistuskatse ajal on süstal hoidikus või statiivis, mitte käes. Enne kui süstla ära võtad, lase rõhk klapi kaudu välja. Kuni katkestus ei ole läbi proovitud, on iga ummistuskatse ajal inimese käsi pumba lüliti juures.
 * **Otsikul on kork peal**, kui sa ei doseeri. Päevavalgus kõvendab liimi otsikus aeglaselt, aga kindlalt.
-* **Mähis ja diood.** Klappi ei lülitata ilma kaitsedioodita. Klapi pinge ei ole Atomi pinge: MOSFET-mooduli kaks poolt ei saa kokku.
+* **Mähis ja diood.** Klappi ei lülitata ilma kaitsedioodita; ainus erand on osa 1 ostsilloskoobi pilt. Klapi pinge ei ole Atomi pinge: relee kontaktide pool ja Atomi pool ei saa kokku. Võrgupinget selle releega ei lülitata.
 * **ADC viik ja katkestuse viik ei kannata 5 V.** Komparaatori väljund mõõdetakse multimeetriga üle, enne kui ta Atomi külge läheb.
 * USB ja toide välja, enne kui juhet liigutad. Pumbakast on 24 V.
 * Lahtine voolik +110 kPa juures lendab; ära suuna kellegi poole.
@@ -224,7 +229,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
 
-Mõtle näiteks: kas su MOSFET-moodulil on kaitsediood peal või tuleb see eraldi; kas komparaatoriks on eraldi kiip mõistlikum kui LM358N teine pool, ja mida andmeleht tema väljundi kohta ütleb; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; ja millega sa tilka mõõdad, kui nihikust ei piisa.
+Mõtle näiteks: kas LED, mille meeskond valis, tahab sellist voolu, mida draiver annab, ja kas Mouseri tootekood on tabelis; kas klapi mähise jaoks on kaitsediood olemas ja kas ta kannab klapi pinget ja voolu; kas komparaatoriks on eraldi kiip mõistlikum kui LM358N teine pool, ja mida andmeleht tema väljundi kohta ütleb; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; ja millega sa tilka mõõdad, kui nihikust ei piisa.
 
 ### Hindamiskriteeriumid
 
@@ -262,6 +267,7 @@ Omadussõnad ei ole tulemused. "Tilgad olid ebaühtlased" ei ole midagi; "200 ms
 * Nutikad Lahendused L3: klapi ja LED-i käsud, mille seaded ja testinupud lähevad Atomi lehele; alarmi sündmus, mille peale jaam roboti peatab.
 * 3D printimine L3: kui pikk tohib voolik klapi ja süstla vahel olla, ja kus andur istub.
 * Andmehõive L4: retsept ja kõverad, mille peale ehitatakse sajad tsüklid; kolm märgistatud olukorda — tavaline, kinnine, tühi.
+* Andmehõive L4: relee piirid numbritena — viivitus, põrge, kontakti eluiga —, mille vastu MOSFET-i võrreldakse.
 
 **KAARDISTA ISE, lõpus.**
 * Git repo ja tag:
