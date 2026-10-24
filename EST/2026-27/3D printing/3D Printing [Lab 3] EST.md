@@ -11,7 +11,7 @@
 
 Laud on valmis ja hoidikud on ruudustikus. Käe otsas on napp ja kaamera, ja sellega saab tõsta. Aga silt ei saa kokku ainult tõstmisega: klaas **liimitakse** Atomi ekraani peale.
 
-Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Seega peab robot oskama kolme asja:
+Liim on 3D-printeri vaik, mis kõveneb 405 nm valguse käes. Seega peab robot oskama kolme asja:
 
 * **tõsta** — iminapp, nagu seni;
 * **doseerida** — süstal, millest õhurõhk surub tilga välja;
@@ -19,7 +19,9 @@ Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Seega peab robo
 
 Käsi on üks ja tööriista keegi vahepeal ei vaheta. Kõik kolm on ühes tööriistas, koos kaameraga, mis seal Laborist 2 juba on.
 
-Pumpa on samuti üks. Tema õhk läheb kas napale või süstlale, ja selle üle otsustab **solenoidklapp**: kolme avaga klapp, mis voolu all lülitab pumba süstlale ja vooluta laseb vedrul ta tagasi napale. Klapp tuleb kuhugi kinnitada, ja voolikud peavad kuhugi minema.
+Pumpa on samuti üks, ja tal on üks voolik. Pumbakast kas imeb või puhub. Imedes hoiab napp klaasi, puhudes surub õhk süstlast tilga välja. Mõlemat korraga ta ei tee, ja seepärast tehakse tilk enne, kui klaas võetakse. Puhumise ajal on napp lahti ja liigne õhk läheb sealt välja.
+
+Tilga algust ja lõppu otsustab **solenoidklapp** süstla ees: kolme avaga klapp, mis voolu all laseb pumba õhu süstlasse ja vooluta laseb vedrul ta tagasi, nii et süstla rõhk läheb õhku. Napp klapi kaudu ei käi: ta on Y-liitmikuga otse pumba voolikus, enne klappi. Klapp tuleb kuhugi kinnitada, ja voolikud peavad kuhugi minema.
 
 See on esimene detail sellel kursusel, millel on korraga kolm vaenlast. **Rõhk** leiab üles iga prao kihtide vahel. **Kaal** on piiratud: käsi tõstab 500 g, ja sinna sisse läheb tööriist koos kõige raskema koormaga — täis süstal ja klaas napa küljes korraga. Ja **geomeetria**: kolm otsikut ühes tööriistas segavad üksteist, kui sa ei ole läbi mõelnud, kes millal all on.
 
@@ -47,12 +49,12 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 - [ ] Tööriist roboti küljes: napp, süstal, UV-lamp ja kaamera. Kaal alla 500 g suurima koormaga: täis süstal ja klaas napa küljes korraga.
 - [ ] Süstal vahetub ühe käega, ilma tööriistadeta. 20 vahetust järjest, klamber terve.
 - [ ] UV-lambi koonus tabab liimi kohta ja läheb süstla otsikust mööda. Kontrollitud Fusionis ja valge paberiga laual.
-- [ ] Valgustamine käib musta katte all: valgus ei paista välja, kontrollitud helendava paberiga.
+- [ ] Valgustamine käib musta katte all: valgus ei paista välja, kontrollitud valge paberiga.
 - [ ] Iga otsiku nihe flantsi suhtes mõõdetud ja kirjas failis `docs/tool_offsets.md`.
 - [ ] Süstla päis lõpuni tehtud: O-rõngas komplektist, soon arvutatud, päis peab vastu pumba suurima rõhu.
 - [ ] Lekkekatse: süstla haru hoiab rõhku 5 minutit, iga liitekoht seebiveega üle käidud. Tulemus failis `docs/leak_test.csv`.
 - [ ] Prügitopsi hoidik ja otsiku parkimiskoht ruudustikus.
-- [ ] Kuiv läbijooks: tõsta klaas, mine doseerimise kohta, mine kõvendamise kohta, 20 korda. Miski ei haagi. Tulemus failis `docs/cycle_test.csv`.
+- [ ] Kuiv läbijooks: mine doseerimise kohta, tõsta klaas, mine kõvendamise kohta, 20 korda. Miski ei haagi. Tulemus failis `docs/cycle_test.csv`.
 - [ ] Tellimus 06.11 failis `docs/bom.md`.
 - [ ] Repo ja arenduspäevik täidetud, tag `3d-print-lab3`.
 
@@ -60,8 +62,8 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Sisendid
 
-* Õppejõult: 3/2 solenoidklapp, 4 mm Y-kiirliitmik rõhuanduri jaoks, tühjad 10 cc mustad süstlad [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf) ja otsikud, UV kaitseprillid (365 nm).
-* Meeskonnalt endalt: 365 nm UV LED ja draiver. Valid ise, õppejõud ostab Mouserist.
+* Õppejõult: 3/2 solenoidklapp, kaks 4 mm Y-kiirliitmikku (napi haru ja rõhuandur), tühjad 10 cc mustad süstlad [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf) ja otsikud, kaitseprillid 405 nm jaoks.
+* Meeskonnalt endalt: 405 nm LED ja draiver. Valid ise, õppejõud ostab Mouserist.
 * Õppejõult: klapi kinnitus Fusionis, `Solenoidklapi kinnitus.f3z` selles kaustas; pooleli süstla päis, `Süstla päis poolik.f3z` selles kaustas; O-rõngaste komplekt; 10 cc süstla mudel, `Metcal 910 süstal 10cc.f3d`, ja päis koos süstlaga, `Süstla päis ja süstal 10cc.f3d`, mõlemad selles kaustas.
 * Vanade asjade kastist: mõned eelmise aasta süstlahoidikud. Igaüks on omamoodi veider ja ükski üksi ei ole hea eeskuju; vaata neid koos, enne kui oma hoidiku teed. Süstla päis oli eelmisel aastal valmis Metcali oma; sel aastal teed päise ise. Metcali päis on selles kaustas mudelina, `Metcal 910-3RHB.f3d`.
 * 3D printimise L1-st: lõtk, paindumise ja murdumise numbrid.
@@ -75,9 +77,9 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 2. PrusaSlicer, labori printerid, PLA
 3. Nihik, 300 mm joonlaud, köögikaal (1 g)
 4. MG400 koos baaspaketi, pumbakasti ja iminapaga
-5. 3/2 solenoidklapp kinnitusega, 4 mm voolik, 4 mm Y-kiirliitmik, hambaorgid, silikoon
+5. 3/2 solenoidklapp kinnitusega, 4 mm voolik, kaks 4 mm Y-kiirliitmikku, hambaorgid, silikoon
 6. 10 cc süstlad (Metcal 910-B) ja otsikud; tühjad, selles laboris vaiku süstlas ei ole
-7. 365 nm UV LED jahutusradiaatoril ja draiver (sinu valitud, Mouserist), UV kaitseprillid (365 nm)
+7. 405 nm LED jahutusradiaatoril ja draiver (sinu valitud, Mouserist), kaitseprillid 405 nm jaoks
 8. Poldid, mutrid, seibid; pihustipudel seebiveega
 9. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
 
@@ -124,11 +126,11 @@ Enne kui Fusioni avad, on kolm asja paberil.
 
 **Osad.** Mõõda nihikuga kõik, mis tööriista sisse või külge läheb: klapp koos kinnitusega, süstal (läbimõõt, krae, pikkus koos otsikuga), iga otsik, LED koos jahutusradiaatoriga, napp, kaameramoodul. Kaalu igaüks, ja kaalu ka klaas, mida napp tõstab, ning süstal tühjana ja UV-liimiga täis. Fusionis on iga osa lihtne keha õigete mõõtudega — mitte ilus, vaid õige suurusega. Siis näed enne printimist, mis millest läbi läheb. LED-i sul alguses ei ole: sa valid ta ise ja ta tuleb tellimusega. Kuni ta kohale jõuab, on ta Fusionis keha andmelehe mõõtude järgi; kui ta tuleb, mõõda üle.
 
-**Õhk.** Joonista teekond: pump → klapp → kaks haru, üks napale ja teine süstlale. Märgi peale, kumb haru on lahti, kui klapil voolu ei ole. See peab olema napp: kui midagi läheb valesti ja vool kaob, ei tohi süstlast midagi välja tulla. Märgi peale ka rõhuandur: ta käib Y-kiirliitmikuga voolikusse, pumba ja klapi vahele või süstla harusse, nagu Andmehõive valis. Märgi peale ka iga vooliku pikkus. Voolik klapi ja süstla vahel on ruum, mis tuleb enne täis pumbata, kui tilk liikuma hakkab — mida pikem, seda aeglasem ja laisem tilk. Andmehõive mõõdab seda; küsi neilt, kui pikk ta olla tohib.
+**Õhk.** Joonista teekond: pump → Y-liitmik → üks haru napale, teine klapile, ja klapist süstlale. Klapi kolmas ava läheb õhku. Märgi peale, kuhu süstal on ühendatud, kui klapil voolu ei ole. See peab olema õhk: kui midagi läheb valesti ja vool kaob, ei tohi süstlast midagi välja tulla. Märgi peale ka rõhuandur: ta käib teise Y-kiirliitmikuga voolikusse, kas pumba voolikusse enne klappi või klapi ja süstla vahele, nagu Andmehõive valis. Kui Andmehõive paneb napi harusse nõelventiili, märgi ka see. Märgi peale iga vooliku pikkus. Voolik klapi ja süstla vahel on ruum, mis tuleb enne täis pumbata, kui tilk liikuma hakkab, ja pärast tühjaks lasta, kui tilk peab lõppema — mida pikem, seda laisemalt tilk algab ja lõpeb. Andmehõive mõõdab seda; küsi neilt, kui pikk ta olla tohib.
 
-**Kaal.** Liida kokku. Käsi tõstab 500 g, ja see on kõik, mis flantsi küljes ripub, siis kui ripub kõige rohkem: tööriist, süstal UV-liimiga täis ja klaas napa küljes, kõik korraga. Täis süstal on raskem kui tühi, ja klaas on käe otsas kogu doseerimise ja kõvendamise aja. Mis jääb üle, on see, mida su prinditud osad kaaluda tohivad. Kui number on negatiivne, ei käi klapp käe otsa.
+**Kaal.** Liida kokku. Käsi tõstab 500 g, ja see on kõik, mis flantsi küljes ripub, siis kui ripub kõige rohkem: tööriist, süstal UV-liimiga täis ja klaas napa küljes, kõik korraga. Täis süstal on raskem kui tühi, ja klaas on käe otsas kogu tõstmise ja kõvendamise aja. Mis jääb üle, on see, mida su prinditud osad kaaluda tohivad. Kui number on negatiivne, ei käi klapp käe otsa.
 
-Siit tuleb selle labori esimene päris otsus: **kas klapp elab käe otsas või laua peal?** Käe otsas on voolik süstlani lühike ja tilk terav, aga klapp on kaal ja tema juhe peab käega kaasa käima. Laua peal on käsi kerge, aga voolik on pikk. Mõlemad on kaitstavad. Vali numbritega.
+Siit tuleb selle labori esimene päris otsus: **kas klapp elab käe otsas või laua peal?** Käe otsas on voolik süstlani lühike ja tilk algab ja lõpeb teravalt, aga klapp on kaal ja tema juhe peab käega kaasa käima. Laua peal on käsi kerge, aga voolik on pikk. Mõlemad on kaitstavad. Vali numbritega.
 
 Kirjuta üles failis `docs/tool_layout.md`: iga osa mõõdud ja kaal; õhu skeem voolikute pikkustega; kaalueelarve tabelina; kus klapp elab ja miks.
 
@@ -162,11 +164,11 @@ Laboris 2 jäi olemasolev tööriistahoidik puutumata, et õpetatud punktid keht
 
 **Süstal.** Hoidik hoiab süstalt nii, et otsik on iga kord samas kohas. Sama reegel, mis hoidikul ruudustikus: asendi annab kuju, mitte hõõrdumine. Krae toetub, toru on juhitud, ja pärast vahetust on otsik seal, kus ta oli. Süstal vahetub **ühe käega ja ilma tööriistadeta** — teises käes on sul uus süstal. See on klamber, mis paindub ja tuleb tagasi, ja Laboris 1 mõõtsid sa täpselt selle: kuhu maani tükk paindub ja tuleb tagasi, ja kust alates ei tule. Klamber töötab esimese numbri sees, varuga. Süstal on 10 cc [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf): andmelehel on joonis, kus on sisediameeter 15,72 mm, välisdiameeter 18,26 mm, krae 22,6 × 34,0 mm ja 3,3 mm paks, pikkus 90,9 mm. Selle järgi on tehtud mudel `Metcal 910 süstal 10cc.f3d` selles kaustas: iga mõõt on kasutaja parameeter ja kolm neist (Luer-krae diameeter ja sein, koonuse pikkus) on hinnangud, sest andmelehel neid ei ole. Andmeleht ütleb ise, et mõõdud on viiteks: mõõda päris süstal nihikuga üle ja pane enda numbrid parameetritesse. Süstla suurus jääb parameetriks. Vanade asjade kastis on mõned eelmise aasta hoidikud. Ükski neist ei ole eeskuju; vaata neid koos ja otsi, mis on neil kõigil olemas ja mis igaühel valesti on.
 
-**UV-lamp.** LED on jahutusradiaatori peal ja radiaator on põhjusega: LED läheb kuumaks. PLA hakkab pehmenema 60 °C kandis. Radiaator vajab õhku enda ümber, mitte plastist karpi. Lamp on süstla otsikust vähemalt 30 mm kaugusel ja suunatud nii, et **valguskoonus läheb otsikust mööda**. Liim, mis kõveneb otsiku sees, on ummistunud otsik, ja see lõpetab tööpäeva. Joonista koonus Fusionis kehana ja vaata, kas ta lõikub otsikuga. Siis kontrolli laual: prillid ette, LED kõige väiksema vooluga, valge paber liimi kohale. 365 nm valgust silm peaaegu ei näe, aga tavaline valge koopiapaber helendab tema all sinakalt, ja see helendus on su laik. Laik peab olema paberil ja otsik varjus. Kui lambi ümber on vari, mis valgust suunab, on ta must või seest tume.
+**UV-lamp.** LED on jahutusradiaatori peal ja radiaator on põhjusega: LED läheb kuumaks. PLA hakkab pehmenema 60 °C kandis. Radiaator vajab õhku enda ümber, mitte plastist karpi. Lamp on süstla otsikust vähemalt 30 mm kaugusel ja suunatud nii, et **valguskoonus läheb otsikust mööda**. Liim, mis kõveneb otsiku sees, on ummistunud otsik, ja see lõpetab tööpäeva. Joonista koonus Fusionis kehana ja vaata, kas ta lõikub otsikuga. Siis kontrolli laual: prillid ette, LED kõige väiksema vooluga, valge paber liimi kohale. 405 nm paistab valgel koopiapaberil tuhmi violetse laiguna, ja see laik on su laik. Ta on eredam, kui paistab, nii et vaata prillidega. Laik peab olema paberil ja otsik varjus. Kui lambi ümber on vari, mis valgust suunab, on ta must või seest tume.
 
 **Kate.** Valgustamine käib katte all, nii et valgus välja ei paista. Kate võib olla tööriista küljes, töökoha hoidiku küljes või mõlemas: näiteks must põll ümber lambi, mis laskub kõvendamise asendis töökoha hoidiku serva peale, nii et valgus jääb nende vahele kinni. Radiaator jääb katte välja, õhu kätte.
 
-Kate prinditakse **musta** PLA-ga. 365 nm on ultraviolett: silm teda peaaegu ei näe, nii et lekkivat valgust ei pane sa tähele, aga silmad ja nahk saavad sellest ikkagi kahju. Hele või naturaalne PLA laseb osa sellest läbi ja hajutab. Must pigment neelab UV ära ja kaitseb ühtlasi plasti ennast: UV vanandab PLA-d pinnalt, ta läheb kollaseks ja rabedaks, ja must kate peab sellele kõige kauem vastu. Kui ta kevadeks rabedaks läheb, prindid uue. Ohtlikum on soojus, sest LED on katte kõrval ja PLA pehmeneb 60 °C kandis.
+Kate prinditakse **musta** PLA-ga. 405 nm on UV ja nähtava valguse piiril: silm näeb teda tuhmina, palju nõrgemana, kui ta on, nii et lekkivat valgust on kerge alahinnata, aga silmad saavad sellest ikkagi kahju. Hele või naturaalne PLA laseb osa sellest läbi ja hajutab. Must pigment neelab UV ära ja kaitseb ühtlasi plasti ennast: UV vanandab PLA-d pinnalt, ta läheb kollaseks ja rabedaks, ja must kate peab sellele kõige kauem vastu. Kui ta kevadeks rabedaks läheb, prindid uue. Ohtlikum on soojus, sest LED on katte kõrval ja PLA pehmeneb 60 °C kandis.
 
 Katte seinal on **sügavust**: mitu perimeetrit ja täidis vahel, mitte üks õhuke sein. Prinditud sein on kihtide virn, ja üks halvasti kinni jäänud kiht, esimene kiht või auk perimeetris on pragu, kust valgus otse välja pääseb. Paksu seina ja täidisega peab valgus läbima mitu kihti ja põrkama täidise vastu, ja sinna ta jääbki. Kontrolli: paber, mis UV all helendab (markeriga üle tõmmatud valge paber või helendav kleebis), katte ümber, pime ruum, prillid ees, LED kõige väiksema vooluga katte all. Kus paber helendab, sealt valgus välja pääseb.
 
@@ -174,9 +176,9 @@ Katte seinal on **sügavust**: mitu perimeetrit ja täidis vahel, mitte üks õh
 
 **Voolikud ja juhtmed.** Kaks voolikut, kaamera toide, LED-i juhe, võib-olla klapi juhe. Kõik nad käivad käega kaasa. Tõmbetõke on osa prindist, mitte kleeplint.
 
-Lõpuks mõõda iga otsiku koht flantsi suhtes: napa keskpunkt, süstla otsiku tipp, lambi laigu keskpunkt. Kolm nihet, millimeetrites. Jaam liidab need õpetatud punktile, ja siis ei pea iga kohta kolm korda õpetama.
+Lõpuks mõõda iga otsiku koht flantsi suhtes: napa keskpunkt, süstla otsiku tipp, lambi laigu keskpunkt ja kaamera pildi keskpunkt. Neli nihet, millimeetrites. Kaamera nihet vajab Andmehõive: robot viib kaamera iga tilga kohale ja pildistab ta. Jaam liidab need õpetatud punktile, ja siis ei pea iga kohta kolm korda õpetama.
 
-Kirjuta üles: kuidas sa lahendasid, kes millal all on, ja mis sind teistest lahendustest loobuma pani; liikumise uuring Fusionis ja mis seal kuhu vastu läks; süstla vahetuse aeg ja otsiku koht pärast vahetust võrreldes enne (viis vahetust, nihikuga või kaameraga); klambri paindumine ja Labori 1 number, mille pealt see tuli; lambi kaugus otsikust, foto laigust paberil; radiaatori temperatuur pärast kavandatud kõvendusaega; katte seina paksus, perimeetrid ja täidis, ja kust helendav paber esimesel korral valgust näitas; tööriista kaal tühja süstlaga ning täis süstla ja klaasiga korraga; kolm nihet failis `docs/tool_offsets.md`; foto tööriistast kahest küljest.
+Kirjuta üles: kuidas sa lahendasid, kes millal all on, ja mis sind teistest lahendustest loobuma pani; liikumise uuring Fusionis ja mis seal kuhu vastu läks; süstla vahetuse aeg ja otsiku koht pärast vahetust võrreldes enne (viis vahetust, nihikuga või kaameraga); klambri paindumine ja Labori 1 number, mille pealt see tuli; lambi kaugus otsikust, foto laigust paberil; radiaatori temperatuur pärast kavandatud kõvendusaega; katte seina paksus, perimeetrid ja täidis, ja kust helendav paber esimesel korral valgust näitas; tööriista kaal tühja süstlaga ning täis süstla ja klaasiga korraga; neli nihet failis `docs/tool_offsets.md`; foto tööriistast kahest küljest.
 
 #### 4. Õhk peab pidama
 
@@ -192,9 +194,9 @@ Eelmisel aastal käis süstla peale valmis päis (Metcal), ja tema mudel on sell
 
 Seega: sein, mis on rõhu all, on piisavalt paks ja perimeetreid on piisavalt, ja rõngas istub soones, mis teda õigesti kokku surub. Proovi soont kõigepealt väikese klotsi peal, mitte terve päise peal.
 
-**Survekatse.** Päis peab vastu pumba täie rõhu, mitte ainult doseerimise rõhu. Otsikul kork, klapp süstla harule, pump täisvõimsusel, kuni rõhk enam ei tõuse. Selle numbri näitab Andmehõive andur, ja see on pumba suurim rõhk. Kui päis selle välja kannatab, kannatab ta ka doseerimist.
+**Survekatse.** Päis peab vastu pumba täie rõhu, mitte ainult doseerimise rõhu. Otsikul kork, napi haru kinni, et õhk sealt välja ei läheks, klapp voolu all, pump puhub täisvõimsusel, kuni rõhk enam ei tõuse. Selle numbri näitab Andmehõive andur, ja see on pumba suurim rõhk. Kui päis selle välja kannatab, kannatab ta ka doseerimist.
 
-**Lekkekatse.** Süstla otsikul kork peal. Pump puhuma, klapp süstla harule, pump seisma. Vaata Andmehõive anduri pealt, kui palju rõhk viie minutiga langeb. Siis seebivesi igale liitekohale: voolik, vooliku ots klapi kinnituses, klapp, süstla päis. Mullid näitavad kohta. Paranda ja korda. Seejärel sada klapi lülitust ja sama katse uuesti, sest liitekoht, mis pidas esimesel päeval, ei pruugi pidada pärast sadat tõmblust.
+**Lekkekatse.** Süstla otsikul kork peal, napi haru kinni. Pump puhuma, klapp voolu alla, pump seisma. Klapp jääb voolu alla kogu katse ajaks: vooluta laseb ta süstla õhku. Vaata Andmehõive anduri pealt, kui palju rõhk viie minutiga langeb. Siis seebivesi igale liitekohale: voolik, vooliku ots klapi kinnituses, klapp, süstla päis. Mullid näitavad kohta. Paranda ja korda. Seejärel sada klapi lülitust ja sama katse uuesti, sest liitekoht, mis pidas esimesel päeval, ei pruugi pidada pärast sadat tõmblust.
 
 Kirjuta üles: kust su päis esimesel korral lekkis ja mis selle parandas; mis rõnga valisid komplektist, soone mõõdud ja kust need tulid; pumba suurim rõhk ja kas päis selle välja kannatas; read failis `docs/leak_test.csv` (katse number, rõhk alguses, rõhk 5 minuti pärast, kus lekkis, mis parandas); tulemus enne ja pärast sadat lülitust.
 
@@ -207,19 +209,19 @@ Doseerimine tahab ruudustikus kahte kohta juurde, ja mõlemad on Gridfinity hoid
 
 Pane mõlemad Labori 2 paigutusele (`layout.md`) juurde ja vaata, kas käe tee jääb ikka ühesuunaliseks.
 
-Siis kuiv läbijooks. Süstal on tühi, LED on väljas, klapp lülitab. Robot võtab klaasi sisendist, läheb töökoha kohale doseerimise asendisse, siis kõvendamise asendisse, paneb klaasi väljundisse. 20 korda järjest, kõigepealt 20 % kiirusel. Vaata nelja asja: kas mõni voolik või juhe jääb kuhugi taha; kas mõni otsik käib hoidiku vastu; kas J4 pööramisel läheb midagi pingule; ja kas kaamera näeb endiselt seda, mida peab.
+Siis kuiv läbijooks. Süstal on tühi, LED on väljas, klapp lülitab. Robot läheb töökoha kohale doseerimise asendisse, siis võtab klaasi sisendist, toob ta töökohale kõvendamise asendisse ja paneb klaasi väljundisse. Doseerimine on enne tõstmist, sest kui pump imeb klaasi kinni, ei saa ta süstlasse puhuda. 20 korda järjest, kõigepealt 20 % kiirusel. Vaata nelja asja: kas mõni voolik või juhe jääb kuhugi taha; kas mõni otsik käib hoidiku vastu; kas J4 pööramisel läheb midagi pingule; ja kas kaamera näeb endiselt seda, mida peab.
 
-Siis võta tööriist flantsi küljest maha ja pane tagasi. Kas kolm nihet kehtivad veel? See on sama küsimus, mis hoidikul ruudustikus, ja sama mõõtmine.
+Siis võta tööriist flantsi küljest maha ja pane tagasi. Kas neli nihet kehtivad veel? See on sama küsimus, mis hoidikul ruudustikus, ja sama mõõtmine.
 
-Kirjuta üles: uuendatud `layout.md` prügitopsi ja parkimiskohaga; read failis `docs/cycle_test.csv` (ring, kas tõstis, kas jõudis doseerimise asendisse, kas jõudis kõvendamise asendisse, kas pani, mis haakis); mitu kahekümnest läks puhtalt läbi; nihked enne ja pärast tööriista mahavõtmist.
+Kirjuta üles: uuendatud `layout.md` prügitopsi ja parkimiskohaga; read failis `docs/cycle_test.csv` (ring, kas jõudis doseerimise asendisse, kas tõstis, kas jõudis kõvendamise asendisse, kas pani, mis haakis); mitu kahekümnest läks puhtalt läbi; nihked enne ja pärast tööriista mahavõtmist.
 
 **KAARDISTA ISE — vastused.** Iga osa kohta: numbrid, ühikud, kus fail on. Tegemata asja kohta üks rida, miks.
 
 ### Ohutus
 
-* **365 nm UV ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 365 nm valgust silm peaaegu ei näe: LED võib paista kustunud olevat, kui ta põleb. LED-i ei vaadata, ei varjuga ega ilma, ja käsi ega nahka katte alla ei panda. Kui LED on draiveri küljes, on kõigil laua ääres UV kaitseprillid (365 nm) ees. Laigu katse käib samuti katte all, kõige väiksema vooluga, lamp suunatud laua poole, mitte kunagi silmade kõrgusele.
+* **405 nm valgus ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 405 nm on UV ja nähtava valguse piiril: silm näeb teda tuhmi violetsena, palju nõrgemana, kui ta tegelikult on, ja võrkkest saab kahju enne, kui valgus ere tundub. LED-i ei vaadata, ei varjuga ega ilma, ja käsi ega nahka katte alla ei panda. Kui LED on draiveri küljes, on kõigil laua ääres kaitseprillid 405 nm jaoks ees. Laigu katse käib samuti katte all, kõige väiksema vooluga, lamp suunatud laua poole, mitte kunagi silmade kõrgusele.
 * **Selles laboris vaiku süstlas ei ole.** Lekkekatse käib õhu ja seebiveega. Kui laual on süstal vaiguga, on otsikul kork peal ja käes nitriilkindad: kõvenemata vaik ärritab nahka.
-* **Rõhk.** Korgiga süstal pumba täie rõhu all on suletud anum. Katse ajal on ta hoidikus, mitte käes. Enne kui süstla ära võtad, lase rõhk klapi kaudu välja.
+* **Rõhk.** Korgiga süstal pumba täie rõhu all on suletud anum. Katse ajal on ta hoidikus, mitte käes. Vooluta klapp laseb süstla rõhu ise õhku: enne kui süstla ära võtad, on klapp vooluta.
 * Lahtine voolik rõhu all lendab; ära suuna kellegi poole.
 * LED-i radiaator ja klapi mähis lähevad kuumaks. Mõõda, ära katsu.
 * **Roboti alus peab jääma vabaks**, nagu Laboris 2. Klapi hoidik ja prügitops ei ulatu aluse vastu.
@@ -234,7 +236,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
 
-**LED-i ja draiveri valid ise.** Õppejõud ostab need Mouserist, nii et tabelisse läheb Mouseri tootekood ja `docs/bom.md`-sse põhjendus. Liim on Loctite 3494. Mõtle: kas lainepikkus on 365 nm ja kas Loctite 3494 andmeleht ütleb, et ta selle all kõveneb; kui lai on kiirgusnurk, sest sellest tuleb lambi koonus ja laigu suurus; kui palju valgust ta annab ja kui palju sooja tuleb sellega kaasa; kas ta on juba tähekujulisel alusel või tuleb see eraldi; mis voolu ta tahab ja milline draiver selle annab; ja kas mõõdud on andmelehel, et saaksid ta Fusionisse joonistada enne, kui ta kohale jõuab.
+**LED-i ja draiveri valid ise.** Õppejõud ostab need Mouserist, nii et tabelisse läheb Mouseri tootekood ja `docs/bom.md`-sse põhjendus. Liim on [Anycubic Standard Resin](https://www.photopoint.ee/en/printers-accessories/5160735-anycubic-standard-resin-grey), mis kõveneb 365–405 nm all. Valime 405 nm, sest polükarbonaatklaas neelab tavaliselt suure osa 365 nm valgusest, aga 405 nm laseb paremini läbi. Mõtle: kas LED-i lainepikkus on tõesti 405 nm; kui lai on kiirgusnurk, sest sellest tuleb lambi koonus ja laigu suurus; kui palju valgust ta annab ja kui palju sooja tuleb sellega kaasa; kas ta on juba tähekujulisel alusel või tuleb see eraldi; mis voolu ta tahab ja milline draiver selle annab; ja kas mõõdud on andmelehel, et saaksid ta Fusionisse joonistada enne, kui ta kohale jõuab.
 
 Mõtle näiteks: kas O-rõngaste komplektis on rõngas, mida su soone arvutus tahab, või tuleb mõni juurde tellida; kas polte, mutreid ja seibe jätkub klapi kinnituse ja adapteri jaoks, ja kas neid jääb varuks, sest mõni jääb proovikloti sisse; kas silikooni on; kas 4 mm voolikut jätkub mõlema haru jaoks; kas LED-i ja klapi juhe on piisavalt pikk ja pehme, et käega kaasa käia; ja kas PLA peab radiaatori ja klapi kõrval vastu või küsib see koht teist materjali.
 
@@ -243,7 +245,7 @@ Mõtle näiteks: kas O-rõngaste komplektis on rõngas, mida su soone arvutus ta
 | Kategooria | Punktid |
 | :--- | :--- |
 | Tööfailid — parameetritega tööriist, klapi kinnituse adapter ja lõpuni tehtud süstla päis koos sisse modelleeritud osadega, prügitopsi ja parkimiskoha hoidikud, STL ja 3MF iga prindi kohta, peatuse kõrgused 3MF-is | 5 p |
-| Analüüs — osade mõõdud ja kaalueelarve, õhu skeem, klapi asukoha valik, klambri paindumine Labori 1 numbri vastu, lambi koonus, O-rõnga soone arvutus, survekatse ja lekkekatse tabel, kolm nihet | 5 p |
+| Analüüs — osade mõõdud ja kaalueelarve, õhu skeem, klapi asukoha valik, klambri paindumine Labori 1 numbri vastu, lambi koonus, O-rõnga soone arvutus, survekatse ja lekkekatse tabel, neli nihet | 5 p |
 | Prototüüp — tööriist roboti küljes alla 500 g koos täis süstla ja klaasiga, süstal vahetub ühe käega, lamp tabab liimi kohta ja mitte otsikut, süstla haru peab rõhku, 20 kuiva ringi ilma haakumata | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `tool_layout.md`, `tool_offsets.md`, `leak_test.csv`, `cycle_test.csv`, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
@@ -252,7 +254,7 @@ Mõtle näiteks: kas O-rõngaste komplektis on rõngas, mida su soone arvutus ta
 
 Link git repole, tag `3d-print-lab3`.
 
-Kaitsmine on lihtne suuline 15 minuti jutuajamine. Vahetad süstla ühe käega. Robot teeb ühe kuiva ringi: tõstab klaasi, läheb doseerimise asendisse, läheb kõvendamise asendisse, paneb klaasi ära. Näitad paberil, kuhu lambi laik langeb. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Vahetad süstla ühe käega. Robot teeb ühe kuiva ringi: läheb doseerimise asendisse, tõstab klaasi, läheb kõvendamise asendisse, paneb klaasi ära. Näitad paberil, kuhu lambi laik langeb. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
 Repos on kaustas `3d-print/lab3/`: lähtefailid, STL ja `.3mf` iga prindi kohta, `docs/` kaustas `tool_layout.md`, `tool_offsets.md`, `leak_test.csv`, `cycle_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
@@ -270,7 +272,7 @@ Repos on kaustas `3d-print/lab3/`: lähtefailid, STL ja `.3mf` iga prindi kohta,
 
 **Väljundid**
 * Andmehõive L3: tööriist, mille süstla haru peab rõhku ja mille voolikute pikkused on teada — tilga suurust saab mõõta päris tööriistaga, mitte käes hoitud süstlaga.
-* Nutikad Lahendused L3: kolm nihet, mille järgi jaam teab, kus napp, otsik ja lamp õpetatud punkti suhtes on.
+* Nutikad Lahendused L3: neli nihet, mille järgi jaam teab, kus napp, otsik, lamp ja kaamera õpetatud punkti suhtes on.
 * 3D printimine L4: tööriist ja klapi kinnitus, millest üks detail tehakse ühe mõõdiku järgi paremaks.
 
 **KAARDISTA ISE, lõpus.**

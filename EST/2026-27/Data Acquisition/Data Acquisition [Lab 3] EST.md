@@ -10,9 +10,9 @@
 
 ### Eesmärk
 
-Seni tegi pump ühte tööd: imes, ja napp hoidis klaasi. Nüüd teeb sama pump teist tööd ka. Ta puhub süstlasse, ja süstla otsikust tuleb tilk liimi. Kumba tööd pump parajasti teeb, otsustab solenoidklapp, ja klappi juhib sinu Atom.
+Seni tegi pump ühte tööd: imes, ja napp hoidis klaasi. Nüüd teeb sama pump teist tööd ka. Ta puhub süstlasse, ja süstla otsikust tuleb tilk liimi. Mõlemat korraga ta ei tee: kui ta imeb klaasi kinni, ei saa ta süstlasse puhuda. Seepärast tehakse tilk enne, kui klaas võetakse, ja puhumise ajal läheb liigne õhk lahtisest napist välja. Millal tilk algab ja lõpeb, otsustab solenoidklapp süstla ees, ja klappi juhib sinu Atom.
 
-Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Tilk läheb Atomi ekraani peale, klaas tilga peale, ja UV LED kõvendab liimi läbi klaasi.
+Liim on 3D-printeri vaik, [Anycubic Standard Resin](https://www.photopoint.ee/en/printers-accessories/5160735-anycubic-standard-resin-grey), mis kõveneb 405 nm valguse käes. Tilk läheb Atomi ekraani peale, klaas tilga peale, ja UV LED kõvendab liimi läbi klaasi.
 
 Sellest tuleb kaks küsimust, ja need on selle labori kaks poolt.
 
@@ -44,13 +44,13 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 **Peab olema tehtud**
 
-- [ ] Klapp lülitab Atomi käsu peale. Vooluta on pump napa peal. Mõõdetud, mitte oletatud.
+- [ ] Klapp lülitab Atomi käsu peale. Vooluta on süstal õhu peal ja pumbast lahti. Mõõdetud, mitte oletatud.
 - [ ] Impulsi pikkust loeb riistvarataimer. Käsk ja ostsilloskoobilt klapi mähisel mõõdetud pikkus kõrvuti viie pikkuse kohta.
 - [ ] UV LED lülitab Atomi käsu peale ja kustub alati ise.
 - [ ] Anduri koht voolikus valitud ja põhjendatud.
-- [ ] Tilgad: vähemalt viis impulsi pikkust, kümme tilka igaühega, iga tilk mõõdetud ja iga tilga rõhukõver salvestatud. Fail `data/drops.csv`.
+- [ ] Tilgad: vähemalt viis impulsi pikkust, kümme tilka igaühega, iga tilk mõõdetud pildilt tilgaplaadil ja iga tilga rõhukõver salvestatud. Fail `data/drops.csv`.
 - [ ] Teine muutuja läbi proovitud: teine otsik või teine rõhk, kolme impulsi pikkusega.
-- [ ] Atomi ekraanipoole mudelid prinditud päris AtomS3 mõõtude järgi. Tilk ja klaas mudeli peal, laigu suurus ja koht käsitsi mõõdetud. Fail `data/placement.csv`.
+- [ ] Atomi ekraanipoole mudelid prinditud päris AtomS3 mõõtude järgi. Tilk ja klaas mudeli peal, laigu suurus ja koht mõõdetud tööriista kaamera pildilt. Tulemused ja pildid failis `data/placement.csv`.
 - [ ] Retsept kirjas failis `docs/recipe.md`: otsik, rõhk, impulss, kõvendamise aeg, ja klaas selle tilga peal läbi proovitud.
 - [ ] Toores ja filtreeritud muutumise kiirus kõrvuti samal kõveral, spektrid kõrvuti. Filter valitud numbritega.
 - [ ] Sama muutumise kiirus Labori 2 pooliku haarde logil: kas "vaakum püsib" on nüüd otsus.
@@ -66,23 +66,23 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Sisendid
 
 * Laborist 1 ja 2: andur koos op-ampiga, 100 Hz logija, CSV formaat, pumbajuhtimine ribaga (`pump_control.md`), pooliku haarde logid.
-* Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, 4 mm Y-kiirliitmik rõhuanduri jaoks, UV-liim [Loctite 3494](https://www.etra.ee/et/loctite-3494-solvent-free-quick-drying-uv-adhesive-e34014210) (tuleb 25 ml süstlas ja tõstetakse ümber 10 cc mustadesse süstaldesse [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf), üks süstla suurus), otsikud kolmes suuruses, otsikukorgid, UV kaitseprillid (365 nm), nitriilkindad, isopropanool.
-* Riiulilt: komparaator või LM358N teine pool, takistite ja kondensaatorite komplekt, ostsilloskoop, multimeeter, nihik.
-* 3D printimise L3-st: tööriist, mis hoiab süstalt, ja süstla õhuühendus, mis peab rõhku. Kuni seda ei ole, on süstal statiivis laua peal.
+* Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, kaks 4 mm Y-kiirliitmikku (napi haru ja rõhuandur), vaik [Anycubic Standard Resin](https://www.photopoint.ee/en/printers-accessories/5160735-anycubic-standard-resin-grey) (1 kg, 365–405 nm, 200–230 mPa·s), õppejõud täidab sellega 10 cc mustad süstlad [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf), üks süstla suurus; otsikud kolmes suuruses, otsikukorgid, kaitseprillid 405 nm jaoks, nitriilkindad, isopropanool.
+* Riiulilt: LM358N (tema teine pool on komparaator), takistite ja kondensaatorite komplekt, ostsilloskoop, multimeeter, nihik.
+* 3D printimise L3-st: tööriist, mis hoiab süstalt, süstla õhuühendus, mis peab rõhku, ja kaamera nihe flantsi suhtes failis `tool_offsets.md`. Kuni seda ei ole, on süstal statiivis laua peal.
 * Nutikate Lahenduste L3-st: Atomi leht, kuhu klapi ja LED-i seaded ja testinupud lähevad.
-* Meeskonnalt endalt: 365 nm UV LED ja tema draiver, samad, mille valisid 3D printimise L3 jaoks. Õppejõud ostab need Mouserist ja nad tulevad tellimusega; kuni neid ei ole, proovid LED-i taimerit Atomi viigu peal ostsilloskoobiga.
+* Meeskonnalt endalt: 405 nm LED ja tema draiver, samad, mille valisid 3D printimise L3 jaoks. Õppejõud ostab need Mouserist ja nad tulevad tellimusega; kuni neid ei ole, proovid LED-i taimerit Atomi viigu peal ostsilloskoobiga.
 * Meeskonnalt endalt: üks meelega kinni kõvendatud otsik. Teed selle ise (vt Ohutus).
 
 ### Vahendid
 
 1. AtomS3, USB-C kaablid
 2. Sinu andur ja op-amp Laborist 2
-3. 3/2 solenoidklapp, M5Stack Mini 3A Relay Unit, kaitsediood, 4 mm Y-kiirliitmik
-4. Loctite 3494 UV-liim, 10 cc mustad süstlad (Metcal 910-B) kolbidega, otsikud, otsikukorgid
-5. 365 nm UV LED ja draiver (sinu valitud, Mouserist); kaitseprillid, nitriilkindad, isopropanool, paberrätikud
-6. Komparaator (LM393) või LM358N, takistite ja kondensaatorite komplekt, maketeerimisplaat
+3. 3/2 solenoidklapp, M5Stack Mini 3A Relay Unit, kaitsediood, kaks 4 mm Y-kiirliitmikku
+4. Anycubic Standard Resin õppejõu täidetud 10 cc mustades süstaldes (Metcal 910-B) kolbidega, otsikud, otsikukorgid
+5. 405 nm LED ja draiver (sinu valitud, Mouserist); kaitseprillid, nitriilkindad, isopropanool, paberrätikud
+6. LM358N, takistite ja kondensaatorite komplekt, maketeerimisplaat
 7. Ostsilloskoop, kaks kanalit; multimeeter
-8. Nihik; kaal 0,01 g, kui on
+8. Nihik; tööriista kaameramoodul (XIAO ESP32S3 Sense, 3D printimise L2-st); hele PLA tilgaplaatide jaoks
 9. MG400 koos pumbakastiga
 10. Arduino IDE või PlatformIO; Python 3, Jupyter Lab, numpy, pandas, scipy, matplotlib
 11. Falstad; git
@@ -124,7 +124,7 @@ Klapp on mähis, ja mähis tahab rohkem voolu, kui Atomi viik annab, ja teist pi
 
 Mähisel on üks omadus, mis teeb elektroonika katki: kui vool välja lülitatakse, tekitab mähis hetkeks pinge, mis on mitu korda suurem kui toide. Releega läheb see pinge sädemena üle avaneva kontakti, ja iga säde sööb kontakti. **Kaitsediood** klapi mähise peal võtab selle enda peale. Releemoodulil teda ei ole: moodul ei tea, mida sa kontaktiga lülitad. Diood käib klapi mähisega rööbiti ja tagurpidi, triip plussi poole; teistpidi on ta lühis. Ostsilloskoop näitab sulle seda tippu ilma dioodita ja dioodiga — tee see pilt, sond 10× peal.
 
-**Ohutu olek.** Vedrusid on kaks. Relee on vedruga: vooluta on ta alati samas asendis. Klapp on vedruga: vooluta läheb ta tagasi ühte kindlasse asendisse. Klapp käib selle klemmi peale, mis on vooluta lahti, ja klapi vooluta asend peab olema napp, mitte süstal. Kontrolli seda päriselt: tõmba Atomilt USB välja, pane pump puhuma ja vaata, kas süstla harus on rõhku. Ei tohi olla. See on sama reegel, mis Laboris 1: kui midagi on valesti, ei juhtu midagi.
+**Ohutu olek.** Klapil on kolm ava: üks pumba poolt, üks süstlale, üks õhku. Voolu all ühendab ta pumba süstlaga, vooluta süstla õhuga. Napp klapi kaudu ei käi: ta on Y-liitmikuga otse pumba voolikus, enne klappi. Vedrusid on kaks. Relee on vedruga: vooluta on ta alati samas asendis. Klapp on vedruga: vooluta läheb ta tagasi ühte kindlasse asendisse. Klapp käib selle klemmi peale, mis on vooluta lahti, ja klapi vooluta asend peab olema süstal õhu peal. Siis ei tule vooluta süstlast midagi, ja tilk lõpeb kohe, kui klapp sulgub: rõhk läheb süstlast õhku, mitte ei jää sinna tilka edasi suruma. Kontrolli seda päriselt: tõmba Atomilt USB välja, pane pump puhuma ja vaata, kas süstla harus on rõhku. Ei tohi olla. See on sama reegel, mis Laboris 1: kui midagi on valesti, ei juhtu midagi.
 
 **Impulss.** Tilk on klapi lahtioleku aeg. Kui seda aega loeb programmi põhitsükkel, mis samal ajal joonistab ekraani ja saadab ridu, on impulss iga kord natuke erineva pikkusega, ja tilk ka. Impulsi pikkuse loeb **riistvarataimer**: sa ütled talle millisekundid, ta sulgeb klapi ise, ükskõik mida ülejäänud programm sel hetkel teeb.
 
@@ -134,7 +134,7 @@ Taimer lülitab Atomi viiku, aga klappi lülitab relee, ja relee on mehaaniline 
 
 Ja üks asi, mida ostsilloskoop ei näe: klapp ise on samuti mehaaniline ja tal kulub avanemiseks aega. Rõhukõver näitab seda. Kui kaua pärast käsku hakkab rõhk süstla harus tõusma? See on lühim impulss, millel on üldse mõtet.
 
-**Kus andur istub.** Sul on üks andur. Ta võib istuda pumba ja klapi vahel: siis näeb ta mõlemat haru, aga kumbagi läbi klapi. Või süstla harus: siis näeb ta tilka teravalt ja nappa üldse mitte. Vali, ja ütle, millest sa loobusid. Õppejõult saad ühe 4 mm Y-kiirliitmiku, millega andur läheb voolikusse pumba ja klapi vahele. Kui valid süstla haru, on teine Y sinu tellimuses.
+**Kus andur istub.** Sul on üks andur. Ta võib istuda pumba voolikus enne klappi: siis näeb ta nappa ja pumba rõhku, aga tilka ainult läbi klapi. Või klapi ja süstla vahel: siis näeb ta tilka teravalt ja nappa üldse mitte, ja ta istub koos Y-ga käe otsas. Vali, ja ütle, millest sa loobusid. Õppejõult saad kaks 4 mm Y-kiirliitmikku: üks napi harule, teine andurile.
 
 **UV LED** saab sama kohtlemise: Atom lülitab ta draiveri kaudu sisse ja taimer lülitab välja. LED ei jää põlema sellepärast, et käsk "välja" ei jõudnud kohale.
 
@@ -147,9 +147,13 @@ Kirjuta üles: klapi pinge ja kuidas ta on läbi relee ühendatud, skeem pildina
 
 #### 2. Tilga suurus
 
-Kõigepealt see, mida sa hoiad paigal. Rõhk: Labori 1 riba hoiab pumpa kahe lülituspunkti vahel, ja see töötab ka puhumisel. Pane riba kitsaks ja kirjuta üles, mis rõhul sa doseerid. Otsik: alusta keskmisest. Süstal: täis, ja märgi, kui täis.
+Kõigepealt see, mida sa hoiad paigal. Rõhk: Labori 1 riba hoiab pumpa kahe lülituspunkti vahel, ja see töötab ka puhumisel — kui õhk kuhugi ei kao. Doseerimise ajal on napp lahti ja õhk läheb sealt välja. Mõõda, mis rõhk süstla ette jääb, kui napp on lahti, ja kas riba jõuab üldse väljalülitusrõhuni. Kui ei jõua või rõhust ei piisa, pane napi harusse nõelventiil: ta piirab, kui palju õhku napist välja läheb, ja temaga saab rõhku seada. Mida ta imemisega teeb, mõõda samuti. Kirjuta üles, mis rõhul sa doseerid. Otsik: vaik on vedel, umbes 200 mPa·s, kümneid kordi vedelam kui tavaline UV-liim. Mida vedelam, seda lühem impulss annab sama tilga, ja kui impulss läheb liiga lühikeseks, on relee ja klapi kõikumine suur osa tilgast. Hoia impulss üle 100 ms. Selleks alusta kõige peenemast otsikust ja madalast rõhust: vool läbi otsiku käib ava raadiuse neljanda astmega, nii et peenem otsik mõjub kõige rohkem. Kui ka kõige peenema otsiku ja madalaima rõhuga tuleb tilk liiga suur või ei püsi kujus, kirjuta see numbritega üles: siis teeme tööriista, millega tilk õigesse kuju ja suurusse surutakse. Süstal: täis, ja märgi, kui täis.
 
-Siis muuda ühte asja: impulsi pikkust. Vähemalt viis pikkust, lühimast, mis üldse midagi välja annab, kuni sellise, mis on ilmselgelt liiga suur. Kümme tilka igaühega. Tilgad lähevad proovialusele — paberile, kilele või ohvriklaasile —, kõvendatakse lambiga ja mõõdetakse. Läbimõõt nihikuga. Kui sul on 0,01 g kaal, siis ka mass, sest läbimõõt sõltub sellest, kuidas tilk laiali vajub, mass mitte.
+Siis muuda ühte asja: impulsi pikkust. Vähemalt viis pikkust, lühimast, mis üldse midagi välja annab, kuni sellise, mis on ilmselgelt liiga suur. Kümme tilka igaühega. Nii väikest tilka nihikuga ei mõõda: serv on hägune, ja 0,1 mm viga 5 mm laigul on mitu protsenti pindalast. Tilgad mõõdetakse pildilt.
+
+**Tilgaplaat.** Prindi hele PLA plaat, valge või kollane, et hall vaik tema peal paistaks, ja prindi plaadile mõõtkava: näiteks 10 mm ruudustik või joonlaud. Robot paneb plaadile 5 × 5 tilka. Read on impulsi pikkused, veerud kordused, nii et kümme kordust on kaks plaati. Tilkade vahe peab olema suurem kui suurim laik, muidu sulavad naabrid kokku; selle annab esimene proovikord. Siis läheb peale klaas, aga mitte otse tilkade peale, vaid **vahetükkidele**, mis hoiavad teda plaadist kindlal kõrgusel. Siis on iga laik ühepaksune kiht, ja ruumala on pindala korda kõrgus. Ilma vahetükkideta sõltub laik sellest, kui kõvasti ja kui kaua klaas peal oli, ja kaks sama tilka annavad kaks eri laiku. Tee tilgad kiiresti järjest: esimene vajub laiali ja kõveneb toavalguses natuke, kuni viimane tuleb. Kõvenda kogu plaat lambiga ja alles siis pildista.
+
+**Pilt.** Pildistab tööriista kaamera, see sama kaameramoodul, mis 3D printimise Laboris 2 napa kõrvale läks. Robot hoiab teda iga kord täpselt samal kõrgusel ja risti plaadiga, ja viib ta iga tilga kohale: tilkade kohad on ruudustikus teada, ja kaamera nihe flantsi suhtes on failis `tool_offsets.md`. Mine nii lähedale, et kahe impulsi pikkuse tilkade vahe on pikslites kindlasti näha — aga mitte lähemale, kui kaamera teravaks saab: tema objektiivil on lähim teravuse kaugus, ja udune serv on sama halb kui nihik. Leia see kõrgus katsega ja kirjuta üles. Arvuta, mitu mm on üks piksel sellel kõrgusel ja mitu pikslit on väikseima tilga läbimõõt. Valgus on hajus või tuleb küljelt, nii et klaasi peegeldus laikude peale ei jää; UV LED pildistamise ajal ei põle. Mõõtkavast tuleb mm piksli kohta: kuna kõrgus on alati sama, piisab ühest mõõtkava pildist iga seansi alguses. Programm eraldab heleda plaadi tumedast vaigust lävega ja loeb iga laigu pikslid kokku: pikslid → mm² → ruumala. Kontrolli läve: joonista leitud laikude piirjooned pildi peale tagasi ja vaata, kas nad on seal, kus laik päriselt on. Arvuta ka, mitu protsenti pindalast teeb üks piksel laigu serval: see on su mõõtmise täpsus, ja ta peab olema palju väiksem kui kõikumine, mida sa mõõta tahad.
 
 Iga tilga kohta salvestatakse ka rõhukõver, sama tilga numbriga. See ei ole paberitöö. Sa tahad teada, kas kõver ütleb tilga suuruse ette — kas platoo kõrgus või kõvera alune pindala käib tilga suurusega kaasas. Kui käib, saab iga tilka kontrollida ilma teda mõõtmata. Labor 5 ehitab selle peale.
 
@@ -163,11 +167,11 @@ Siis muuda teist asja ja korda lühemalt: teine otsik või teine rõhk, kolm imp
 
 **Atomi ekraanipoole mudel.** Päris AtomS3 peale liimi ei proovita: iga liimitud tükk on kasutatud, ja selleks pole mõtet päris Atomit raisata. Tee Atomi ekraanipoolest mudel. Mõõda päris AtomS3 nihikuga: välismõõt, ekraani ava suurus ja koht, ja kui palju ekraan raamist madalamal on. Mudel on õhuke prinditud plaat, millel need kolm asja on samad, ja mis istub töökoha hoidikus nagu päris Atom. Ekraani ala märgi kontrastse joonega ära, et tilga kohta oleks näha. Prindi neid mitu, sest iga liimitud mudel jääb liimi alla.
 
-Ja lõpuks päris katse. Tilk mudeli peale, klaas peale, vaata läbi klaasi. Liim peab katma piisavalt, et hoida, ja ei tohi jõuda servani. Mõõda käsitsi kaks asja: kui suureks laik klaasi all vajus, ja kui kaugel ta keskpunkt on ekraani keskpunktist, x ja y eraldi. Nihik või foto joonlauaga kõrval. Otsusta, milline tilk on paras. Kõvenda ja mõõda, kui kaua see võtab: millal klaas enam ei nihku.
+Ja lõpuks päris katse. Tilk mudeli peale, klaas peale, vaata läbi klaasi. Liim peab katma piisavalt, et hoida, ja ei tohi jõuda servani. Mõõda pildilt, samamoodi nagu tilgaplaadil, kaks asja: kui suureks laik klaasi all vajus, ja kui kaugel ta keskpunkt on ekraani keskpunktist, x ja y eraldi. Mõõtkava on mudeli peal. Otsusta, milline tilk on paras. Kõvenda ja mõõda, kui kaua see võtab: millal klaas enam ei nihku.
 
-Selles laboris mõõdad sa laigu ja koha käsitsi. Järgmises laboris teeb sama mõõtmise masin, ja tagasiside läheb otse doseerimisse. Seepärast kirjuta käsitsi mõõtmised üles samas kujus, mida masin hakkab hiljem võrdlema.
+Selles laboris pildistab robot ja sina loed pildid arvutis läbi. Järgmises laboris teeb sama mõõtmise masin ise, ja tagasiside läheb otse doseerimisse. Seepärast kirjuta mõõtmised üles samas kujus, mida masin hakkab hiljem võrdlema.
 
-Kirjuta üles: read failis `data/drops.csv` (tilga number, otsik, rõhk, impulss ms, läbimõõt mm, mass mg kui on, kõvera fail, märkus); graafik, tilga suurus impulsi pikkuse vastu, hajuvusega; kõikumine protsentides iga pikkuse kohta; kas kõvera platoo või pindala käib tilga suurusega kaasas; mudeli mõõdud ja kust need tulid; read failis `data/placement.csv` (mudeli number, tilga number, impulss ms, laigu läbimõõt klaasi all mm, nihe ekraani keskpunktist x ja y mm, kas jõudis servani, kuidas mõõdeti); retsept failis `docs/recipe.md` — otsik, rõhk, impulss, kõvendamise aeg, ja foto klaasist selle tilga peal.
+Kirjuta üles: tilgaplaadi ja vahetükkide mudel, vahetükkide kõrgus ja kuidas sa selle mõõtsid; read failis `data/drops.csv` (tilga number, plaat, rida, veerg, otsik, rõhk, impulss ms, pindala pikslites, mm piksli kohta, pindala mm², ruumala µl, kõvera fail, märkus); pildid koos leitud piirjoontega; mõõtmise täpsus protsentides; graafik, tilga suurus impulsi pikkuse vastu, hajuvusega; kõikumine protsentides iga pikkuse kohta; kas kõvera platoo või pindala käib tilga suurusega kaasas; mudeli mõõdud ja kust need tulid; read failis `data/placement.csv` (mudeli number, tilga number, impulss ms, laigu pindala klaasi all mm², nihe ekraani keskpunktist x ja y mm, kas jõudis servani, kuidas mõõdeti); retsept failis `docs/recipe.md` — otsik, rõhk, impulss, kõvendamise aeg, ja foto klaasist selle tilga peal.
 
 #### 3. Filter ja tuletis
 
@@ -193,17 +197,17 @@ Nüüd tehakse sama otsus riistvaras.
 
 Kolmas on see, mis esimesel korral ei õnnestu. Kui signaal on täpselt läve juures, lülitab müra komparaatorit edasi-tagasi kümneid kordi. Lahendus on **hüsterees**: natuke väljundist tagasi sisendisse, nii et sisselülitamise lävi on kõrgemal kui väljalülitamise oma. See on Schmitti triger, ja see on sama mõte, mis Labori 1 pumbajuhtimise riba: kaks läve ühe asemel, et asi värisema ei jääks. Takistid tulevad Falstadist.
 
-**Siis plaadil.** Komparaatori väljund läheb Atomi viiku, mis teeb katkestuse. Mõõda multimeetriga, et väljund ei lähe üle 3,3 V, enne kui ta Atomi külge läheb.
+**Siis plaadil.** Komparaator on LM358N teine pool: sama kiip, mis Laborist 2 juba plaadil on, esimene pool võimendab ja teine võrdleb. Op-amp ilma tagasisideta ongi komparaator. Tema väljund läheb Atomi viiku, mis teeb katkestuse. LM358N väljund ei ole rail-to-rail: 5 V toitel jõuab ta umbes 3,5 V-ni, ja see on Atomi viigu jaoks juba liiga palju. Mõõda multimeetriga, mis pinge väljund kõrges olekus päriselt annab, ja kui see on üle 3,3 V, pane vahele jagur, enne kui ta Atomi külge läheb.
 
 ```
 dispense: kui alarm on lukus → keeldu
-          klapp süstlale → taimer loeb ms → klapp tagasi napale
-katkestus: klapp kohe napale → alarm lukku → {"ev":"alarm","why":"clog"} välja
+          pump puhub, napp lahti → klapp voolu alla → taimer loeb ms → klapp vooluta, süstal õhku
+katkestus: klapp kohe vooluta → alarm lukku → {"ev":"alarm","why":"clog"} välja
 tühi süstal: kui rõhk ei jõua platoole ettenähtud aja sees → alarm lukku, "empty"
 alarm püsib, kuni tuleb {"cmd":"clear"}
 ```
 
-Katkestuse sees tehakse nii vähe kui võimalik: klapp kinni, lipp püsti. Kõik muu — ekraan, rida arvutile — tehakse hiljem, põhitsüklis. Alarm jääb lukku. Süsteem, mis pärast ummistust ise uuesti proovib, pumpab kinnisesse süstlasse teist korda.
+Katkestuse alguse paneb paika protsessor: kui komparaatori väljund viigul muutub, peatab protsessor põhitsükli riistvaraliselt mõne mikrosekundi jooksul, ükskõik mida programm parasjagu teeb. Katkestuse pikkus on aga sinu kätes, sest kuni katkestuse funktsioon käib, seisab kõik muu — põhitsükkel, ekraan, UART —, ja seepärast tehakse seal ainult see, mis ei saa oodata: klapp kinni ja lipp püsti. Lipp on üks muutuja, mida põhitsükkel igal ringil vaatab, ja kui ta on püsti, teeb põhitsükkel ülejäänu — ekraani, rea arvutile ja alarmi luku —, nii et katkestus ise jääb lühikeseks. Alarm jääb lukku. Süsteem, mis pärast ummistust ise uuesti proovib, pumpab kinnisesse süstlasse teist korda.
 
 **Mõõda, kui kiire see on.** Ostsilloskoobi üks kanal on rõhk, teine pinge klapi mähisel, mitte Atomi viigul: relee lahtilaskmise aeg on osa reageerimise ajast. Kinnine otsik peal. Aeg hetkest, mil rõhk ületab läve, hetkeni, mil klapp lahti lastakse. Kümme korda.
 
@@ -217,10 +221,10 @@ Kirjuta üles: Falstadi skeem pildina ja lingina, takistid, lävi ja hüstereesi
 
 ### Ohutus
 
-* **365 nm UV ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 365 nm valgust silm peaaegu ei näe: LED võib paista kustunud olevat, kui ta põleb. LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres UV kaitseprillid (365 nm) ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
-* **Vaik.** Kõvenemata vaik ärritab nahka ja võib tekitada allergia, mis ei lähe üle. Liim tõstetakse 25 ml süstlast 10 cc süstlasse kinnastega, UV-lambist eemal ja ainult musta süstlasse; täis süstla otsikule läheb kork ja tagant kolb. Nitriilkindad käes, kui süstal on lahti. Maha läinud vaik pühitakse isopropanooli ja paberiga, ja paber kõvendatakse lambi all enne prügikasti. Kõvenemata vaiku kraanikaussi ei valata.
+* **405 nm valgus ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 405 nm on UV ja nähtava valguse piiril: silm näeb teda tuhmi violetsena, palju nõrgemana, kui ta tegelikult on, ja võrkkest saab kahju enne, kui valgus ere tundub. LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres kaitseprillid 405 nm jaoks ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
+* **Vaik.** Kõvenemata vaik ärritab nahka ja võib tekitada allergia, mis ei lähe üle. Süstlad täidab õppejõud; täis süstla otsikul on kork ja taga kolb. Nitriilkindad käes, kui süstal on lahti. Maha läinud vaik pühitakse isopropanooli ja paberiga, ja paber kõvendatakse lambi all enne prügikasti. Kõvenemata vaiku kraanikaussi ei valata.
 * **Lampi ei suunata otsikule.** Kinni kõvenenud otsik on see viga, mida sa siin avastama õpid. Ummistuskatse jaoks teed ühe meelega ise, ja ainult ühe: otsik eraldi, süstlast lahti, liimi täis, katte all lambi alla, kuni liim on kõva. Märgi ta ära, et ta tavaliste otsikute sekka ei satuks.
-* **Kinnine süstal on suletud anum rõhu all.** Ummistuskatse ajal on süstal hoidikus või statiivis, mitte käes. Enne kui süstla ära võtad, lase rõhk klapi kaudu välja. Kuni katkestus ei ole läbi proovitud, on iga ummistuskatse ajal inimese käsi pumba lüliti juures.
+* **Kinnine süstal on suletud anum rõhu all.** Ummistuskatse ajal on süstal hoidikus või statiivis, mitte käes. Vooluta klapp laseb süstla rõhu ise õhku: enne kui süstla ära võtad, on klapp vooluta. Kuni katkestus ei ole läbi proovitud, on iga ummistuskatse ajal inimese käsi pumba lüliti juures.
 * **Otsikul on kork peal**, kui sa ei doseeri. Päevavalgus kõvendab liimi otsikus aeglaselt, aga kindlalt.
 * **Mähis ja diood.** Klappi ei lülitata ilma kaitsedioodita; ainus erand on osa 1 ostsilloskoobi pilt. Klapi pinge ei ole Atomi pinge: relee kontaktide pool ja Atomi pool ei saa kokku. Võrgupinget selle releega ei lülitata.
 * **ADC viik ja katkestuse viik ei kannata 5 V.** Komparaatori väljund mõõdetakse multimeetriga üle, enne kui ta Atomi külge läheb.
@@ -235,7 +239,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
 
-Mõtle näiteks: kas LED ja draiver, mille meeskond valis, sobivad kokku — vool, pinge, toide — ja kas mõlema Mouseri tootekood on tabelis; kas Loctite 3494 andmeleht lubab teda kõvendada sinu LED-i lainepikkusega; kas klapi mähise jaoks on kaitsediood olemas ja kas ta kannab klapi pinget ja voolu; kas komparaatoriks on eraldi kiip mõistlikum kui LM358N teine pool, ja mida andmeleht tema väljundi kohta ütleb; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; ja millega sa tilka mõõdad, kui nihikust ei piisa.
+Mõtle näiteks: kas LED ja draiver, mille meeskond valis, sobivad kokku — vool, pinge, toide — ja kas mõlema Mouseri tootekood on tabelis; kas vaigu andmeleht lubab teda kõvendada sinu LED-i lainepikkusega; kas klapi mähise jaoks on kaitsediood olemas ja kas ta kannab klapi pinget ja voolu; kas lahtise napiga jääb süstla ette piisavalt rõhku, või on napi harusse vaja nõelventiili; mida LM358N andmeleht ütleb tema väljundi kohta, kui ta töötab komparaatorina; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; mis kõrguselt tööriista kaamera tilgaplaati teravalt näeb ja mitu mm on seal üks piksel; ja millest teed vahetükid, mis hoiavad klaasi kindlal kõrgusel.
 
 ### Hindamiskriteeriumid
 
@@ -243,7 +247,7 @@ Mõtle näiteks: kas LED ja draiver, mille meeskond valis, sobivad kokku — voo
 | :--- | :--- |
 | Tööfailid — Atomi püsivara taimeri, katkestuse ja alarmi lukuga, logija, `drops.csv` koos kõveratega, analüüsi märkmik | 5 p |
 | Analüüs — impulss käsu ja mõõdetu kõrval, tilga suurus impulsi vastu hajuvusega, toores ja filtreeritud muutumise kiirus spektritega, filtri viivitus, reageerimise aeg katkestusega ja ilma | 5 p |
-| Prototüüp — klapp vooluta napa peal, tilk retsepti järgi hoiab klaasi ja ei jõua servani, kinnine otsik ja tühi süstal annavad alarmi, tavaline tilk ei anna | 5 p |
+| Prototüüp — klapp vooluta laseb süstla õhku, tilk retsepti järgi hoiab klaasi ja ei jõua servani, kinnine otsik ja tühi süstal annavad alarmi, tavaline tilk ei anna | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `recipe.md`, `latency.csv`, Falstadi eksport, `pump_control.md` uuendatud, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 
@@ -253,7 +257,7 @@ Link git repole, tag `data-acquisition-lab3`.
 
 Kaitsmine on lihtne suuline 15 minuti jutuajamine. Teed ühe tilga retsepti järgi ja näitad selle rõhukõverat. Paned peale kinnise otsiku ja näitad ostsilloskoobil, kuidas klapp lahti lastakse ja kui kiiresti. Näitad, et teine tilk ei tule enne, kui alarm on maha võetud. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Repos on kaustas `data-acquisition/lab3/`: `src/` püsivara ja logijaga, `data/` kaustas `drops.csv`, `placement.csv` ja kõverad, ekraanipoole mudeli lähtefail ja STL, `notebooks/` tilkade, muutumise kiiruse ja spektritega, `docs/` skeemi foto, ostsilloskoobi piltide, Falstadi ekspordi, `recipe.md`, `latency.csv`, uuendatud `pump_control.md` ja `bom.md`-ga, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
+Repos on kaustas `data-acquisition/lab3/`: `src/` püsivara ja logijaga, `data/` kaustas `drops.csv`, `placement.csv`, kõverad ja tilgaplaatide pildid, tilgaplaadi lähtefail ja STL, ekraanipoole mudeli lähtefail ja STL, `notebooks/` tilkade, muutumise kiiruse ja spektritega, `docs/` skeemi foto, ostsilloskoobi piltide, Falstadi ekspordi, `recipe.md`, `latency.csv`, uuendatud `pump_control.md` ja `bom.md`-ga, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 
@@ -273,7 +277,7 @@ Omadussõnad ei ole tulemused. "Tilgad olid ebaühtlased" ei ole midagi; "200 ms
 * Nutikad Lahendused L3: klapi ja LED-i käsud, mille seaded ja testinupud lähevad Atomi lehele; alarmi sündmus, mille peale jaam roboti peatab.
 * 3D printimine L3: kui pikk tohib voolik klapi ja süstla vahel olla, ja kus andur istub.
 * Andmehõive L4: retsept ja kõverad, mille peale ehitatakse sajad tsüklid; kolm märgistatud olukorda — tavaline, kinnine, tühi.
-* Andmehõive L4: käsitsi mõõdetud laigu suurused ja kohad failis `placement.csv` — võrdlus, mille vastu masin oma mõõtmist kontrollib, kui tagasiside automatiseeritakse.
+* Andmehõive L4: kaamera pildilt mõõdetud laigu suurused ja kohad failis `placement.csv` — võrdlus, mille vastu masin oma mõõtmist kontrollib, kui tagasiside automatiseeritakse.
 * Andmehõive L4: relee piirid numbritena — viivitus, põrge, kontakti eluiga —, mille vastu MOSFET-i võrreldakse.
 
 **KAARDISTA ISE, lõpus.**
