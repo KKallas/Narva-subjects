@@ -11,7 +11,7 @@
 
 Laud on valmis ja hoidikud on ruudustikus. Käe otsas on napp ja kaamera, ja sellega saab tõsta. Aga silt ei saa kokku ainult tõstmisega: klaas **liimitakse** Atomi ekraani peale.
 
-Liim on läbipaistev vaik, mis kõveneb 405 nm valguse käes. Seega peab robot oskama kolme asja:
+Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Seega peab robot oskama kolme asja:
 
 * **tõsta** — iminapp, nagu seni;
 * **doseerida** — süstal, millest õhurõhk surub tilga välja;
@@ -60,9 +60,9 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Sisendid
 
-* Õppejõult: 3/2 solenoidklapp, 4 mm Y-kiirliitmik rõhuanduri jaoks, süstlad ja otsikud, 405 nm kaitseprillid.
-* Meeskonnalt endalt: 405 nm LED. Valid ise, õppejõud ostab Mouserist.
-* Õppejõult: klapi kinnitus Fusionis, `Solenoidklapi kinnitus.f3z` selles kaustas; pooleli süstla päis, `Süstla päis poolik.f3z` selles kaustas; O-rõngaste komplekt.
+* Õppejõult: 3/2 solenoidklapp, 4 mm Y-kiirliitmik rõhuanduri jaoks, tühjad 10 cc mustad süstlad [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf) ja otsikud, UV kaitseprillid (365 nm).
+* Meeskonnalt endalt: 365 nm UV LED ja draiver. Valid ise, õppejõud ostab Mouserist.
+* Õppejõult: klapi kinnitus Fusionis, `Solenoidklapi kinnitus.f3z` selles kaustas; pooleli süstla päis, `Süstla päis poolik.f3z` selles kaustas; O-rõngaste komplekt; 10 cc süstla mudel, `Metcal 910 süstal 10cc.f3d`, ja päis koos süstlaga, `Süstla päis ja süstal 10cc.f3d`, mõlemad selles kaustas.
 * Vanade asjade kastist: mõned eelmise aasta süstlahoidikud. Igaüks on omamoodi veider ja ükski üksi ei ole hea eeskuju; vaata neid koos, enne kui oma hoidiku teed. Süstla päis oli eelmisel aastal valmis Metcali oma; sel aastal teed päise ise. Metcali päis on selles kaustas mudelina, `Metcal 910-3RHB.f3d`.
 * 3D printimise L1-st: lõtk, paindumise ja murdumise numbrid.
 * 3D printimise L2-st: hoidikud ruudustikus, kaamera kinnitus ja toide, olemasolev iminapa tööriistahoidik (eeskujuks, kuidas hoidik nina külge käib), tööriista kaal.
@@ -76,8 +76,8 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 3. Nihik, 300 mm joonlaud, köögikaal (1 g)
 4. MG400 koos baaspaketi, pumbakasti ja iminapaga
 5. 3/2 solenoidklapp kinnitusega, 4 mm voolik, 4 mm Y-kiirliitmik, hambaorgid, silikoon
-6. Süstlad ja otsikud; tühjad, selles laboris vaiku süstlas ei ole
-7. 405 nm LED (sinu valitud, Mouserist) jahutusradiaatoril koos draiveriga, 405 nm kaitseprillid
+6. 10 cc süstlad (Metcal 910-B) ja otsikud; tühjad, selles laboris vaiku süstlas ei ole
+7. 365 nm UV LED jahutusradiaatoril ja draiver (sinu valitud, Mouserist), UV kaitseprillid (365 nm)
 8. Poldid, mutrid, seibid; pihustipudel seebiveega
 9. Git, üks repo meeskonna kohta, `AGENTS.md` juurkaustas
 
@@ -160,15 +160,15 @@ Laboris 2 jäi olemasolev tööriistahoidik puutumata, et õpetatud punktid keht
 
 **Kes on millal all.** See on selle osa päris küsimus. Kui napp võtab klaasi, ei tohi süstla otsik millegi vastu minna. Kui süstal doseerib, ei tohi napp ees olla ega detaili pihta käia. Kui lamp kõvendab, peab ta olema õigel kaugusel. Selleks on mitu võimalust: otsikud on eri kõrgusel, otsikud on külgsuunas nihkes, või J4 pöörab tööriista nii, et õige otsik tuleb õige koha peale. Pane kogu tööriist Fusionis kokku: iga osa on oma komponent, ja osad on omavahel ja roboti nina küljes jointidega (Joint). Siis tee liikumise uuring (Motion Study): tööriist käib läbi kõigi kolme töökoha — sisend, töökoht, väljund — ja kõigi hoidikute kohalt, mis Laboris 2 tegid. Nii näed enne printimist, mis kuhu vastu läheb. Hoidiku sein, mis nappa ei seganud, võib süstla otsikut segada.
 
-**Süstal.** Hoidik hoiab süstalt nii, et otsik on iga kord samas kohas. Sama reegel, mis hoidikul ruudustikus: asendi annab kuju, mitte hõõrdumine. Krae toetub, toru on juhitud, ja pärast vahetust on otsik seal, kus ta oli. Süstal vahetub **ühe käega ja ilma tööriistadeta** — teises käes on sul uus süstal. See on klamber, mis paindub ja tuleb tagasi, ja Laboris 1 mõõtsid sa täpselt selle: kuhu maani tükk paindub ja tuleb tagasi, ja kust alates ei tule. Klamber töötab esimese numbri sees, varuga. Süstla suurus on parameeter. Vanade asjade kastis on mõned eelmise aasta hoidikud. Ükski neist ei ole eeskuju; vaata neid koos ja otsi, mis on neil kõigil olemas ja mis igaühel valesti on.
+**Süstal.** Hoidik hoiab süstalt nii, et otsik on iga kord samas kohas. Sama reegel, mis hoidikul ruudustikus: asendi annab kuju, mitte hõõrdumine. Krae toetub, toru on juhitud, ja pärast vahetust on otsik seal, kus ta oli. Süstal vahetub **ühe käega ja ilma tööriistadeta** — teises käes on sul uus süstal. See on klamber, mis paindub ja tuleb tagasi, ja Laboris 1 mõõtsid sa täpselt selle: kuhu maani tükk paindub ja tuleb tagasi, ja kust alates ei tule. Klamber töötab esimese numbri sees, varuga. Süstal on 10 cc [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf): andmelehel on joonis, kus on sisediameeter 15,72 mm, välisdiameeter 18,26 mm, krae 22,6 × 34,0 mm ja 3,3 mm paks, pikkus 90,9 mm. Selle järgi on tehtud mudel `Metcal 910 süstal 10cc.f3d` selles kaustas: iga mõõt on kasutaja parameeter ja kolm neist (Luer-krae diameeter ja sein, koonuse pikkus) on hinnangud, sest andmelehel neid ei ole. Andmeleht ütleb ise, et mõõdud on viiteks: mõõda päris süstal nihikuga üle ja pane enda numbrid parameetritesse. Süstla suurus jääb parameetriks. Vanade asjade kastis on mõned eelmise aasta hoidikud. Ükski neist ei ole eeskuju; vaata neid koos ja otsi, mis on neil kõigil olemas ja mis igaühel valesti on.
 
-**UV-lamp.** LED on jahutusradiaatori peal ja radiaator on põhjusega: LED läheb kuumaks. PLA hakkab pehmenema 60 °C kandis. Radiaator vajab õhku enda ümber, mitte plastist karpi. Lamp on süstla otsikust vähemalt 30 mm kaugusel ja suunatud nii, et **valguskoonus läheb otsikust mööda**. Liim, mis kõveneb otsiku sees, on ummistunud otsik, ja see lõpetab tööpäeva. Joonista koonus Fusionis kehana ja vaata, kas ta lõikub otsikuga. Siis kontrolli laual: prillid ette, LED kõige väiksema vooluga, valge paber liimi kohale. Laik peab olema paberil ja otsik varjus. Kui lambi ümber on vari, mis valgust suunab, on ta must või seest tume.
+**UV-lamp.** LED on jahutusradiaatori peal ja radiaator on põhjusega: LED läheb kuumaks. PLA hakkab pehmenema 60 °C kandis. Radiaator vajab õhku enda ümber, mitte plastist karpi. Lamp on süstla otsikust vähemalt 30 mm kaugusel ja suunatud nii, et **valguskoonus läheb otsikust mööda**. Liim, mis kõveneb otsiku sees, on ummistunud otsik, ja see lõpetab tööpäeva. Joonista koonus Fusionis kehana ja vaata, kas ta lõikub otsikuga. Siis kontrolli laual: prillid ette, LED kõige väiksema vooluga, valge paber liimi kohale. 365 nm valgust silm peaaegu ei näe, aga tavaline valge koopiapaber helendab tema all sinakalt, ja see helendus on su laik. Laik peab olema paberil ja otsik varjus. Kui lambi ümber on vari, mis valgust suunab, on ta must või seest tume.
 
 **Kate.** Valgustamine käib katte all, nii et valgus välja ei paista. Kate võib olla tööriista küljes, töökoha hoidiku küljes või mõlemas: näiteks must põll ümber lambi, mis laskub kõvendamise asendis töökoha hoidiku serva peale, nii et valgus jääb nende vahele kinni. Radiaator jääb katte välja, õhu kätte.
 
-Kate prinditakse **musta** PLA-ga. 405 nm on nähtava valguse serval, ja hele või naturaalne PLA laseb selle läbi ja hajutab: kogu kate helendab violetselt. Must pigment neelab valguse ära. PLA ennast 405 nm palju ei kahjusta: sellises koguses ja nii lühikest aega vananeb ta aeglaselt, ja kui ta kevadeks kollaseks läheb, prindid uue. Ohtlikum on soojus, sest LED on katte kõrval ja PLA pehmeneb 60 °C kandis.
+Kate prinditakse **musta** PLA-ga. 365 nm on ultraviolett: silm teda peaaegu ei näe, nii et lekkivat valgust ei pane sa tähele, aga silmad ja nahk saavad sellest ikkagi kahju. Hele või naturaalne PLA laseb osa sellest läbi ja hajutab. Must pigment neelab UV ära ja kaitseb ühtlasi plasti ennast: UV vanandab PLA-d pinnalt, ta läheb kollaseks ja rabedaks, ja must kate peab sellele kõige kauem vastu. Kui ta kevadeks rabedaks läheb, prindid uue. Ohtlikum on soojus, sest LED on katte kõrval ja PLA pehmeneb 60 °C kandis.
 
-Katte seinal on **sügavust**: mitu perimeetrit ja täidis vahel, mitte üks õhuke sein. Prinditud sein on kihtide virn, ja üks halvasti kinni jäänud kiht, esimene kiht või auk perimeetris on pragu, kust valgus otse välja pääseb. Paksu seina ja täidisega peab valgus läbima mitu kihti ja põrkama täidise vastu, ja sinna ta jääbki. Kontrolli: paber, mis 405 nm all helendab (markeriga üle tõmmatud valge paber või helendav kleebis), katte ümber, pime ruum, prillid ees, LED kõige väiksema vooluga katte all. Kus paber helendab, sealt valgus välja pääseb.
+Katte seinal on **sügavust**: mitu perimeetrit ja täidis vahel, mitte üks õhuke sein. Prinditud sein on kihtide virn, ja üks halvasti kinni jäänud kiht, esimene kiht või auk perimeetris on pragu, kust valgus otse välja pääseb. Paksu seina ja täidisega peab valgus läbima mitu kihti ja põrkama täidise vastu, ja sinna ta jääbki. Kontrolli: paber, mis UV all helendab (markeriga üle tõmmatud valge paber või helendav kleebis), katte ümber, pime ruum, prillid ees, LED kõige väiksema vooluga katte all. Kus paber helendab, sealt valgus välja pääseb.
 
 **Kaamera** jääb. Ta peab endiselt nägema seda, mis otsiku all toimub, ja nüüd on otsikuid kaks. Otsusta, kumba ta vaatab, või kas ta näeb mõlemat.
 
@@ -182,7 +182,11 @@ Kirjuta üles: kuidas sa lahendasid, kes millal all on, ja mis sind teistest lah
 
 Süstlasse tuleb õhk tagant, kolvi poolt. Selleks on süstla päis: prinditud tükk, mis käib süstla tagumise otsa peale ja kuhu voolik sisse läheb. Ta peab vastu kogu rõhu, mida pump anda jõuab, ja tuleb ära, kui süstalt vahetad.
 
-**Pooleli päis.** Failis `Süstla päis poolik.f3z` selle dokumendi kõrval on päis, mis on poolel teel: kuju on olemas ja kaks M4 polti hoiavad teda koos, aga tihendit ei ole. Selline päis lekib. Sinu töö on ta lõpuni teha. Õppejõult saad O-rõngaste komplekti: vali sealt rõngas ja joonista talle soon.
+**Pooleli päis.** Failis `Süstla päis poolik.f3z` selle dokumendi kõrval on päis, mis on poolel teel. Ta on joonistatud 10 cc süstlale (Metcal 910, sisediameeter 15,72 mm), nagu ka Metcali päis: kuju on olemas ja kaks M4 polti hoiavad teda koos, aga tihendit ei ole. Selline päis lekib. Sinu töö on ta lõpuni teha.
+
+Failis `Süstla päis ja süstal 10cc.f3d` on päis ja süstla mudel koos, lukus. Päis on keeratav lukk: süstla krae läheb kanalisse, ja 60° pööret viib krae otsad riiulite alla, kuni nad jäävad vastu piirajaid. Fusionis läheb see läbi ilma, et miski teineteisest läbi läheks. Aga Fusionis on lõtk null, ja päris printeril ei ole: krae on 3,3 mm paks ja tema pilu riiuli all on 3,4 mm kõrge, ja tropp läheb süstla sisse 15,72 mm avasse 14,66 mm suurusena. Kas see mahub ja kas krae ei loksu, ütleb Labori 1 lõtk, mitte joonis. Mõõda oma süstal nihikuga, pane numbrid süstla mudeli parameetritesse ja vaata, kas päis sobib ikka.
+
+Tropil on soon (põhi 11,94 mm, laius 2 mm), ja koostus on sinna pandud üks rõngas komplektist, 11 × 2,5, nii nagu ta päriselt istuks: soone põhja peale venitatud. Pane Fusionis koostusele interference-kontroll peale ja vaata, mida see ütleb. Õppejõult saad O-rõngaste komplekti: vali sealt rõngas, arvuta, kas soon surub teda õigesti kokku ja kas tal on soones ruumi, ja muuda soont, kui ei ole. Kas 11 × 2,5 on üldse õige valik, otsustad ka sina.
 
 Eelmisel aastal käis süstla peale valmis päis (Metcal), ja tema mudel on selles kaustas, `Metcal 910-3RHB.f3d`. Kui tahad pooleli päise asemel oma päise teha, on see parem eeskuju: vaata, kuidas tema süstla külge käib ja kus ta tihendab. Sel aastal on päis prinditud, ja prinditud päisest pääseb õhk välja kahte teed. Kas **läbi seina**: prinditud sein on kihtide virn ja rõhk leiab kihtide vahelt tee, kui sein on õhuke või perimeetreid on vähe. Või **tihendi kõrvalt**: O-rõngas tihendab ainult siis, kui ta on soones, mis teda parasjagu kokku surub — liiga sügavas soones ta ei puuduta, liiga madalas ei mahu päis peale. Soone mõõdud arvutatakse rõnga mõõtudest, mitte ei pakuta.
 
@@ -213,7 +217,7 @@ Kirjuta üles: uuendatud `layout.md` prügitopsi ja parkimiskohaga; read failis 
 
 ### Ohutus
 
-* **405 nm valgus ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. LED-i ei vaadata, ei varjuga ega ilma. Kui LED on draiveri küljes, on kõigil laua ääres 405 nm kaitseprillid ees. Laigu katse käib samuti katte all, kõige väiksema vooluga, lamp suunatud laua poole, mitte kunagi silmade kõrgusele.
+* **365 nm UV ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 365 nm valgust silm peaaegu ei näe: LED võib paista kustunud olevat, kui ta põleb. LED-i ei vaadata, ei varjuga ega ilma, ja käsi ega nahka katte alla ei panda. Kui LED on draiveri küljes, on kõigil laua ääres UV kaitseprillid (365 nm) ees. Laigu katse käib samuti katte all, kõige väiksema vooluga, lamp suunatud laua poole, mitte kunagi silmade kõrgusele.
 * **Selles laboris vaiku süstlas ei ole.** Lekkekatse käib õhu ja seebiveega. Kui laual on süstal vaiguga, on otsikul kork peal ja käes nitriilkindad: kõvenemata vaik ärritab nahka.
 * **Rõhk.** Korgiga süstal pumba täie rõhu all on suletud anum. Katse ajal on ta hoidikus, mitte käes. Enne kui süstla ära võtad, lase rõhk klapi kaudu välja.
 * Lahtine voolik rõhu all lendab; ära suuna kellegi poole.
@@ -230,7 +234,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
 
-**LED-i valid ise.** Õppejõud ostab selle Mouserist, nii et tabelisse läheb Mouseri tootekood ja `docs/bom.md`-sse põhjendus. Mõtle: kas lainepikkus on see, mille all su liim kõveneb; kui lai on kiirgusnurk, sest sellest tuleb lambi koonus ja laigu suurus; kui palju valgust ta annab ja kui palju sooja tuleb sellega kaasa; kas ta on juba tähekujulisel alusel või tuleb see eraldi; mis voolu ta tahab ja kas draiver selle annab; ja kas mõõdud on andmelehel, et saaksid ta Fusionisse joonistada enne, kui ta kohale jõuab.
+**LED-i ja draiveri valid ise.** Õppejõud ostab need Mouserist, nii et tabelisse läheb Mouseri tootekood ja `docs/bom.md`-sse põhjendus. Liim on Loctite 3494. Mõtle: kas lainepikkus on 365 nm ja kas Loctite 3494 andmeleht ütleb, et ta selle all kõveneb; kui lai on kiirgusnurk, sest sellest tuleb lambi koonus ja laigu suurus; kui palju valgust ta annab ja kui palju sooja tuleb sellega kaasa; kas ta on juba tähekujulisel alusel või tuleb see eraldi; mis voolu ta tahab ja milline draiver selle annab; ja kas mõõdud on andmelehel, et saaksid ta Fusionisse joonistada enne, kui ta kohale jõuab.
 
 Mõtle näiteks: kas O-rõngaste komplektis on rõngas, mida su soone arvutus tahab, või tuleb mõni juurde tellida; kas polte, mutreid ja seibe jätkub klapi kinnituse ja adapteri jaoks, ja kas neid jääb varuks, sest mõni jääb proovikloti sisse; kas silikooni on; kas 4 mm voolikut jätkub mõlema haru jaoks; kas LED-i ja klapi juhe on piisavalt pikk ja pehme, et käega kaasa käia; ja kas PLA peab radiaatori ja klapi kõrval vastu või küsib see koht teist materjali.
 

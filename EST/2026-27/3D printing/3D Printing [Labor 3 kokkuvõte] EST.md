@@ -4,7 +4,7 @@
 
 ### Mida teete
 
-Laud on valmis ja hoidikud on ruudustikus. Käe otsas on napp ja kaamera, ja sellega saab tõsta. Aga silt ei saa kokku ainult tõstmisega: klaas **liimitakse** Atomi ekraani peale. Liim on läbipaistev vaik, mis kõveneb 405 nm valguse käes. Seega peab robot oskama kolme asja: **tõsta** iminapaga, **doseerida** süstlaga, millest õhurõhk surub tilga välja, ja **kõvendada** UV LED-iga läbi klaasi. Käsi on üks, nii et kõik kolm on ühes tööriistas, koos kaameraga Laborist 2.
+Laud on valmis ja hoidikud on ruudustikus. Käe otsas on napp ja kaamera, ja sellega saab tõsta. Aga silt ei saa kokku ainult tõstmisega: klaas **liimitakse** Atomi ekraani peale. Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Seega peab robot oskama kolme asja: **tõsta** iminapaga, **doseerida** süstlaga, millest õhurõhk surub tilga välja, ja **kõvendada** UV LED-iga läbi klaasi. Käsi on üks, nii et kõik kolm on ühes tööriistas, koos kaameraga Laborist 2.
 
 Pumpa on samuti üks. Tema õhk läheb kas napale või süstlale, ja selle üle otsustab **solenoidklapp**: voolu all süstlale, vooluta vedruga tagasi napale.
 
@@ -16,9 +16,9 @@ Viis osa:
 
 **2. Klapi kinnitus** — kinnitus on olemas: [Solenoidklapi kinnitus.f3z](Solenoidklapi%20kinnitus.f3z). Poldid suruvad kihid kokku, voolik läheb otse klapi juurde, hambaork hoiab voolikut paigal ja silikoon tihendab. Prindi, pane kokku ja pane süsteemi külge: Gridfinity hoidikuga laua peale või tööriistahoidiku külge käe otsa. Tulemus: kinnitus koos voolikutega süsteemi küljes ja klapi temperatuur pärast kümmet minutit voolu all.
 
-**3. Tööriist** — uus tööriistahoidik roboti nina külge: napp, süstal, UV-lamp ja kaamera ühes tükis. Pane kogu tööriist Fusionis jointidega kokku ja tee liikumise uuring läbi kõigi töökohtade ja hoidikute. Süstal vahetub ühe käega ja ilma tööriistadeta, ja otsik on pärast vahetust samas kohas. Lambi valguskoonus läheb otsikust mööda, ja valgustamine käib musta katte all. LED-i valid ise, õppejõud ostab selle Mouserist. Tulemus: tööriist alla 500 g suurima koormaga ja kolm nihet failis `docs/tool_offsets.md`.
+**3. Tööriist** — uus tööriistahoidik roboti nina külge: napp, süstal, UV-lamp ja kaamera ühes tükis. Pane kogu tööriist Fusionis jointidega kokku ja tee liikumise uuring läbi kõigi töökohtade ja hoidikute. Süstal vahetub ühe käega ja ilma tööriistadeta, ja otsik on pärast vahetust samas kohas. Lambi valguskoonus läheb otsikust mööda, ja valgustamine käib musta katte all. LED-i ja draiveri valid ise, õppejõud ostab need Mouserist. Tulemus: tööriist alla 500 g suurima koormaga ja kolm nihet failis `docs/tool_offsets.md`.
 
-**4. Õhk peab pidama** — süstla päis on pooleli: [Süstla päis poolik.f3z](S%C3%BCstla%20p%C3%A4is%20poolik.f3z). Tihendit ei ole, ja selle teed sina, O-rõngaga komplektist ja arvutatud soonega. Kui tahad oma päise teha, on eeskujuks eelmise aasta Metcali päis: [Metcal 910-3RHB.f3d](Metcal%20910-3RHB.f3d). Päis peab vastu pumba täie rõhu. Tulemus: survekatse ja `docs/leak_test.csv`, enne ja pärast sadat klapi lülitust.
+**4. Õhk peab pidama** — süstla päis on pooleli: [Süstla päis poolik.f3z](S%C3%BCstla%20p%C3%A4is%20poolik.f3z). Ta on 10 cc süstlale ([Metcal 910-B, andmeleht joonisega](https://www.farnell.com/datasheets/3919444.pdf)), ja süstal on mudelina olemas: [Metcal 910 süstal 10cc.f3d](Metcal%20910%20s%C3%BCstal%2010cc.f3d), parameetritega, mida saad oma mõõtude järgi muuta, ja päis koos süstlaga lukus: [Süstla päis ja süstal 10cc.f3d](S%C3%BCstla%20p%C3%A4is%20ja%20s%C3%BCstal%2010cc.f3d). Fusionis sobib, aga päris printeri lõtk on sinu kontrollida. Tihendit ei ole, ja selle teed sina, O-rõngaga komplektist ja arvutatud soonega. Kui tahad oma päise teha, on eeskujuks eelmise aasta Metcali päis: [Metcal 910-3RHB.f3d](Metcal%20910-3RHB.f3d). Päis peab vastu pumba täie rõhu. Tulemus: survekatse ja `docs/leak_test.csv`, enne ja pärast sadat klapi lülitust.
 
 **5. Katse** — prügitops ja otsiku parkimiskoht ruudustikku. Siis kuiv läbijooks: tõsta klaas, mine doseerimise asendisse, mine kõvendamise asendisse, pane klaas ära, 20 korda. Tulemus: `docs/cycle_test.csv`, mitu kahekümnest läks puhtalt läbi, ja kas nihked kehtivad pärast tööriista mahavõtmist.
 
@@ -26,11 +26,11 @@ Viis osa:
 
 Repo ja töökord on Laborist 1 olemas ja samad. Tervet töölehte üle kopeerida ei ole vaja — too oma repo juurde see, mida vaja, ja täida `README.md` oma numbrite ja otsustega. Iga print on uus versioon; vana jääb alles. Ei tulnud esimesel korral välja, tule homme tagasi ja proovi uuesti.
 
-Esimesel päeval uusi osi ei ole — ehita sellest, mis riiulil on. Selles laboris vaiku süstlas ei ole: katsed käivad õhu ja seebiveega. 405 nm LED-i juures on kõigil kaitseprillid ees.
+Esimesel päeval uusi osi ei ole — ehita sellest, mis riiulil on. Selles laboris vaiku süstlas ei ole: katsed käivad õhu ja seebiveega. UV LED-i juures on kõigil UV kaitseprillid ees.
 
 ### Komponendid selle labori jaoks
 
-Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib. LED-i jaoks läheb tabelisse Mouseri tootekood.
+Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirja ei ole: meeskond paneb tellimuse ise kokku faili `docs/bom.md`, iga rea juures üks lause, milline osa seda küsib. LED-i ja draiveri jaoks läheb tabelisse Mouseri tootekood.
 
 ### Kaitsmiseks on vaja
 

@@ -12,7 +12,7 @@
 
 Seni tegi pump ühte tööd: imes, ja napp hoidis klaasi. Nüüd teeb sama pump teist tööd ka. Ta puhub süstlasse, ja süstla otsikust tuleb tilk liimi. Kumba tööd pump parajasti teeb, otsustab solenoidklapp, ja klappi juhib sinu Atom.
 
-Liim on läbipaistev vaik, mis kõveneb 405 nm valguse käes. Tilk läheb Atomi ekraani peale, klaas tilga peale, ja UV LED kõvendab liimi läbi klaasi.
+Liim on läbipaistev vaik, mis kõveneb 365 nm UV-valguse käes. Tilk läheb Atomi ekraani peale, klaas tilga peale, ja UV LED kõvendab liimi läbi klaasi.
 
 Sellest tuleb kaks küsimust, ja need on selle labori kaks poolt.
 
@@ -65,19 +65,20 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Sisendid
 
 * Laborist 1 ja 2: andur koos astmega, 100 Hz logija, CSV formaat, pumbajuhtimine ribaga (`pump_control.md`), pooliku haarde logid.
-* Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, 4 mm Y-kiirliitmik rõhuanduri jaoks, vaik, süstlad ja otsikud kolmes suuruses, otsikukorgid, LED-i draiver, 405 nm kaitseprillid, nitriilkindad, isopropanool. Üks otsik, mis on meelega kinni kõvendatud.
+* Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, 4 mm Y-kiirliitmik rõhuanduri jaoks, UV-liim [Loctite 3494](https://www.etra.ee/et/loctite-3494-solvent-free-quick-drying-uv-adhesive-e34014210) (tuleb 25 ml süstlas ja tõstetakse ümber 10 cc mustadesse süstaldesse [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf), üks süstla suurus), otsikud kolmes suuruses, otsikukorgid, UV kaitseprillid (365 nm), nitriilkindad, isopropanool.
 * Riiulilt: komparaator või LM358N teine pool, takistite ja kondensaatorite komplekt, ostsilloskoop, multimeeter, nihik.
 * 3D printimise L3-st: tööriist, mis hoiab süstalt, ja süstla õhuühendus, mis peab rõhku. Kuni seda ei ole, on süstal statiivis laua peal.
 * Nutikate Lahenduste L3-st: Atomi leht, kuhu klapi ja LED-i seaded ja testinupud lähevad.
-* Meeskonnalt endalt: 405 nm LED, sama, mille valisid 3D printimise L3 jaoks. Õppejõud ostab selle Mouserist ja ta tuleb tellimusega; kuni seda ei ole, käib katse LED-ita ja taimer lülitab ainult draiverit.
+* Meeskonnalt endalt: 365 nm UV LED ja tema draiver, samad, mille valisid 3D printimise L3 jaoks. Õppejõud ostab need Mouserist ja nad tulevad tellimusega; kuni neid ei ole, proovid LED-i taimerit Atomi viigu peal ostsilloskoobiga.
+* Meeskonnalt endalt: üks meelega kinni kõvendatud otsik. Teed selle ise (vt Ohutus).
 
 ### Vahendid
 
 1. AtomS3, USB-C kaablid
 2. Sinu andur ja aste Laborist 2
 3. 3/2 solenoidklapp, M5Stack Mini 3A Relay Unit, kaitsediood, 4 mm Y-kiirliitmik
-4. Süstlad, otsikud, otsikukorgid, 405 nm vaik
-5. 405 nm LED (sinu valitud, Mouserist) draiveriga; kaitseprillid, nitriilkindad, isopropanool, paberrätikud
+4. Loctite 3494 UV-liim, 10 cc mustad süstlad (Metcal 910-B) kolbidega, otsikud, otsikukorgid
+5. 365 nm UV LED ja draiver (sinu valitud, Mouserist); kaitseprillid, nitriilkindad, isopropanool, paberrätikud
 6. Komparaator (LM393) või LM358N, takistite ja kondensaatorite komplekt, maketeerimisplaat
 7. Ostsilloskoop, kaks kanalit; multimeeter
 8. Nihik; kaal 0,01 g, kui on
@@ -211,9 +212,9 @@ Kirjuta üles: Falstadi skeem pildina ja lingina, takistid, lävi ja hüstereesi
 
 ### Ohutus
 
-* **405 nm valgus ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres 405 nm kaitseprillid ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
-* **Vaik.** Kõvenemata vaik ärritab nahka ja võib tekitada allergia, mis ei lähe üle. Nitriilkindad käes, kui süstal on lahti. Maha läinud vaik pühitakse isopropanooli ja paberiga, ja paber kõvendatakse lambi all enne prügikasti. Kõvenemata vaiku kraanikaussi ei valata.
-* **Lampi ei suunata otsikule.** Kinni kõvenenud otsik on see viga, mida sa siin avastama õpid. Meelega tehakse neid üks, ja selle annab õppejõud.
+* **365 nm UV ja silmad.** Valgustamine käib katte all, nii et valgus välja ei paista. 365 nm valgust silm peaaegu ei näe: LED võib paista kustunud olevat, kui ta põleb. LED-i ei vaadata. Kui LED on draiveri küljes, on kõigil laua ääres UV kaitseprillid (365 nm) ees. Lamp on suunatud laua poole. LED kustub alati ise, taimeriga, ja vooluta on ta väljas.
+* **Vaik.** Kõvenemata vaik ärritab nahka ja võib tekitada allergia, mis ei lähe üle. Liim tõstetakse 25 ml süstlast 10 cc süstlasse kinnastega, UV-lambist eemal ja ainult musta süstlasse; täis süstla otsikule läheb kork ja tagant kolb. Nitriilkindad käes, kui süstal on lahti. Maha läinud vaik pühitakse isopropanooli ja paberiga, ja paber kõvendatakse lambi all enne prügikasti. Kõvenemata vaiku kraanikaussi ei valata.
+* **Lampi ei suunata otsikule.** Kinni kõvenenud otsik on see viga, mida sa siin avastama õpid. Ummistuskatse jaoks teed ühe meelega ise, ja ainult ühe: otsik eraldi, süstlast lahti, liimi täis, katte all lambi alla, kuni liim on kõva. Märgi ta ära, et ta tavaliste otsikute sekka ei satuks.
 * **Kinnine süstal on suletud anum rõhu all.** Ummistuskatse ajal on süstal hoidikus või statiivis, mitte käes. Enne kui süstla ära võtad, lase rõhk klapi kaudu välja. Kuni katkestus ei ole läbi proovitud, on iga ummistuskatse ajal inimese käsi pumba lüliti juures.
 * **Otsikul on kork peal**, kui sa ei doseeri. Päevavalgus kõvendab liimi otsikus aeglaselt, aga kindlalt.
 * **Mähis ja diood.** Klappi ei lülitata ilma kaitsedioodita; ainus erand on osa 1 ostsilloskoobi pilt. Klapi pinge ei ole Atomi pinge: relee kontaktide pool ja Atomi pool ei saa kokku. Võrgupinget selle releega ei lülitata.
@@ -229,7 +230,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita. Fail `docs/bom.md` jääb sinu reposse põhjenduseks, miks sa just neid asju küsisid.
 
-Mõtle näiteks: kas LED, mille meeskond valis, tahab sellist voolu, mida draiver annab, ja kas Mouseri tootekood on tabelis; kas klapi mähise jaoks on kaitsediood olemas ja kas ta kannab klapi pinget ja voolu; kas komparaatoriks on eraldi kiip mõistlikum kui LM358N teine pool, ja mida andmeleht tema väljundi kohta ütleb; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; ja millega sa tilka mõõdad, kui nihikust ei piisa.
+Mõtle näiteks: kas LED ja draiver, mille meeskond valis, sobivad kokku — vool, pinge, toide — ja kas mõlema Mouseri tootekood on tabelis; kas Loctite 3494 andmeleht lubab teda kõvendada sinu LED-i lainepikkusega; kas klapi mähise jaoks on kaitsediood olemas ja kas ta kannab klapi pinget ja voolu; kas komparaatoriks on eraldi kiip mõistlikum kui LM358N teine pool, ja mida andmeleht tema väljundi kohta ütleb; kas hüstereesi takistid, mille Falstad andis, on komplektis olemas; kas otsikuid ja korke jätkub, kui iga kinni läinud otsik on kadunud otsik; kas vaiku on viiekümne tilga ja mõne ebaõnnestumise jaoks; ja millega sa tilka mõõdad, kui nihikust ei piisa.
 
 ### Hindamiskriteeriumid
 
