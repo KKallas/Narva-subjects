@@ -4,13 +4,13 @@
 
 ### Mida teete
 
-Laboris 1 läks andur otse ADC-sse ja vahel ei olnud midagi. See oli meelega. MPX5700AP väljund liigub pumba kogu ulatuses ainult 0,40 … 1,56 V — kolmandik ADC vahemikust, üks ADC samm 125 Pa. Nüüd ehitate vahele astme, mis lahutab nihke maha ja võimendab signaali ADC vahemikku täitma, ja mõõdate ära, mis sellest muutus.
+Laboris 1 läks andur otse ADC-sse ja vahel ei olnud midagi. See oli meelega. MPX5700AP väljund liigub pumba kogu ulatuses ainult 0,40 … 1,56 V — kolmandik ADC vahemikust, üks ADC samm 125 Pa. Nüüd ehitate vahele op-ampi, mis lahutab nihke maha ja võimendab signaali ADC vahemikku täitma, ja mõõdate ära, mis sellest muutus.
 
 Aste ei ole eesmärk. Eesmärk on **poolik haare**: napp on klaasil, aga serv jäi lahti, pump jääb lühitsüklisse ja kast näeb väljastpoolt välja nagu töötav kast — rõhk on vahemikus, ekraan ütleb, et hoiab. Poolik haare ei erine korralikust haardest rõhu *väärtuse*, vaid rõhu *languse kiiruse* poolest, ja see vahe kaob 125 Pa sammu alla. Selle otsa peal ripub polükarbonaatklaas: "vaakum on käes" ei ole otsus, mille peale tõsta — otsus on "vaakum püsib".
 
 Neli osa:
 
-**1. Mis on puudu** — Labori 1 CSV ja spekter lahti. Mitu volti anduri väljund liigub, mitu protsenti see on ADC vahemikust, mitu Pa on üks ADC samm. Siit tuleb otsus, mida aste peab tegema, ja esimene siht 0,2 … 3,3 V koos võimendusega. Tulemus: numbrid, mille vastu kõike edasist mõõdetakse.
+**1. Mis on puudu** — Labori 1 CSV ja spekter lahti. Mitu volti anduri väljund liigub, mitu protsenti see on ADC vahemikust, mitu Pa on üks ADC samm. Siit tuleb otsus, mida op-amp peab tegema, ja esimene siht 0,2 … 3,3 V koos võimendusega. Tulemus: numbrid, mille vastu kõike edasist mõõdetakse.
 
 **2. Aste, esimene versioon** — Falstadis enne, maketeerimisplaadil pärast. Kaks tingimust, kaks võrrandit, takistid tulevad sealt. Müraallikas Falstadis näitab, miks siin üldse op-amp on. Plaadil mõõdetakse multimeetriga kolmes rõhus ja skoobiga kahe kanaliga. Tulemus: takistid, viitepinge, mõõdetu arvutatu kõrval — **ja parandada ei tohi veel midagi.**
 
@@ -36,7 +36,7 @@ Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 - Täidetud `README.md` koos arenduspäevikuga
 - `AGENTS.md` uuendatud
 
-Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad ostsilloskoobil anduri väljundit ja astme väljundit korraga sama impulsi peal, ütled esimese versiooni pealt, kus ta katki läks ja miks, näitad, kuidas pump uue signaaliga seisma jääb, ja avad oma arenduspäeviku. Umbes viis küsimust selle kohta, kuidas sa selle tegid. Kaitsta saab nii mitu korda, kui vaja.
+Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad ostsilloskoobil anduri väljundit ja op-ampi väljundit korraga sama impulsi peal, ütled esimese versiooni pealt, kus ta katki läks ja miks, näitad, kuidas pump uue signaaliga seisma jääb, ja avad oma arenduspäeviku. Umbes viis küsimust selle kohta, kuidas sa selle tegid. Kaitsta saab nii mitu korda, kui vaja.
 
 ### Hindamiskriteeriumid
 
@@ -44,7 +44,7 @@ Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad ostsilloskoobil andur
 | :--- | :--- |
 | Tööfailid — Atomi püsivara mõlema konfiguratsiooniga, logija `config` veeruga, CSV failid | 5 p |
 | Analüüs — Pa ühe sammu kohta enne ja pärast, spektrid kõrvuti, SNR, pumbajuhtimise uued numbrid | 5 p |
-| Prototüüp — aste plaadil mõõdetud kolmes rõhus enne ja pärast parandust, lõplik väljund mõlemas otsas lineaarne, pumbajuhtimine töötab uue signaaliga | 5 p |
+| Prototüüp — op-amp plaadil mõõdetud kolmes rõhus enne ja pärast parandust, lõplik väljund mõlemas otsas lineaarne, pumbajuhtimine töötab uue signaaliga | 5 p |
 | Dokumentatsioon — README, arenduspäevik, Falstadi eksport, `pump_control.md` uuendatud, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
 

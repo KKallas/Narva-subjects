@@ -25,7 +25,7 @@ See on **kaugjuhtimine läbi postkontori**, ja tal on postkontori omadused. Ta o
 
 Ja laua juurde tuleb **kaks kaamerat**, sest robotit, mida sa ei näe, sa ei käsuta. Üks kaamera ei näe mõlemat asja korraga. Kaamera, mis näeb kogu lauda, ei näe, kas napp on klaasi keskel. Kaamera, mis näeb nappa, ei näe, kuhu käsi läks. Seepärast on neid kaks: **veebikaamera laua kohal**, robotist kõrgemal, näeb kogu lauda, ja **kaamera tööriista küljes** näeb ainult otsikut ja seda, mis otse selle all on. Selles laboris jõuavad mõlemad pildid jaama lehele labori võrgus. Laboris 3 lähevad nad sealt läbi VPN-i edasi.
 
-Labori 1 lubadus kehtib edasi: **iga riistvara, mis Atomi külge tuleb, saab oma seaded ja testinupu sellele samale lehele.** Andmehõive Labor 2 paneb Atomi külge rõhuanduri koos astmega. Selle seaded ja test lähevad Atomi lehele, mitte uude kohta. Sinna lähevad ka postkontori aadress ja Atomi võti.
+Labori 1 lubadus kehtib edasi: **iga riistvara, mis Atomi külge tuleb, saab oma seaded ja testinupu sellele samale lehele.** Andmehõive Labor 2 paneb Atomi külge rõhuanduri koos op-ampiga. Selle seaded ja test lähevad Atomi lehele, mitte uude kohta. Sinna lähevad ka postkontori aadress ja Atomi võti.
 
 Selles laboris on kolm asja:
 
@@ -71,7 +71,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 * Laborist 1: jaam, MG400 baaspakett, `data/positions.json`, Atomi püsivara ja leht, aadressiplaan.
 * Õppejõult: droplet meeskonna kohta, õppejõu konto pealt. See on tühi server: Ubuntu ja ei midagi muud. Sina saadad oma avaliku SSH võtme, õppejõud paneb selle dropletisse ja saadab vastu dropleti aadressi ja lingi.
 * Riiulilt: USB veebikaamera (UHD), USB pikenduskaabel, Seeed Studio XIAO ESP32S3 Sense kaameramoodul (tootekood 113991115).
-* Andmehõive L2-st: rõhuandur koos astmega ja kalibratsioonikonstandid, mis Atomi lehele lähevad.
+* Andmehõive L2-st: rõhuandur koos op-ampiga ja kalibratsioonikonstandid, mis Atomi lehele lähevad.
 * 3D printimise L2-st: mõlema kaamera kinnitused — post, mis hoiab veebikaamerat robotist kõrgemal, ja kinnitus, mis hoiab kaameramoodulit iminapa tööriistahoidiku küljes koos toitega; ja laud, mida nad näevad: Gridfinity ruudustik, kus iga hoidiku koht on ruudu nimi.
 
 ### Vahendid
@@ -226,7 +226,7 @@ UHD on rohkem, kui WiFi ja sülearvuti mugavalt kannavad. Laua kaamera täislahu
 
 Mõõda kummagi kaamera kohta kolm asja: kui palju aega jääb sündmuse ja selle nägemise vahele, mitu kaadrit sekundis tuleb, ja kui palju ribalaiust see sööb. Siis mõõda **roboti juhtimise latentsus uuesti, mõlema kaamera töötamise ajal.** Kaamerad ja juhtimine käivad sama jaama ja sama võrgu kaudu ja kaamerad on neist kaugelt ahnemad. Kui latentsus kasvas, on sul valida: väiksem pilt, vähem kaadreid, üks kaamera korraga, või aeglasem juhtimine. Vali ja kirjuta põhjus välja.
 
-Atomi leht: Labori 1 lubadus. Andmehõive Labor 2 pani Atomi külge rõhuanduri koos astmega. Sellele lehele tulevad nüüd juurde anduri seaded — kalibratsioonikonstandid, mis Andmehõives välja tulid — ja testinupp, mis näitab korraga toorest ADC lugemit, pinget ja kPa. Kolm numbrit kõrvuti sellepärast, et kui üks neist on vale, näed sa kohe, kumb pool valesti on: andur või valem. Samale lehele lähevad serveri aadress, Atomi võti ja küsimisvahe, ja testinupp, mis teeb ühe kõne ja näitab, mida server vastas. Uut lehte ei tehta.
+Atomi leht: Labori 1 lubadus. Andmehõive Labor 2 pani Atomi külge rõhuanduri koos op-ampiga. Sellele lehele tulevad nüüd juurde anduri seaded — kalibratsioonikonstandid, mis Andmehõives välja tulid — ja testinupp, mis näitab korraga toorest ADC lugemit, pinget ja kPa. Kolm numbrit kõrvuti sellepärast, et kui üks neist on vale, näed sa kohe, kumb pool valesti on: andur või valem. Samale lehele lähevad serveri aadress, Atomi võti ja küsimisvahe, ja testinupp, mis teeb ühe kõne ja näitab, mida server vastas. Uut lehte ei tehta.
 
 Kirjuta üles: üks pilt kummastki kaamerast samal hetkel; kummagi lahutus, viide millisekundites, kaadreid sekundis, ribalaius; juhtimise latentsus ilma kaamerateta, ühega ja kahega; kuidas tööriista kaamera pilt jaamani jõuab; Atomi lehe seadete ja testide nimekiri failis `docs/atom_page.md`.
 

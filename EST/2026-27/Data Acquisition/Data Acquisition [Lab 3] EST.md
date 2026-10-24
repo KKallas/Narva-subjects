@@ -1,4 +1,4 @@
-## Andmehõive: Labor 3 — Tilk ja katkestus
+## Andmehõive: Labor 3 — Tilk ja IRQ
 
 **Töömaht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 28.10.26 | **Tellimise kuupäev:** 06.11.26 | **Esimene kaitsmine:** 19.11.26, veebis
 
@@ -23,16 +23,16 @@ Sellest tuleb kaks küsimust, ja need on selle labori kaks poolt.
 * **Otsik kõveneb kinni.** Päevavalguses on piisavalt UV-d, ja lamp on sealsamas kõrval. Kinni otsikuga süstal on suletud anum, kuhu pump puhub. Liim ei tule, rõhk tuleb.
 * **Süstal saab tühjaks.** Otsikust tuleb õhk, mitte liim, ja robot paneb klaasi kuiva Atomi peale.
 
-Mõlemal juhul peab klapp kohe tagasi minema ja robot peab teada saama. "Kohe" ei tähenda siis, kui jaam järgmine kord küsib. Jaam on sülearvuti teisel pool USB kaablit ja tal on parajasti muud teha. Otsus tehakse seal, kus on andur, ja seda ei tee programmi põhitsükkel, vaid **katkestus**: riistvara ise ütleb protsessorile, et nüüd, ja protsessor jätab kõik muu pooleli.
+Mõlemal juhul peab klapp kohe tagasi minema ja robot peab teada saama. "Kohe" ei tähenda siis, kui jaam järgmine kord küsib. Jaam on sülearvuti teisel pool USB kaablit ja tal on parajasti muud teha. Otsus tehakse seal, kus on andur, ja seda ei tee programmi põhitsükkel, vaid **katkestus (IRQ)**: riistvara ise ütleb protsessorile, et nüüd, ja protsessor jätab kõik muu pooleli.
 
-Laboris 2 lubati, et rõhu **kalle** on Labori 3 töö. Siin see on. Poolikut haaret eristas korralikust see, kui kiiresti rõhk langeb. Kinnist otsikut eristab lahtisest see, kuidas rõhk tõuseb. Mõlemad on tuletis, ja tuletisel on üks ebameeldiv omadus, mille sa Fourier' abil ise ära näed: ta võimendab müra, ja seda rohkem, mida kõrgem on sagedus. Seepärast tuleb filter enne tuletist, mitte pärast.
+Laboris 2 lubati, et rõhu **muutumise kiirus** (dP/dt, kPa/s) on Labori 3 töö. Siin see on. Poolikut haaret eristas korralikust see, kui kiiresti rõhk langeb. Kinnist otsikut eristab lahtisest see, kuidas rõhk tõuseb. Mõlemad on tuletis, ja tuletisel on üks ebameeldiv omadus, mille sa Fourier' abil ise ära näed: ta võimendab müra, ja seda rohkem, mida kõrgem on sagedus. Seepärast tuleb filter enne tuletist, mitte pärast.
 
 Selles laboris on neli asja:
 
 1. **Klapp ja impulss.** Atom lülitab klappi, impulsi pikkuse loeb riistvarataimer, ja ostsilloskoop ütleb, kui pikk impulss päriselt oli.
 2. **Tilga suurus.** Eri pikkusega impulsid, eri suurusega tilgad, iga tilga rõhukõver. Sealt tuleb retsept.
-3. **Filter ja tuletis.** Salvestatud kõverate peal: toores kalle, filtreeritud kalle, ja spekter, mis ütleb, miks üks neist on kasutu.
-4. **Katkestus.** Komparaator Falstadis, siis plaadil. Kinnine otsik ja tühi süstal päriselt läbi proovitud, ja reageerimise aeg ostsilloskoobilt.
+3. **Filter ja tuletis.** Salvestatud kõverate peal: toores muutumise kiirus, filtreeritud muutumise kiirus, ja spekter, mis ütleb, miks üks neist on kasutu.
+4. **Katkestus (IRQ).** Komparaator Falstadis, siis plaadil. Kinnine otsik ja tühi süstal päriselt läbi proovitud, ja reageerimise aeg ostsilloskoobilt.
 
 Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puuduv tellimuseks, mis läheb välja 06.11.
 
@@ -50,11 +50,12 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 - [ ] Anduri koht voolikus valitud ja põhjendatud.
 - [ ] Tilgad: vähemalt viis impulsi pikkust, kümme tilka igaühega, iga tilk mõõdetud ja iga tilga rõhukõver salvestatud. Fail `data/drops.csv`.
 - [ ] Teine muutuja läbi proovitud: teine otsik või teine rõhk, kolme impulsi pikkusega.
+- [ ] Atomi ekraanipoole mudelid prinditud päris AtomS3 mõõtude järgi. Tilk ja klaas mudeli peal, laigu suurus ja koht käsitsi mõõdetud. Fail `data/placement.csv`.
 - [ ] Retsept kirjas failis `docs/recipe.md`: otsik, rõhk, impulss, kõvendamise aeg, ja klaas selle tilga peal läbi proovitud.
-- [ ] Toores ja filtreeritud kalle kõrvuti samal kõveral, spektrid kõrvuti. Filter valitud numbritega.
-- [ ] Sama kalle Labori 2 pooliku haarde logil: kas "vaakum püsib" on nüüd otsus.
+- [ ] Toores ja filtreeritud muutumise kiirus kõrvuti samal kõveral, spektrid kõrvuti. Filter valitud numbritega.
+- [ ] Sama muutumise kiirus Labori 2 pooliku haarde logil: kas "vaakum püsib" on nüüd otsus.
 - [ ] Komparaator Falstadis: lülitub kinnise otsiku peale, ei lülitu tavalise tilga ega müra peale.
-- [ ] Komparaator plaadil, katkestus Atomis: klapp tagasi, alarm lukus, sündmus välja.
+- [ ] Komparaator plaadil, katkestus (IRQ) Atomis: klapp tagasi, alarm lukus, sündmus välja.
 - [ ] Reageerimise aeg ostsilloskoobilt, kümme korda, katkestusega ja ilma. Fail `docs/latency.csv`.
 - [ ] Kinnine otsik kümme korda ja tühi süstal kümme korda: mitu korda tabas. Tavaline tilk kolmkümmend korda: mitu valehäiret.
 - [ ] Tellimus 06.11 failis `docs/bom.md`.
@@ -64,7 +65,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Sisendid
 
-* Laborist 1 ja 2: andur koos astmega, 100 Hz logija, CSV formaat, pumbajuhtimine ribaga (`pump_control.md`), pooliku haarde logid.
+* Laborist 1 ja 2: andur koos op-ampiga, 100 Hz logija, CSV formaat, pumbajuhtimine ribaga (`pump_control.md`), pooliku haarde logid.
 * Õppejõult: 3/2 solenoidklapp, [M5Stack Mini 3A Relay Unit](https://shop.m5stack.com/products/mini-3a-relay-unit) klapi lülitamiseks, 4 mm Y-kiirliitmik rõhuanduri jaoks, UV-liim [Loctite 3494](https://www.etra.ee/et/loctite-3494-solvent-free-quick-drying-uv-adhesive-e34014210) (tuleb 25 ml süstlas ja tõstetakse ümber 10 cc mustadesse süstaldesse [Metcal 910-B](https://www.farnell.com/datasheets/3919444.pdf), üks süstla suurus), otsikud kolmes suuruses, otsikukorgid, UV kaitseprillid (365 nm), nitriilkindad, isopropanool.
 * Riiulilt: komparaator või LM358N teine pool, takistite ja kondensaatorite komplekt, ostsilloskoop, multimeeter, nihik.
 * 3D printimise L3-st: tööriist, mis hoiab süstalt, ja süstla õhuühendus, mis peab rõhku. Kuni seda ei ole, on süstal statiivis laua peal.
@@ -75,7 +76,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Vahendid
 
 1. AtomS3, USB-C kaablid
-2. Sinu andur ja aste Laborist 2
+2. Sinu andur ja op-amp Laborist 2
 3. 3/2 solenoidklapp, M5Stack Mini 3A Relay Unit, kaitsediood, 4 mm Y-kiirliitmik
 4. Loctite 3494 UV-liim, 10 cc mustad süstlad (Metcal 910-B) kolbidega, otsikud, otsikukorgid
 5. 365 nm UV LED ja draiver (sinu valitud, Mouserist); kaitseprillid, nitriilkindad, isopropanool, paberrätikud
@@ -92,7 +93,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 ### Taustainfo
 
-* **ESP32 katkestus**
+* **ESP32 katkestus / IRQ**
   [https://www.youtube.com/watch?v=WVK2Wx386XE](https://www.youtube.com/watch?v=WVK2Wx386XE)
 * **Schmitti triger** — komparaator, mis ei jää läve peal värisema
   [https://www.youtube.com/watch?v=Nrp8OgQLAlw](https://www.youtube.com/watch?v=Nrp8OgQLAlw)
@@ -160,31 +161,35 @@ Kolm asja, mida vaadata:
 
 Siis muuda teist asja ja korda lühemalt: teine otsik või teine rõhk, kolm impulsi pikkust. Kumb mõjutab tilka rohkem, kas aeg või ava?
 
-Ja lõpuks päris katse. Tilk Atomi mannekeeni peale, klaas peale, vaata läbi klaasi. Liim peab katma piisavalt, et hoida, ja ei tohi jõuda servani. Otsusta, milline tilk on paras. Kõvenda ja mõõda, kui kaua see võtab: millal klaas enam ei nihku.
+**Atomi ekraanipoole mudel.** Päris AtomS3 peale liimi ei proovita: iga liimitud tükk on kasutatud, ja selleks pole mõtet päris Atomit raisata. Tee Atomi ekraanipoolest mudel. Mõõda päris AtomS3 nihikuga: välismõõt, ekraani ava suurus ja koht, ja kui palju ekraan raamist madalamal on. Mudel on õhuke prinditud plaat, millel need kolm asja on samad, ja mis istub töökoha hoidikus nagu päris Atom. Ekraani ala märgi kontrastse joonega ära, et tilga kohta oleks näha. Prindi neid mitu, sest iga liimitud mudel jääb liimi alla.
 
-Kirjuta üles: read failis `data/drops.csv` (tilga number, otsik, rõhk, impulss ms, läbimõõt mm, mass mg kui on, kõvera fail, märkus); graafik, tilga suurus impulsi pikkuse vastu, hajuvusega; kõikumine protsentides iga pikkuse kohta; kas kõvera platoo või pindala käib tilga suurusega kaasas; retsept failis `docs/recipe.md` — otsik, rõhk, impulss, kõvendamise aeg, ja foto klaasist selle tilga peal.
+Ja lõpuks päris katse. Tilk mudeli peale, klaas peale, vaata läbi klaasi. Liim peab katma piisavalt, et hoida, ja ei tohi jõuda servani. Mõõda käsitsi kaks asja: kui suureks laik klaasi all vajus, ja kui kaugel ta keskpunkt on ekraani keskpunktist, x ja y eraldi. Nihik või foto joonlauaga kõrval. Otsusta, milline tilk on paras. Kõvenda ja mõõda, kui kaua see võtab: millal klaas enam ei nihku.
+
+Selles laboris mõõdad sa laigu ja koha käsitsi. Järgmises laboris teeb sama mõõtmise masin, ja tagasiside läheb otse doseerimisse. Seepärast kirjuta käsitsi mõõtmised üles samas kujus, mida masin hakkab hiljem võrdlema.
+
+Kirjuta üles: read failis `data/drops.csv` (tilga number, otsik, rõhk, impulss ms, läbimõõt mm, mass mg kui on, kõvera fail, märkus); graafik, tilga suurus impulsi pikkuse vastu, hajuvusega; kõikumine protsentides iga pikkuse kohta; kas kõvera platoo või pindala käib tilga suurusega kaasas; mudeli mõõdud ja kust need tulid; read failis `data/placement.csv` (mudeli number, tilga number, impulss ms, laigu läbimõõt klaasi all mm, nihe ekraani keskpunktist x ja y mm, kas jõudis servani, kuidas mõõdeti); retsept failis `docs/recipe.md` — otsik, rõhk, impulss, kõvendamise aeg, ja foto klaasist selle tilga peal.
 
 #### 3. Filter ja tuletis
 
 See osa käib arvutis, kõverate peal, mis sul juba on.
 
-Võta üks tilga kõver ja arvuta kalle kõige lihtsamal moel: `dP/dt = (P praegu − P eelmine) / 10 ms`. Joonista. See ei näe välja nagu kalle, vaid nagu müra, ja põhjus on arvutatav. Tuletis korrutab iga sageduse tema enda sagedusega: aeglane muutus, mida sa otsid, jääb väikeseks, ja kiire värin, mida sa ei otsi, kasvab suureks. Tee spekter signaalist ja spekter tuletisest ja pane kõrvuti. Suhe igal sagedusel on `2πf`. Labori 1 spektrist tead sa juba, millised tipud seal on; nüüd näed, milline neist tuletise ära rikub.
+Võta üks tilga kõver ja arvuta rõhu muutumise kiirus kõige lihtsamal moel: `dP/dt = (P praegu − P eelmine) / 10 ms`. Joonista. See ei näe välja nagu kõvera tõus, vaid nagu müra, ja põhjus on arvutatav. Tuletis korrutab iga sageduse tema enda sagedusega: aeglane muutus, mida sa otsid, jääb väikeseks, ja kiire värin, mida sa ei otsi, kasvab suureks. Tee spekter signaalist ja spekter tuletisest ja pane kõrvuti. Suhe igal sagedusel on `2πf`. Labori 1 spektrist tead sa juba, millised tipud seal on; nüüd näed, milline neist tuletise ära rikub.
 
 Seega filter enne. Proovi vähemalt kahte: libisev keskmine ja mediaan. Nad ei tee sama asja — keskmine määrib üksiku terava tipu laiali, mediaan viskab ta välja. Iga filtri kohta kaks numbrit: kui palju müra tuletises alles jäi, ja **kui palju filter hiljaks jääb**. Filter ei ole tasuta. Kümne punkti keskmine teab muutusest alles siis, kui see on juba pool oma akent vana. Katkestuse jaoks on see viivitus osa reageerimise ajast.
 
 Vali üks. Põhjus on kaks numbrit kõrvuti, mitte "tundus sujuvam".
 
-Siis tee sama asi, mille Labor 2 lubas. Võta pooliku haarde logid ja arvuta nende peal filtreeritud kalle pärast pumba väljalülitumist. Laboris 2 küsiti, mitu sekundit kulub, enne kui poolik haare on korralikust eristatav. Nüüd on küsimus: kas on olemas kalde lävi, mis eristab nad ära, ja kui kiiresti? See on otsus "vaakum püsib", ja robot tõstab selle peale.
+Siis tee sama asi, mille Labor 2 lubas. Võta pooliku haarde logid ja arvuta nende peal filtreeritud muutumise kiirus pärast pumba väljalülitumist. Laboris 2 küsiti, mitu sekundit kulub, enne kui poolik haare on korralikust eristatav. Nüüd on küsimus: kas on olemas muutumise kiiruse lävi, mis eristab nad ära, ja kui kiiresti? See on otsus "vaakum püsib", ja robot tõstab selle peale.
 
-Ja lõpuks see, mille pärast osa 4 olemas on. Pane kolm kõverat kõrvuti: tavaline tilk, kinnine otsik, tühi süstal. Mis neid eristab — tõusu kalle, platoo kõrgus, või see, kuidas rõhk pärast klapi sulgumist langeb? Seda ei tea ette keegi. Vaata oma andmeid ja vali tunnus, mille järgi katkestus lülitub.
+Ja lõpuks see, mille pärast osa 4 olemas on. Pane kolm kõverat kõrvuti: tavaline tilk, kinnine otsik, tühi süstal. Mis neid eristab — tõusu kiirus, platoo kõrgus, või see, kuidas rõhk pärast klapi sulgumist langeb? Seda ei tea ette keegi. Vaata oma andmeid ja vali tunnus, mille järgi katkestus lülitub.
 
-Kirjuta üles: toores ja filtreeritud kalle samal kõveral; spektrid kõrvuti; iga filtri müra ja viivitus, ja kumma sa valisid; kalde lävi korraliku ja pooliku haarde vahel ja aeg otsuseni; kolm doseerimise kõverat kõrvuti ja tunnus, mis neid eristab, numbritega.
+Kirjuta üles: toores ja filtreeritud muutumise kiirus samal kõveral; spektrid kõrvuti; iga filtri müra ja viivitus, ja kumma sa valisid; muutumise kiiruse lävi korraliku ja pooliku haarde vahel ja aeg otsuseni; kolm doseerimise kõverat kõrvuti ja tunnus, mis neid eristab, numbritega.
 
 #### 4. Katkestus
 
 Nüüd tehakse sama otsus riistvaras.
 
-**Falstadis enne.** Komparaator võrdleb kahte pinget ja tema väljund on üks kahest: kõrge või madal. Ühes sisendis on sinu signaal — kas astme väljund ise või tema tuletis, olenevalt sellest, mille sa osas 3 valisid —, teises on lävi. Kolm sisendit, mida proovida: tavaline tilk, kinnine otsik, ja tavaline tilk, mille peal on müra. Komparaator peab lülituma teise peale ja mitte esimese ega kolmanda peale.
+**Falstadis enne.** Komparaator võrdleb kahte pinget ja tema väljund on üks kahest: kõrge või madal. Ühes sisendis on sinu signaal — kas op-ampi väljund ise või tema tuletis, olenevalt sellest, mille sa osas 3 valisid —, teises on lävi. Kolm sisendit, mida proovida: tavaline tilk, kinnine otsik, ja tavaline tilk, mille peal on müra. Komparaator peab lülituma teise peale ja mitte esimese ega kolmanda peale.
 
 Kolmas on see, mis esimesel korral ei õnnestu. Kui signaal on täpselt läve juures, lülitab müra komparaatorit edasi-tagasi kümneid kordi. Lahendus on **hüsterees**: natuke väljundist tagasi sisendisse, nii et sisselülitamise lävi on kõrgemal kui väljalülitamise oma. See on Schmitti triger, ja see on sama mõte, mis Labori 1 pumbajuhtimise riba: kaks läve ühe asemel, et asi värisema ei jääks. Takistid tulevad Falstadist.
 
@@ -237,7 +242,7 @@ Mõtle näiteks: kas LED ja draiver, mille meeskond valis, sobivad kokku — voo
 | Kategooria | Punktid |
 | :--- | :--- |
 | Tööfailid — Atomi püsivara taimeri, katkestuse ja alarmi lukuga, logija, `drops.csv` koos kõveratega, analüüsi märkmik | 5 p |
-| Analüüs — impulss käsu ja mõõdetu kõrval, tilga suurus impulsi vastu hajuvusega, toores ja filtreeritud kalle spektritega, filtri viivitus, reageerimise aeg katkestusega ja ilma | 5 p |
+| Analüüs — impulss käsu ja mõõdetu kõrval, tilga suurus impulsi vastu hajuvusega, toores ja filtreeritud muutumise kiirus spektritega, filtri viivitus, reageerimise aeg katkestusega ja ilma | 5 p |
 | Prototüüp — klapp vooluta napa peal, tilk retsepti järgi hoiab klaasi ja ei jõua servani, kinnine otsik ja tühi süstal annavad alarmi, tavaline tilk ei anna | 5 p |
 | Dokumentatsioon — README, arenduspäevik, `recipe.md`, `latency.csv`, Falstadi eksport, `pump_control.md` uuendatud, `bom.md`, AGENTS.md | 5 p |
 | **Kokku** | **20 p** |
@@ -248,7 +253,7 @@ Link git repole, tag `data-acquisition-lab3`.
 
 Kaitsmine on lihtne suuline 15 minuti jutuajamine. Teed ühe tilga retsepti järgi ja näitad selle rõhukõverat. Paned peale kinnise otsiku ja näitad ostsilloskoobil, kuidas klapp lahti lastakse ja kui kiiresti. Näitad, et teine tilk ei tule enne, kui alarm on maha võetud. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Repos on kaustas `data-acquisition/lab3/`: `src/` püsivara ja logijaga, `data/` kaustas `drops.csv` ja kõverad, `notebooks/` tilkade, kalde ja spektritega, `docs/` skeemi foto, ostsilloskoobi piltide, Falstadi ekspordi, `recipe.md`, `latency.csv`, uuendatud `pump_control.md` ja `bom.md`-ga, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
+Repos on kaustas `data-acquisition/lab3/`: `src/` püsivara ja logijaga, `data/` kaustas `drops.csv`, `placement.csv` ja kõverad, ekraanipoole mudeli lähtefail ja STL, `notebooks/` tilkade, muutumise kiiruse ja spektritega, `docs/` skeemi foto, ostsilloskoobi piltide, Falstadi ekspordi, `recipe.md`, `latency.csv`, uuendatud `pump_control.md` ja `bom.md`-ga, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 
@@ -268,6 +273,7 @@ Omadussõnad ei ole tulemused. "Tilgad olid ebaühtlased" ei ole midagi; "200 ms
 * Nutikad Lahendused L3: klapi ja LED-i käsud, mille seaded ja testinupud lähevad Atomi lehele; alarmi sündmus, mille peale jaam roboti peatab.
 * 3D printimine L3: kui pikk tohib voolik klapi ja süstla vahel olla, ja kus andur istub.
 * Andmehõive L4: retsept ja kõverad, mille peale ehitatakse sajad tsüklid; kolm märgistatud olukorda — tavaline, kinnine, tühi.
+* Andmehõive L4: käsitsi mõõdetud laigu suurused ja kohad failis `placement.csv` — võrdlus, mille vastu masin oma mõõtmist kontrollib, kui tagasiside automatiseeritakse.
 * Andmehõive L4: relee piirid numbritena — viivitus, põrge, kontakti eluiga —, mille vastu MOSFET-i võrreldakse.
 
 **KAARDISTA ISE, lõpus.**
