@@ -103,7 +103,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 #### 1. MOSFET
 
-Laboris 3 käis klappi lülitama relee: mehaaniline kontakt, mis põrkab, kulub ja ei jõua kiiresti. Nüüd tuleb tema asemele IRLZ34N. Ta on lüliti, millel ei ole liikuvaid osi: Atomi viik paneb tema paisule pinge, ja ta laseb voolu läbi.
+Laboris 3 käis klappi lülitama relee: mehaaniline kontakt, mis põrkab, kulub ja ei jõua kiiresti. Nüüd tuleb tema asemele IRLZ34N. Ta on lüliti, millel ei ole liikuvaid osi: Atomi viik paneb tema paisule (*gate*, andmelehel G) pinge, ja ta laseb voolu läbi.
 
 Kolm asja peavad paigas olema. **Paisu takisti** viigu ja paisu vahel piirab voolu, mis paisu laadimisel tekib. **Allatõmbetakisti** paisult maasse hoiab MOSFET-i kinni, kui Atom on vooluta või alles käivitub — muidu jääb pais hõljuma ja klapp võib ise lahti minna. **Kaitsediood** jääb klapi mähise peale samamoodi nagu Laboris 3, sest mähis teeb väljalülitamisel sama pingetipu, ükskõik mis teda lülitab. Ilma dioodita ei ela MOSFET seda kaua üle.
 
