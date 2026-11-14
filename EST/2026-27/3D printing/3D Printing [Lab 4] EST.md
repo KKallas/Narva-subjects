@@ -86,13 +86,19 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Taustainfo
 
 * **Generatiivne disain Fusionis**
-  (link puudu)
+  [https://www.youtube.com/watch?v=PSSt8wswNJQ](https://www.youtube.com/watch?v=PSSt8wswNJQ)
+  Lühidalt: mis peab jääma ja kuhu materjali panna ei tohi
+  [https://www.youtube.com/watch?v=lbDFC0oD-e0](https://www.youtube.com/watch?v=lbDFC0oD-e0)
 * **Staatiline simulatsioon Fusionis** — koormus, kinnitus, võrgusilm
-  (link puudu)
+  [https://www.youtube.com/watch?v=qXljJk7TZZE](https://www.youtube.com/watch?v=qXljJk7TZZE)
+  Sama pikemalt
+  [https://www.youtube.com/watch?v=wsF_tEp_4tE](https://www.youtube.com/watch?v=wsF_tEp_4tE)
 * **Disain FDM printimiseks** — ribid, seina paksus, kaldserv toe asemel
-  (link puudu)
+  [https://www.youtube.com/watch?v=_R2E8VwyNz0](https://www.youtube.com/watch?v=_R2E8VwyNz0)
+  Ja detailid, mis tuge ei vaja
+  [https://www.youtube.com/watch?v=RPijCjz9G1w](https://www.youtube.com/watch?v=RPijCjz9G1w)
 * **Topoloogia optimeerimine** — mida generatiivne disain kapoti all teeb
-  (link puudu)
+  [https://www.youtube.com/watch?v=_erS8dRxILM](https://www.youtube.com/watch?v=_erS8dRxILM)
 
 *Lisa siia oma allikaid ja kasulikku infot, mis aitaks sul projektist aru saada ka aastaid hiljem, kui selle uuesti lahti teed.*
 

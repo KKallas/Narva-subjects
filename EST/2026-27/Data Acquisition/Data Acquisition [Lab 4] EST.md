@@ -61,13 +61,13 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 * 3D printimise L3-st: tööriist süstla, lambi ja kaameraga, kolm nihet failis `tool_offsets.md`, prügitops ja otsiku parkimiskoht.
 * 3D printimise L4-st: kui detail laual vahetub, kuupäev — kirjed enne ja pärast ei pruugi olla võrreldavad.
 * Nutikate Lahenduste L4-st: ühine andmebaas, kirje kuju ja töövoo salvestaja, millega robot tsükleid kordab.
-* Õppejõult: MOSFET IRLZ44N, vaiguga täidetud süstlad, kaal 0,01 g.
+* Õppejõult: MOSFET IRLZ34N, vaiguga täidetud süstlad, kaal 0,01 g.
 
 ### Vahendid
 
 1. MG400 koos pumbakasti, napi, klapi ja tööriistaga
 2. AtomS3, andur ja op-amp, komparaator ja katkestus Laborist 3
-3. IRLZ44N, kaitsediood, takistid, maketeerimisplaat
+3. IRLZ34N, kaitsediood, takistid, maketeerimisplaat
 4. Ostsilloskoop, kaks kanalit; multimeeter
 5. Tööriista kaamera, tilgaplaadid, vahetükid, viis polükarbonaatklaasi ringluseks
 6. Vaiguga täidetud süstlad, otsikud, otsikukorgid, kaitseprillid 405 nm jaoks, nitriilkindad, isopropanool
@@ -81,19 +81,19 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Taustainfo
 
 * **MOSFET lülitina** — miks ta kütab vähem ja lülitab kiiremini kui relee
-  (link puudu)
+  [https://www.youtube.com/watch?v=XiOcxyyTxy4](https://www.youtube.com/watch?v=XiOcxyyTxy4)
 * **Loogikatasemega MOSFET** — miks 3,3 V viik ei ava iga MOSFET-i
-  (link puudu)
+  [https://www.youtube.com/watch?v=GrvvkYTW_0k](https://www.youtube.com/watch?v=GrvvkYTW_0k)
 * **PWM ja mähise hoidevool**
-  (link puudu)
+  [https://www.youtube.com/watch?v=KymiLQwKpMY](https://www.youtube.com/watch?v=KymiLQwKpMY)
 * **Lineaarne regressioon ja vähimruutude meetod**
-  (link puudu)
+  [https://www.youtube.com/watch?v=PaFPbb66DxQ](https://www.youtube.com/watch?v=PaFPbb66DxQ)
 * **Õppe- ja kontrolliandmed** — miks mudelit ei kontrollita samadel andmetel, millega ta sobitati
-  (link puudu)
+  [https://www.youtube.com/watch?v=_vdMKioCXqQ](https://www.youtube.com/watch?v=_vdMKioCXqQ)
 * **Tagasiside ja P-regulaator**
-  (link puudu)
+  [https://www.youtube.com/watch?v=E0rdLQLMZdA](https://www.youtube.com/watch?v=E0rdLQLMZdA)
 * **Katseplaneerimine ja juhuslik järjekord**
-  (link puudu)
+  [https://www.youtube.com/watch?v=rbW9rs7rFis](https://www.youtube.com/watch?v=rbW9rs7rFis)
 
 *Lisa siia oma allikaid ja kasulikku infot, mis aitaks sul projektist aru saada ka aastaid hiljem, kui selle uuesti lahti teed.*
 
@@ -103,11 +103,11 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 
 #### 1. MOSFET
 
-Laboris 3 käis klappi lülitama relee: mehaaniline kontakt, mis põrkab, kulub ja ei jõua kiiresti. Nüüd tuleb tema asemele IRLZ44N. Ta on lüliti, millel ei ole liikuvaid osi: Atomi viik paneb tema paisule pinge, ja ta laseb voolu läbi.
+Laboris 3 käis klappi lülitama relee: mehaaniline kontakt, mis põrkab, kulub ja ei jõua kiiresti. Nüüd tuleb tema asemele IRLZ34N. Ta on lüliti, millel ei ole liikuvaid osi: Atomi viik paneb tema paisule pinge, ja ta laseb voolu läbi.
 
 Kolm asja peavad paigas olema. **Paisu takisti** viigu ja paisu vahel piirab voolu, mis paisu laadimisel tekib. **Allatõmbetakisti** paisult maasse hoiab MOSFET-i kinni, kui Atom on vooluta või alles käivitub — muidu jääb pais hõljuma ja klapp võib ise lahti minna. **Kaitsediood** jääb klapi mähise peale samamoodi nagu Laboris 3, sest mähis teeb väljalülitamisel sama pingetipu, ükskõik mis teda lülitab. Ilma dioodita ei ela MOSFET seda kaua üle.
 
-IRLZ44N on loogikatasemega: ta avaneb juba madala paisupingega. Aga 3,3 V on tema jaoks ikka piiri lähedal. Mõõda, kui palju pinget jääb MOSFET-i peale, kui klapp on voolu all, ja kui soojaks ta läheb. Kui pinge on suur, ei ole ta täiesti lahti.
+IRLZ34N on loogikatasemega: ta avaneb juba madala paisupingega. Aga 3,3 V on tema jaoks ikka piiri lähedal. Mõõda, kui palju pinget jääb MOSFET-i peale, kui klapp on voolu all, ja kui soojaks ta läheb. Kui pinge on suur, ei ole ta täiesti lahti.
 
 Siis samad mõõtmised, mis relee peal. Ostsilloskoobi üks kanal Atomi viigul, teine klapi mähisel. Kui palju aega kulub käsust mähiseni, sisse ja välja? Kas serv põrkab? Mis on nüüd lühim tilk, mida süsteem teha saab — ja kes on nüüd aeglasem, lüliti või klapp ise? Ja üks asi, mida relee ei osanud: **PWM**. Klapp vajab avanemiseks täisvoolu, aga lahti hoidmiseks vähem. Pane pärast avanemist PWM peale ja mõõda, kui palju mähise vool langeb ja kui palju vähem ta soojeneb, ilma et klapp kinni kukuks.
 
@@ -207,7 +207,7 @@ Tellimus läheb välja 27.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita.
 
-Mõtle näiteks: kas IRLZ44N-e on varuks, kui üks läheb katki; kas kaitsediood kannab klapi voolu ka PWM-iga; mis takistid paisule ja allatõmbeks; kas otsikuid ja korke jätkub sadade tilkade jaoks; mitu tilgaplaati 300 tsüklit vajab ja kas filamenti jätkub; ja kas vaiku jätkub, kui iga tilk on paar mikroliitrit ja iga süstla vahetus kulutab ka.
+Mõtle näiteks: kas IRLZ34N-e on varuks, kui üks läheb katki; kas kaitsediood kannab klapi voolu ka PWM-iga; mis takistid paisule ja allatõmbeks; kas otsikuid ja korke jätkub sadade tilkade jaoks; mitu tilgaplaati 300 tsüklit vajab ja kas filamenti jätkub; ja kas vaiku jätkub, kui iga tilk on paar mikroliitrit ja iga süstla vahetus kulutab ka.
 
 ### Hindamiskriteeriumid
 
