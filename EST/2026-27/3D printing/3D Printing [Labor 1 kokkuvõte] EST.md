@@ -2,6 +2,8 @@
 
 **Maht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 08.10.26, veebis
 
+**Muudatus 14.11.26:** iga Fusioni disain peab olema repos Fusioni arhiivina (`.f3d` või `.f3z`), et õppejõud saaks ta lahti teha. See kehtib nüüdsest kõigis laborites.
+
 ### Mida teete
 
 Aasta lõpuks paneb MG400 kokku sildi: AtomS3, mille ekraani peale on liimitud polükarbonaatklaas. Iga detail, mis roboti külge kinnitub või elektroonikat hoiab, tuleb selles ruumis printerist välja. See labor räägib sellest printerist ja lõpeb esimese tööriistaga roboti küljes: pastakahoidikuga. Sama meeskond teeb kõiki kolme ainet: sina kirjutad programmi ja sina teed pastaka otsiku. **Vajuta tähte, robot joonistab selle.**
@@ -25,7 +27,7 @@ Tellimuse paneb kokku meeskond ise, jagatud Google Sheetis. Tellimus läheb väl
 ### Kaitsmiseks on vaja
 
 **Ainult git repositooriumi link, tag `3d-print-lab1`.** Repos peab olema:
-- Lähtefailid, STL ja `.3mf` iga prindi kohta
+- Lähtefailid (Fusioni disainid arhiivina, `.f3d` või `.f3z`), STL ja `.3mf` iga prindi kohta
 - Täidetud tööleht `README.md`-na koos arenduspäevikuga
 - `AGENTS.md` uuendatud
 

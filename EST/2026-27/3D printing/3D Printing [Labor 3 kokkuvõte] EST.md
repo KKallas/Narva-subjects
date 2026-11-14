@@ -2,6 +2,8 @@
 
 **Maht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Välja antud:** 27.10.26 | **Tellimise kuupäev:** 06.11.26 | **Esimene kaitsmine:** 19.11.26, veebis
 
+**Muudatus 14.11.26:** iga Fusioni disain peab olema repos Fusioni arhiivina (`.f3d` või `.f3z`), et õppejõud saaks ta lahti teha. See kehtib nüüdsest kõigis laborites.
+
 ### Mida teete
 
 Laud on valmis ja hoidikud on ruudustikus. Käe otsas on napp ja kaamera, ja sellega saab tõsta. Aga silt ei saa kokku ainult tõstmisega: klaas **liimitakse** Atomi ekraani peale. Liim on 3D-printeri vaik, mis kõveneb 405 nm valguse käes. Seega peab robot oskama kolme asja: **tõsta** iminapaga, **doseerida** süstlaga, millest õhurõhk surub tilga välja, ja **kõvendada** UV LED-iga läbi klaasi. Käsi on üks, nii et kõik kolm on ühes tööriistas, koos kaameraga Laborist 2.
@@ -35,7 +37,7 @@ Tellimus läheb välja 06.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 ### Kaitsmiseks on vaja
 
 **Ainult git repositooriumi link, tag `3d-print-lab3`.** Kaustas `3d-print/lab3/` peab olema:
-- lähtefailid, STL ja `.3mf` iga prindi kohta
+- lähtefailid (Fusioni disainid arhiivina, `.f3d` või `.f3z`), STL ja `.3mf` iga prindi kohta
 - `docs/`: `tool_layout.md`, `tool_offsets.md`, `leak_test.csv`, `cycle_test.csv`, `bom.md`, fotod
 - Täidetud `README.md` koos arenduspäevikuga
 - `AGENTS.md` uuendatud

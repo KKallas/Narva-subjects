@@ -2,6 +2,8 @@
 
 **Töömaht:** 28 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 27.10.26 | **Tellimise kuupäev:** 06.11.26 | **Esimene kaitsmine:** 19.11.26, veebis
 
+**Muudatus 14.11.26:** iga Fusioni disain peab olema repos Fusioni arhiivina (`.f3d` või `.f3z`), et õppejõud saaks ta lahti teha. See kehtib nüüdsest kõigis laborites ja on lisatud kontrollnimekirja ja kaitsmise ossa.
+
 ### Kuidas see dokument töötab
 
 * Repo ja töökord on Laborist 1 olemas ja samad.
@@ -56,6 +58,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 - [ ] Prügitopsi hoidik ja otsiku parkimiskoht ruudustikus.
 - [ ] Kuiv läbijooks: mine doseerimise kohta, tõsta klaas, mine kõvendamise kohta, 20 korda. Miski ei haagi. Tulemus failis `docs/cycle_test.csv`.
 - [ ] Tellimus 06.11 failis `docs/bom.md`.
+- [ ] Iga Fusioni disain on repos Fusioni arhiivina (File → Export: `.f3d`, lingitud osadega disainil `.f3z`), et õppejõud saaks ta lahti teha.
 - [ ] Repo ja arenduspäevik täidetud, tag `3d-print-lab3`.
 
 **KAARDISTA ISE — kuupäevad ja sinu enda sammud.**
@@ -256,7 +259,7 @@ Link git repole, tag `3d-print-lab3`.
 
 Kaitsmine on lihtne suuline 15 minuti jutuajamine. Vahetad süstla ühe käega. Robot teeb ühe kuiva ringi: läheb doseerimise asendisse, tõstab klaasi, läheb kõvendamise asendisse, paneb klaasi ära. Näitad paberil, kuhu lambi laik langeb. Avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Repos on kaustas `3d-print/lab3/`: lähtefailid, STL ja `.3mf` iga prindi kohta, `docs/` kaustas `tool_layout.md`, `tool_offsets.md`, `leak_test.csv`, `cycle_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
+Repos on kaustas `3d-print/lab3/`: lähtefailid (Fusioni disainid arhiivina, `.f3d` või `.f3z`), STL ja `.3mf` iga prindi kohta, `docs/` kaustas `tool_layout.md`, `tool_offsets.md`, `leak_test.csv`, `cycle_test.csv`, `bom.md` ja fotod, `README.md` selle labori kohta, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 

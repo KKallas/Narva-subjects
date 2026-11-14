@@ -2,6 +2,8 @@
 
 **Töömaht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskond:** 3 tudengit | **Välja antud:** 11.09.26 | **Tellimise kuupäev:** 22.09.26 | **Esimene kaitsmine:** 08.10.26, veebis
 
+**Muudatus 14.11.26:** iga Fusioni disain peab olema repos Fusioni arhiivina (`.f3d` või `.f3z`), et õppejõud saaks ta lahti teha. See kehtib nüüdsest kõigis laborites ja on lisatud kontrollnimekirja ja kaitsmise ossa.
+
 ### Kuidas see dokument töötab
 
 * Kopeeri see fail esimesel päeval oma repo laborikausta `README.md`-ks ja täida seal, töö käigus.
@@ -33,6 +35,7 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 - [ ] Kuup prinditud, lõtk teada.
 - [ ] Paindlik tükk prinditud, murdumise koht ja plastilise paindumise piir teada.
 - [ ] Pastakahoidik roboti küljes, annab järele. Robot joonistab sellega tähe, mida ESP32 näitab.
+- [ ] Iga Fusioni disain on repos Fusioni arhiivina (File → Export: `.f3d`, lingitud osadega disainil `.f3z`), et õppejõud saaks ta lahti teha.
 - [ ] Repo ja arenduspäevik täidetud, tag `3d-print-lab1`.
 
 **KAARDISTA ISE — kuupäevad ja sinu enda sammud.**
@@ -131,7 +134,7 @@ Link git repole, tag `3d-print-lab1`.
 
 Kaitsmine on lihtne suuline 15 minuti jutuajamine. Näitad, kuidas robot joonistab tähte, mida ESP32 näitab, ja avad oma arenduspäeviku. Õppejõud küsib umbes viis küsimust selle kohta, kuidas sa selle tegid. Kui esimesel korral ei õnnestu, tuled uuesti.
 
-Repos on kaustas `3d-print/lab1/`: lähtefailid, STL ja `.3mf` iga prindi kohta, see fail kui `README.md`, ja `AGENTS.md` uuendatud.
+Repos on kaustas `3d-print/lab1/`: lähtefailid (Fusioni disainid arhiivina, `.f3d` või `.f3z`), STL ja `.3mf` iga prindi kohta, see fail kui `README.md`, ja `AGENTS.md` uuendatud.
 
 ### Arenduspäevik
 

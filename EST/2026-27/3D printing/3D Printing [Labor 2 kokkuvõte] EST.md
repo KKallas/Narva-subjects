@@ -2,6 +2,8 @@
 
 **Maht:** 30 tundi | **Hindamine:** 20 punkti | **Meeskonnatöö:** 3-liikmelised meeskonnad | **Välja antud:** 06.10.26 | **Tellimise kuupäev:** 16.10.26 | **Esimene kaitsmine:** 29.10.26, veebis
 
+**Muudatus 14.11.26:** iga Fusioni disain peab olema repos Fusioni arhiivina (`.f3d` või `.f3z`), et õppejõud saaks ta lahti teha. See kehtib nüüdsest kõigis laborites.
+
 ### Mida teete
 
 Töölaud on olemas ja selle disain ka: Fusioni fail [MG 400 rakis.f3z](MG%20400%20rakis.f3z) ja kirjeldus [MG 400 rakis.md](MG%20400%20rakis.md), mida on hea anda oma AI agendile, et ta teaks, mis Fusionis juba tehtud on. Laud on PLA-st prinditud. Robot seisab oma aluses ja tema ees on **Gridfinity ruudustik**, 7 × 10 ruutu, samm 42 mm. Kõik, mis laua peal elab, on Gridfinity hoidik, mis kukub ruudustikku. Ruudu nimi on täht ja märgiga number, näiteks `B-2`: täht on kaugus robotist, number on külg keskjoonest.
@@ -35,7 +37,7 @@ Tellimus läheb välja 16.10.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 ### Kaitsmiseks on vaja
 
 **Ainult git repositooriumi link, tag `3d-print-lab2`.** Kaustas `3d-print/lab2/` peab olema:
-- lähtefailid, STL ja `.3mf` iga prindi kohta
+- lähtefailid (Fusioni disainid arhiivina, `.f3d` või `.f3z`), STL ja `.3mf` iga prindi kohta
 - `docs/`: `layout.md`, `refit_test.csv`, `bom.md`, fotod
 - Täidetud `README.md` koos arenduspäevikuga
 - `AGENTS.md` uuendatud
