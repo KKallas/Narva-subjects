@@ -2,6 +2,8 @@
 
 Tudengite repod on siin lingina (git submodule), mitte koopiana. Iga link on lukus selle tagi peal, mis viimati läbi vaadati.
 
+Meeskonnad, kelle üks repo katab kõiki kolme ainet, on kaustas [`../../homework/`](../../homework/README.md).
+
 | Kaust | Repo | Lukus tagil | Commit | Märkus |
 | :--- | :--- | :--- | :--- | :--- |
 | `Dennel04/` | [Dennel04/data-acquisition-course](https://github.com/Dennel04/data-acquisition-course) | `data-acquisition-lab1` | `4c18e9e` | Labor 1. **UUENDA:** järgmine on `data-acquisition-lab2` |

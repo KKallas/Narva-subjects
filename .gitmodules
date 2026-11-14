@@ -1,3 +1,12 @@
 [submodule "EST/2026-27/Data Acquisition/homework/Dennel04"]
 	path = EST/2026-27/Data Acquisition/homework/Dennel04
 	url = https://github.com/Dennel04/data-acquisition-course.git
+[submodule "EST/2026-27/homework/AVeske/Robootika"]
+	path = EST/2026-27/homework/AVeske/Robootika
+	url = https://github.com/AVeske/Robootika.git
+[submodule "EST/2026-27/homework/AVeske/ESP32-Image-Server-Fork"]
+	path = EST/2026-27/homework/AVeske/ESP32-Image-Server-Fork
+	url = https://github.com/AVeske/ESP32-Image-Server-Fork.git
+[submodule "EST/2026-27/homework/AVeske/mg400-base-Fork"]
+	path = EST/2026-27/homework/AVeske/mg400-base-Fork
+	url = https://github.com/AVeske/mg400-base-Fork.git
