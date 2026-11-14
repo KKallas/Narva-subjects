@@ -86,17 +86,17 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 ### Taustainfo
 
 * **MQTT** — teated teema järgi, vahendaja keskel
-  (link puudu)
+  [https://www.youtube.com/watch?v=3wriUGpurLk](https://www.youtube.com/watch?v=3wriUGpurLk)
 * **MQTT teenustase (QoS)** — mis vahe on "kord", "vähemalt kord" ja "täpselt kord"
-  (link puudu)
+  [https://www.youtube.com/watch?v=hvhtJORsE5Y](https://www.youtube.com/watch?v=hvhtJORsE5Y)
 * **Aegridade andmebaas** — sildid ja väljad, miks silte ei tohi olla lõputult
-  (link puudu)
+  [https://www.youtube.com/watch?v=kHIjROe0ZpA](https://www.youtube.com/watch?v=kHIjROe0ZpA)
 * **Puhver ja korduvsaatmine** — kuidas mitte saata sama kirjet kaks korda
-  (link puudu)
+  [https://www.youtube.com/watch?v=jfHBrweuKRA](https://www.youtube.com/watch?v=jfHBrweuKRA)
 * **MCP** — kuidas agent küsib programmilt tööriistu ja kutsub neid välja
-  (link puudu)
+  [https://www.youtube.com/watch?v=CDjjaTALI68](https://www.youtube.com/watch?v=CDjjaTALI68)
 * **JSON-RPC** — üks päring, üks vastus, number vahel
-  (link puudu)
+  [https://www.youtube.com/watch?v=WEp6b5mfnuI](https://www.youtube.com/watch?v=WEp6b5mfnuI)
 * **Andmebaasi konsultatsioon** — MQTT, andmebaas ja kirje kuju samm-sammult. Aeg lepitakse meeskondadega jooksvalt kokku. Tule sinna oma kirje kujuga.
   [Ainepassi kontakttunnid](../../Smart%20Solutions/SVNC.00.321_SO%20EST%20v2.md#kontakttundide-ajakava)
 
