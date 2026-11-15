@@ -61,13 +61,13 @@ Esimesel päeval uusi osi ei ole. Ehita sellest, mis riiulil on, ja kirjuta puud
 * 3D printimise L3-st: tööriist süstla, lambi ja kaameraga, kolm nihet failis `tool_offsets.md`, prügitops ja otsiku parkimiskoht.
 * 3D printimise L4-st: kui detail laual vahetub, kuupäev — kirjed enne ja pärast ei pruugi olla võrreldavad.
 * Nutikate Lahenduste L4-st: ühine andmebaas, kirje kuju ja töövoo salvestaja, millega robot tsükleid kordab.
-* Õppejõult: MOSFET IRLZ34N, vaiguga täidetud süstlad, kaal 0,01 g.
+* Õppejõult: MOSFET IRLZ34N, voolu- ja pingeandur INA219, 0,22 Ω 1 W takistid, vaiguga täidetud süstlad, kaal 0,01 g.
 
 ### Vahendid
 
 1. MG400 koos pumbakasti, napi, klapi ja tööriistaga
 2. AtomS3, andur ja op-amp, komparaator ja katkestus Laborist 3
-3. IRLZ34N, kaitsediood, takistid, maketeerimisplaat
+3. IRLZ34N, kaitsediood, takistid, 0,22 Ω 1 W takisti, INA219, maketeerimisplaat
 4. Ostsilloskoop, kaks kanalit; multimeeter
 5. Tööriista kaamera, tilgaplaadid, vahetükid, viis polükarbonaatklaasi ringluseks
 6. Vaiguga täidetud süstlad, otsikud, otsikukorgid, kaitseprillid 405 nm jaoks, nitriilkindad, isopropanool
@@ -111,7 +111,9 @@ IRLZ34N on loogikatasemega: ta avaneb juba madala paisupingega. Aga 3,3 V on tem
 
 Siis samad mõõtmised, mis relee peal. Ostsilloskoobi üks kanal Atomi viigul, teine klapi mähisel. Kui palju aega kulub käsust mähiseni, sisse ja välja? Kas serv põrkab? Mis on nüüd lühim tilk, mida süsteem teha saab — ja kes on nüüd aeglasem, lüliti või klapp ise? Ja üks asi, mida relee ei osanud: **PWM**. Klapp vajab avanemiseks täisvoolu, aga lahti hoidmiseks vähem. Pane pärast avanemist PWM peale ja mõõda, kui palju mähise vool langeb ja kui palju vähem ta soojeneb, ilma et klapp kinni kukuks.
 
-Kirjuta üles: skeem pildina, takistite väärtused ja miks; pinge MOSFET-i peal ja tema temperatuur; lülitamise ajad ja lühim tilk relee numbrite kõrval; PWM-i sagedus ja täitetegur, mähise vool ja temperatuur täisvoolu ja PWM-iga.
+**Kus mähise voolu mõõta.** Kui MOSFET PWM-i ajal kinni läheb, ei lõpe mähise vool ära: ta käib edasi ringi mähise ja kaitsedioodi vahel, MOSFET-ist ja maast mööda. Seepärast näitab multimeeter toitejuhtmes toite voolu, mitte mähise oma, ja takisti MOSFET-i ja maa vahel näeb ainult seda osa, mis läheb läbi MOSFET-i. Mähise vool mõõdetakse dioodi silmuse sees, dioodi ja mähise klemmi vahel: seal on kas multimeeter jadamisi, 10 A pesas, või INA219, mis annab Atomile voolu ja pinge numbritena. Voolu kuju ostsilloskoobil annab 0,22 Ω takisti MOSFET-i ja maa vahel. Täisvoolu ajal on see kogu mähise vool, ja klapi avanemine paistab tõusval kõveral väikese lohuna. Ja mähise takistus kasvab soojenedes, nii et pinge ja voolu järgi saad mähise enda temperatuuri, mitte ainult korpuse oma.
+
+Kirjuta üles: skeem pildina, takistite väärtused ja miks; pinge MOSFET-i peal ja tema temperatuur; lülitamise ajad ja lühim tilk relee numbrite kõrval; kus ja millega mähise voolu mõõtsid; PWM-i sagedus ja täitetegur, mähise vool ja temperatuur täisvoolu ja PWM-iga.
 
 #### 2. Tsükkel ja kirje
 
@@ -207,7 +209,7 @@ Tellimus läheb välja 27.11.26 ja jõuab kohale enne kaitsmist. Valmis nimekirj
 
 Tellimine käib ühisest tellimistabelist: [https://moodle.ut.ee/mod/url/view.php?id=1535601](https://moodle.ut.ee/mod/url/view.php?id=1535601). Kanna oma read sinna enne tellimise kuupäeva; mida tabelis ei ole, seda ei tellita.
 
-Mõtle näiteks: kas IRLZ34N-e on varuks, kui üks läheb katki; kas kaitsediood kannab klapi voolu ka PWM-iga; mis takistid paisule ja allatõmbeks; kas otsikuid ja korke jätkub sadade tilkade jaoks; mitu tilgaplaati 300 tsüklit vajab ja kas filamenti jätkub; ja kas vaiku jätkub, kui iga tilk on paar mikroliitrit ja iga süstla vahetus kulutab ka.
+Mõtle näiteks: kas IRLZ34N-e on varuks, kui üks läheb katki; kas kaitsediood kannab klapi voolu ka PWM-iga ja kas ta jõuab tuhandeid kordi sekundis lülituda, või jääb ta pärast iga pulssi hetkeks tagurpidi juhtima; mis takistid paisule ja allatõmbeks; kas otsikuid ja korke jätkub sadade tilkade jaoks; mitu tilgaplaati 300 tsüklit vajab ja kas filamenti jätkub; ja kas vaiku jätkub, kui iga tilk on paar mikroliitrit ja iga süstla vahetus kulutab ka.
 
 ### Hindamiskriteeriumid
 
